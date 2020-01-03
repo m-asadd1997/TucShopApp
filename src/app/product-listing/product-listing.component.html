@@ -1,0 +1,17 @@
+<nz-card style="width:100%; overflow-y: scroll;height: 600px;">
+  <div nz-row>
+    <div nz-col nzSpan="4" nzOffset="1" nz *ngFor="let prod of productsArray">
+      <nz-card nzHoverable style="width:100%;" (click)="sendToCheckout(prod) [nzCover]="coverTemplate">
+        <nz-card-meta [nzTitle]="prod.productTitle"></nz-card-meta>
+        <p>
+          <b style="color: grey;">Price {{ prod.productPrice }}</b>
+        </p>
+        <!-- <button nz-button [nzSize]="size" nzType="danger" (click)="sendToCheckout(prod)">Buy</button> -->
+      </nz-card>
+      <ng-template #coverTemplate>
+        <img alt="example" [src]="prod.productImage" />
+      </ng-template>
+      <br />
+    </div>
+  </div>
+</nz-card>

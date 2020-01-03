@@ -1,0 +1,39 @@
+
+ 
+    <h3>This is POS</h3>
+    <hr />
+    <div style="height: 400px;overflow-y: scroll;">
+      <div>
+        <div *ngFor="let data of checkoutProductsArray">
+        <nz-card nzHoverable style="width:100%">
+          <div nz-row>
+            <div nz-col nzSpan="8">
+              <nz-avatar
+                [nzShape]="'square'"
+                [nzSize]="64"
+                [nzSrc]="data.productImage"
+                [nzIcon]="'user'"
+              ></nz-avatar>
+            </div>
+            <div nz-col nzSpan="6">
+              <h4 nz-title style="font-size: 15px;">{{data.productTitle}}</h4>
+            </div>
+            <div nz-col nzSpan="5">
+                    <h4 nz-title>{{data.productQuantity}}</h4>
+            </div>
+            <div nz-col nzSpan="5">
+              <h4 nz-title>Rs&ensp;{{data.productPrice}}</h4>
+            </div>
+            
+          </div>
+        </nz-card>
+        </div>
+      </div>
+    </div>
+    <div nz-row>
+        <div nz-col nzSpan = 8>
+            <h3>{{total}}</h3>
+        </div>
+    </div>
+
+ 

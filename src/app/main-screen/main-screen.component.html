@@ -1,0 +1,37 @@
+<nz-layout>
+  <nz-sider [(nzCollapsed)]="collapsedVar" [nzTrigger]="null">
+    <div class="logo"></div>
+    <ul nz-menu  nzTheme="dark" nzMode="inline">
+      
+        
+        <li nz-menu-item *ngFor="let cat of categoriesArray">
+          <img [src]="cat.icons" />
+           
+        </li>
+    </ul>
+  </nz-sider>
+  <nz-layout>
+    <nz-header>
+      <!-- <i
+        class="trigger"
+        nz-icon
+        [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+        (click)="isCollapsed = !isCollapsed"
+      ></i> -->
+    </nz-header>
+    <nz-content>
+      <nz-breadcrumb>
+        <h3>PRODUCTS</h3>
+      </nz-breadcrumb>
+      <div class="inner-content">
+        <div nz-col nzSpan="16">
+          <app-product-listing></app-product-listing>
+        </div>
+        <div nz-col nzSpan="7" nzOffset="1">
+          <app-checkout></app-checkout>
+        </div>
+      </div>
+    </nz-content>
+    <nz-footer></nz-footer>
+  </nz-layout>
+</nz-layout>
