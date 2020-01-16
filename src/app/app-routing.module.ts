@@ -4,7 +4,8 @@ import { MainScreenComponent } from './main-screen/main-screen.component';
 
 
 const routes: Routes = [
-  {path:'', component:MainScreenComponent}
+  {path:'', component:MainScreenComponent},
+  {path:'categories/:category',component:MainScreenComponent}
 ];
 
 @NgModule({

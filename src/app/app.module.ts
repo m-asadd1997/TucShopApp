@@ -17,6 +17,8 @@ import { MainScreenComponent } from './main-screen/main-screen.component';
 import { ProductListingComponent } from './product-listing/product-listing.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { NzGridModule } from 'ng-zorro-antd/grid';
+import { NzPopoverModule } from 'ng-zorro-antd/popover';
+import { NzModalModule } from 'ng-zorro-antd/modal';
 
 registerLocaleData(en);
 
@@ -38,7 +40,9 @@ registerLocaleData(en);
     NzIconModule,
     NzCardModule,
     NzLayoutModule,
-    NzGridModule
+    NzGridModule,
+    NzPopoverModule,
+    NzModalModule
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]

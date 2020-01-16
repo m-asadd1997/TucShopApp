@@ -1,28 +1,58 @@
-<nz-layout>
-  <nz-sider [(nzCollapsed)]="collapsedVar" [nzTrigger]="null">
-    <div class="logo"></div>
-    <ul nz-menu  nzTheme="dark" nzMode="inline">
-      
-        
-        <li nz-menu-item *ngFor="let cat of categoriesArray">
-          <img [src]="cat.icons" />
-           
-        </li>
+<nz-layout style="width: 100%;">
+  <nz-sider nzCollapsible [(nzCollapsed)]="CollapsedNav" [nzTrigger]="null">
+    <div class="logo" style="height:50px; background-color:#001529">
+      <img src="assets/cartt.png" />
+    </div>
+    <ul
+      nz-menu
+      nzTheme="dark"
+      nzMode="inline"
+      [nzInlineCollapsed]="isCollapsed"
+    >
+      <li
+        nz-menu-item
+        *ngFor="let c of categoriesArray"
+        (click)="addCategoryToUrl(c.name)"
+        nz-popover
+        [nzPopoverContent]="c.name"
+        nzPopoverPlacement="right"
+      >
+        <img [src]="c.icons" />
+        <!-- <span>{{c.name}}</span> -->
+      </li>
     </ul>
   </nz-sider>
   <nz-layout>
+     
     <nz-header>
-      <!-- <i
-        class="trigger"
-        nz-icon
-        [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
-        (click)="isCollapsed = !isCollapsed"
-      ></i> -->
-    </nz-header>
+            <i
+                class="trigger"
+                nz-icon
+                [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+                (click)="isCollapsed = !isCollapsed"
+              ></i>
+            
+          </nz-header>
+       
     <nz-content>
       <nz-breadcrumb>
-        <h3>PRODUCTS</h3>
+        <nz-breadcrumb-item>Categories</nz-breadcrumb-item>
+        <nz-breadcrumb-item>Chips</nz-breadcrumb-item>
       </nz-breadcrumb>
+      <!-- <div nz-row style="float: right;">
+          <button nz-button nzType="primary" (click)="showModal()">
+              <span>Show Modal</span>
+            </button>
+            <nz-modal
+              [(nzVisible)]="isVisible"
+              nzTitle="Modal Title"
+              (nzOnCancel)="handleCancel()"
+              (nzOnOk)="handleOk()"
+              [nzOkLoading]="isOkLoading"
+            >
+              <p>Modal Content</p>
+            </nz-modal>
+      </div> -->
       <div class="inner-content">
         <div nz-col nzSpan="16">
           <app-product-listing></app-product-listing>
@@ -32,6 +62,7 @@
         </div>
       </div>
     </nz-content>
-    <nz-footer></nz-footer>
+
+    <nz-footer>Ant Design ©2019 Implement By Stepway</nz-footer>
   </nz-layout>
 </nz-layout>

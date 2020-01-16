@@ -19,7 +19,11 @@ export class MainscreenService {
     return this.http.get("http://localhost:3000/categories")
   }
 
-  public getProducts():Observable<any>{
-    return this.http.get("http://localhost:3000/products")
+  public getProducts(urlFilter: String):Observable<any>{
+    return this.http.get("http://localhost:3000/products?category="+urlFilter);
+  }
+
+  public postRequestedProduct(Obj: Object):Observable<any>{
+    return this.http.post("http://localhost:3000/registerProduct",Obj);
   }
 }

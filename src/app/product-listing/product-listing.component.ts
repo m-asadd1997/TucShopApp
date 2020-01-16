@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MainscreenService } from '../main-screen/mainscreen.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-product-listing',
@@ -9,19 +10,31 @@ import { MainscreenService } from '../main-screen/mainscreen.service';
 export class ProductListingComponent implements OnInit {
 
   productsArray = [] = [];
-  constructor(private prodService:MainscreenService) { }
+ constructor(private prodService:MainscreenService,private activeRoute: ActivatedRoute) { }
+
 
   ngOnInit() {
-    this.getProducts();
+    this.activeRoute.paramMap.subscribe(
+          params=> {
+               console.log("params",params['params'].category)
+              this.getProducts(params['params'].category)
+          }
+       );
+
+   // console.log(urlCategory);
+    //this.getProducts(urlCategory)
   }
 
-  getProducts(){
-    this.prodService.getProducts().subscribe(d=>{
+  getProducts(str : any){
+   
+   
+    this.prodService.getProducts(str).subscribe(d=>{
       this.productsArray = d;
     })
   }
 
-  sendToCheckout(prod :Object){
+  sendProducttoCheckout(prod :Object){
     this.prodService.sendMessage(prod);
+    
   }
 }
