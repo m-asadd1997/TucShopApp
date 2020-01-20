@@ -19,6 +19,8 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzPopoverModule } from 'ng-zorro-antd/popover';
 import { NzModalModule } from 'ng-zorro-antd/modal';
+import { LoginPageComponent } from './login-page/login-page.component';
+import { NzMessageModule } from 'ng-zorro-antd/message';
 
 registerLocaleData(en);
 
@@ -27,7 +29,8 @@ registerLocaleData(en);
     AppComponent,
     MainScreenComponent,
     ProductListingComponent,
-    CheckoutComponent
+    CheckoutComponent,
+    LoginPageComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +45,8 @@ registerLocaleData(en);
     NzLayoutModule,
     NzGridModule,
     NzPopoverModule,
-    NzModalModule
+    NzModalModule,
+    NzMessageModule
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]

@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { MainscreenService } from "../main-screen/mainscreen.service";
 import { NzModalService } from "ng-zorro-antd";
 import { Checkout } from './Checkout';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: "app-checkout",
@@ -18,7 +19,8 @@ export class CheckoutComponent implements OnInit {
  
   cols: {  header: string; }[];
   constructor(
-    private interactionServ: MainscreenService
+    private interactionServ: MainscreenService,
+    private message: NzMessageService
   ) {}
 
   ngOnInit() {
@@ -69,6 +71,8 @@ export class CheckoutComponent implements OnInit {
   handleCancel(): void {
     this.isVisible = false;
     this.isVisible2 = false;
+    this.checkoutProductsArray = [];
+    this.total = 0;
   }
 
   showModal2(): void {
@@ -99,6 +103,14 @@ export class CheckoutComponent implements OnInit {
   }
 
 
+  disableButton(){
+    if(!this.checkOutObj.requestedProductName){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
 
   print(): void {
     let printContents, popupWin;
@@ -119,6 +131,9 @@ export class CheckoutComponent implements OnInit {
     
     popupWin.document.close();
 
+    this.checkoutProductsArray = [];
+    this.total = 0;
+
 }
 
 populateCols(){
@@ -133,6 +148,9 @@ populateCols(){
 
 postProduct(){
   this.interactionServ.postRequestedProduct(this.checkOutObj).subscribe(d=>{
+    this.message.success('Product saved successfully', {
+      nzDuration: 3000
+    });
     console.log(d);
   });
 }

@@ -18,6 +18,7 @@
         nzTitle="Request For Product"
         (nzOnCancel)="handleCancel()"
         (nzOnOk)="postProduct()"
+        [nzOkDisabled]="disableButton()"
         [nzOkLoading]="isOkLoading"
         nzOkText="Submit"
       >
