@@ -1,0 +1,56 @@
+
+<nz-layout>
+    <nz-header>
+      <div class="logo">
+          <a > <img src="assets/cartImage.png" alt=""></a>
+       
+      </div>
+      <ul nz-menu nzTheme="dark"  nzMode="horizontal">
+        <div nz-row>
+       <div nz-col nzSpan="3" (click)="navigateBackToHomePage()" > <li nz-menu-item>Home</li></div>
+       <div nz-col nzSpan="2" nzOffset="16" (click)="navigateBackToLoginPage()" > <li nz-menu-item>Logout</li></div>
+     </div>
+      </ul>
+     <!-- <h4>Admin Panel  </h4> -->
+    </nz-header>
+    <nz-content class="outer-content">
+      <!-- <h1 class="font-weight-normal text-center">Admin Dashboard</h1> -->
+      <nz-layout class="inner-layout">
+        <nz-sider nzWidth="200px" nzTheme="light">
+          <ul nz-menu nzMode="inline" class="sider-menu">
+            <li nz-submenu nzOpen nzTitle="Products" nzIcon="user">
+              <ul>
+               <a  (click)="showList()"><li nz-menu-item>Lists</li></a>
+               <a  (click)="addProduct()" ><li nz-menu-item  >Add Product</li></a>
+             
+               </ul> 
+            </li>
+            <li nz-submenu nzTitle="Category" nzIcon="laptop">
+              <ul>
+                <li nz-menu-item (click)="listCategory()">List Categories </li>
+              <a (click)="addCategory()">  <li nz-menu-item>Add Category</li></a>
+          
+              </ul>
+            </li>
+       
+          </ul>
+        </nz-sider>
+        <nz-content class="inner-content">
+
+          
+            <div *ngIf="productVisible"><app-list-products></app-list-products></div>
+            <div *ngIf="addProductVisible"><app-product-add></app-product-add></div>
+            <div *ngIf="categoryVisible"><app-category-listing></app-category-listing></div>
+            <div *ngIf="addCategoryVisible"><app-add-category></app-add-category></div>
+
+
+
+        </nz-content>
+           
+     
+   
+  
+  </nz-layout>
+  <!-- <nz-footer>Ant Design ©2019 Implement By Angular</nz-footer> -->
+   </nz-content>
+   </nz-layout>

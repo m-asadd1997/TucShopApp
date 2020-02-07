@@ -1,0 +1,78 @@
+<form nz-form [nzLayout]="'inline'">
+
+    <nz-form-item>
+      <nz-form-control nzErrorTip="Please input your Product Title!">
+        <nz-input-group nzPrefixIcon="user" class="nz-group">
+          <input required name="productTitle" #title="ngModel" [(ngModel)]="addProducts.productTitle" nz-input
+            placeholder="Product Title" />
+        </nz-input-group>
+       
+        <div *ngIf="title.touched && title.invalid">
+          Title is Required
+        </div>
+  
+      </nz-form-control>
+    </nz-form-item>
+    <br>
+    <nz-form-item>
+      <nz-form-control nzErrorTip="Please input your Product Price!">
+        <nz-input-group nzPrefixIcon="user" class="nz-group">
+          <input required #price="ngModel" name="productPrice" [(ngModel)]="addProducts.productPrice" nz-input type="text"
+            placeholder="Product Price" />
+        </nz-input-group>
+  
+        <div *ngIf="price.touched && price.invalid">
+          Price is Required
+        </div>
+  
+      </nz-form-control>
+    </nz-form-item>
+  
+  
+  
+    <br>
+    <nz-form-item>
+      <!-- <h5 style="margin-top: 5px;">Category: </h5> -->
+      <nz-form-control class="nz-group">
+  
+  
+  
+  
+        <nz-select name="category" [(ngModel)]="addProducts.category" class="phone-select" nzPlaceHolder="Select a Category" >
+  
+          <nz-option *ngFor="let item of categories" nzLabel={{item}}  nzValue={{item}}></nz-option>
+         
+        </nz-select>
+  
+  
+      </nz-form-control>
+    </nz-form-item>
+  
+  
+    <br>
+  
+    <nz-form-item>
+      <nz-form-control nzErrorTip="Please input your Category!">
+        <nz-input-group nzPrefixIcon="user" class="nz-group">
+          <input required name="image" [(ngModel)]="addProducts.image" nz-input type="text" placeholder="Image Source"
+            #image="ngModel" />
+        </nz-input-group>
+       
+        <div *ngIf="image.touched && image.invalid">
+          Image Source is Required
+        </div>
+      </nz-form-control>
+    </nz-form-item>
+  
+  
+    <br>
+    <nz-form-item>
+      <nz-form-control class="nz-group">
+        <button nz-button nzType="primary" (click)="submit()">Log in</button>
+      </nz-form-control>
+    </nz-form-item>
+  
+  
+  
+  
+  </form>

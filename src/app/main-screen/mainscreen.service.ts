@@ -16,14 +16,14 @@ export class MainscreenService {
   }
 
   public getCategories():Observable<any>{
-    return this.http.get("http://localhost:3000/categories")
+    return this.http.get("http://localhost:3004/categories")
   }
 
   public getProducts(urlFilter: String):Observable<any>{
-    return this.http.get("http://localhost:3000/products?category="+urlFilter);
+    return this.http.get("http://localhost:3004/products?category="+urlFilter);
   }
 
   public postRequestedProduct(Obj: Object):Observable<any>{
-    return this.http.post("http://localhost:3000/registerProduct",Obj);
+    return this.http.post("http://localhost:3004/registerProduct",Obj);
   }
 }
