@@ -6,7 +6,7 @@ import { MainScreenComponent } from './main-screen/main-screen.component';
 const routes: Routes = [
   {path:'', component:MainScreenComponent},
   {path:'categories/:category',component:MainScreenComponent},
-  {path:'login',loadChildren:'./admins/admins.module#AdminsModule'}
+  {path:'admin',loadChildren:'./admins/admins.module#AdminsModule'}
 ];
 
 @NgModule({
