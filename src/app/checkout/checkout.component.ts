@@ -128,8 +128,8 @@ export class CheckoutComponent implements OnInit {
     <body onload="window.print();window.close()">${printContents}</body>
       </html>`
     );
-    
-    popupWin.document.close();
+    popupWin.window.print();
+    // popupWin.document.close();
 
     this.checkoutProductsArray = [];
     this.total = 0;

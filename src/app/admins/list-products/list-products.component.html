@@ -1,0 +1,22 @@
+<nz-table #basicTable [nzData]="Products">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Category</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of basicTable.data">
+        <td>{{data.productTitle}}</td>
+        <td>{{data.productPrice}}</td>
+        <td>{{data.category}}</td>
+        <td>
+        
+        
+          <a (click)="DeleteProduct(data)">Delete</a>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
