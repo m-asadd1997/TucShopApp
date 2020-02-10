@@ -1,3 +1,4 @@
+import { AuthGuardService } from './auth-guard.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgZorroAntdModule, NZ_I18N, en_US, NzFormModule, NzTableModule, NzDropDownModule, NzLayoutModule } from 'ng-zorro-antd';
@@ -29,5 +30,6 @@ import { AddCategoryComponent } from './add-category/add-category.component';
     NzFormModule,
     NzLayoutModule
   ]
+  ,providers:[AuthGuardService]
 })
 export class AdminsModule { }

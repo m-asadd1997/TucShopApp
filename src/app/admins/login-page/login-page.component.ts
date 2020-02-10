@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-page',
@@ -7,9 +8,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginPageComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(private router: Router) { }
+  errorVisible=false;
   ngOnInit() {
+    localStorage.clear();
+  }
+  login(email,password){
+  this.errorVisible=false;
+   if(email=='stepway'&&password=='123'){
+     localStorage.setItem('user','admin');
+     this.router.navigate(['layout'])
+   }
+   else{
+    this.errorVisible=true;
+   }
+   
+    
   }
 
 }
