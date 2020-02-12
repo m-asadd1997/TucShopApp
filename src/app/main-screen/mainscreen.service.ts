@@ -31,4 +31,7 @@ export class MainscreenService {
   public postRequestedProduct(Obj: Object):Observable<any>{
     return this.http.post(this.postRequestedProductURL,Obj);
   }
+  public saveTransaction(transaction:object):Observable<any>{
+    return this.http.post("http:",transaction)
+  }
 }
