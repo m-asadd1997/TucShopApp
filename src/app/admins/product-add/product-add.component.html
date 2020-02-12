@@ -1,78 +1,119 @@
 <form nz-form [nzLayout]="'inline'">
 
-    <nz-form-item>
-      <nz-form-control nzErrorTip="Please input your Product Title!">
-        <nz-input-group nzPrefixIcon="user" class="nz-group">
-          <input required name="productTitle" #title="ngModel" [(ngModel)]="addProducts.productTitle" nz-input
-            placeholder="Product Title" />
-        </nz-input-group>
+  <nz-form-item>
+    <nz-form-control nzErrorTip="Please input your Product Title!">
+      <nz-input-group nzPrefixIcon="user" class="nz-group">
+        <input required name="productTitle" #title="ngModel" [(ngModel)]="addProducts.productTitle" nz-input
+          placeholder="Product Title" />
+      </nz-input-group>
+     
+      <div *ngIf="title.touched && title.invalid">
+        Title is Required
+      </div>
+
+    </nz-form-control>
+  </nz-form-item>
+  <br>
+  <nz-form-item>
+    <nz-form-control nzErrorTip="Please input your Product Price!">
+      <nz-input-group nzPrefixIcon="user" class="nz-group">
+        <input required #costprice="ngModel" name="costPrice" [(ngModel)]="addProducts.costPrice" nz-input type="text"
+          placeholder="Cost Price" />
+      </nz-input-group>
+
+      <div *ngIf="costprice.touched && costprice.invalid">
+      Cost Price is Required
+      </div>
+
+    </nz-form-control>
+  </nz-form-item>
+
+<br>
+  <nz-form-item>
+    <nz-form-control nzErrorTip="Please input your Product Price!">
+      <nz-input-group nzPrefixIcon="user" class="nz-group">
+        <input required #saleprice="ngModel" name="salePrice" [(ngModel)]="addProducts.salePrice" nz-input type="text"
+          placeholder="Sale Price" />
+      </nz-input-group>
+
+      <div *ngIf="saleprice.touched && saleprice.invalid">
+      Sale Price is Required
+      </div>
+
+    </nz-form-control>
+  </nz-form-item>
+
+
+
+  <br>
+
+
+  <nz-form-item>
+    <nz-form-control nzErrorTip="Please input your Product Price!">
+      <nz-input-group nzPrefixIcon="user" class="nz-group">
+        <input required #productQuantity="ngModel" name="productQuantity" [(ngModel)]="addProducts.productQuantity" nz-input type="text"
+          placeholder="Product Quantity" />
+      </nz-input-group>
+
+      <div *ngIf="productQuantity.touched &&  productQuantity.invalid">
+        Product Qunaity is Required
+      </div>
+
+    </nz-form-control>
+  </nz-form-item>
+
+<br>
+  <nz-form-item>
+    <!-- <h5 style="margin-top: 5px;">Category: </h5> -->
+    <nz-form-control class="nz-group">
+
+
+
+
+      <nz-select name="category" [(ngModel)]="addProducts.category" class="phone-select" nzPlaceHolder="Select a Category" >
+
+        <nz-option *ngFor="let item of categories" nzLabel={{item.name}}  nzValue={{item.id}}></nz-option>
        
-        <div *ngIf="title.touched && title.invalid">
-          Title is Required
-        </div>
+      </nz-select>
+
+
+    </nz-form-control>
+  </nz-form-item>
+
+
+  <br>
+
+  <nz-form-item>
+    <!-- <nz-form-control nzErrorTip="Please input your Category!">
+      <nz-input-group nzPrefixIcon="user" class="nz-group">
+        <input type="file" required name="image" [(ngModel)]="addProducts.image" nz-input placeholder="Image Source"
+          #image="ngModel" />
+
+          
+      </nz-input-group>
+      <button nz-button><i nz-icon nzType="upload"></i><span>Click to Upload</span></button>
+     
+      <div *ngIf="image.touched && image.invalid">
+        Image Source is Required
+      </div>
+    </nz-form-control> -->
+    <input type="file"(change)="handleCategoryBanner($event.target.files)" name="image" id="" style="margin-top: 10px;">
+  </nz-form-item>
+
+
+
+
   
-      </nz-form-control>
-    </nz-form-item>
-    <br>
-    <nz-form-item>
-      <nz-form-control nzErrorTip="Please input your Product Price!">
-        <nz-input-group nzPrefixIcon="user" class="nz-group">
-          <input required #price="ngModel" name="productPrice" [(ngModel)]="addProducts.productPrice" nz-input type="text"
-            placeholder="Product Price" />
-        </nz-input-group>
-  
-        <div *ngIf="price.touched && price.invalid">
-          Price is Required
-        </div>
-  
-      </nz-form-control>
-    </nz-form-item>
-  
-  
-  
-    <br>
-    <nz-form-item>
-      <!-- <h5 style="margin-top: 5px;">Category: </h5> -->
-      <nz-form-control class="nz-group">
-  
-  
-  
-  
-        <nz-select name="category" [(ngModel)]="addProducts.category" class="phone-select" nzPlaceHolder="Select a Category" >
-  
-          <nz-option *ngFor="let item of categories" nzLabel={{item}}  nzValue={{item}}></nz-option>
-         
-        </nz-select>
-  
-  
-      </nz-form-control>
-    </nz-form-item>
-  
-  
-    <br>
-  
-    <nz-form-item>
-      <nz-form-control nzErrorTip="Please input your Category!">
-        <nz-input-group nzPrefixIcon="user" class="nz-group">
-          <input required name="image" [(ngModel)]="addProducts.image" nz-input type="text" placeholder="Image Source"
-            #image="ngModel" />
-        </nz-input-group>
-       
-        <div *ngIf="image.touched && image.invalid">
-          Image Source is Required
-        </div>
-      </nz-form-control>
-    </nz-form-item>
-  
-  
-    <br>
-    <nz-form-item>
-      <nz-form-control class="nz-group">
-        <button nz-button nzType="primary" (click)="submit()">Log in</button>
-      </nz-form-control>
-    </nz-form-item>
-  
-  
-  
-  
-  </form>
+
+
+  <br>
+  <nz-form-item>
+    <nz-form-control class="nz-group">
+      <button nz-button nzType="primary" (click)="submit()">Log in</button>
+    </nz-form-control>
+  </nz-form-item>
+
+
+
+
+</form>

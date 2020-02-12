@@ -9,14 +9,14 @@
         [nzCover]="coverTemplate"
         (click)="sendProducttoCheckout(p)"
       >
-        <nz-card-meta [nzTitle]="p.productTitle">{{ p.name }} </nz-card-meta>
+        <nz-card-meta [nzTitle]="p.name">{{ p.name }} </nz-card-meta>
         <p>
-          <b>Price {{ p.productPrice }}</b>
+          <b>Price {{ p.price }}</b>
         </p>
       </nz-card>
       <div>
         <ng-template #coverTemplate>
-          <img [src]="p.productImage" />
+          <img [src]="p.image" />
         </ng-template>
       </div>
 

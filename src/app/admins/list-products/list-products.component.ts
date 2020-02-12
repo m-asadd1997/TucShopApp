@@ -18,6 +18,9 @@ export class ListProductsComponent implements OnInit {
   ngOnInit() {
    
      this.showProducts();
+ 
+     
+
   }
   showProducts() {
     this.service.getProducts("http://localhost:3004/products").subscribe(item => {

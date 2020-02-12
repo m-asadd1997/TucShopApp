@@ -1,4 +1,4 @@
 export class add_category{
-    icons:string
+    icons:File
     name:string
     }
