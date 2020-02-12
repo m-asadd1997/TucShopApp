@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,20 +12,24 @@ export class MainscreenService {
   productMessage$ = this.productSource.asObservable();
   constructor(private http:HttpClient) { }
 
+  private getCategoriesURL=environment.baseUrl+"api/category/";
+  private getProductsURL=environment.baseUrl+"api/products/category/";
+  private postRequestedProductURL=environment.baseUrl+"api/products/postreqproduct";
+
   public sendMessage(obj: Object){
     this.productSource.next(Object.create(obj));
   }
 
   public getCategories():Observable<any>{
-    return this.http.get("http://localhost:3004/categories")
+    return this.http.get(this.getCategoriesURL);
   }
 
   public getProducts(urlFilter: String):Observable<any>{
-    return this.http.get("http://localhost:3004/products?category="+urlFilter);
+    return this.http.get(this.getProductsURL+urlFilter);
   }
 
   public postRequestedProduct(Obj: Object):Observable<any>{
-    return this.http.post("http://localhost:3004/registerProduct",Obj);
+    return this.http.post(this.postRequestedProductURL,Obj);
   }
   public saveTransaction(transaction:object):Observable<any>{
     return this.http.post("http:",transaction)

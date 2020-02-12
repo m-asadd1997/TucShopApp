@@ -26,10 +26,11 @@ export class ProductListingComponent implements OnInit {
   }
 
   getProducts(str : any){
-   
+   console.log(str)
    
     this.prodService.getProducts(str).subscribe(d=>{
-      this.productsArray = d;
+      this.productsArray = d.result;
+      console.log(d.result)
     })
   }
 
