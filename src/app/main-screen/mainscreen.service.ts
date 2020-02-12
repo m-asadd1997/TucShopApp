@@ -26,4 +26,7 @@ export class MainscreenService {
   public postRequestedProduct(Obj: Object):Observable<any>{
     return this.http.post("http://localhost:3004/registerProduct",Obj);
   }
+  public saveTransaction(transaction:object):Observable<any>{
+    return this.http.post("http:",transaction)
+  }
 }

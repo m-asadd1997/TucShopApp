@@ -3,6 +3,7 @@ import { MainscreenService } from "../main-screen/mainscreen.service";
 import { NzModalService } from "ng-zorro-antd";
 import { Checkout } from './Checkout';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { error } from '@angular/compiler/src/util';
 
 @Component({
   selector: "app-checkout",
@@ -68,6 +69,25 @@ export class CheckoutComponent implements OnInit {
     this.isVisible = false;
   }
 
+  saveTransaction(){
+    let request = {
+      amount:this.total,
+      products:this.checkoutProductsArray
+    }
+    this.interactionServ.saveTransaction(request).subscribe(
+      data=>{
+        console.log(data);
+        this.message.success('amount added successfully', {
+          nzDuration: 3000
+        });
+      },
+    
+
+    )
+
+
+  }
+
   handleCancel(): void {
     this.isVisible = false;
     this.isVisible2 = false;
@@ -113,6 +133,9 @@ export class CheckoutComponent implements OnInit {
   }
 
   print(): void {
+
+    this.saveTransaction();
+
     let printContents, popupWin;
     printContents = document.getElementById('print-section').innerHTML;
     popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
@@ -154,4 +177,7 @@ postProduct(){
     console.log(d);
   });
 }
+
+
+
 }
