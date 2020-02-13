@@ -107,7 +107,7 @@ export class CheckoutComponent implements OnInit {
 
 
   disableButton(){
-    if(!this.checkOutObj.requestedProductName){
+    if(!this.checkOutObj.name){
       return true;
     }
     else{

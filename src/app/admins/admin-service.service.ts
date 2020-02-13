@@ -7,16 +7,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class AdminServiceService {
-
-  
-  
-
-  constructor(private http:HttpClient ) { }
-
-  
-
-  
-  
+constructor(private http:HttpClient ) { }
 
   private getProductsURL=environment.baseUrl+"api/products/";
   private deleteProductURL=environment.baseUrl+"api/products/";
@@ -26,10 +17,7 @@ export class AdminServiceService {
   private postCategoryURL=environment.baseUrl+"api/category/";
   
 
-
-
-
-  public getProducts():Observable<any>{
+    public getProducts():Observable<any>{
     return this.http.get(this.getProductsURL);
   }
 

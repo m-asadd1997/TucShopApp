@@ -22,7 +22,7 @@
         [nzOkLoading]="isOkLoading"
         nzOkText="Submit"
       >
-      <input nz-input placeholder="Request For Product" name="requestedProductName" [(ngModel)]="checkOutObj.requestedProductName" />
+      <input nz-input placeholder="Request For Product" name="requestedProductName" [(ngModel)]="checkOutObj.name" />
       </nz-modal>
     </div>
  
@@ -48,9 +48,9 @@
                   {{ data.productTitle }}
                 </h4>
               </div>
-              <div nz-col nzSpan="3" nzOffset="2">
+              <div nz-col nzSpan="3" nzOffset="1">
                 <h4 nz-title style="font-size: 15px;">
-                  {{ data.productPrice }}
+                  Price: {{ data.productPrice }}
                 </h4>
               </div>
               <div nz-col nzSpan="6" style="font-size: 15px;">
