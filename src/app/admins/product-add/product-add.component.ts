@@ -38,7 +38,12 @@ export class ProductAddComponent implements OnInit {
     
 
     
-  this.service.postProduct(this.formData).subscribe();
+  this.service.postProduct(this.formData).subscribe(
+    d=>{
+      console.log(d);
+    }
+  );
+
   }
 
   handleCategoryBanner(files: FileList) {
