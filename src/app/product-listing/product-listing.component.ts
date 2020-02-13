@@ -35,6 +35,7 @@ export class ProductListingComponent implements OnInit {
   }
 
   sendProducttoCheckout(prod :Object){
+    console.log(prod)
     this.prodService.sendMessage(prod);
     
   }

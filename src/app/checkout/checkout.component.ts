@@ -27,27 +27,30 @@ export class CheckoutComponent implements OnInit {
     this.populateCols();
 
     this.interactionServ.productMessage$.subscribe(d => {
+      console.log("d================",d);
+
       let found = this.checkoutProductsArray.findIndex(
-        p => p.productTitle == d["productTitle"]
+        p => p.productTitle == d["name"]
       );
       console.log(found);
+      console.log(d)
       if (found > -1) {
         this.checkoutProductsArray[found].productPrice =
-          this.checkoutProductsArray[found].productPrice + d["productPrice"];
-        this.total = this.total + d["productPrice"];
+          this.checkoutProductsArray[found].productPrice + d["price"];
+        this.total = this.total + d["price"];
         this.checkoutProductsArray[found]["productQuantity"] =
           this.checkoutProductsArray[found]["productQuantity"] + 1;
       } else {
         this.checkoutProductsArray.push({
           id: d["id"],
-          productTitle: d["productTitle"],
-          productPrice: d["productPrice"],
-          productImage: d["productImage"],
+          productTitle: d["name"],
+          productPrice: d["price"],
+          productImage: d["image"],
           productQuantity: this.productQuantity = 1,
-          printProductPrice: d["productPrice"]
+          printProductPrice: d["price"]
         });
       
-        this.total += d["productPrice"];
+        this.total += d["price"];
         
       }
     });
