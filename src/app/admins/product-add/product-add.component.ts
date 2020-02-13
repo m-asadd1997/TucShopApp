@@ -54,10 +54,12 @@ export class ProductAddComponent implements OnInit {
   this.getCategories();
   }
   getCategories(){
-    this.service.getProd().subscribe((d)=>{
+    this.service.getCategory().subscribe(d=>{
       //  this.categories.push(d.name)
-      //  console.log(d)
+      //console.log(d)
       this.categories = d;
+      //console.log(d)
+      
       // d.forEach(element => {
       //   console.log(element)
       //   this.categories.push({id:element.id,name:element.name})

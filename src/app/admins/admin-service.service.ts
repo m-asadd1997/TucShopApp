@@ -19,38 +19,41 @@ export class AdminServiceService {
   
 
   private getProductsURL=environment.baseUrl+"api/products/";
-  private deleteProductAdminURL=environment.baseUrl+"api/products/{id}";
+  private deleteProductURL=environment.baseUrl+"api/products/";
   private postProductURL=environment.baseUrl+"api/products/postproduct";
-  private deletePostsURL=environment.baseUrl+"api/category/{id}";
-  private getProdURL=environment.baseUrl+"api/category/";
+  private deleteCategoryURL=environment.baseUrl+"api/category/";
+  private getCategoryURL=environment.baseUrl+"api/category/";
   private postCategoryURL=environment.baseUrl+"api/category/";
   
 
 
 
 
-  public getProducts(urlFilter: String):Observable<any>{
+  public getProducts():Observable<any>{
     return this.http.get(this.getProductsURL);
   }
 
+  public getProd():Observable<any>{
+    return this.http.get(this.getProductsURL);
+    }
 
-  deleteProductAdmin(id) {
-    return this.http.delete(this.deleteProductAdminURL+id);
+  deleteProduct(id) {
+    return this.http.delete(this.deleteProductURL+id);
     
   }
   postProduct( obj:any): Observable<any> {
     return this.http.post(this.postProductURL, obj);
   }
 
-  deletePosts(id): Observable<any> {
+  deleteCategory(id): Observable<any> {
 
-    return this.http.delete(this.deletePostsURL + id);
+    return this.http.delete(this.deleteCategoryURL + id);
   }
 
-  public getProd():Observable<any>{
-    return this.http.get(this.getProdURL);
+  public getCategory():Observable<any>{
+    return this.http.get(this.getCategoryURL);
   }
-
+   
   public postCategory(obj):Observable<any>{
     return this.http.post(this.postCategoryURL,obj);
   }

@@ -17,7 +17,8 @@ export class MainscreenService {
   private postRequestedProductURL=environment.baseUrl+"api/products/postreqproduct";
 
   public sendMessage(obj: Object){
-    this.productSource.next(Object.create(obj));
+    console.log(obj)
+    this.productSource.next(obj);
   }
 
   public getCategories():Observable<any>{
