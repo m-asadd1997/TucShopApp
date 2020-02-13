@@ -1,3 +1,3 @@
 export class Checkout{
-    requestedProductName: string;
+    name: string;
 }
