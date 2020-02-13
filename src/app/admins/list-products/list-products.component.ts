@@ -23,15 +23,15 @@ export class ListProductsComponent implements OnInit {
 
   }
   showProducts() {
-    this.service.getProducts("http://localhost:3004/products").subscribe(item => {
+    this.service.getProd().subscribe(item => {
     this.Products = item
     this.allProducts=this.Products;
     
     })
   }
-  DeleteProduct(data){
+  deleteProduct(data){
     console.log(data)
-this.service.deleteProductAdmin(data.id).subscribe();
+this.service.deleteProduct(data.id).subscribe();
 this.Products = this.Products.filter(d => d.id !== data.id);
 
   }
