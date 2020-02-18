@@ -9,23 +9,32 @@ import { environment } from 'src/environments/environment';
 export class AdminServiceService {
 constructor(private http:HttpClient ) { }
 
-  private getProductsURL=environment.baseUrl+"api/products/";
+  private getProductURL=environment.baseUrl+"api/products/";
   private deleteProductURL=environment.baseUrl+"api/products/";
   private postProductURL=environment.baseUrl+"api/products/postproduct";
+  private updateProductURL=environment.baseUrl+"api/products/"
+  private updateCategoryURL=environment.baseUrl+"api/category/"
   private deleteCategoryURL=environment.baseUrl+"api/category/";
   private getCategoryURL=environment.baseUrl+"api/category/";
   private postCategoryURL=environment.baseUrl+"api/category/";
   
+  
 
     public getProducts():Observable<any>{
-    return this.http.get(this.getProductsURL);
+    return this.http.get(this.getProductURL);
   }
 
-  public getProd():Observable<any>{
-    return this.http.get(this.getProductsURL);
+  public getProductsById(id:any):Observable<any>{
+    return this.http.get(this.getProductURL+id);
+  }
+
+
+    public updateProduct(id:any, products:any):Observable<any>{
+    return this.http.put(this.updateProductURL+id, products) ;
+
     }
 
-  deleteProduct(id) {
+    deleteProduct(id) {
     return this.http.delete(this.deleteProductURL+id);
     
   }
@@ -46,5 +55,13 @@ constructor(private http:HttpClient ) { }
     return this.http.post(this.postCategoryURL,obj);
   }
 
+  public getCategoryById(id:any):Observable<any>{
+    return this.http.get(this.getCategoryURL+id);
+  }
+
+  public updateCategory(id:any, category:any):Observable<any>{
+    return this.http.put(this.updateCategoryURL+id,category) ;
+
+    }
 
 }

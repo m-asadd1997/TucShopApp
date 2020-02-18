@@ -1,4 +1,5 @@
-<nz-table #basicTable [nzData]="Products">
+
+<nz-table #basicTable [nzData]="Products" >
     <thead>
       <tr>
         <th>Name</th>
@@ -22,7 +23,12 @@
         
         
           <a (click)="deleteProduct(data)">Delete</a>
+          <br>
+          <a (click)="updateProduct(data.id)">Edit</a>
+          
         </td>
       </tr>
     </tbody>
   </nz-table>
+
+

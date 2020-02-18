@@ -13,22 +13,22 @@
       </ul>
      <!-- <h4>Admin Panel  </h4> -->
     </nz-header>
-    <nz-content class="outer-content">
+    <nz-content class="outer-content"> 
       <!-- <h1 class="font-weight-normal text-center">Admin Dashboard</h1> -->
       <nz-layout class="inner-layout">
         <nz-sider nzWidth="200px" nzTheme="light">
           <ul nz-menu nzMode="inline" class="sider-menu">
             <li nz-submenu nzOpen nzTitle="Products" nzIcon="user">
               <ul>
-               <a  (click)="showList()"><li nz-menu-item>Lists</li></a>
-               <a  (click)="addProduct()" ><li nz-menu-item  >Add Product</li></a>
+               <a  [routerLink]="'product'"><li nz-menu-item>List</li></a>
+               <a  [routerLink]="'add-product'" ><li nz-menu-item>Add</li></a>
              
                </ul> 
             </li>
             <li nz-submenu nzTitle="Category" nzIcon="laptop">
               <ul>
-                <li nz-menu-item (click)="listCategory()">List Categories </li>
-              <a (click)="addCategory()">  <li nz-menu-item>Add Category</li></a>
+              <a [routerLink]="'category'"><li nz-menu-item>List</li></a>
+              <a [routerLink]="'add-category'"><li nz-menu-item>Add</li></a>
           
               </ul>
             </li>
@@ -38,10 +38,7 @@
         <nz-content class="inner-content">
 
           
-            <div *ngIf="productVisible"><app-list-products></app-list-products></div>
-            <div *ngIf="addProductVisible"><app-product-add></app-product-add></div>
-            <div *ngIf="categoryVisible"><app-category-listing></app-category-listing></div>
-            <div *ngIf="addCategoryVisible"><app-add-category></app-add-category></div>
+         <router-outlet></router-outlet>
 
 
 
@@ -50,7 +47,13 @@
      
    
   
-  </nz-layout>
+      </nz-layout>
   <!-- <nz-footer>Ant Design ©2019 Implement By Angular</nz-footer> -->
-   </nz-content>
+    </nz-content>
    </nz-layout>
+
+
+
+
+
+   

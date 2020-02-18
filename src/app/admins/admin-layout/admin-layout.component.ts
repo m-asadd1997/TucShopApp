@@ -7,37 +7,24 @@ import { Router } from '@angular/router';
   styleUrls: ['./admin-layout.component.css']
 })
 export class AdminLayoutComponent implements OnInit {
-  productVisible=false;
-  addProductVisible=false;
-  categoryVisible=false;
-  addCategoryVisible=false;
+  
   constructor( private router:Router) { }
 
   ngOnInit() {
   }
-  showList(){
-    this.addProductVisible=false;
-    this.categoryVisible=false;
-    this.productVisible=true;
-    this.addCategoryVisible=false;
+  listProduct(){
+
+  //this.router.navigate (['/product'])
+   
   }
   addProduct(){
-    this.productVisible=false;
-    this.addProductVisible=true;
-    this.categoryVisible=false;
-    this.addCategoryVisible=false;
+    
   }
   listCategory(){
-    this.productVisible=false;
-    this.addProductVisible=false;
-    this.categoryVisible=true;
-    this.addCategoryVisible=false;
+    
   }
   addCategory(){
-    this.addProductVisible=false;
-    this.categoryVisible=false;
-    this.productVisible=false;
-    this.addCategoryVisible=true;
+    
   }
   navigateBackToHomePage(){
     this.router.navigate(['home'])
