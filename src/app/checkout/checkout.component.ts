@@ -174,13 +174,10 @@ populateCols(){
 
 postProduct(){
   this.interactionServ.postRequestedProduct(this.checkOutObj).subscribe(d=>{
-    this.message.success('Product saved successfully', {
+    this.message.success('Requested Product saved successfully', {
       nzDuration: 3000
     });
     console.log(d);
   });
 }
-
-
-
 }

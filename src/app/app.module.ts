@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgZorroAntdModule, NZ_I18N, en_US } from 'ng-zorro-antd';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { registerLocaleData } from '@angular/common';
@@ -21,6 +21,12 @@ import { NzPopoverModule } from 'ng-zorro-antd/popover';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { NzMessageModule } from 'ng-zorro-antd/message';
+import { ListProductsComponent } from './admins/list-products/list-products.component';
+import { ProductAddComponent } from './admins/product-add/product-add.component';
+import { AdminLayoutComponent } from './admins/admin-layout/admin-layout.component';
+import { AddCategoryComponent } from './admins/add-category/add-category.component';
+import { CategoryListingComponent } from './admins/category-listing/category-listing.component';
+import { NzMenuModule } from 'ng-zorro-antd/menu';
 
 registerLocaleData(en);
 
@@ -30,7 +36,12 @@ registerLocaleData(en);
     MainScreenComponent,
     ProductListingComponent,
     CheckoutComponent,
-    LoginPageComponent
+    LoginPageComponent,
+    // ListProductsComponent,
+    // ProductAddComponent,
+    // AdminLayoutComponent,
+    // AddCategoryComponent,
+    // CategoryListingComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +57,9 @@ registerLocaleData(en);
     NzGridModule,
     NzPopoverModule,
     NzModalModule,
-    NzMessageModule
+    NzMessageModule,
+    NzMenuModule,
+    ReactiveFormsModule
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]
