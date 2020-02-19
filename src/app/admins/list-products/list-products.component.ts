@@ -22,7 +22,9 @@ export class ListProductsComponent implements OnInit {
      this.showProducts();
  }
   showProducts() {
+
     this.service.getProducts().subscribe(item => {
+
     this.Products = item
     this.allProducts=this.Products;
     

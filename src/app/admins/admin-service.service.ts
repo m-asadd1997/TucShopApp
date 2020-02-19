@@ -9,6 +9,7 @@ import { environment } from 'src/environments/environment';
 export class AdminServiceService {
   constructor(private http: HttpClient) { }
 
+
   private getProductURL=environment.baseUrl + "api/products/";
   private deleteProductURL=environment.baseUrl + "api/products/";
   private postProductURL=environment.baseUrl + "api/products/postproduct";
@@ -17,6 +18,9 @@ export class AdminServiceService {
   private deleteCategoryURL=environment.baseUrl + "api/category/";
   private getCategoryURL=environment.baseUrl + "api/category/";
   private postCategoryURL=environment.baseUrl + "api/category/";
+  private getTransactionsURL=environment.baseUrl+"api/transaction/";
+  private deleteTransactionsURL=environment.baseUrl+"api/transaction/";
+
 
 
 
@@ -28,13 +32,23 @@ export class AdminServiceService {
     return this.http.get(this.getProductURL+id);
   }
 
+  public getTransactions():Observable<any>{
+    return this.http.get(this.getTransactionsURL);
+  }
+  
+  deleteTransactions(id:any) {
+    return this.http.delete(this.deleteTransactionsURL,id);
+  }
+  
 
   public updateProduct(id: any, products: any): Observable<any> {
     return this.http.put(this.updateProductURL+id,products);
   }
 
+
   deleteProduct(id) {
     return this.http.delete(this.deleteProductURL+id);
+
   }
 
   postProduct(obj: any): Observable<any> {

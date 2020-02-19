@@ -29,6 +29,15 @@
           
               </ul>
             </li>
+
+            <li nz-submenu nzTitle="Transactions" nzIcon="transaction">
+              <ul>
+                <li nz-menu-item (click)="listTransactions()">Total Transactions</li>
+                <li nz-menu-item (click)="userTransactions()">User Transactions</li>
+              </ul>
+            </li>
+       
+
           </ul>
         </nz-sider>
         <nz-content class="inner-content">
@@ -38,6 +47,10 @@
   <!-- <nz-footer>Ant Design ©2019 Implement By Angular</nz-footer> -->
     </nz-content>
    </nz-layout>
+
+
+          
+            
 
 
 

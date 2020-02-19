@@ -10,9 +10,13 @@ import { ProductAddComponent } from './product-add/product-add.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CategoryListingComponent } from './category-listing/category-listing.component';
 import { AddCategoryComponent } from './add-category/add-category.component';
+import { TransactionsComponent } from './transactions/transactions.component';
+import { UserComponent } from './user/user.component';
+import { NzGridModule } from 'ng-zorro-antd/grid';
 
 
 @NgModule({
+
   declarations: [LoginPageComponent, 
                  AdminLayoutComponent, 
                  ListProductsComponent, 
@@ -21,6 +25,7 @@ import { AddCategoryComponent } from './add-category/add-category.component';
                  AddCategoryComponent],
 
                  
+
   imports: [
     CommonModule,
     AdminsRoutingModule,
@@ -29,6 +34,9 @@ import { AddCategoryComponent } from './add-category/add-category.component';
     CommonModule,
     FormsModule,
     ReactiveFormsModule ,
+
+    NzGridModule,
+
     NgZorroAntdModule,
     NzTableModule,
     NzDropDownModule,

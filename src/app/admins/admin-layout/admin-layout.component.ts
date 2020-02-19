@@ -7,12 +7,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./admin-layout.component.css']
 })
 export class AdminLayoutComponent implements OnInit {
-  
+
   constructor( private router:Router) { }
 
   ngOnInit() {
   }
-  
+
   navigateBackToHomePage(){
     this.router.navigate(['home'])
   }

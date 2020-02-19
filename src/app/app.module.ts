@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgZorroAntdModule, NZ_I18N, en_US } from 'ng-zorro-antd';
@@ -21,7 +20,9 @@ import { NzPopoverModule } from 'ng-zorro-antd/popover';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { NzMessageModule } from 'ng-zorro-antd/message';
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
+
 
 registerLocaleData(en);
 
@@ -49,8 +50,10 @@ registerLocaleData(en);
     NzPopoverModule,
     NzModalModule,
     NzMessageModule,
+    NzDatePickerModule
     NzMenuModule,
     ReactiveFormsModule
+
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]
