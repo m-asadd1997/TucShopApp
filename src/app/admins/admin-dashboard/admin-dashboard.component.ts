@@ -5,6 +5,7 @@ import {
   IChartistData
 } from 'chartist';
 import { ChartType, ChartEvent } from 'ng-chartist';
+import { AdminServiceService } from '../admin-service.service';
 
 
 
@@ -17,9 +18,9 @@ import { ChartType, ChartEvent } from 'ng-chartist';
 })
 export class AdminDashboardComponent implements OnInit {
 
-  constructor() { }
+  constructor(private adminService:AdminServiceService) { }
 
-  data = {
+  data :IChartistData= {
     labels: [
       'Jan',
       'Feb',
@@ -30,8 +31,8 @@ export class AdminDashboardComponent implements OnInit {
       'Jul'
     ],
     series: [
-      [5, 4, 3, 7, 5, 10, 3, 4, 8, 10, 6, 8],
-      [3, 2, 9, 5, 4, 6, 4, 6, 7, 8, 7, 4]
+      [5, 4, 3, 7, 5, 10, 3],
+      [3, 2, 9, 5, 4, 6, 4]
     ]
   };
 
@@ -62,12 +63,33 @@ export class AdminDashboardComponent implements OnInit {
     }
   };
   ngOnInit() {
+    this.getRequestedProducts();
   }
 
 
 
 
 
+
+
+
+  reqProducts=[]
+  totalProducts
+
+
+  
+
+  getRequestedProducts(){
+    this.adminService.getRequestedProducts().subscribe(d=>{
+      this.reqProducts=d;
+    })
+  };
+
+  getTotalProductQuantity(){
+    this.adminService.getTotalProductQuantity().subscribe(d=>{
+      this.totalProducts=d.quantity ;
+    })
+  }
 
 
 

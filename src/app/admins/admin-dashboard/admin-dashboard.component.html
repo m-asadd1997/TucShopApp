@@ -4,9 +4,9 @@
 <div style="background: #ECECEC;padding:10px;">
     <div nz-row [nzGutter]="8">
       <div nz-col [nzSpan]="8">
-        <nz-card nzTitle="Total Sales">
-          <h1>$ 126500</h1>
-            <div nz-row>
+        <nz-card nzTitle="Total Products">
+          <h1>{{totalProducts}}</h1>
+            <!-- <div nz-row>
                 <div nz-col nzSpan="10">
                     <span>Daily  Ratio</span>
                 </div>
@@ -17,7 +17,7 @@
                 <div nz-col >
                    
                 </div>
-            </div>
+            </div> -->
 
 
             <div nz-row style="margin-top: 2%;">
@@ -75,7 +75,7 @@
 
 
 
-      <div nz-col [nzSpan]="8">
+      <div nz-col [nzSpan]="8" >
         <nz-card nzTitle="Card title">
           <p>Card content</p>
         </nz-card>
@@ -83,12 +83,12 @@
     </div>
 
 
-    <div nz-row>
+    <div nz-row style="margin-top: 10px;">
 
-        <div nz-col>
+        <div nz-col [nzSpan]="16" >
 
 
-            <nz-card style="width:300px;" [nzBordered]="false" nzTitle="Card title" [nzExtra]="extraTemplate">
+            <nz-card style="width:725px" [nzBordered]="false" nzTitle="Sale Analysis" [nzExtra]="extraTemplate">
                 <x-chartist
                 [type]="type"
                 [data]="data"
@@ -98,7 +98,31 @@
               </nz-card>
         </div>
 
+
+        <div nz-col [nzSpan]="8">
+          <nz-card   nzTitle="Requested Products" >
+            <nz-table #basicTable [nzData]="reqProducts">
+              <thead>
+                <tr>
+                  <th>Product Name</th>
+                 
+                  
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let data of basicTable.data">
+                  <td>{{data.name}}</td>
+                  
+                  
+                </tr>
+              </tbody>
+            </nz-table>
+          </nz-card>
+
+        </div>
     </div>
+
+
   </div>
 
 
