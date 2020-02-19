@@ -7,6 +7,8 @@ import { ListProductsComponent } from './list-products/list-products.component';
 import { ProductAddComponent } from './product-add/product-add.component';
 import { CategoryListingComponent } from './category-listing/category-listing.component';
 import { AddCategoryComponent } from './add-category/add-category.component';
+import { TransactionsComponent } from './transactions/transactions.component';
+import { UserComponent } from './user/user.component';
 
 
 const routes: Routes = [
@@ -18,7 +20,9 @@ const routes: Routes = [
        {path: 'add-product/:id', component: ProductAddComponent },
        {path: 'category', component: CategoryListingComponent},
        {path: 'add-category', component: AddCategoryComponent},
-       {path: 'add-category/:id', component: AddCategoryComponent}
+       {path: 'add-category/:id', component: AddCategoryComponent},
+       {path: 'transactions', component: TransactionsComponent},
+       {path: 'user', component: UserComponent}
 ]
 }
 ];

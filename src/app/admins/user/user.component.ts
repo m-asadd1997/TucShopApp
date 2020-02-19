@@ -18,7 +18,7 @@ export class UserComponent implements OnInit {
     this.showTransactions();
   }
   showTransactions(){
-    this.service.getTransactions().subscribe(item => {
+    this.service.getTransaction().subscribe(item => {
       console.log(item);
       this.allTransactions = item;
       this.userTransactions=this.allTransactions;

@@ -52,14 +52,21 @@ constructor(private service:AdminServiceService) { }
 
   ngOnInit() {
     this.showTransactions();
+    
   }
 
   showTransactions(){
-    this.service.getTransactions().subscribe(item => {
-      console.log(item);
-      this.Transactions = item;
-      this.allTransactions=this.Transactions;
-    })
+    this.service.getTransaction().subscribe(d=>{
+            this.Transactions = d
+            this.allTransactions = this.Transactions
+      }
+      )
+
+    // this.service.getTransactions().subscribe(item => {
+    //   console.log(item);
+    //   this.Transactions = item;
+    //   this.allTransactions=this.Transactions;
+    // })
   }
   deleteTransactions(data){
     console.log("huadu",data);
@@ -67,7 +74,7 @@ constructor(private service:AdminServiceService) { }
     this.Transactions = this.Transactions.filter(d => d.id !== data.id);
   }
   detailsTransactions(id){
-    this.service.getTransactions().subscribe(
+    this.service.getTransaction().subscribe(
       b=> {
         this.Transactions = b;
         console.log(b);
@@ -78,5 +85,7 @@ constructor(private service:AdminServiceService) { }
   show(v){
     console.log(v);
   }
+
+  
 
 }
