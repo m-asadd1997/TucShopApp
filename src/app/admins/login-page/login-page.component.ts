@@ -18,7 +18,7 @@ export class LoginPageComponent implements OnInit {
    if(email=='stepway'&&password=='123'){
      localStorage.setItem('user','admin');
      this.router.navigate(['admin/layout'])
-     console.log("hello")
+     
    }
    else{
     this.errorVisible=true;

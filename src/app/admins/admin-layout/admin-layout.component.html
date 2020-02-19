@@ -1,9 +1,7 @@
-
 <nz-layout>
     <nz-header>
       <div class="logo">
           <a > <img src="assets/cartImage.png" alt=""></a>
-       
       </div>
       <ul nz-menu nzTheme="dark"  nzMode="horizontal">
         <div nz-row>
@@ -20,9 +18,8 @@
           <ul nz-menu nzMode="inline" class="sider-menu">
             <li nz-submenu nzOpen nzTitle="Products" nzIcon="user">
               <ul>
-               <a  [routerLink]="'product'"><li nz-menu-item>List</li></a>
-               <a  [routerLink]="'add-product'" ><li nz-menu-item>Add</li></a>
-             
+               <a [routerLink]="'product'"><li nz-menu-item>List</li></a>
+               <a [routerLink]="'add-product'" ><li nz-menu-item>Add</li></a>
                </ul> 
             </li>
             <li nz-submenu nzTitle="Category" nzIcon="laptop">
@@ -32,21 +29,11 @@
           
               </ul>
             </li>
-       
           </ul>
         </nz-sider>
         <nz-content class="inner-content">
-
-          
          <router-outlet></router-outlet>
-
-
-
         </nz-content>
-           
-     
-   
-  
       </nz-layout>
   <!-- <nz-footer>Ant Design ©2019 Implement By Angular</nz-footer> -->
     </nz-content>

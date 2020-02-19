@@ -1,4 +1,3 @@
-
 <nz-table #basicTable [nzData]="Products" >
     <thead>
       <tr>
@@ -20,12 +19,9 @@
         <td>{{data.qty}}</td>
         <td>{{data.costprice}}</td>
         <td>
-        
-        
           <a (click)="deleteProduct(data)">Delete</a>
           <br>
           <a (click)="updateProduct(data.id)">Edit</a>
-          
         </td>
       </tr>
     </tbody>

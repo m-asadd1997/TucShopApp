@@ -12,20 +12,7 @@ export class AdminLayoutComponent implements OnInit {
 
   ngOnInit() {
   }
-  listProduct(){
-
-  //this.router.navigate (['/product'])
-   
-  }
-  addProduct(){
-    
-  }
-  listCategory(){
-    
-  }
-  addCategory(){
-    
-  }
+  
   navigateBackToHomePage(){
     this.router.navigate(['home'])
   }

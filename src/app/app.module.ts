@@ -21,11 +21,6 @@ import { NzPopoverModule } from 'ng-zorro-antd/popover';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { NzMessageModule } from 'ng-zorro-antd/message';
-import { ListProductsComponent } from './admins/list-products/list-products.component';
-import { ProductAddComponent } from './admins/product-add/product-add.component';
-import { AdminLayoutComponent } from './admins/admin-layout/admin-layout.component';
-import { AddCategoryComponent } from './admins/add-category/add-category.component';
-import { CategoryListingComponent } from './admins/category-listing/category-listing.component';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 
 registerLocaleData(en);
@@ -37,11 +32,7 @@ registerLocaleData(en);
     ProductListingComponent,
     CheckoutComponent,
     LoginPageComponent,
-    // ListProductsComponent,
-    // ProductAddComponent,
-    // AdminLayoutComponent,
-    // AddCategoryComponent,
-    // CategoryListingComponent
+   
   ],
   imports: [
     BrowserModule,
