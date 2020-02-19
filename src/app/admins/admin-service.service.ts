@@ -7,6 +7,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class AdminServiceService {
+
   constructor(private http: HttpClient) { }
 
 
@@ -20,6 +21,11 @@ export class AdminServiceService {
   private postCategoryURL=environment.baseUrl + "api/category/";
   private getTransactionsURL=environment.baseUrl+"api/transaction/";
   private deleteTransactionsURL=environment.baseUrl+"api/transaction/";
+  private getTotalOutofStockURL=environment.baseUrl+"api/dashboard/outofstock"; //Total Out of stock
+  private getOutofStockDetailsURL=environment.baseUrl+"api/dashboard/outofstockdetails"; 
+  private getTotalProductQuantityURL=environment.baseUrl+'' //laagana ha yaha pe
+  private getTotalTransactionURL=environment.baseUrl+'' //laagana ha yaha pe
+  private getRequestedProductURL=environment.baseUrl+""; //laagana ha yaha pe
 
 
 
@@ -39,6 +45,7 @@ export class AdminServiceService {
   deleteTransactions(id:any) {
     return this.http.delete(this.deleteTransactionsURL,id);
   }
+
   
 
   public updateProduct(id: any, products: any): Observable<any> {
@@ -75,5 +82,37 @@ export class AdminServiceService {
     return this.http.put(this.updateCategoryURL+id,category);
 
   }
+
+
+  public getOutofStockDetails():Observable<any>{
+    return this.http.get(this.getOutofStockDetailsURL);
+  }
+
+
+
+
+
+  public getTotalOutOfStock():Observable<any>{
+    return this.http.get(this.getTotalOutofStockURL);
+  }
+  
+
+  public getRequestedProducts():Observable<any>{
+    return this.http.get(this.getRequestedProductURL);//ye change hoga upar
+  }
+
+
+  public getTotalTransaction():Observable<any>{
+    return this.http.get(this.getTotalTransactionURL);//ye change hoga upar
+  }
+
+
+  public getTotalProductQuantity():Observable<any>{
+    return this.http.get(this.getTotalProductQuantityURL);//ye change hoga upar
+  }
+
+
+
+
 
 }

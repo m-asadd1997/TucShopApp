@@ -49,10 +49,15 @@ registerLocaleData(en);
     NzGridModule,
     NzPopoverModule,
     NzModalModule,
+
+    NzMessageModule,
+   
+
     NzMessageModule,
     NzDatePickerModule,
     NzMenuModule,
     ReactiveFormsModule
+
 
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],

@@ -30,11 +30,17 @@
               </ul>
             </li>
 
+
+            <li nz-menu-item (click)="adminDashboard()">
+              <i nz-icon nzType="dashboard" nzTheme="outline"></i>
+              <span>Dashboard</span>
+
             <li nz-submenu nzTitle="Transactions" nzIcon="transaction">
               <ul>
                 <a [routerLink]="'transactions'"><li nz-menu-item>Total Transactions</li></a>
                 <a [routerLink]="'user'"><li nz-menu-item>User Transactions</li></a>
               </ul>
+
             </li>
        
 
@@ -50,7 +56,7 @@
 
 
           
-            
+
 
 
 

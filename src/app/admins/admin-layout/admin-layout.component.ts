@@ -20,4 +20,5 @@ export class AdminLayoutComponent implements OnInit {
     this.router.navigate(['admin'])
   }
 
+  
 }
