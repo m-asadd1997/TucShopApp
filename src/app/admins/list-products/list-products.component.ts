@@ -23,7 +23,7 @@ export class ListProductsComponent implements OnInit {
 
   }
   showProducts() {
-    this.service.getProducts("http://localhost:3004/products").subscribe(item => {
+    this.service.getProducts("http://localhost:3000/products").subscribe(item => {
     this.Products = item
     this.allProducts=this.Products;
     

@@ -24,6 +24,8 @@ export class AdminServiceService {
   private deletePostsURL=environment.baseUrl+"api/category/{id}";
   private getProdURL=environment.baseUrl+"api/category/";
   private postCategoryURL=environment.baseUrl+"api/category/";
+  private getTransactionsURL=environment.baseUrl+"api/transaction/";
+  private deleteTransactionsURL=environment.baseUrl+"api/transaction/";
   
 
 
@@ -33,10 +35,18 @@ export class AdminServiceService {
     return this.http.get(this.getProductsURL);
   }
 
+  public getTransactions():Observable<any>{
+    return this.http.get(this.getTransactionsURL);
+  }
+
 
   deleteProductAdmin(id) {
     return this.http.delete(this.deleteProductAdminURL+id);
     
+  }
+  
+  deleteTransactions(id:any) {
+    return this.http.delete(this.deleteTransactionsURL,id);
   }
   postProduct( obj:any): Observable<any> {
     return this.http.post(this.postProductURL, obj);

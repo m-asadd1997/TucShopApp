@@ -32,6 +32,12 @@
           
               </ul>
             </li>
+            <li nz-submenu nzTitle="Transactions" nzIcon="transaction">
+              <ul>
+                <li nz-menu-item (click)="listTransactions()">Total Transactions</li>
+                <li nz-menu-item (click)="userTransactions()">User Transactions</li>
+              </ul>
+            </li>
        
           </ul>
         </nz-sider>
@@ -42,6 +48,8 @@
             <div *ngIf="addProductVisible"><app-product-add></app-product-add></div>
             <div *ngIf="categoryVisible"><app-category-listing></app-category-listing></div>
             <div *ngIf="addCategoryVisible"><app-add-category></app-add-category></div>
+            <div *ngIf="transactionsVisible"><app-transactions></app-transactions></div>
+            <div *ngIf="userTransactionsVisible"><app-user></app-user></div>
 
 
 

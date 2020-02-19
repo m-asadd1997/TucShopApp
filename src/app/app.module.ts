@@ -21,6 +21,8 @@ import { NzPopoverModule } from 'ng-zorro-antd/popover';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { NzMessageModule } from 'ng-zorro-antd/message';
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+
 
 registerLocaleData(en);
 
@@ -46,7 +48,8 @@ registerLocaleData(en);
     NzGridModule,
     NzPopoverModule,
     NzModalModule,
-    NzMessageModule
+    NzMessageModule,
+    NzDatePickerModule
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]
