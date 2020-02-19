@@ -22,8 +22,7 @@ export class ProductListingComponent implements OnInit {
           }
        );
 
-   // console.log(urlCategory);
-    //this.getProducts(urlCategory)
+   
   }
 
   getProducts(str : any){
@@ -36,6 +35,7 @@ export class ProductListingComponent implements OnInit {
   }
 
   sendProducttoCheckout(prod :Object){
+    console.log(prod)
     this.prodService.sendMessage(prod);
     
   }

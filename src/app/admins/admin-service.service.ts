@@ -7,34 +7,29 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class AdminServiceService {
+  constructor(private http: HttpClient) { }
 
-  
-  
 
-  constructor(private http:HttpClient ) { }
-
-  
-
-  
-  
-
-  private getProductsURL=environment.baseUrl+"api/products/";
-  private deleteProductAdminURL=environment.baseUrl+"api/products/{id}";
-  private postProductURL=environment.baseUrl+"api/products/postproduct";
-  private deletePostsURL=environment.baseUrl+"api/category/{id}";
-  private getProdURL=environment.baseUrl+"api/category/";
-  private postCategoryURL=environment.baseUrl+"api/category/";
+  private getProductURL=environment.baseUrl + "api/products/";
+  private deleteProductURL=environment.baseUrl + "api/products/";
+  private postProductURL=environment.baseUrl + "api/products/postproduct";
+  private updateProductURL=environment.baseUrl + "api/products/"
+  private updateCategoryURL=environment.baseUrl + "api/category/"
+  private deleteCategoryURL=environment.baseUrl + "api/category/";
+  private getCategoryURL=environment.baseUrl + "api/category/";
+  private postCategoryURL=environment.baseUrl + "api/category/";
   private getTransactionsURL=environment.baseUrl+"api/transaction/";
   private deleteTransactionsURL=environment.baseUrl+"api/transaction/";
-  
-
-  
 
 
 
 
-  public getProducts(urlFilter: String):Observable<any>{
-    return this.http.get(this.getProductsURL);
+  public getProducts(): Observable<any> {
+    return this.http.get(this.getProductURL);
+  }
+
+  public getProductsById(id: any): Observable<any> {
+    return this.http.get(this.getProductURL+id);
   }
 
   public getTransactions():Observable<any>{
@@ -46,27 +41,39 @@ export class AdminServiceService {
   }
   
 
-  deleteProductAdmin(id) {
-    return this.http.delete(this.deleteProductAdminURL+id);
-    
+  public updateProduct(id: any, products: any): Observable<any> {
+    return this.http.put(this.updateProductURL+id,products);
   }
 
-  postProduct( obj:any): Observable<any> {
-    return this.http.post(this.postProductURL, obj);
+
+  deleteProduct(id) {
+    return this.http.delete(this.deleteProductURL+id);
+
   }
 
-  deletePosts(id): Observable<any> {
-
-    return this.http.delete(this.deletePostsURL + id);
+  postProduct(obj: any): Observable<any> {
+    return this.http.post(this.postProductURL,obj);
   }
 
-  public getProd():Observable<any>{
-    return this.http.get(this.getProdURL);
+  deleteCategory(id): Observable<any> {
+    return this.http.delete(this.deleteCategoryURL+id);
   }
 
-  public postCategory(obj):Observable<any>{
+  public getCategory(): Observable<any> {
+    return this.http.get(this.getCategoryURL);
+  }
+
+  public postCategory(obj): Observable<any> {
     return this.http.post(this.postCategoryURL,obj);
   }
 
+  public getCategoryById(id: any): Observable<any> {
+    return this.http.get(this.getCategoryURL+id);
+  }
+
+  public updateCategory(id: any, category: any): Observable<any> {
+    return this.http.put(this.updateCategoryURL+id,category);
+
+  }
 
 }

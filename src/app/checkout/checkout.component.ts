@@ -3,6 +3,7 @@ import { MainscreenService } from "../main-screen/mainscreen.service";
 import { NzModalService } from "ng-zorro-antd";
 import { Checkout } from './Checkout';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { error } from '@angular/compiler/src/util';
 
 @Component({
   selector: "app-checkout",
@@ -27,27 +28,30 @@ export class CheckoutComponent implements OnInit {
     this.populateCols();
 
     this.interactionServ.productMessage$.subscribe(d => {
+      console.log("d================",d);
+
       let found = this.checkoutProductsArray.findIndex(
-        p => p.productTitle == d["productTitle"]
+        p => p.productTitle == d["name"]
       );
       console.log(found);
+      console.log(d)
       if (found > -1) {
         this.checkoutProductsArray[found].productPrice =
-          this.checkoutProductsArray[found].productPrice + d["productPrice"];
-        this.total = this.total + d["productPrice"];
+          this.checkoutProductsArray[found].productPrice + d["price"];
+        this.total = this.total + d["price"];
         this.checkoutProductsArray[found]["productQuantity"] =
           this.checkoutProductsArray[found]["productQuantity"] + 1;
       } else {
         this.checkoutProductsArray.push({
           id: d["id"],
-          productTitle: d["productTitle"],
-          productPrice: d["productPrice"],
-          productImage: d["productImage"],
+          productTitle: d["name"],
+          productPrice: d["price"],
+          productImage: d["image"],
           productQuantity: this.productQuantity = 1,
-          printProductPrice: d["productPrice"]
+          printProductPrice: d["price"]
         });
       
-        this.total += d["productPrice"];
+        this.total += d["price"];
         
       }
     });
@@ -66,6 +70,25 @@ export class CheckoutComponent implements OnInit {
 
   handleOk(): void {
     this.isVisible = false;
+  }
+
+  saveTransaction(){
+    let request = {
+      amount:this.total,
+      products:this.checkoutProductsArray
+    }
+    this.interactionServ.saveTransaction(request).subscribe(
+      data=>{
+        console.log(data);
+        this.message.success('amount added successfully', {
+          nzDuration: 3000
+        });
+      },
+    
+
+    )
+
+
   }
 
   handleCancel(): void {
@@ -104,7 +127,7 @@ export class CheckoutComponent implements OnInit {
 
 
   disableButton(){
-    if(!this.checkOutObj.requestedProductName){
+    if(!this.checkOutObj.name){
       return true;
     }
     else{
@@ -113,6 +136,9 @@ export class CheckoutComponent implements OnInit {
   }
 
   print(): void {
+
+    this.saveTransaction();
+
     let printContents, popupWin;
     printContents = document.getElementById('print-section').innerHTML;
     popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
@@ -148,7 +174,7 @@ populateCols(){
 
 postProduct(){
   this.interactionServ.postRequestedProduct(this.checkOutObj).subscribe(d=>{
-    this.message.success('Product saved successfully', {
+    this.message.success('Requested Product saved successfully', {
       nzDuration: 3000
     });
     console.log(d);

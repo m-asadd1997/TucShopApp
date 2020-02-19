@@ -1,5 +1,6 @@
 import { AdminServiceService } from './../admin-service.service';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-category-listing',
@@ -10,16 +11,14 @@ export class CategoryListingComponent implements OnInit {
 
   categories = []
   filteredProducts = []
-  constructor(private service: AdminServiceService) { }
+  constructor(private service: AdminServiceService, private router:Router) { }
 
   ngOnInit() {
     this.getCategories();
   }
   getCategories() {
-    this.service.getProd().subscribe((d) => {
+    this.service.getCategory().subscribe((d) => {
       this.categories = d;
-      console.log(this.categories)
-
     })
   }
 
@@ -27,13 +26,8 @@ export class CategoryListingComponent implements OnInit {
 
   deleteCategory(data) {
     this.filteredProducts = []
-    // this.service.deleteProductAdmin(data.id).subscribe();
-   
-   
-    // console.log(data);
-
-
-    this.service.getProducts('http://localhost:3004/products').subscribe((d) => {
+    
+    this.service.getCategory().subscribe((d) => {
       d.forEach(element => {
         if (element.category == data.name) {
           this.filteredProducts.push(element);
@@ -42,13 +36,16 @@ export class CategoryListingComponent implements OnInit {
 
       );
       this.filteredProducts.forEach(d => {
-       this.service.deleteProductAdmin(d.id).subscribe();
-        console.log(d.id);
+       this.service.deleteCategory(d.id).subscribe();
       })
 
-       this.service.deletePosts(data.id).subscribe();
+       this.service.deleteCategory(data.id).subscribe();
      this.categories = this.categories.filter(d => d.id !== data.id);
     })
   }
 
+  updateCategory(id){
+    this.router.navigate(['/admin/layout/add-category',id])
+
+  }
 }

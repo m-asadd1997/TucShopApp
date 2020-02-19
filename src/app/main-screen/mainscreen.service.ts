@@ -17,7 +17,7 @@ export class MainscreenService {
   private postRequestedProductURL=environment.baseUrl+"api/products/postreqproduct";
 
   public sendMessage(obj: Object){
-    this.productSource.next(Object.create(obj));
+    this.productSource.next(obj);
   }
 
   public getCategories():Observable<any>{
@@ -30,5 +30,8 @@ export class MainscreenService {
 
   public postRequestedProduct(Obj: Object):Observable<any>{
     return this.http.post(this.postRequestedProductURL,Obj);
+  }
+  public saveTransaction(transaction:object):Observable<any>{
+    return this.http.post("http:",transaction)
   }
 }
