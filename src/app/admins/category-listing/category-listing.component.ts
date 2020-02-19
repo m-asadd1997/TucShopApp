@@ -19,8 +19,6 @@ export class CategoryListingComponent implements OnInit {
   getCategories() {
     this.service.getCategory().subscribe((d) => {
       this.categories = d;
-     // console.log(this.categories)
-
     })
   }
 
@@ -39,7 +37,6 @@ export class CategoryListingComponent implements OnInit {
       );
       this.filteredProducts.forEach(d => {
        this.service.deleteCategory(d.id).subscribe();
-       // console.log(d.id);
       })
 
        this.service.deleteCategory(data.id).subscribe();
@@ -48,11 +45,7 @@ export class CategoryListingComponent implements OnInit {
   }
 
   updateCategory(id){
-  
-  
     this.router.navigate(['/admin/layout/add-category',id])
 
   }
-
-
 }

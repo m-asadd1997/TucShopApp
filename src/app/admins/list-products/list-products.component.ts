@@ -20,10 +20,7 @@ export class ListProductsComponent implements OnInit {
   ngOnInit() {
    
      this.showProducts();
- 
-     
-
-  }
+ }
   showProducts() {
     this.service.getProducts().subscribe(item => {
     this.Products = item
@@ -32,15 +29,11 @@ export class ListProductsComponent implements OnInit {
     })
   }
   deleteProduct(data){
-    
-this.service.deleteProduct(data.id).subscribe();
-this.Products = this.Products.filter(d => d.id !== data.id);
+   this.service.deleteProduct(data.id).subscribe();
+   this.Products = this.Products.filter(d => d.id !== data.id);
 
   }
-
   updateProduct(id){
-  
-  
     this.router.navigate(['/admin/layout/add-product',id])
 
   }
