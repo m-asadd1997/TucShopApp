@@ -17,7 +17,6 @@ export class MainscreenService {
   private postRequestedProductURL=environment.baseUrl+"api/products/postreqproduct";
 
   public sendMessage(obj: Object){
-    console.log(obj)
     this.productSource.next(obj);
   }
 

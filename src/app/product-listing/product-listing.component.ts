@@ -16,13 +16,13 @@ export class ProductListingComponent implements OnInit {
   ngOnInit() {
     this.activeRoute.paramMap.subscribe(
           params=> {
-               console.log("params",params['params'].category)
+
+               console.log(" LOL params",params['params'].category)
               this.getProducts(params['params'].category)
           }
        );
 
-   // console.log(urlCategory);
-    //this.getProducts(urlCategory)
+   
   }
 
   getProducts(str : any){
