@@ -22,7 +22,9 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
                  ListProductsComponent, 
                  ProductAddComponent, 
                  CategoryListingComponent, 
-                 AddCategoryComponent],
+                 AddCategoryComponent,
+                 TransactionsComponent,
+                 UserComponent],
 
                  
 

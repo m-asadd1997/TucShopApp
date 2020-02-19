@@ -32,8 +32,8 @@
 
             <li nz-submenu nzTitle="Transactions" nzIcon="transaction">
               <ul>
-                <li nz-menu-item (click)="listTransactions()">Total Transactions</li>
-                <li nz-menu-item (click)="userTransactions()">User Transactions</li>
+                <a [routerLink]="'transactions'"><li nz-menu-item>Total Transactions</li></a>
+                <a [routerLink]="'user'"><li nz-menu-item>User Transactions</li></a>
               </ul>
             </li>
        

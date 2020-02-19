@@ -32,7 +32,7 @@ export class AdminServiceService {
     return this.http.get(this.getProductURL+id);
   }
 
-  public getTransactions():Observable<any>{
+  public getTransaction():Observable<any>{
     return this.http.get(this.getTransactionsURL);
   }
   
