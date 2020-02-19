@@ -50,7 +50,7 @@ registerLocaleData(en);
     NzPopoverModule,
     NzModalModule,
     NzMessageModule,
-    NzDatePickerModule
+    NzDatePickerModule,
     NzMenuModule,
     ReactiveFormsModule
 
