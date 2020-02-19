@@ -5,7 +5,7 @@
 </div>
 <br>
 <div ng-row>
-  <div nz-col nzSpan="12" nzOffset="6">
+  <div nz-col nzSpan="10" nzOffset="6">
 <nz-date-picker
 [nzDisabledDate]="disabledStartDate"
 nzShowTime
@@ -27,14 +27,11 @@ nzPlaceHolder="End"
 (nzOnOpenChange)="handleEndOpenChange($event)"
 >
 </nz-date-picker>
-</div>
-</div>
-<br>
 <!-- <button type="submit" value="Search" style="margin-left: 40%;">Search</button> -->
-<div ng-row></div>
-  <div nz-col nzSpan="12" nzOffset="6">
+  <div nz-col nzSpan="7" nzOffset="1">
 <button nz-button nzType="primary" [nzSize]="size" nzShape="round">
   <i nz-icon nzType="search"></i>Search</button>
+  </div>
   </div>
   </div>
 <nz-table #basicTable [nzData]="Transactions">
@@ -58,7 +55,7 @@ nzPlaceHolder="End"
         <td>
           <a (click)="deleteTransactions(data.id)">Delete</a>
           <nz-divider nzType="vertical"></nz-divider>
-          <a (click)="show(user)">Details</a>
+          <a (click)="detailsTransactions(data.id)">Details</a>
         </td>
       </tr>
     </tbody>

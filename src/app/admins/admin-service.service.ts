@@ -28,6 +28,8 @@ export class AdminServiceService {
   private deleteTransactionsURL=environment.baseUrl+"api/transaction/";
   
 
+  
+
 
 
 
@@ -38,16 +40,17 @@ export class AdminServiceService {
   public getTransactions():Observable<any>{
     return this.http.get(this.getTransactionsURL);
   }
-
+  
+  deleteTransactions(id:any) {
+    return this.http.delete(this.deleteTransactionsURL,id);
+  }
+  
 
   deleteProductAdmin(id) {
     return this.http.delete(this.deleteProductAdminURL+id);
     
   }
-  
-  deleteTransactions(id:any) {
-    return this.http.delete(this.deleteTransactionsURL,id);
-  }
+
   postProduct( obj:any): Observable<any> {
     return this.http.post(this.postProductURL, obj);
   }

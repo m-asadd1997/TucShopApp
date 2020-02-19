@@ -66,6 +66,14 @@ constructor(private service:AdminServiceService) { }
     this.service.deleteTransactions(data.id).subscribe();
     this.Transactions = this.Transactions.filter(d => d.id !== data.id);
   }
+  detailsTransactions(id){
+    this.service.getTransactions().subscribe(
+      b=> {
+        this.Transactions = b;
+        console.log(b);
+      }
+    )
+  }
 
   show(v){
     console.log(v);
