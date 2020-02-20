@@ -36,7 +36,6 @@ export class AddCategoryComponent implements OnInit {
     
     this.formData.append("name",this.add_categories.name);
     this.formData.append("image", this.add_categories.icons);
-    this.service.postCategory(this.formData).subscribe();
     if(this.id!=null){
       this.service.updateCategory(this.id,this.formData).subscribe();
       myForm.reset();
