@@ -22,6 +22,8 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
+import { AdminDashboardComponent } from './admins/admin-dashboard/admin-dashboard.component';
+import { ChartistModule } from 'ng-chartist';
 
 
 registerLocaleData(en);
@@ -33,6 +35,7 @@ registerLocaleData(en);
     ProductListingComponent,
     CheckoutComponent,
     LoginPageComponent,
+     
    
   ],
   imports: [
@@ -49,14 +52,12 @@ registerLocaleData(en);
     NzGridModule,
     NzPopoverModule,
     NzModalModule,
-
     NzMessageModule,
-   
-
     NzMessageModule,
     NzDatePickerModule,
     NzMenuModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ChartistModule
 
 
   ],

@@ -22,11 +22,13 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
   declarations: [LoginPageComponent, 
                  AdminLayoutComponent, 
                  ListProductsComponent, 
-                 ProductAddComponent, 
+                 ProductAddComponent,
+                 AdminDashboardComponent, 
                  CategoryListingComponent, 
                  AddCategoryComponent,
                  TransactionsComponent,
-                 UserComponent],
+                 UserComponent,
+                 ],
 
                  
 
@@ -39,7 +41,7 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
     CommonModule,
     FormsModule,
     ReactiveFormsModule ,
-
+    ChartistModule,
     NzGridModule,
 
     NgZorroAntdModule,
@@ -47,7 +49,7 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
     NzDropDownModule,
     NzFormModule,
     NzLayoutModule,
-    ChartistModule
+    
   ]
   ,providers:[AuthGuardService]
 })

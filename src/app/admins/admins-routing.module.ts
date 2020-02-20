@@ -9,6 +9,7 @@ import { CategoryListingComponent } from './category-listing/category-listing.co
 import { AddCategoryComponent } from './add-category/add-category.component';
 import { TransactionsComponent } from './transactions/transactions.component';
 import { UserComponent } from './user/user.component';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 
 
 const routes: Routes = [
@@ -22,7 +23,8 @@ const routes: Routes = [
        {path: 'add-category', component: AddCategoryComponent},
        {path: 'add-category/:id', component: AddCategoryComponent},
        {path: 'transactions', component: TransactionsComponent},
-       {path: 'user', component: UserComponent}
+       {path: 'user', component: UserComponent},
+       {path: 'dashboard', component: AdminDashboardComponent}
 ]
 }
 ];
