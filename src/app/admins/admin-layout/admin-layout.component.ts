@@ -11,6 +11,7 @@ export class AdminLayoutComponent implements OnInit {
   addProductVisible=false;
   categoryVisible=false;
   addCategoryVisible=false;
+  adminDashboardVisible=true;
   constructor( private router:Router) { }
 
   ngOnInit() {
@@ -44,6 +45,14 @@ export class AdminLayoutComponent implements OnInit {
   }
   navigateBackToLoginPage(){
     this.router.navigate(['admin'])
+  }
+
+  adminDashboard(){
+    this.addProductVisible=false;
+    this.categoryVisible=false;
+    this.productVisible=false;
+    this.addCategoryVisible=false;
+    this.adminDashboardVisible=true;
   }
 
 }
