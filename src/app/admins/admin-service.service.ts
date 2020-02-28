@@ -25,8 +25,8 @@ export class AdminServiceService {
   private getOutofStockDetailsURL=environment.baseUrl+"api/dashboard/outofstockdetails"; 
   private getTotalProductQuantityURL=environment.baseUrl+"api/dashboard/totalproducts"; //laagana ha yaha pe
   private getTotalTransactionURL=environment.baseUrl+"api/dashboard/totaltransaction"; //laagana ha yaha pe
-  private getTotalTransactionDetailsURL=environment.baseUrl+"api/dashboard/totalproductdetails"; //laagana ha yaha pe
-  
+  private getTotalTransactionDetailsURL=environment.baseUrl+"api/dashboard/transactiondetails"; //laagana ha yaha pe
+  private getTotalProductQuantityDetailsURL=environment.baseUrl+'api/dashboard/totalproductdetails';
   private getRequestedProductURL=environment.baseUrl+"api/dashboard/toprequestedproducts"; //laagana ha yaha pe
 
 
@@ -90,6 +90,10 @@ export class AdminServiceService {
     return this.http.get(this.getOutofStockDetailsURL);
   }
 
+
+  public getTotalProductQuantityDetails():Observable<any>{
+    return this.http.get(this.getTotalProductQuantityDetailsURL);
+  }
 
 
 

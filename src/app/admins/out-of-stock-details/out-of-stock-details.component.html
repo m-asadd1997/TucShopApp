@@ -1,0 +1,21 @@
+<div style="margin-left: 45%; margin-bottom: 3%;">   <button (click)="backToDashboard()" nz-button nzType="primary">Back</button></div>
+
+
+<nz-table #basicTable1 [nzData]="detailedOutOfStockProducts" [nzShowPagination]="false">
+    <thead>
+      <tr>
+        <th>Product Name</th>
+        <th>Quantity</th>
+       
+        
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data1 of basicTable1.data">
+        <td>{{data1.name}}</td>
+        <td>{{data1.qty}}</td>
+        
+        
+      </tr>
+    </tbody>
+  </nz-table>

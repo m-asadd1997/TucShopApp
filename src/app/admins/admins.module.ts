@@ -15,6 +15,9 @@ import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.compo
 import { TransactionsComponent } from './transactions/transactions.component';
 import { UserComponent } from './user/user.component';
 import { NzGridModule } from 'ng-zorro-antd/grid';
+import { TotalProductsDetailsComponent } from './total-products-details/total-products-details.component';
+import { OutOfStockDetailsComponent } from './out-of-stock-details/out-of-stock-details.component';
+import { TransactionsDetailsComponent } from './transactions-details/transactions-details.component';
 
 
 @NgModule({
@@ -28,6 +31,9 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
                  AddCategoryComponent,
                  TransactionsComponent,
                  UserComponent,
+                 TotalProductsDetailsComponent,
+                 OutOfStockDetailsComponent,
+                 TransactionsDetailsComponent,
                  ],
 
                  
