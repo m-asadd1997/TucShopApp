@@ -6,6 +6,7 @@ import {
 } from 'chartist';
 import { ChartType, ChartEvent } from 'ng-chartist';
 import { AdminServiceService } from '../admin-service.service';
+import { Router } from '@angular/router';
 
 
 
@@ -20,7 +21,7 @@ export class AdminDashboardComponent implements OnInit {
   isTotalProductsVisibleModal = false;
   isOutOfStockVisibleModal = false;
   isTotalTransactionModalVisible = false;
-  constructor(private adminService: AdminServiceService) { }
+  constructor(private adminService: AdminServiceService,private router:Router) { }
 
   data: IChartistData = {
     labels: [
@@ -151,16 +152,16 @@ totalTransaction;
 
 
   showModalTotalProducts(): void {
-    this.isTotalProductsVisibleModal = true;
+   this.router.navigate(['/admin/layout/totalproddetails'])
   }
 
-  handleOkTotalProducts(): void {
-    this.isTotalProductsVisibleModal = false;
-  }
+  // handleOkTotalProducts(): void {
+   
+  // }
 
-  handleCancelTotalProducts(): void {
-    this.isTotalProductsVisibleModal = false;
-  }
+  // handleCancelTotalProducts(): void {
+  //   this.isTotalProductsVisibleModal = false;
+  // }
 
 
 
@@ -170,31 +171,31 @@ totalTransaction;
 
 
   showModalOutOfStock(): void {
-    this.isOutOfStockVisibleModal = true;
+    this.router.navigate(['admin/layout/outOfstockdetail'])
   }
 
-  handleOkOutOfStock(): void {
-    this.isOutOfStockVisibleModal = false;
-  }
+  // handleOkOutOfStock(): void {
+  //   this.isOutOfStockVisibleModal = false;
+  // }
 
-  handleCancelOutOfStock(): void {
-    this.isOutOfStockVisibleModal = false;
-  }
+  // handleCancelOutOfStock(): void {
+  //   this.isOutOfStockVisibleModal = false;
+  // }
 
 
 
 
   showModalTotalTransactions(): void {
-    this.isTotalTransactionModalVisible = true;
+    this.router.navigate(['admin/layout/transactiondetail'])
   }
 
-  handleOkTotalTransaction(): void {
-    this.isTotalTransactionModalVisible = false;
-  }
+  // handleOkTotalTransaction(): void {
+  //   this.isTotalTransactionModalVisible = false;
+  // }
 
-  handleCancelTotalTransaction(): void {
-    this.isTotalTransactionModalVisible = false;
-  }
+  // handleCancelTotalTransaction(): void {
+  //   this.isTotalTransactionModalVisible = false;
+  // }
 
 
 }

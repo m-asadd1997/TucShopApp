@@ -10,23 +10,35 @@ import { AddCategoryComponent } from './add-category/add-category.component';
 import { TransactionsComponent } from './transactions/transactions.component';
 import { UserComponent } from './user/user.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import { TotalProductsDetailsComponent } from './total-products-details/total-products-details.component';
+import { OutOfStockDetailsComponent } from './out-of-stock-details/out-of-stock-details.component';
+import { TransactionsDetailsComponent } from './transactions-details/transactions-details.component';
 
 
 const routes: Routes = [
-  {path:'',component:LoginPageComponent},
-  {path:'layout',component:AdminLayoutComponent, 
-  children:  [
-       {path: 'product', component:ListProductsComponent },
-       {path: 'add-product',component: ProductAddComponent},
-       {path: 'add-product/:id', component: ProductAddComponent },
-       {path: 'category', component: CategoryListingComponent},
-       {path: 'add-category', component: AddCategoryComponent},
-       {path: 'add-category/:id', component: AddCategoryComponent},
-       {path: 'transactions', component: TransactionsComponent},
-       {path: 'user', component: UserComponent},
-       {path: 'dashboard', component: AdminDashboardComponent}
-]
-}
+  { path: '', component: LoginPageComponent },
+  {
+    path: 'layout', component: AdminLayoutComponent,
+    children: [
+      { path: 'product', component: ListProductsComponent },
+      { path: 'add-product', component: ProductAddComponent },
+      { path: 'add-product/:id', component: ProductAddComponent },
+      { path: 'category', component: CategoryListingComponent },
+      { path: 'add-category', component: AddCategoryComponent },
+      { path: 'add-category/:id', component: AddCategoryComponent },
+      { path: 'transactions', component: TransactionsComponent },
+      { path: 'user', component: UserComponent },
+      {
+        path: 'dashboard', component: AdminDashboardComponent
+        
+
+      },
+      { path: 'totalproddetails', component: TotalProductsDetailsComponent },
+      {path:'outOfstockdetail',component:OutOfStockDetailsComponent},
+      {path:'transactiondetail',component:TransactionsDetailsComponent}
+
+    ]
+  }
 ];
 
 @NgModule({
