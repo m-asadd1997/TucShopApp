@@ -4,66 +4,19 @@
 <div style="background: #ECECEC;padding:10px;">
     <div nz-row [nzGutter]="8">
       <div nz-col [nzSpan]="8">
-        <nz-card nzTitle="Total Products">
-          <h1>{{totalProducts}}</h1>
-            <!-- <div nz-row>
-                <div nz-col nzSpan="10">
-                    <span>Daily  Ratio</span>
-                </div>
-                <div nz-col nzSpan="8">
-                   12% 
-                   <i nz-icon nzType="caret-up" nzTheme="outline" style="color: green;"></i>
-                </div>
-                <div nz-col >
-                   
-                </div>
-            </div> -->
-
-
-            <div nz-row style="margin-top: 2%;">
-                <div nz-col nzSpan="10">
-                    <span>Week  Ratio</span>
-                </div>
-                <div nz-col nzSpan="8">
-                   12% 
-                   <i nz-icon nzType="caret-down" nzTheme="outline"  style="color: red;"></i>
-                </div>
-                
-            </div>
-
+        <nz-card nzTitle="Total Products"  (click)="showModalTotalProducts()">
+        
+          <h1 style="text-align: center;">{{totalProducts}}</h1>  
+          
 
         </nz-card>
       </div>
       
       
       <div nz-col [nzSpan]="8">
-        <nz-card nzTitle="Total Stock">
-          <h1>1000</h1>
-            <div nz-row>
-                <div nz-col nzSpan="12">
-                    <span>Products Under Stock</span>
-                </div>
-                <div nz-col nzSpan="8">
-                   10 
-                 <i nz-icon nzType="alert" nzTheme="outline"></i>>
-                </div>
-                <div nz-col >
-                   
-                </div>
-            </div>
-
-
-            <div nz-row style="margin-top: 2%;">
-                <div nz-col nzSpan="12">
-                    <span>Week  Ratio</span>
-                </div>
-                <div nz-col nzSpan="8">
-                   12% 
-                   <i nz-icon nzType="caret-down" nzTheme="outline"  style="color: red;"></i>
-                </div>
-                
-            </div>
-
+        <nz-card nzTitle="Out of Stock" (click)="showModalOutOfStock()">
+          <h1 style="text-align: center;">{{totalOutOfStockProducts}}</h1>
+          
 
         </nz-card>
       </div>
@@ -76,8 +29,8 @@
 
 
       <div nz-col [nzSpan]="8" >
-        <nz-card nzTitle="Card title">
-          <p>Card content</p>
+        <nz-card nzTitle="Total Transacation" (click)="showModalTotalTransactions()">
+          <h1 style="text-align: center;">{{totalTransaction }}</h1>
         </nz-card>
       </div>
     </div>
@@ -85,10 +38,10 @@
 
     <div nz-row style="margin-top: 10px;">
 
-        <div nz-col [nzSpan]="16" >
+        <div nz-col [nzSpan]="16"  style="width:70%">
 
 
-            <nz-card style="width:725px" [nzBordered]="false" nzTitle="Sale Analysis" [nzExtra]="extraTemplate">
+            <nz-card  [nzBordered]="false" nzTitle="Sale Analysis" [nzExtra]="extraTemplate">
                 <x-chartist
                 [type]="type"
                 [data]="data"
@@ -99,12 +52,13 @@
         </div>
 
 
-        <div nz-col [nzSpan]="8">
+        <div nz-col [nzSpan]="8" style="width: 30%;">
           <nz-card   nzTitle="Requested Products" >
-            <nz-table #basicTable [nzData]="reqProducts">
+            <nz-table #basicTable [nzData]="reqProducts" [nzShowPagination]="false">
               <thead>
                 <tr>
                   <th>Product Name</th>
+                  <th>Count</th>
                  
                   
                 </tr>
@@ -112,6 +66,7 @@
               <tbody>
                 <tr *ngFor="let data of basicTable.data">
                   <td>{{data.name}}</td>
+                  <td>{{data.countName}}</td>
                   
                   
                 </tr>
@@ -126,13 +81,61 @@
   </div>
 
 
+  <!-- <nz-modal 
+  [(nzVisible)]="isTotalProductsVisibleModal"
+   nzTitle="Details Of Products" 
+   (nzOnCancel)="handleCancelTotalProducts()"
+    (nzOnOk)="handleOkTotalProducts()">
+  
+
+    
+  </nz-modal> -->
 
 
-  <script>
-  var global = global||window;
-  </script>
+  <!-- <nz-modal 
+
+      [(nzVisible)]="isOutOfStockVisibleModal" 
+      nzTitle="Out Of Stock Products" 
+      (nzOnCancel)="handleCancelOutOfStock()" 
+      (nzOnOk)="handleOkOutOfStock()">
+  
 
 
+
+
+      <nz-table #basicTable1 [nzData]="detailedOutOfStockProducts" [nzShowPagination]="false">
+        <thead>
+          <tr>
+            <th>Product Name</th>
+            <th>Quantity</th>
+           
+            
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data1 of basicTable1.data">
+            <td>{{data1.name}}</td>
+            <td>{{data1.qty}}</td>
+            
+            
+          </tr>
+        </tbody>
+      </nz-table>
+
+
+
+  </nz-modal> -->
+
+
+
+  <!-- <nz-modal 
+
+  [(nzVisible)]="isTotalTransactionModalVisible" 
+  nzTitle="TotalTransactions" 
+  (nzOnCancel)="handleCancelTotalTransaction()" 
+  (nzOnOk)="handleOkTotalTransaction()">
+
+</nz-modal> -->
 
   <!-- YE TOP ROW HAI -->
 

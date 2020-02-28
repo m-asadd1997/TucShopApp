@@ -23,9 +23,11 @@ export class AdminServiceService {
   private deleteTransactionsURL=environment.baseUrl+"api/transaction/";
   private getTotalOutofStockURL=environment.baseUrl+"api/dashboard/outofstock"; //Total Out of stock
   private getOutofStockDetailsURL=environment.baseUrl+"api/dashboard/outofstockdetails"; 
-  private getTotalProductQuantityURL=environment.baseUrl+'' //laagana ha yaha pe
-  private getTotalTransactionURL=environment.baseUrl+'' //laagana ha yaha pe
-  private getRequestedProductURL=environment.baseUrl+""; //laagana ha yaha pe
+  private getTotalProductQuantityURL=environment.baseUrl+"api/dashboard/totalproducts"; //laagana ha yaha pe
+  private getTotalTransactionURL=environment.baseUrl+"api/dashboard/totaltransaction"; //laagana ha yaha pe
+  private getTotalTransactionDetailsURL=environment.baseUrl+"api/dashboard/totalproductdetails"; //laagana ha yaha pe
+  
+  private getRequestedProductURL=environment.baseUrl+"api/dashboard/toprequestedproducts"; //laagana ha yaha pe
 
 
 
@@ -42,7 +44,7 @@ export class AdminServiceService {
     return this.http.get(this.getTransactionsURL);
   }
   
-  deleteTransactions(id:any) {
+  public deleteTransactions(id:any) {
     return this.http.delete(this.deleteTransactionsURL,id);
   }
 
@@ -53,16 +55,16 @@ export class AdminServiceService {
   }
 
 
-  deleteProduct(id) {
+  public deleteProduct(id) {
     return this.http.delete(this.deleteProductURL+id);
 
   }
 
-  postProduct(obj: any): Observable<any> {
+  public postProduct(obj: any): Observable<any> {
     return this.http.post(this.postProductURL,obj);
   }
 
-  deleteCategory(id): Observable<any> {
+  public deleteCategory(id): Observable<any> {
     return this.http.delete(this.deleteCategoryURL+id);
   }
 
@@ -111,6 +113,10 @@ export class AdminServiceService {
     return this.http.get(this.getTotalProductQuantityURL);//ye change hoga upar
   }
 
+
+  public getTotalTransactionDetails():Observable<any>{
+    return this.http.get(this.getTotalTransactionDetailsURL);
+  }
 
 
 

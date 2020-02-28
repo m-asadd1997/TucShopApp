@@ -17,10 +17,12 @@ import { AdminServiceService } from '../admin-service.service';
   styleUrls: ['./admin-dashboard.component.css']
 })
 export class AdminDashboardComponent implements OnInit {
+  isTotalProductsVisibleModal = false;
+  isOutOfStockVisibleModal = false;
+  isTotalTransactionModalVisible = false;
+  constructor(private adminService: AdminServiceService) { }
 
-  constructor(private adminService:AdminServiceService) { }
-
-  data :IChartistData= {
+  data: IChartistData = {
     labels: [
       'Jan',
       'Feb',
@@ -64,6 +66,10 @@ export class AdminDashboardComponent implements OnInit {
   };
   ngOnInit() {
     this.getRequestedProducts();
+    this.getTotalProductQuantity();
+    this.getTotalOutOfStockProducts();
+    this.getTotalTransaction();
+    this.getOutOfStockDetailed()
   }
 
 
@@ -73,21 +79,63 @@ export class AdminDashboardComponent implements OnInit {
 
 
 
-  reqProducts=[]
+  reqProducts = []
+  finalReqProducts = []
   totalProducts
+  totalOutOfStockProducts
 
 
-  
 
-  getRequestedProducts(){
-    this.adminService.getRequestedProducts().subscribe(d=>{
-      this.reqProducts=d;
+
+  getTotalOutOfStockProducts() {
+    this.adminService.getTotalOutOfStock().subscribe(d => {
+      this.totalOutOfStockProducts = d.result;
+    })
+  }
+
+  getRequestedProducts() {
+
+    this.adminService.getRequestedProducts().subscribe(d => {
+      // this.reqProducts = d;
+
+      console.log(d);
+      this.reqProducts = d.result;
+      if (this.reqProducts.length > 5) {
+        this.reqProducts.length = 5;
+      }
+
+      
+
+
+
     })
   };
 
-  getTotalProductQuantity(){
-    this.adminService.getTotalProductQuantity().subscribe(d=>{
-      this.totalProducts=d.quantity ;
+  getTotalProductQuantity() {
+    //debugger
+    this.adminService.getTotalProductQuantity().subscribe(d => {
+
+      this.totalProducts = d.result;
+    })
+  }
+
+
+
+totalTransaction;
+  getTotalTransaction() {
+    this.adminService.getTotalTransaction().subscribe(d => {
+      this.totalTransaction=d.result;
+
+    })
+  }
+
+
+
+  detailedOutOfStockProducts=[];
+  getOutOfStockDetailed(){
+    this.adminService.getOutofStockDetails().subscribe(d=>{
+      this.detailedOutOfStockProducts=d.result;
+      console.log(this.detailedOutOfStockProducts);
     })
   }
 
@@ -102,6 +150,17 @@ export class AdminDashboardComponent implements OnInit {
 
 
 
+  showModalTotalProducts(): void {
+    this.isTotalProductsVisibleModal = true;
+  }
+
+  handleOkTotalProducts(): void {
+    this.isTotalProductsVisibleModal = false;
+  }
+
+  handleCancelTotalProducts(): void {
+    this.isTotalProductsVisibleModal = false;
+  }
 
 
 
@@ -110,6 +169,32 @@ export class AdminDashboardComponent implements OnInit {
 
 
 
+  showModalOutOfStock(): void {
+    this.isOutOfStockVisibleModal = true;
+  }
+
+  handleOkOutOfStock(): void {
+    this.isOutOfStockVisibleModal = false;
+  }
+
+  handleCancelOutOfStock(): void {
+    this.isOutOfStockVisibleModal = false;
+  }
+
+
+
+
+  showModalTotalTransactions(): void {
+    this.isTotalTransactionModalVisible = true;
+  }
+
+  handleOkTotalTransaction(): void {
+    this.isTotalTransactionModalVisible = false;
+  }
+
+  handleCancelTotalTransaction(): void {
+    this.isTotalTransactionModalVisible = false;
+  }
 
 
 }
