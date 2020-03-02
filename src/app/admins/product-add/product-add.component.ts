@@ -23,16 +23,25 @@ export class ProductAddComponent implements OnInit {
 
   }
   submit(myForm: NgForm) {
-debugger
+   
+    console.log(this.formData);
+    debugger
     this.formData.append('name', this.addProducts.productTitle)
     this.formData.append('category', this.addProducts.category);
     this.formData.append('image', this.addProducts.image);
     this.formData.append('costprice', this.addProducts.costPrice);
     this.formData.append('price', this.addProducts.salePrice);
     this.formData.append('quantity', this.addProducts.productQuantity);
+    console.log(this.formData);
     if (this.id != null) {
       this.service.updateProduct(this.id, this.formData).subscribe();
       myForm.reset();
+      this.formData.delete("name");
+      this.formData.delete("category");
+      this.formData.delete("image");
+      this.formData.delete("costprice");
+      this.formData.delete("price");
+      this.formData.delete("quantity");
       console.log(this.addProducts.image)
       this.addProducts.image = null;
       console.log(this.addProducts.image)
@@ -43,6 +52,12 @@ debugger
       this.service.postProduct(this.formData).subscribe();
       this.addProducts.image = null;
       myForm.reset();
+      this.formData.delete("name");
+      this.formData.delete("category");
+      this.formData.delete("image");
+      this.formData.delete("costprice");
+      this.formData.delete("price");
+      this.formData.delete("quantity");
       console.log(this.addProducts.image)
       this.addProducts.image = null;
       console.log(this.addProducts.image)
