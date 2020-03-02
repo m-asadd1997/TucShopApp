@@ -39,6 +39,10 @@ export class AddCategoryComponent implements OnInit {
     if(this.id!=null){
       this.service.updateCategory(this.id,this.formData).subscribe();
       myForm.reset();
+      this.formData.delete("name");
+      
+      this.formData.delete("image");
+      
 
     }
 
@@ -46,6 +50,10 @@ export class AddCategoryComponent implements OnInit {
       
       this.service.postCategory(this.formData).subscribe();
       myForm.reset();
+      this.formData.delete("name");
+      
+      this.formData.delete("image");
+      
         }
       
 }
