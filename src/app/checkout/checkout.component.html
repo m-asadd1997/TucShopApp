@@ -14,6 +14,7 @@
         <span>Request For Product</span>
       </button>
       <nz-modal
+        
         [(nzVisible)]="isVisible2"
         nzTitle="Request For Product"
         (nzOnCancel)="handleCancel()"
@@ -22,8 +23,31 @@
         [nzOkLoading]="isOkLoading"
         nzOkText="Submit"
       >
-      <input nz-input placeholder="Request For Product" name="requestedProductName" [(ngModel)]="checkOutObj.name" />
-      </nz-modal>
+      <!-- <input nz-input placeholder="Request For Product" name="requestedProductName" [(ngModel)]="checkOutObj.name" /> -->
+      <div class="example-input">
+        <nz-input-group nzSearch nzSize="large" [nzAddOnAfter]="suffixIconButton">
+          <input
+            placeholder="Request For Product"
+            nz-input
+            [(ngModel)]="checkOutObj.name"
+            (input)="onChange($event)"
+            [nzAutocomplete]="auto"
+          />
+        </nz-input-group>
+        <ng-template #suffixIconButton>
+          <button nz-button nzType="primary" nzSize="large" nzSearch>
+            <i nz-icon nzType="search" nzTheme="outline"></i>
+          </button>
+        </ng-template>
+        <nz-autocomplete #auto>
+          <nz-auto-option class="global-search-item" *ngFor="let option of options" [nzValue]="option.name">
+            Found &nbsp; <b>{{ option.name || uppercase }}</b> &nbsp; on &nbsp;
+           
+            <span class="global-search-item-count"><b>{{ option.countName }}</b> &nbsp; results</span>
+          </nz-auto-option>
+        </nz-autocomplete>
+      </div>  
+    </nz-modal>
     </div>
  
      
