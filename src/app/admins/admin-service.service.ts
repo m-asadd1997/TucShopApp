@@ -85,6 +85,7 @@ export class AdminServiceService {
 
   }
 
+  // list all the products that are less than 10 quantity.
 
   public getOutofStockDetails():Observable<any>{
     return this.http.get(this.getOutofStockDetailsURL);

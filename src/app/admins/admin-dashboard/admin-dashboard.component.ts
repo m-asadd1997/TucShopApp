@@ -117,6 +117,7 @@ export class AdminDashboardComponent implements OnInit {
     this.adminService.getTotalProductQuantity().subscribe(d => {
 
       this.totalProducts = d.result;
+      console.log(this.totalProducts);
     })
   }
 
