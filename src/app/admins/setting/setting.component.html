@@ -1,0 +1,61 @@
+
+<div nz-row>
+    <div nz-col nzSpan="6">
+        <h3 nz-title>Header</h3>
+    </div>
+    
+    
+    
+    
+    <div nz-col nzSpan="12">
+        <textarea rows="5" nz-input name="header"  [(ngModel)]="settingObj.header"></textarea>
+    </div>
+
+</div>
+
+<br><br><br>
+<div nz-row>
+    <div nz-col nzSpan="6">
+        <h3 nz-title>Logo</h3>
+    </div>
+    
+    
+    
+    
+    <div nz-col nzSpan="12">
+     <input type="file" name="Logo" id=""  (change)="handleLogo($event.target.files)" >
+    </div>
+
+</div>
+
+<br><br><br>
+
+
+
+<div nz-row>
+    <div nz-col nzSpan="6">
+        <h3 nz-title>Footer</h3>
+    </div>
+    
+    
+    
+    
+    <div nz-col nzSpan="12">
+        <textarea rows="5" nz-input name="footer"  [(ngModel)]="settingObj.footer" ></textarea>
+    </div>
+
+</div>
+
+<br><br>
+
+<div nz-row>
+    <div nz-col nzSpan="6"></div>
+    <div nz-col nzSpan="6">
+        <button nz-button nzType="primary" (click)="submitSetting()">Submit</button>
+    </div>
+    
+    
+    
+    
+  
+</div>

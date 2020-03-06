@@ -13,13 +13,16 @@ import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.compo
 import { TotalProductsDetailsComponent } from './total-products-details/total-products-details.component';
 import { OutOfStockDetailsComponent } from './out-of-stock-details/out-of-stock-details.component';
 import { TransactionsDetailsComponent } from './transactions-details/transactions-details.component';
+import { SettingComponent } from './setting/setting.component';
 
 
 const routes: Routes = [
   { path: '', component: LoginPageComponent },
+  {path:'home',loadChildren:'./../app.module#AppModule'},
   {
     path: 'layout', component: AdminLayoutComponent,
     children: [
+      { path: '', component: AdminDashboardComponent },
       { path: 'product', component: ListProductsComponent },
       { path: 'add-product', component: ProductAddComponent },
       { path: 'add-product/:id', component: ProductAddComponent },
@@ -30,6 +33,11 @@ const routes: Routes = [
       { path: 'user', component: UserComponent },
       {
         path: 'dashboard', component: AdminDashboardComponent
+        
+
+      },
+      {
+        path: 'setting', component: SettingComponent
         
 
       },

@@ -18,6 +18,8 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
 import { TotalProductsDetailsComponent } from './total-products-details/total-products-details.component';
 import { OutOfStockDetailsComponent } from './out-of-stock-details/out-of-stock-details.component';
 import { TransactionsDetailsComponent } from './transactions-details/transactions-details.component';
+import { SettingComponent } from './setting/setting.component';
+import { from } from 'rxjs';
 
 
 @NgModule({
@@ -34,6 +36,7 @@ import { TransactionsDetailsComponent } from './transactions-details/transaction
                  TotalProductsDetailsComponent,
                  OutOfStockDetailsComponent,
                  TransactionsDetailsComponent,
+                 SettingComponent,
                  ],
 
                  
@@ -49,7 +52,6 @@ import { TransactionsDetailsComponent } from './transactions-details/transaction
     ReactiveFormsModule ,
     ChartistModule,
     NzGridModule,
-
     NgZorroAntdModule,
     NzTableModule,
     NzDropDownModule,
