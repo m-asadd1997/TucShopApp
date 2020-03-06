@@ -21,27 +21,21 @@ export class AdminDashboardComponent implements OnInit {
   isTotalProductsVisibleModal = false;
   isOutOfStockVisibleModal = false;
   isTotalTransactionModalVisible = false;
-  constructor(private adminService: AdminServiceService,private router:Router) { }
+  constructor(private adminService: AdminServiceService, private router: Router) { }
 
-  data: IChartistData = {
-    labels: [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul'
-    ],
-    series: [
-      [5, 4, 3, 7, 5, 10, 3],
-      [3, 2, 9, 5, 4, 6, 4]
-    ]
-  };
 
 
 
   type: ChartType = 'Bar';
+
+  data = {
+    // labels: ["J", "F", "M"],
+    // series: [[1, 2, 3]]
+labels:[],series:[]
+
+
+  };
+
 
 
   options: IBarChartOptions = {
@@ -50,6 +44,8 @@ export class AdminDashboardComponent implements OnInit {
     },
     height: 300
   };
+
+
 
   events: ChartEvent = {
     draw: (data) => {
@@ -70,7 +66,8 @@ export class AdminDashboardComponent implements OnInit {
     this.getTotalProductQuantity();
     this.getTotalOutOfStockProducts();
     this.getTotalTransaction();
-    this.getOutOfStockDetailed()
+    this.getOutOfStockDetailed();
+    this.getChartData();
   }
 
 
@@ -84,7 +81,22 @@ export class AdminDashboardComponent implements OnInit {
   finalReqProducts = []
   totalProducts
   totalOutOfStockProducts
+  chartResult
 
+
+
+  getChartData() {
+
+    this.adminService.getChartData().subscribe(d => {
+      this.chartResult = d.result;
+      this.data.labels=this.chartResult.labels;
+      this.data.series.push(this.chartResult.series)
+      console.log(this.chartResult);
+      console.log(this.data.series)
+      console.log(this.data.labels)
+     
+    })
+  }
 
 
 
@@ -99,13 +111,13 @@ export class AdminDashboardComponent implements OnInit {
     this.adminService.getRequestedProducts().subscribe(d => {
       // this.reqProducts = d;
 
-      console.log(d);
       this.reqProducts = d.result;
+      
       if (this.reqProducts.length > 5) {
         this.reqProducts.length = 5;
       }
 
-      
+
 
 
 
@@ -122,21 +134,20 @@ export class AdminDashboardComponent implements OnInit {
 
 
 
-totalTransaction;
+  totalTransaction;
   getTotalTransaction() {
     this.adminService.getTotalTransaction().subscribe(d => {
-      this.totalTransaction=d.result;
+      this.totalTransaction = d.result;
 
     })
   }
 
 
 
-  detailedOutOfStockProducts=[];
-  getOutOfStockDetailed(){
-    this.adminService.getOutofStockDetails().subscribe(d=>{
-      this.detailedOutOfStockProducts=d.result;
-      console.log(this.detailedOutOfStockProducts);
+  detailedOutOfStockProducts = [];
+  getOutOfStockDetailed() {
+    this.adminService.getOutofStockDetails().subscribe(d => {
+      this.detailedOutOfStockProducts = d.result;
     })
   }
 
@@ -152,11 +163,11 @@ totalTransaction;
 
 
   showModalTotalProducts(): void {
-   this.router.navigate(['/admin/layout/totalproddetails'])
+    this.router.navigate(['/admin/layout/totalproddetails'])
   }
 
   // handleOkTotalProducts(): void {
-   
+
   // }
 
   // handleCancelTotalProducts(): void {

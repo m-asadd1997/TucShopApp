@@ -35,6 +35,7 @@ registerLocaleData(en);
     ProductListingComponent,
     CheckoutComponent,
     LoginPageComponent,
+    
      
    
   ],

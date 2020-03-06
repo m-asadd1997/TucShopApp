@@ -21,13 +21,17 @@ export class AdminServiceService {
   private postCategoryURL=environment.baseUrl + "api/category/";
   private getTransactionsURL=environment.baseUrl+"api/transaction/";
   private deleteTransactionsURL=environment.baseUrl+"api/transaction/";
-  private getTotalOutofStockURL=environment.baseUrl+"api/dashboard/outofstock"; //Total Out of stock
+  private getTotalOutofStockURL=environment.baseUrl+"api/dashboard/outofstock"; 
   private getOutofStockDetailsURL=environment.baseUrl+"api/dashboard/outofstockdetails"; 
-  private getTotalProductQuantityURL=environment.baseUrl+"api/dashboard/totalproducts"; //laagana ha yaha pe
-  private getTotalTransactionURL=environment.baseUrl+"api/dashboard/totaltransaction"; //laagana ha yaha pe
-  private getTotalTransactionDetailsURL=environment.baseUrl+"api/dashboard/transactiondetails"; //laagana ha yaha pe
+  private getTotalProductQuantityURL=environment.baseUrl+"api/dashboard/totalproducts"; 
+  private getTotalTransactionURL=environment.baseUrl+"api/dashboard/totaltransaction"; 
+  private getTotalTransactionDetailsURL=environment.baseUrl+"api/dashboard/transactiondetails"; 
   private getTotalProductQuantityDetailsURL=environment.baseUrl+'api/dashboard/totalproductdetails';
-  private getRequestedProductURL=environment.baseUrl+"api/dashboard/toprequestedproducts"; //laagana ha yaha pe
+  private getRequestedProductURL=environment.baseUrl+"api/dashboard/toprequestedproducts"; 
+  private postSettingURL=environment.baseUrl+"api/dashboard/settings"; 
+  private getChartDataURL=environment.baseUrl+"api/dashboard/salespermonth";
+  private getSettingURL= environment.baseUrl+"api/dashboard/settings";
+  
 
 
 
@@ -124,5 +128,21 @@ export class AdminServiceService {
 
 
 
+
+  public postSetting(obj): Observable<any> {
+    
+    return this.http.post(this.postSettingURL,obj);
+  }
+
+  public getChartData():Observable<any>{
+    return this.http.get(this.getChartDataURL);
+  }
+
+
+
+
+  public getSetting():Observable<any>{
+    return this.http.get(this.getSettingURL);
+  }
 
 }
