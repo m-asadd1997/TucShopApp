@@ -16,6 +16,7 @@ export class MainscreenService {
   private getProductsURL=environment.baseUrl+"api/products/category/";
   private postRequestedProductURL=environment.baseUrl+"api/products/postreqproduct";
   private getAutoCompleteRequestURL=environment.baseUrl+"api/dashboard/autocomplete/";
+  private getAllProductURL=environment.baseUrl+"api/products/";
 
   public sendMessage(obj: Object){
     this.productSource.next(obj);
@@ -38,5 +39,11 @@ export class MainscreenService {
 
   public getRequestForProductCount(keyword:any):Observable<any>{
     return this.http.get(this.getAutoCompleteRequestURL+keyword);
+   }
+
+   public getAllProducts():Observable<any>{
+   return this.http.get(this.getAllProductURL);
+
+
    }
 }
