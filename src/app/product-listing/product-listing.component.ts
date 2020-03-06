@@ -10,6 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 export class ProductListingComponent implements OnInit {
 
   productsArray = [] = [];
+  params:any;
  constructor(private prodService:MainscreenService,private activeRoute: ActivatedRoute) { }
 
 
@@ -17,20 +18,27 @@ export class ProductListingComponent implements OnInit {
     this.activeRoute.paramMap.subscribe(
           params=> {
 
-               console.log(" LOL params",params['params'].category)
+               //console.log(" LOL params",params['params'].category)
               this.getProducts(params['params'].category)
+              
+              
           }
+          
        );
 
+       
+
+       this.getAllProducts();
+       
    
   }
 
   getProducts(str : any){
-   console.log(str)
+   //console.log(str)
    
     this.prodService.getProducts(str).subscribe(d=>{
       this.productsArray = d.result;
-      console.log(d.result)
+     // console.log(d.result)
     })
   }
 
@@ -39,4 +47,11 @@ export class ProductListingComponent implements OnInit {
     this.prodService.sendMessage(prod);
     
   }
+
+  getAllProducts(){
+    this.prodService.getAllProducts().subscribe(d=>{
+    this.productsArray=d;
+    //console.log(this.productsArray);
+    })
+    }
 }

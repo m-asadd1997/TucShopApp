@@ -25,7 +25,7 @@ export class ProductAddComponent implements OnInit {
   submit(myForm: NgForm) {
    
     console.log(this.formData);
-    debugger
+    //debugger
     this.formData.append('name', this.addProducts.productTitle)
     this.formData.append('category', this.addProducts.category);
     this.formData.append('image', this.addProducts.image);
