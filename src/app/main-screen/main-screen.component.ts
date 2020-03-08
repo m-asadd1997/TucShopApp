@@ -12,8 +12,7 @@ export class MainScreenComponent implements OnInit {
   CollapsedNav = true;
   categoriesArray = [] = [];
   isVisible :Boolean;
-  //productsArray = [] = [];
-  //urlFilter:String;
+  
   
  
   
@@ -21,11 +20,7 @@ export class MainScreenComponent implements OnInit {
 
   ngOnInit() {
 
-  //  this.activeRoute.paramMap.subscribe(
-  //     params=> {
-  //         console.log("params",params['params'].category)
-  //     }
-  //  );
+  
 
     this.getCat();
     
@@ -39,8 +34,7 @@ export class MainScreenComponent implements OnInit {
       
       
 
-      //this.router.navigate(["categories/"+urlFilter]);      
-      //console.log("hello",this.categoriesArray)
+     
     })
   }
 

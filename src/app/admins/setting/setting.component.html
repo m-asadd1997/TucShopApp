@@ -1,61 +1,84 @@
+<form  nzForm #myForm="ngForm" style="margin-top: 50px;">
 
+<nz-form-item>
+<nz-form-control>
 <div nz-row>
+
     <div nz-col nzSpan="6">
         <h3 nz-title>Header</h3>
     </div>
-    
-    
-    
-    
+
+
     <div nz-col nzSpan="12">
-        <textarea rows="5" nz-input name="header"  [(ngModel)]="settingObj.header"></textarea>
+        <textarea rows="5" nz-input name="header" [(ngModel)]="settingObj.header"></textarea>
     </div>
 
 </div>
 
+</nz-form-control>
+</nz-form-item>
 <br><br><br>
+
+
+<nz-form-item>
+    <nz-form-control>
 <div nz-row>
     <div nz-col nzSpan="6">
         <h3 nz-title>Logo</h3>
     </div>
-    
-    
-    
-    
+
+
+
+
     <div nz-col nzSpan="12">
-     <input type="file" name="Logo" id=""  (change)="handleLogo($event.target.files)" >
+        <input type="file" name="Logo" id="" (change)="handleLogo($event.target.files)">
     </div>
 
 </div>
+
+
+
+</nz-form-control>
+</nz-form-item>
 
 <br><br><br>
 
 
-
+<nz-form-item>
+    <nz-form-control>
 <div nz-row>
     <div nz-col nzSpan="6">
         <h3 nz-title>Footer</h3>
     </div>
-    
-    
-    
-    
+
+
+
+
     <div nz-col nzSpan="12">
-        <textarea rows="5" nz-input name="footer"  [(ngModel)]="settingObj.footer" ></textarea>
+        <textarea rows="5" nz-input name="footer" [(ngModel)]="settingObj.footer"></textarea>
     </div>
 
 </div>
 
+</nz-form-control>
+</nz-form-item>
 <br><br>
 
+
+<nz-form-item>
+    <nz-form-control>
 <div nz-row>
     <div nz-col nzSpan="6"></div>
     <div nz-col nzSpan="6">
-        <button nz-button nzType="primary" (click)="submitSetting()">Submit</button>
+        <button nz-button nzType="primary" (click)="submitSetting(myForm)">Submit</button>
     </div>
     
-    
-    
-    
-  
+
+
+
+
+
 </div>
+</nz-form-control>
+</nz-form-item>
+</form>
