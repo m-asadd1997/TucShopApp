@@ -4,19 +4,20 @@
   <div nz-row>
     <div nz-col nzSpan="5" nzOffset="1" *ngFor="let p of productsArray">
       <nz-card
+        #CARD
         nzHoverable
         style="width:160px"
         [nzCover]="coverTemplate"
-        (click)="sendProducttoCheckout(p)"
+        (click)="sendProducttoCheckout(p,CARD)"
       >
         <nz-card-meta [nzTitle]="p.name">{{ p.name }} </nz-card-meta>
         <p>
           <b>Price {{ p.price }}</b>
         </p>
       </nz-card>
-      <div>
+      <div >
         <ng-template #coverTemplate>
-          <img [src]="p.image" />
+          <img #image  [src]="p.image" />
         </ng-template>
       </div>
 

@@ -10,6 +10,16 @@ export class MainscreenService {
 
   private productSource = new Subject<Object>();
   productMessage$ = this.productSource.asObservable();
+
+
+private productQuantityUpdateToProductListing = new Subject<any>();
+productQuantityUpdateToProductListing$= this.productQuantityUpdateToProductListing.asObservable();
+
+
+// private productQuantityUpdateToCheckout = new Subject<any>();
+// productQuantityUpdateToCheckout$= this.productQuantityUpdateToCheckout.asObservable();
+
+
   constructor(private http:HttpClient) { }
 
   private getCategoriesURL=environment.baseUrl+"api/category/";
@@ -17,10 +27,22 @@ export class MainscreenService {
   private postRequestedProductURL=environment.baseUrl+"api/products/postreqproduct";
   private getAutoCompleteRequestURL=environment.baseUrl+"api/dashboard/autocomplete/";
   private getAllProductURL=environment.baseUrl+"api/products/";
-
+  private getSettingURL= environment.baseUrl+"api/dashboard/settings";
   public sendMessage(obj: Object){
     this.productSource.next(obj);
   }
+
+
+  public sendQuantityUpdateToProductListing(obj){
+    this.productQuantityUpdateToProductListing.next(obj);
+  }
+
+
+
+  // public sendQuantityUpdateToCheckout(obj){
+  //   this.productQuantityUpdateToCheckout.next(obj);
+  // }
+
 
   public getCategories():Observable<any>{
     return this.http.get(this.getCategoriesURL);
@@ -46,4 +68,7 @@ export class MainscreenService {
 
 
    }
+   public getSetting():Observable<any>{
+    return this.http.get(this.getSettingURL);
+  }
 }
