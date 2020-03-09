@@ -26,6 +26,8 @@ import { AdminDashboardComponent } from './admins/admin-dashboard/admin-dashboar
 import { ChartistModule } from 'ng-chartist';
 import { RecentTransactionsComponent } from './recent-transactions/recent-transactions.component';
 
+import { NzAutocompleteModule } from 'ng-zorro-antd/auto-complete';
+
 
 registerLocaleData(en);
 
@@ -36,7 +38,9 @@ registerLocaleData(en);
     ProductListingComponent,
     CheckoutComponent,
     LoginPageComponent,
+
     RecentTransactionsComponent,
+
      
    
   ],
@@ -59,7 +63,8 @@ registerLocaleData(en);
     NzDatePickerModule,
     NzMenuModule,
     ReactiveFormsModule,
-    ChartistModule
+    ChartistModule,
+    NzAutocompleteModule
 
 
   ],

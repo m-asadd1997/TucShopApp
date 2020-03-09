@@ -14,6 +14,7 @@
         <span>Request For Product</span>
       </button>
       <nz-modal
+        
         [(nzVisible)]="isVisible2"
         nzTitle="Request For Product"
         (nzOnCancel)="handleCancel()"
@@ -22,8 +23,31 @@
         [nzOkLoading]="isOkLoading"
         nzOkText="Submit"
       >
-      <input nz-input placeholder="Request For Product" name="requestedProductName" [(ngModel)]="checkOutObj.name" />
-      </nz-modal>
+      <!-- <input nz-input placeholder="Request For Product" name="requestedProductName" [(ngModel)]="checkOutObj.name" /> -->
+      <div class="example-input">
+        <nz-input-group nzSearch nzSize="large" [nzAddOnAfter]="suffixIconButton">
+          <input
+            placeholder="Request For Product"
+            nz-input
+            [(ngModel)]="checkOutObj.name"
+            (input)="onChange($event)"
+            [nzAutocomplete]="auto"
+          />
+        </nz-input-group>
+        <ng-template #suffixIconButton>
+          <button nz-button nzType="primary" nzSize="large" nzSearch>
+            <i nz-icon nzType="search" nzTheme="outline"></i>
+          </button>
+        </ng-template>
+        <nz-autocomplete #auto>
+          <nz-auto-option class="global-search-item" *ngFor="let option of options" [nzValue]="option.name">
+            Found &nbsp; <b>{{ option.name || uppercase }}</b> &nbsp; on &nbsp;
+           
+            <span class="global-search-item-count"><b>{{ option.countName }}</b> &nbsp; results</span>
+          </nz-auto-option>
+        </nz-autocomplete>
+      </div>  
+    </nz-modal>
     </div>
  
      
@@ -57,12 +81,33 @@
                 <h4>
                   Quantity: {{ data.productQuantity }}
                   <nz-button-group>
-                    <button nz-button (click)="addProduct(data)">
+
+                    <!-- Add Buttons -->
+                    <button #btn nz-button  *ngIf="checkingQunatity(data)" (click)="addProduct(data)">
                       <i nz-icon nzType="plus"></i>
                     </button>
-                    <button nz-button (click)="removeProduct(data)">
+
+
+                    <button #btn1 nz-button  disabled *ngIf="!checkingQunatity(data)" >
+                      <i nz-icon nzType="plus"></i>
+                    </button>
+
+
+                    <!--End of Add Buttons  -->
+
+
+
+                    <!-- Minus Buttons -->
+
+                    <button     nz-button (click)="removeProduct(data)">
                       <i nz-icon nzType="minus"></i>
                     </button>
+
+
+                   
+
+
+                    <!-- End of Minus Buttons -->
                   </nz-button-group>
                 </h4>
               </div>
@@ -108,8 +153,18 @@
 </nz-content>
 
 <div id="print-section" [hidden]="true">
+<div style="text-align: center;">
+  <img [src]="settingHeader.logo" style="height: 100px; width: 100px;" alt="Hello">
+</div>
+<br> 
+<div style="text-align: center; margin-bottom: 50px;">
+  <!-- <p class="bd-highlight font-weight-bold">{{settingHeader.header}}</px > -->
+    <h2 nz-title>{{settingHeader.header}}</h2>
+</div>
+
   <div class="container">
-    <h2>Order Slip</h2>
+    <!-- <h2 style="text-align: center; margin-bottom: 15px;">Order Slip</h2> -->
+    
     <table class="table table-striped">
       <thead>
         <th *ngFor="let col of cols" style="text-align: center; ">
@@ -132,5 +187,12 @@
       >
       <hr style="border:1px solid black;width:100%;" />
     </div>
+  </div>
+
+  
+    <div style="text-align: center; margin-top: 70px;">
+      <!-- <p class="bd-highlight font-weight-bold">{{settingHeader.header}}</px > -->
+        <h2 nz-title>{{settingHeader.footer}}</h2>
+    
   </div>
 </div>

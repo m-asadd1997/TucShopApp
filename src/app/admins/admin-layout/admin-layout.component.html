@@ -30,11 +30,11 @@
               </ul>
             </li>
 
-            <li nz-submenu nzTitle="Dashboard" nzIcon="dashboard">
-              <ul>
-              <a [routerLink]="'dashboard'"><li nz-menu-item >View</li></a>
-              </ul>
+            <li nz-menu-item [routerLink]="'dashboard'">
+              <i nz-icon nzType="dashboard"></i>
+              <span>Dashboard</span>
             </li>
+          
             <li nz-submenu nzTitle="Transactions" nzIcon="transaction">
               <ul>
                 <a [routerLink]="'transactions'"><li nz-menu-item>Total Transactions</li></a>
@@ -42,7 +42,11 @@
               </ul>
 
             </li>
-       
+
+            <li nz-menu-item [routerLink]="'setting'">
+              <i nz-icon nzType="setting"></i>
+              <span>Setting</span>
+            </li>
 
           </ul>
         </nz-sider>

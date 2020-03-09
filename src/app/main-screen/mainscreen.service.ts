@@ -10,16 +10,44 @@ export class MainscreenService {
 
   private productSource = new Subject<Object>();
   productMessage$ = this.productSource.asObservable();
+
+
+private productQuantityUpdateToProductListing = new Subject<any>();
+productQuantityUpdateToProductListing$= this.productQuantityUpdateToProductListing.asObservable();
+
+
+// private productQuantityUpdateToCheckout = new Subject<any>();
+// productQuantityUpdateToCheckout$= this.productQuantityUpdateToCheckout.asObservable();
+
+
   constructor(private http:HttpClient) { }
 
   private getCategoriesURL=environment.baseUrl+"api/category/";
   private getProductsURL=environment.baseUrl+"api/products/category/";
   private postRequestedProductURL=environment.baseUrl+"api/products/postreqproduct";
+
   private getRecenttransactionsURL=environment.baseUrl+"api/transaction/recent-transactions";
+
+
+  private getAutoCompleteRequestURL=environment.baseUrl+"api/dashboard/autocomplete/";
+  private getAllProductURL=environment.baseUrl+"api/products/";
+  private getSettingURL= environment.baseUrl+"api/dashboard/settings";
 
   public sendMessage(obj: Object){
     this.productSource.next(obj);
   }
+
+
+  public sendQuantityUpdateToProductListing(obj){
+    this.productQuantityUpdateToProductListing.next(obj);
+  }
+
+
+
+  // public sendQuantityUpdateToCheckout(obj){
+  //   this.productQuantityUpdateToCheckout.next(obj);
+  // }
+
 
   public getCategories():Observable<any>{
     return this.http.get(this.getCategoriesURL);
@@ -33,7 +61,20 @@ export class MainscreenService {
     return this.http.post(this.postRequestedProductURL,Obj);
   }
   public saveTransaction(transaction:object):Observable<any>{
-    return this.http.post("http:",transaction)
+    return this.http.post("http:",transaction);
+  }
+
+  public getRequestForProductCount(keyword:any):Observable<any>{
+    return this.http.get(this.getAutoCompleteRequestURL+keyword);
+   }
+
+   public getAllProducts():Observable<any>{
+   return this.http.get(this.getAllProductURL);
+
+
+   }
+   public getSetting():Observable<any>{
+    return this.http.get(this.getSettingURL);
   }
 
   public recentTransactions():Observable<any>{
