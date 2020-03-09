@@ -1,0 +1,57 @@
+<div ng-row>
+  <div nz-col nzSpan="8" nzOffset="10">
+    <h1>Transactions</h1>
+    </div>
+</div>
+<br>
+<div ng-row>
+  <div nz-col nzSpan="12" nzOffset="7">
+<nz-date-picker
+[nzDisabledDate]="disabledStartDate"
+nzShowTime
+nzFormat="yyyy-MM-dd"
+[(ngModel)]="startValue"
+nzPlaceHolder="Start"
+(ngModelChange)="onStartChange($event)"
+(nzOnOpenChange)="handleStartOpenChange($event)"
+>
+</nz-date-picker>
+<nz-date-picker
+[nzDisabledDate]="disabledEndDate"
+nzShowTime
+nzFormat="yyyy-MM-dd"
+[(ngModel)]="endValue"
+nzPlaceHolder="End"
+[nzOpen]="endOpen"
+(ngModelChange)="onEndChange($event)"
+(nzOnOpenChange)="handleEndOpenChange($event)"
+>
+</nz-date-picker>
+  </div>
+</div>
+<div ng-row>
+  <div nz-col nzSpan="6" nzOffset="10">
+<button nz-button nzType="primary" [nzSize]="size" nzShape="round">
+  <i nz-icon nzType="search"></i>Search</button>
+  </div>
+  </div>
+<nz-table #basicTable [nzData]="allTransactions">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Product</th>
+        <th>Amount</th>
+        <th>Created by</th>
+        <th>Updated by</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of basicTable.data">
+        <td>{{ data.date }}</td>
+        <td>{{ data.product }}</td>
+        <td>{{ data.amount }}</td>
+        <td>{{ data.createdBy }}</td>
+        <td>{{ data.updatedBy }}</td>
+      </tr>
+    </tbody>
+  </nz-table>

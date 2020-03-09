@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MainscreenService } from '../main-screen/mainscreen.service';
 import { ActivatedRoute } from '@angular/router';
+import { NzMessageComponent } from 'ng-zorro-antd';
 
 @Component({
   selector: 'app-product-listing',
@@ -10,33 +11,61 @@ import { ActivatedRoute } from '@angular/router';
 export class ProductListingComponent implements OnInit {
 
   productsArray = [] = [];
- constructor(private prodService:MainscreenService,private activeRoute: ActivatedRoute) { }
+  params: any;
+  constructor(private prodService: MainscreenService, private activeRoute: ActivatedRoute) { }
 
 
   ngOnInit() {
-    this.activeRoute.paramMap.subscribe(
-          params=> {
-               console.log("params",params['params'].category)
-              this.getProducts(params['params'].category)
-          }
-       );
 
-   // console.log(urlCategory);
-    //this.getProducts(urlCategory)
+    this.prodService.productQuantityUpdateToProductListing$.subscribe(d=>{
+      console.log(d);
+      console.log(this.productsArray)
+      let index=this.productsArray.findIndex(prod=>{
+        
+        return   prod.name==d.productTitle
+      });
+     this.productsArray[index].qty=d.productqty;
+    })
+
+
+
+    this.activeRoute.paramMap.subscribe(
+      params => {
+
+        this.getProducts(params['params'].category)
+
+
+      }
+
+    );
+
+
+
+    this.getAllProducts();
+
+
   }
 
-  getProducts(str : any){
-   console.log(str)
-   
-    this.prodService.getProducts(str).subscribe(d=>{
+  getProducts(str: any) {
+
+    this.prodService.getProducts(str).subscribe(d => {
       this.productsArray = d.result;
-      console.log(d.result)
     })
   }
 
-  sendProducttoCheckout(prod :Object){
-    console.log(prod)
-    this.prodService.sendMessage(prod);
-    
+  sendProducttoCheckout(prod,card) {
+    if (prod.qty <= 0) {
+    console.log(card)
+    }
+    else {
+      prod.qty--;
+      this.prodService.sendMessage(prod);
+    }
+  }
+
+  getAllProducts() {
+    this.prodService.getAllProducts().subscribe(d => {
+      this.productsArray = d;
+    })
   }
 }

@@ -1,9 +1,8 @@
-<form nz-form [nzLayout]="'inline'" >
-
+<form nz-form [nzLayout]="'inline'" #myForm="ngForm">
     <nz-form-item>
       <nz-form-control >
         <nz-input-group nzPrefixIcon="user" class="nz-group">
-          <input  required ngform #category="ngModel" name="productTitle" [(ngModel)]="add_categories.name" nz-input placeholder="Category Name" />
+          <input  required  ngform #category="ngModel" name="productTitle" [(ngModel)]="add_categories.name" nz-input placeholder="Category Name" />
           
         </nz-input-group>
         <div *ngIf="category.touched && category.invalid"> 
@@ -12,39 +11,14 @@
       </nz-form-control>
     </nz-form-item>
     <br>
-    <!-- <nz-form-item>
-      <nz-form-control nzErrorTip="Please input your Product Price!">
-        <nz-input-group   nzPrefixIcon="user" class="nz-group">
-          <input #icon="ngModel"  required name="productPrice" [(ngModel)]="add_categories.icons" nz-input type="text"
-            placeholder="Icon Source" />
-        </nz-input-group>
-        <div *ngIf="icon.touched && icon.invalid"> 
-            icon is Required
-      </div>
-      </nz-form-control>
-    </nz-form-item> -->
-
-    <input type="file" (change)="handleCategoryBanner($event.target.files)" accept=".jpeg,.png,.jpg">
-  
-  
-  
+    <input type="file" (change)="handleCategoryBanner($event.target.files)"  accept=".jpeg,.png,.jpg">
     <br>
-
-  
-  
     <br>
-  
-
-  
-  
     <br>
     <nz-form-item>
       <nz-form-control>
-        <button nz-button nzType="primary" (click)="submit()">Save</button>
+        
+        <button nz-button nzType="primary" (click)="submit(myForm);"  [disabled]="category.invalid">Save</button>
       </nz-form-control>
     </nz-form-item>
-  
-  
-  
-  
   </form>

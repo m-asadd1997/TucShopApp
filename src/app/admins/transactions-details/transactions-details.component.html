@@ -1,0 +1,22 @@
+<div style="margin-left: 45%; margin-bottom: 3%;">   <button (click)="backToDashboard()" nz-button nzType="primary">Back</button></div>
+<nz-table #basicTable1 [nzData]="transactionDetails" [nzShowPagination]="false">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Amount</th>
+        <th>Created By</th>
+        
+       
+        
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data1 of basicTable1.data">
+        <td>{{data1.date}}</td>
+        <td>{{data1.amount}}</td>
+        <td>{{data1.createdBy}}</td>
+        
+        
+      </tr>
+    </tbody>
+  </nz-table>
