@@ -22,34 +22,6 @@ export class ProductAddComponent implements OnInit {
   submitForm(): void {
 
   }
-<<<<<<< HEAD
-  submit(){
-    // console.log(this.addProducts);
-    this.formData.append('name',this.addProducts.productTitle)
-    
-    this.formData.append('category',this.addProducts.category);
-    this.formData.append('image',this.addProducts.image);
-    // console.log(typeof( this.addProducts.image))
-
-    this.formData.append('costprice',this.addProducts.costPrice);
-    this.formData.append('price',this.addProducts.salePrice);
-    this.formData.append('quantity',this.addProducts.productQuantity);
-    //this.formData.append('description',this.addProducts.description);
-
-    //this.formData.append('productQuatity',this.addProducts.productQuantity);
-    //this.formData.forEach(d=>{
-     // console.log(d);
-    
-
-    
-
-    
-  this.service.postProduct(this.formData).subscribe(
-    d=>{
-      console.log(d);
-    }
-  );
-=======
   submit(myForm: NgForm) {
    
     console.log(this.formData);
@@ -90,7 +62,6 @@ export class ProductAddComponent implements OnInit {
       this.addProducts.image = null;
       console.log(this.addProducts.image)
     }
->>>>>>> 27a2a38045d9c0e2072c1e21ff217340f7644998
 
   }
 
