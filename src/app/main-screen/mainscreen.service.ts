@@ -56,9 +56,6 @@ productQuantityUpdateToProductListing$= this.productQuantityUpdateToProductListi
     return this.http.post(this.postRequestedProductURL,Obj);
   }
   public saveTransaction(transaction:object):Observable<any>{
-<<<<<<< HEAD
-    return this.http.post("http://localhost:8080/api/transaction/post",transaction)
-=======
     return this.http.post("http:",transaction);
   }
 
@@ -73,6 +70,5 @@ productQuantityUpdateToProductListing$= this.productQuantityUpdateToProductListi
    }
    public getSetting():Observable<any>{
     return this.http.get(this.getSettingURL);
->>>>>>> 27a2a38045d9c0e2072c1e21ff217340f7644998
   }
 }
