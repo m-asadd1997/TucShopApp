@@ -32,7 +32,19 @@ export class CheckoutComponent implements OnInit {
   ngOnInit() {
     this.interactionServ.getSetting().subscribe(d=>{
       this.settingHeader=d[0];
-      console.log(this.settingHeader);
+      if(!this.settingHeader){
+        this.settingHeader={
+          header:"",
+          logo:'',
+          footer:"",
+          headerName:""
+        }
+      }
+      else if(this.settingHeader.headerName==undefined){
+        this.settingHeader.headerName=""
+      }
+      else if(this.settingHeader.header==undefined){this.settingHeader.header=""}
+      else if(this.settingHeader.footer==undefined){this.settingHeader.footer=""}
   })
 
     this.populateCols();
@@ -194,7 +206,7 @@ console.log(obj);
       return false;
     }
   }
-  settingHeader={}
+  settingHeader
   print(): void {
     
     this.saveTransaction();
