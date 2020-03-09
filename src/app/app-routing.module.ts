@@ -5,8 +5,8 @@ import { LoginPageComponent } from './login-page/login-page.component';
 
 
 const routes: Routes = [
-  {path:'', component:LoginPageComponent},
-  {path:'userDash', component:MainScreenComponent},
+  {path:'login',  component:LoginPageComponent},
+  {path:'', component:MainScreenComponent},
   {path:'categories/:category',component:MainScreenComponent},
   {path:'admin', loadChildren:'./admins/admins.module#AdminsModule'}
   ];
