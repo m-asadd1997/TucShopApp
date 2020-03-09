@@ -15,7 +15,7 @@ export class SettingComponent implements OnInit {
 
   settingObj: setting = new setting();
   formData = new FormData();
-
+  
   ngOnInit() {
   }
 
@@ -29,6 +29,7 @@ export class SettingComponent implements OnInit {
     this.formData.append('header', this.settingObj.header)
     this.formData.append('logo', this.settingObj.logo)
     this.formData.append('footer', this.settingObj.footer)
+    this.formData.append('headerName',this.settingObj.headerName)
     console.log(this.settingObj.logo);
     console.log(this.settingObj.header);
     console.log(this.settingObj.footer);
@@ -43,6 +44,7 @@ export class SettingComponent implements OnInit {
     this.formData.delete('header');
     this.formData.delete('logo');
     this.formData.delete('footer');
+    this.formData.delete('headerName')
 
   }
 }
