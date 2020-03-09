@@ -24,6 +24,7 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { AdminDashboardComponent } from './admins/admin-dashboard/admin-dashboard.component';
 import { ChartistModule } from 'ng-chartist';
+import { RecentTransactionsComponent } from './recent-transactions/recent-transactions.component';
 
 
 registerLocaleData(en);
@@ -35,6 +36,7 @@ registerLocaleData(en);
     ProductListingComponent,
     CheckoutComponent,
     LoginPageComponent,
+    RecentTransactionsComponent,
      
    
   ],

@@ -15,6 +15,7 @@ export class MainscreenService {
   private getCategoriesURL=environment.baseUrl+"api/category/";
   private getProductsURL=environment.baseUrl+"api/products/category/";
   private postRequestedProductURL=environment.baseUrl+"api/products/postreqproduct";
+  private getRecenttransactionsURL=environment.baseUrl+"api/transaction/recent-transactions";
 
   public sendMessage(obj: Object){
     this.productSource.next(obj);
@@ -33,5 +34,9 @@ export class MainscreenService {
   }
   public saveTransaction(transaction:object):Observable<any>{
     return this.http.post("http:",transaction)
+  }
+
+  public recentTransactions():Observable<any>{
+    return this.http.get(this.getRecenttransactionsURL)
   }
 }

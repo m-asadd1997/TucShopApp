@@ -1,11 +1,12 @@
 import { NgModule, Component } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { MainScreenComponent } from './main-screen/main-screen.component';
-
+import { LoginPageComponent } from './login-page/login-page.component';
 
 
 const routes: Routes = [
-  {path:'', component:MainScreenComponent},
+  {path:'', component:LoginPageComponent},
+  {path:'userDash', component:MainScreenComponent},
   {path:'categories/:category',component:MainScreenComponent},
   {path:'admin', loadChildren:'./admins/admins.module#AdminsModule'}
   ];

@@ -1,0 +1,18 @@
+<nz-table #headerTable  [nzPageSize]="50" [nzScroll]="{ y: '240px' }">
+    <thead>
+      <tr>
+        <th nzWidth="100px">Name</th>
+        <th nzWidth="150px">Date</th>
+        <th>Amount</th>
+        <th>Products</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let pdata of data">
+        <td>{{ pdata.createdBy }}</td>
+        <td>{{ pdata.date }}</td>
+        <td>{{ pdata.amount }}</td>
+        <td ><div *ngFor="let p of pdata.countArray">{{ p.name }}({{p.count}}),</div></td>
+      </tr>
+    </tbody>
+  </nz-table>
