@@ -25,9 +25,14 @@ productQuantityUpdateToProductListing$= this.productQuantityUpdateToProductListi
   private getCategoriesURL=environment.baseUrl+"api/category/";
   private getProductsURL=environment.baseUrl+"api/products/category/";
   private postRequestedProductURL=environment.baseUrl+"api/products/postreqproduct";
+
+  private getRecenttransactionsURL=environment.baseUrl+"api/transaction/recent-transactions";
+
+
   private getAutoCompleteRequestURL=environment.baseUrl+"api/dashboard/autocomplete/";
   private getAllProductURL=environment.baseUrl+"api/products/";
   private getSettingURL= environment.baseUrl+"api/dashboard/settings";
+
   public sendMessage(obj: Object){
     this.productSource.next(obj);
   }
@@ -70,5 +75,9 @@ productQuantityUpdateToProductListing$= this.productQuantityUpdateToProductListi
    }
    public getSetting():Observable<any>{
     return this.http.get(this.getSettingURL);
+  }
+
+  public recentTransactions():Observable<any>{
+    return this.http.get(this.getRecenttransactionsURL)
   }
 }
