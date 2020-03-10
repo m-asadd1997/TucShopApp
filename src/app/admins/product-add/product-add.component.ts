@@ -4,6 +4,7 @@ import { FormBuilder, NgForm } from '@angular/forms';
 import { addProduct } from './addProduct';
 import { FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { NzMessageComponent, NzMessageService } from 'ng-zorro-antd';
 
 
 @Component({
@@ -18,49 +19,74 @@ export class ProductAddComponent implements OnInit {
   formData = new FormData();
 
 
-  constructor(private fb: FormBuilder, private service: AdminServiceService, private activateRoute: ActivatedRoute) { }
+  constructor(private fb: FormBuilder, private service: AdminServiceService, private activateRoute: ActivatedRoute, private message: NzMessageService) { }
   submitForm(): void {
 
   }
   submit(myForm: NgForm) {
-   
+debugger
     console.log(this.formData);
     //debugger
     this.formData.append('name', this.addProducts.productTitle)
     this.formData.append('category', this.addProducts.category);
+
     this.formData.append('image', this.addProducts.image);
     this.formData.append('costprice', this.addProducts.costPrice);
-    this.formData.append('price', this.addProducts.salePrice);
+    this.formData.append('price', this.addProducts.salePrice);   //sale price
     this.formData.append('quantity', this.addProducts.productQuantity);
     console.log(this.formData);
     if (this.id != null) {
-      this.service.updateProduct(this.id, this.formData).subscribe();
-      myForm.reset();
-      this.formData.delete("name");
-      this.formData.delete("category");
-      this.formData.delete("image");
-      this.formData.delete("costprice");
-      this.formData.delete("price");
-      this.formData.delete("quantity");
-      console.log(this.addProducts.image)
-      this.addProducts.image = null;
-      console.log(this.addProducts.image)
+     
+     
+      if (Number( this.addProducts.salePrice) <= Number( this.addProducts.costPrice)) 
+      { 
+        this.message.warning("Sale Price Must be Greater than Cost Price ") 
+      }
+      else if(this.addProducts.image==null){this.message.warning("Set Image First")}  
+
+      else 
+      {
+        this.service.updateProduct(this.id, this.formData).subscribe(d => 
+          {
+          this.message.success("Updated Successfully", { nzDuration: 3000 });
+        }
+        );
+
+
+        myForm.reset();
+        this.formData.delete("name");
+        this.formData.delete("category");
+        this.formData.delete("image");
+        this.formData.delete("costprice");
+        this.formData.delete("price");
+        this.formData.delete("quantity");
+        console.log(this.addProducts.image)
+        this.addProducts.image = null;
+        console.log(this.addProducts.image)
+      }
 
     }
 
     else {
-      this.service.postProduct(this.formData).subscribe();
-      this.addProducts.image = null;
-      myForm.reset();
-      this.formData.delete("name");
-      this.formData.delete("category");
-      this.formData.delete("image");
-      this.formData.delete("costprice");
-      this.formData.delete("price");
-      this.formData.delete("quantity");
-      console.log(this.addProducts.image)
-      this.addProducts.image = null;
-      console.log(this.addProducts.image)
+
+      if (Number( this.addProducts.salePrice) <= Number( this.addProducts.costPrice)) { this.message.warning("Sale Price Must be Greater than Cost Price ") }
+      else if(this.addProducts.image==null){this.message.warning("Set Image First")}
+      else {
+        this.service.postProduct(this.formData).subscribe(d => {
+          this.message.success("Added Successfully", { nzDuration: 3000 });
+        });
+        this.addProducts.image = null;
+        myForm.reset();
+        this.formData.delete("name");
+        this.formData.delete("category");
+        this.formData.delete("image");
+        this.formData.delete("costprice");
+        this.formData.delete("price");
+        this.formData.delete("quantity");
+        console.log(this.addProducts.image)
+        this.addProducts.image = null;
+        console.log(this.addProducts.image)
+      }
     }
 
   }
