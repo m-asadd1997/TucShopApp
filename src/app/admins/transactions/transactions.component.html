@@ -32,12 +32,16 @@ nzPlaceHolder="End"
 </div>
 <!-- <button type="submit" value="Search" style="margin-left: 40%;">Search</button> -->
 <div nz-row>
-  <div nz-col nzSpan="6" nzOffset="10">
+  <div nz-col nzSpan="4" nzOffset="8">
 <button nz-button nzType="primary" [nzSize]="size" nzShape="round">
   <i nz-icon nzType="search"></i>Search</button>
   </div>
+  <div nz-col nzSpan="4" nzOffset="">
+    <button nz-button nzType="primary" [nzSize]="size" nzShape="round" (click)="exportexcel()">
+      <i nz-icon nzType="export"></i>Export</button>
+      </div>
   </div>
-<nz-table #basicTable [nzData]="Transactions">
+<nz-table #basicTable id="table1"[nzData]="Transactions">
     <thead>
       <tr>
         <th>Date</th>

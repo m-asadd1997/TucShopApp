@@ -141,7 +141,7 @@
           [(nzVisible)]="isVisible"
           nzTitle="Checkout"
           nzOkText="Print"
-          nzCancelText="Continue"
+          nzCancelText="Continue Shopping "
           (nzOnOk)="print()"
           (nzOnCancel)="handleCancel()"
         >
@@ -153,8 +153,8 @@
 </nz-content>
 
 <div id="print-section" [hidden]="true">
-<div style="text-align: center;"  >
-  <img  [src]="settingHeader.logo" style="height: 100px; width: 100px;" alt="Hello">
+<div style="text-align: center;"   >
+  <img   *ngIf="imageVisible" [src]="settingHeader.logo" style="height: 100px; width: 100px;" alt="Hello">
 </div>
 <br> 
 <div style="text-align: center; margin-bottom: 50px;" >
