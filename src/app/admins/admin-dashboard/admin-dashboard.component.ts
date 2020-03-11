@@ -138,9 +138,18 @@ labels:[],series:[]
   totalTransaction;
   getTotalTransaction() {
     this.adminService.getTotalTransaction().subscribe(d => {
+      console.log(d) 
       this.totalTransaction = d.result;
+      
+      
 
     })
+
+console.log(this.totalTransaction)
+    if(this.totalTransaction===undefined)
+    {
+      this.totalTransaction=0;
+    }
   }
 
 

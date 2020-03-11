@@ -1,3 +1,6 @@
+<div style="margin-left: 20%; margin-top: 20px;" >
+    <nz-card style="width:700px;" nzTitle="Header and Footer" [nzExtra]="extraTemplate">
+     
 <form nzForm #myForm="ngForm" style="margin-top: 50px;">
 
    
@@ -5,10 +8,10 @@
         <nz-form-control>
             <div nz-row>
                 <div nz-col nzSpan="6">
-                    <h3 nz-title>Header Name</h3>
+                    <h4 nz-title>Header Name</h4>
                 </div>
                 <div nz-col nzSpan="12" >
-                    <input type="text" name="headerName" style="width: 100%; height: 40px;;" [(ngModel)]="settingObj.headerName">
+                    <input type="text" name="headerName" nz-input [(ngModel)]="settingObj.headerName">
                    
                 </div>
             </div>            
@@ -21,7 +24,7 @@
             <div nz-row>
 
                 <div nz-col nzSpan="6">
-                    <h3 nz-title>Header</h3>
+                    <h4 nz-title>Header</h4>
                 </div>
 
 
@@ -40,7 +43,7 @@
         <nz-form-control>
             <div nz-row>
                 <div nz-col nzSpan="6">
-                    <h3 nz-title>Logo</h3>
+                    <h4 nz-title>Logo</h4>
                 </div>
 
 
@@ -64,7 +67,7 @@
         <nz-form-control>
             <div nz-row>
                 <div nz-col nzSpan="6">
-                    <h3 nz-title>Footer</h3>
+                    <h4 nz-title>Footer</h4>
                 </div>
 
 
@@ -84,8 +87,8 @@
     <nz-form-item>
         <nz-form-control>
             <div nz-row>
-                <div nz-col nzSpan="6"></div>
-                <div nz-col nzSpan="6">
+              
+                <div nz-col style="text-align: center;">
                     <button nz-button nzType="primary" (click)="submitSetting(myForm)">Submit</button>
                 </div>
 
@@ -98,3 +101,5 @@
         </nz-form-control>
     </nz-form-item>
 </form>
+</nz-card>
+</div>
