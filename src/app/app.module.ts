@@ -25,7 +25,7 @@ import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { AdminDashboardComponent } from './admins/admin-dashboard/admin-dashboard.component';
 import { ChartistModule } from 'ng-chartist';
 import { RecentTransactionsComponent } from './recent-transactions/recent-transactions.component';
-
+import { NzBadgeModule } from 'ng-zorro-antd/badge';
 import { NzAutocompleteModule } from 'ng-zorro-antd/auto-complete';
 
 
@@ -64,7 +64,8 @@ registerLocaleData(en);
     NzMenuModule,
     ReactiveFormsModule,
     ChartistModule,
-    NzAutocompleteModule
+    NzAutocompleteModule,
+    NzBadgeModule
 
 
   ],

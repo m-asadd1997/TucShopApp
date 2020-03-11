@@ -60,12 +60,15 @@
           <nz-card nzHoverable style="width:100%">
             <div nz-row>
               <div nz-col nzSpan="4">
+                <nz-badge [nzCount]="data.productQuantity">
                 <nz-avatar
                   [nzShape]="'square'"
                   [nzSize]="64"
                   [nzSrc]="data.productImage"
                   [nzIcon]="'user'"
+            
                 ></nz-avatar>
+              </nz-badge>
               </div>
               <div nz-col nzSpan="4" nzOffset="1">
                 <h4 nz-title style="font-size: 15px;">
@@ -79,7 +82,7 @@
               </div>
               <div nz-col nzSpan="6" style="font-size: 15px;">
                 <h4>
-                  Quantity: {{ data.productQuantity }}
+                  <!-- Quantity: {{ data.productQuantity }} -->
                   <nz-button-group>
 
                     <!-- Add Buttons -->
