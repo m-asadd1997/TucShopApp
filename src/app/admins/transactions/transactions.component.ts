@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminServiceService } from './../admin-service.service';
 import { MainscreenService } from './../../main-screen/mainscreen.service';
+// import * as XLSX from 'xlsx'; 
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-transactions',
@@ -87,5 +89,26 @@ constructor(private service:AdminServiceService) { }
   }
 
   
+
+
+
+
+//Export Work
+
+exportexcel()
+    {
+     
+      //  let element = document.getElementById('table1'); 
+      //  const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
+
+    
+      //  const wb: XLSX.WorkBook = XLSX.utils.book_new();
+      //  XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+    
+      //  XLSX.writeFile(wb, "Transaction.xlsx");
+			
+    }
+
 
 }
