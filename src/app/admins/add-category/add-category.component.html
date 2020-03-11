@@ -1,3 +1,6 @@
+<div style="margin-left: 20%; margin-top: 20px;" >
+  <nz-card style="width:550px;" nzTitle="Category Add" [nzExtra]="extraTemplate">
+   
 <form nz-form [nzLayout]="'inline'" #myForm="ngForm">
     <nz-form-item>
       <nz-form-control >
@@ -11,14 +14,20 @@
       </nz-form-control>
     </nz-form-item>
     <br>
-    <input type="file" (change)="handleCategoryBanner($event.target.files)"  accept=".jpeg,.png,.jpg">
+ 
+    <input type="file" (change)="handleCategoryBanner($event.target.files)"  accept=".jpeg,.png,.jpg" style="margin-top: 50px;">
+  
     <br>
     <br>
     <br>
-    <nz-form-item>
+    <div style="text-align: center;">     <nz-form-item>
       <nz-form-control>
         
         <button nz-button nzType="primary" (click)="submit(myForm);"  [disabled]="category.invalid">Save</button>
       </nz-form-control>
     </nz-form-item>
+  </div>
+
   </form>
+  </nz-card>
+  </div>
