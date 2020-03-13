@@ -1,7 +1,12 @@
-
-
-
-<div style="background: #ECECEC;padding:10px;">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body >
+  <div style="background: #ECECEC;padding:10px;">
     <div nz-row [nzGutter]="8">
       <div nz-col [nzSpan]="8">
         <nz-card nzTitle="Total Products"  (click)="showModalTotalProducts()">
@@ -41,12 +46,14 @@
         <div nz-col [nzSpan]="16"  style="width:70%">
 
 
-            <nz-card  [nzBordered]="false" nzTitle="Sale Analysis" [nzExtra]="extraTemplate">
-                <x-chartist
+            <nz-card   [nzBordered]="false" nzTitle="Sale Analysis" [nzExtra]="extraTemplate" style="widows: 100px;">
+                <x-chartist id="chartist"
+                *ngIf="showChart"
                 [type]="type"
                 [data]="data"
                 [options]="options"
                 [events]="events"
+
               ></x-chartist>
               </nz-card>
         </div>
@@ -79,6 +86,10 @@
 
 
   </div>
+
+</body>
+</html>
+
 
 
   <!-- <nz-modal 

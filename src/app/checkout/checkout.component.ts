@@ -60,8 +60,8 @@ export class CheckoutComponent implements OnInit {
       let found = this.checkoutProductsArray.findIndex(
         p => p.productTitle == d["name"]
       );
-      console.log(found);
-      console.log("Subscription", d)
+      //console.log(found);
+      //console.log("Subscription", d)
 
       if (d['qty'] <= 0) {
         this.addButtonDisbale = true;
@@ -75,7 +75,7 @@ export class CheckoutComponent implements OnInit {
         this.checkoutProductsArray[found]["productQuantity"] =
           this.checkoutProductsArray[found]["productQuantity"] + 1;
         this.checkoutProductsArray[found].productqty = d["qty"];
-        console.log(this.checkoutProductsArray)
+        //console.log(this.checkoutProductsArray)
       } else {
         this.checkoutProductsArray.push({
           id: d["id"],
@@ -88,7 +88,7 @@ export class CheckoutComponent implements OnInit {
 
         }
         );
-        console.log(this.checkoutProductsArray)
+        //console.log(this.checkoutProductsArray)
         this.total += d["price"];
 
       }
@@ -117,7 +117,7 @@ export class CheckoutComponent implements OnInit {
     }
     this.interactionServ.saveTransaction(request).subscribe(
       data => {
-        console.log(data);
+        //console.log(data);
         this.message.success('amount added successfully', {
           nzDuration: 3000
         });
@@ -145,7 +145,7 @@ export class CheckoutComponent implements OnInit {
 
   addProduct(obj) {
 
-console.log(obj);
+//console.log(obj);
    
     let index = this.checkoutProductsArray.findIndex(p => p.id == obj["id"]);
 
@@ -254,7 +254,7 @@ console.log(obj);
       this.message.success('Requested Product saved successfully', {
         nzDuration: 3000
       });
-      console.log(d);
+      //console.log(d);
     });
   }
 
@@ -270,7 +270,7 @@ console.log(obj);
   getRequestForProductCount(value: any) {
     this.interactionServ.getRequestForProductCount(value).subscribe(d => {
       this.requestProduct = d.result;
-      console.log(this.requestProduct);
+      //console.log(this.requestProduct);
 
     });
   }
