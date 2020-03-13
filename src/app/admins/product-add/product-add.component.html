@@ -5,7 +5,7 @@
 <form nz-form [nzLayout]="'inline'" #myForm="ngForm" autocomplete="off">
   <nz-form-item>
     <nz-form-control nzErrorTip="Please input your Product Title!">
-      <nz-input-group nzPrefixIcon="user" class="nz-group">
+      <nz-input-group nzPrefixIcon="project" class="nz-group">
         <input required name="productTitle" #title="ngModel" [(ngModel)]="addProducts.productTitle" nz-input
           placeholder="Product Title" required />
       </nz-input-group>
@@ -19,12 +19,12 @@
   <br>
   <nz-form-item>
     <nz-form-control nzErrorTip="Please input your Product Price!">
-      <nz-input-group nzPrefixIcon="user" class="nz-group">
-        <input required #costprice="ngModel" name="costPrice" [(ngModel)]="addProducts.costPrice" nz-input type="text"
+      <nz-input-group nzPrefixIcon="dollar" class="nz-group">
+        <input required #costPrice="ngModel" name="costPrice" [(ngModel)]="addProducts.costPrice" nz-input type="text"
           placeholder="Cost Price" required />
       </nz-input-group>
 
-      <div *ngIf="costprice.touched && costprice.invalid">
+      <div *ngIf="costPrice.touched && costPrice.invalid">
       Cost Price is Required
       </div>
     </nz-form-control>
@@ -32,7 +32,7 @@
 <br>
   <nz-form-item>
     <nz-form-control nzErrorTip="Please input your Product Price!">
-      <nz-input-group nzPrefixIcon="user" class="nz-group">
+      <nz-input-group nzPrefixIcon="dollar" class="nz-group">
         <input required #saleprice="ngModel" name="salePrice" [(ngModel)]="addProducts.salePrice" nz-input type="text"
           placeholder="Sale Price" required/>
       </nz-input-group>
@@ -45,7 +45,7 @@
   <br>
   <nz-form-item>
     <nz-form-control nzErrorTip="Please input your Product Price!">
-      <nz-input-group nzPrefixIcon="user" class="nz-group">
+      <nz-input-group nzPrefixIcon="account-book" class="nz-group">
         <input required #productQuantity="ngModel" name="productQuantity" [(ngModel)]="addProducts.productQuantity" nz-input type="text"
           placeholder="Product Quantity" required />
       </nz-input-group>

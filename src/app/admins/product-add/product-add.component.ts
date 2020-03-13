@@ -84,7 +84,7 @@ debugger
         this.formData.delete("price");
         this.formData.delete("quantity");
         console.log(this.addProducts.image)
-        this.addProducts.image = null;
+        // this.addProducts.image = null;
         console.log(this.addProducts.image)
       }
     }
