@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AdminServiceService } from './../admin-service.service';
 import { MainscreenService } from './../../main-screen/mainscreen.service';
 // import * as XLSX from 'xlsx'; 
-import * as XLSX from 'xlsx';
+//import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-transactions',
