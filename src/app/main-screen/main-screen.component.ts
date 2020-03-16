@@ -9,9 +9,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class MainScreenComponent implements OnInit {
 
-  CollapsedNav = true;
+  CollapsedNav:Boolean = true;
   categoriesArray = [] = [];
   isVisible :Boolean;
+  isCollapsed; 
   
   
  

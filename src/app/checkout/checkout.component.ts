@@ -16,6 +16,7 @@ export class CheckoutComponent implements OnInit {
   total = 0;
   isVisible = false;
   addButtonDisbale = false;
+  isOkLoading:boolean;
   // minusButtonDisbale = false;
   isVisible2 = false;
   imageVisible=false;
