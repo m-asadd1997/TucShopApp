@@ -20,7 +20,7 @@ export class MainScreenComponent implements OnInit {
   constructor(private mainScreenServ: MainscreenService,private activeRoute:ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
-
+    this.router.navigate(["categories/Products"]);
   
 
     this.getCat();
