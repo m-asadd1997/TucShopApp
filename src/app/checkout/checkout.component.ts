@@ -110,24 +110,6 @@ export class CheckoutComponent implements OnInit {
     this.isVisible = false;
   }
 
-  saveTransaction() {
-    let request = {
-      amount: this.total,
-      products: this.checkoutProductsArray
-    }
-    this.interactionServ.saveTransaction(request).subscribe(
-      data => {
-        //console.log(data);
-        this.message.success('amount added successfully', {
-          nzDuration: 3000
-        });
-      },
-
-
-    )
-
-
-  }
 
   handleCancel(): void {
     this.isVisible = false;
@@ -139,9 +121,6 @@ export class CheckoutComponent implements OnInit {
   showModal2(): void {
     this.isVisible2 = true;
   }
-
- 
-
 
   addProduct(obj) {
 
@@ -192,8 +171,7 @@ export class CheckoutComponent implements OnInit {
     }
 
   }
-
-
+  
   checkingQunatity(data){
     if(data.productqty>0)
     {
@@ -210,6 +188,22 @@ export class CheckoutComponent implements OnInit {
     else {
       return false;
     }
+  }
+
+  saveTransaction() {
+    
+    let request = {
+      amount: this.total,
+      products: this.checkoutProductsArray   
+    }
+    this.interactionServ.saveTransaction(request).subscribe(
+      data => {
+        //console.log(data);
+        this.message.success('amount added successfully', {
+          nzDuration: 3000
+        });
+      },
+    )
   }
   settingHeader
   print(): void {

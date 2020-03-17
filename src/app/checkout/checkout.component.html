@@ -1,18 +1,20 @@
 <nz-content>
   <nz-breadcrumb> </nz-breadcrumb>
   <div class="inner-content">
+
     <div nz-row>
-     
       <div nz-col nzSpan="3">
-        <h2>Cart :</h2>
+        <h2>Cart:</h2>
       </div>
       <div nz-col nzSpan="2">
         <img src="assets/cartCheckout.png" />
       </div>
-      <div nz-col nzSpan="4" nzOffset="10">
+      <div nz-col nzSpan="4" nzOffset="9">
       <button nz-button nzType="danger" (click)="showModal2()">
         <span>Request For Product</span>
       </button>
+
+
       <nz-modal
         
         [(nzVisible)]="isVisible2"
@@ -49,16 +51,16 @@
       </div>  
     </nz-modal>
     </div>
- 
-     
     </div>
+
     <hr style="color: black;" />
 
-    <div style="height: 520px; overflow-y: scroll;">
-      <div>
+    <div style="height: 450px; overflow-y: scroll;">
+     
         <div *ngFor="let data of checkoutProductsArray">
           <nz-card nzHoverable style="width:100%">
             <div nz-row>
+
               <div nz-col nzSpan="4">
                 <nz-badge [nzCount]="data.productQuantity">
                 <nz-avatar
@@ -66,50 +68,39 @@
                   [nzSize]="64"
                   [nzSrc]="data.productImage"
                   [nzIcon]="'user'"
-            
                 ></nz-avatar>
               </nz-badge>
               </div>
-              <div nz-col nzSpan="3" nzOffset="1">
-                <h4 nz-title style="font-size: 15px;">
+
+              <div nz-col nzSpan="4" nzOffset="2">
+                <h4 nz-title style="font-size: 15px;"><b>
                   {{ data.productTitle }}
-                </h4>
+                </b></h4>
               </div>
-              <div nz-col nzSpan="3" nzOffset="2">
+
+              <div nz-col nzSpan="2" nzOffset="1">
                 <h4 nz-title style="font-size: 15px;">
                   Price: {{ data.productPrice }}
                 </h4>
               </div>
-              <div nz-col nzSpan="6" style="font-size: 15px;">
+              <div nz-col nzSpan="6" nzOffset="2" style="font-size: 15px;">
                 <h4>
                   <!-- Quantity: {{ data.productQuantity }} -->
                   <nz-button-group>
-
                     <!-- Add Buttons -->
                     <button #btn nz-button  *ngIf="checkingQunatity(data)" (click)="addProduct(data)">
                       <i nz-icon nzType="plus"></i>
                     </button>
 
-
                     <button #btn1 nz-button  disabled *ngIf="!checkingQunatity(data)" >
                       <i nz-icon nzType="plus"></i>
                     </button>
-
-
                     <!--End of Add Buttons  -->
 
-
-
                     <!-- Minus Buttons -->
-
                     <button     nz-button (click)="removeProduct(data)">
                       <i nz-icon nzType="minus"></i>
                     </button>
-
-
-                   
-
-
                     <!-- End of Minus Buttons -->
                   </nz-button-group>
                 </h4>
@@ -117,26 +108,25 @@
 
               <div
                 nz-col
-                nzSpan="3"
+                nzSpan="2"
                 nzOffset="1"
                 (click)="removeProductFromCheckout(data)"
               >
                 <img src="assets/icons8-delete-bin-24.png" />
               </div>
+              
             </div>
           </nz-card>
         </div>
-      </div>
     </div>
-
     <hr style="color: black;" />
     <div nz-row>
-      <div nz-col nzSpan="12" style="margin-top: 10px;">
+      <div nz-col nzSpan="12" style="margin-top: 6px;">
         <h1>
           <b>Total: {{ total }}</b>
         </h1>
       </div>
-      <div nz-col nzSpan="6" nzOffset="6">
+      <div nz-col nzSpan="6" nzOffset="6" style="margin-top: 6px;">
         <button nz-button nzType="danger" (click)="showModal()">
           Checkout
         </button>
