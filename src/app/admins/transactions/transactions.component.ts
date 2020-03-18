@@ -59,6 +59,7 @@ constructor(private service:AdminServiceService) { }
 
   showTransactions(){
     this.service.getTransaction().subscribe(d=>{
+      console.log(d);
             this.Transactions = d
             this.allTransactions = this.Transactions
       }
