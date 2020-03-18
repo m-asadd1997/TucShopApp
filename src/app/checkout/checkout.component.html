@@ -58,9 +58,9 @@
     <div style="height: 450px; overflow-y: scroll;">
      
         <div *ngFor="let data of checkoutProductsArray">
-          <nz-card nzHoverable style="width:100%">
-            <div nz-row>
+          <nz-card id ="cardShadow" nzHoverable style="width:100%; margin-bottom: 6px;">
 
+            <div nz-row>
               <div nz-col nzSpan="4">
                 <nz-badge [nzCount]="data.productQuantity">
                 <nz-avatar
@@ -72,17 +72,22 @@
               </nz-badge>
               </div>
 
-              <div nz-col nzSpan="4" nzOffset="2">
+              <div nz-col nzSpan="6" nzOffset="3">
                 <h4 nz-title style="font-size: 15px;"><b>
-                  {{ data.productTitle }}
-                </b></h4>
+                  {{ data.productTitle }}</b>
+                  <br>
+                  <!-- Price: {{ data.productPrice }} -->
+                  <nz-tag [nzColor]="'#f50a0a'">Price {{data.productPrice}}</nz-tag>
+                </h4>
+                
               </div>
 
-              <div nz-col nzSpan="2" nzOffset="1">
+              <!-- <div nz-col nzSpan="2" nzOffset="1">
                 <h4 nz-title style="font-size: 15px;">
                   Price: {{ data.productPrice }}
                 </h4>
-              </div>
+              </div> -->
+  
               <div nz-col nzSpan="6" nzOffset="2" style="font-size: 15px;">
                 <h4>
                   <!-- Quantity: {{ data.productQuantity }} -->
@@ -114,8 +119,7 @@
               >
                 <img src="assets/icons8-delete-bin-24.png" />
               </div>
-              
-            </div>
+           </div>
           </nz-card>
         </div>
     </div>
