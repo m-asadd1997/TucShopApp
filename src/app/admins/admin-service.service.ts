@@ -31,9 +31,15 @@ export class AdminServiceService {
   private postSettingURL=environment.baseUrl+"api/dashboard/settings"; 
   private getChartDataURL=environment.baseUrl+"api/dashboard/salespermonth";
   private getSettingURL= environment.baseUrl+"api/dashboard/settings";
-  
+  private getTransactionByUserUrl=environment.baseUrl+"api/transaction/userTransaction/";
+  private scearchAllTransactionUrl=environment.baseUrl+"api/transaction/scearchAllTransaction";
+  private scearchtransactionofuserURL=environment.baseUrl+"api/transaction/scearchTransactions";
 
 
+ public getTransactionsByUser(user:any):Observable<any>{
+   return this.http.get(this.getTransactionByUserUrl+user);
+
+ }
 
 
   public getProducts(): Observable<any> {
@@ -100,8 +106,14 @@ export class AdminServiceService {
     return this.http.get(this.getTotalProductQuantityDetailsURL);
   }
 
+  public scearchAllTransaction(transaction:any ):Observable<any>{
+    return this.http.post(this.scearchAllTransactionUrl,transaction);
+  }
 
 
+public scearchtransactionofUser(transaction:any):Observable<any>{
+  return this.http.post(this.scearchtransactionofuserURL,transaction);
+}
 
   public getTotalOutOfStock():Observable<any>{
     return this.http.get(this.getTotalOutofStockURL);

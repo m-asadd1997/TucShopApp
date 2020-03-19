@@ -20,6 +20,8 @@ import { OutOfStockDetailsComponent } from './out-of-stock-details/out-of-stock-
 import { TransactionsDetailsComponent } from './transactions-details/transactions-details.component';
 import { SettingComponent } from './setting/setting.component';
 import { from } from 'rxjs';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
+
 import { ExportAsModule } from 'ngx-export-as';
 
 @NgModule({
@@ -48,6 +50,7 @@ import { ExportAsModule } from 'ngx-export-as';
     NgZorroAntdModule,
     NzFormModule,
     CommonModule,
+    NzSpinModule,
     FormsModule,
     ReactiveFormsModule ,
     ChartistModule,
