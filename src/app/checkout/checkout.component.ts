@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, Input } from "@angular/core";
+import { Component, OnInit, ViewEncapsulation, Input, HostListener } from "@angular/core";
 import { MainscreenService } from "../main-screen/mainscreen.service";
 import { NzModalService, ButtonConfig, NzButtonComponent } from "ng-zorro-antd";
 import { Checkout } from './Checkout';
@@ -12,6 +12,29 @@ import { debug } from 'util';
   styleUrls: ["./checkout.component.css"]
 })
 export class CheckoutComponent implements OnInit {
+
+  @HostListener("window:beforeunload", ["$event"]) unloadHandler(event: Event) {
+
+  
+    this.checkoutProductsArray.forEach(data=>{
+      let  obj={
+        "quantity":0,
+        "count":data.productQuantity
+      }
+      this.interactionServ.updateMinusAllQuantity(data.id,obj).subscribe(d=>{
+        if(d)
+        {
+          data.productqty=d.result.qty
+          let index = this.checkoutProductsArray.findIndex(p => p.id == data.id);
+          this.total = this.total - this.checkoutProductsArray[index].productPrice;
+          this.checkoutProductsArray.splice(index, 1);
+        }
+      })
+
+    })
+
+   
+ }
   checkoutProductsArray = [];
   productQuantity = 0;
   total = 0;
@@ -100,7 +123,8 @@ chekingSetting=false;
 
   removeProductFromCheckout(data) {
     let obj1={
-    "qty":0
+    "quantity":0
+    ,"count":data.productQuantity
     }
     console.log("===========================",data)
     this.interactionServ.updateMinusAllQuantity(data.id,obj1).subscribe(d=>{
@@ -203,9 +227,10 @@ chekingSetting=false;
   checkingMinusCall=false;
   removeProduct(obj) {
 
-    let obj1 = {
-      "qty": obj.productqty
-    };
+    let obj1={
+      "quantity":0
+      ,"count":obj.productQuantity
+      }
     // this.checkingMinusCall=true;
  
     this.interactionServ.updateMinusQuantity(obj["id"], obj1).subscribe(d => {
@@ -275,6 +300,12 @@ chekingSetting=false;
   //     },
   //   )
   // }
+
+
+
+
+
+
   settingHeader
   print(): void {
 
