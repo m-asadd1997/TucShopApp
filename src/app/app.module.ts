@@ -25,6 +25,8 @@ import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { AdminDashboardComponent } from './admins/admin-dashboard/admin-dashboard.component';
 import { ChartistModule } from 'ng-chartist';
 import { NzAutocompleteModule } from 'ng-zorro-antd/auto-complete';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
+
 
 
 registerLocaleData(en);
@@ -49,6 +51,7 @@ registerLocaleData(en);
     BrowserAnimationsModule,
     NzButtonModule,
     NzIconModule,
+    NzSpinModule,
     NzCardModule,
     NzLayoutModule,
     NzGridModule,

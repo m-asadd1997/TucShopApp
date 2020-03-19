@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminServiceService } from './../admin-service.service';
 import { MainscreenService } from './../../main-screen/mainscreen.service';
+import { Router } from '@angular/router';
+import { transactions } from './transactions';
 
 @Component({
   selector: 'app-transactions',
@@ -9,9 +11,13 @@ import { MainscreenService } from './../../main-screen/mainscreen.service';
 })
 export class TransactionsComponent implements OnInit {
 
-constructor(private service:AdminServiceService) { }
+constructor(private service:AdminServiceService,private router:Router) { }
 
+transactionobj:transactions=new transactions();
   Transactions = [];
+  checkdate:string;
+  display:boolean=false;
+  date:Date=new Date();
   allTransactions = [];
   startValue: Date | null = null;
   endValue: Date | null = null;
@@ -36,6 +42,7 @@ constructor(private service:AdminServiceService) { }
   }
 
   onEndChange(date: Date): void {
+    
     this.endValue = date;
   }
 
@@ -51,15 +58,25 @@ constructor(private service:AdminServiceService) { }
   }
 
   ngOnInit() {
+    console.log(this.date);
+   this.checkdate= this.changedatetostring(this.date);
+   console.log(this.checkdate);
+    
     this.showTransactions();
     
   }
 
   showTransactions(){
     this.service.getTransaction().subscribe(d=>{
-            this.Transactions = d
-            this.allTransactions = this.Transactions
+      console.log(d);
+     
+        this.Transactions = d;
+            this.allTransactions = this.Transactions;
+      
+      },error=>{
+        this.display=true;
       }
+
       )
 
     // this.service.getTransactions().subscribe(item => {
@@ -73,17 +90,63 @@ constructor(private service:AdminServiceService) { }
     this.service.deleteTransactions(data.id).subscribe();
     this.Transactions = this.Transactions.filter(d => d.id !== data.id);
   }
-  detailsTransactions(id){
-    this.service.getTransaction().subscribe(
-      b=> {
-        this.Transactions = b;
-        console.log(b);
-      }
-    )
+  detailsTransactions(user:String){
+    this.router.navigate(['admin/layout/userlist/'+user]);
+
+
+
+  //   this.service.getTransaction().subscribe(
+  //     b=> {
+  //       this.Transactions = b;
+  //       console.log(b);
+  //     }
+  //   )
+  // }
+
+  // show(v){
+  //   console.log(v);
   }
 
-  show(v){
-    console.log(v);
+  scearchTransactions(){
+
+    if(this.startValue==null|| this.endValue==null){
+      this.transactionobj.dateFrom=this.changedatetostring(new Date());
+      this.transactionobj.dateTill=this.changedatetostring(new Date());
+    }
+    else{
+
+    this.transactionobj.dateFrom=this.changedatetostring(this.startValue);
+    
+    this.transactionobj.dateTill=this.changedatetostring(this.endValue);
+    console.log(this.transactionobj);
+  
+    }
+    this.service.scearchAllTransaction(this.transactionobj).subscribe(data=>{
+    console.log(data);
+  
+    this.Transactions=data;
+
+    
+
+    },error=>{
+      this.display=true;
+    }
+  )
+
+
+
+    
+    
+
+  }
+
+  changedatetostring(date:Date){
+
+    let converteddate=date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getUTCDate();
+    return converteddate;
+
+
+
   }
 
   
