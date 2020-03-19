@@ -22,6 +22,7 @@ import { SettingComponent } from './setting/setting.component';
 import { from } from 'rxjs';
 import { ExportAsModule } from 'ngx-export-as';
 
+
 @NgModule({
 
   declarations: [LoginPageComponent, 
