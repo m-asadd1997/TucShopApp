@@ -71,5 +71,16 @@ getCategory(){
 })
 }
 
+
+isInputValid(form){
+  if(form.valid&&this.add_categories.icons)
+  {
+    return false;
+  }
+  else{
+    return true;
+  }
+}
+
 }
 

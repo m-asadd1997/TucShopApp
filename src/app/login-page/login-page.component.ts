@@ -6,7 +6,6 @@ import { NzMessageComponent, NzMessageService } from 'ng-zorro-antd';
 import { Router } from '@angular/router';
 import { login } from './login';
 
-
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
@@ -77,5 +76,5 @@ export class LoginPageComponent implements OnInit {
      }
 
     
-  
+
 }
