@@ -4,7 +4,7 @@ import { MainscreenService } from './../../main-screen/mainscreen.service';
 import { ExportAsService, ExportAsConfig } from 'ngx-export-as';
 
 // import * as XLSX from 'xlsx'; 
-// import * as XLSX from 'xlsx';
+
 
 @Component({
   selector: 'app-transactions',
@@ -61,6 +61,7 @@ constructor(private service:AdminServiceService,private exportAsService: ExportA
 
   showTransactions(){
     this.service.getTransaction().subscribe(d=>{
+      console.log(d);
             this.Transactions = d
             this.allTransactions = this.Transactions
       }

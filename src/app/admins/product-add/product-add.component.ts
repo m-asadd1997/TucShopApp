@@ -15,25 +15,33 @@ import { NzMessageComponent, NzMessageService } from 'ng-zorro-antd';
 export class ProductAddComponent implements OnInit {
   id: any;
   categories = []
-  addProducts: addProduct = new addProduct();
+  addProducts: addProduct ;
   formData = new FormData();
+
 typeBool=false;
 
-  constructor(private fb: FormBuilder, private service: AdminServiceService, private activateRoute: ActivatedRoute, private message: NzMessageService) { }
+ 
+  
+
+  constructor(private fb: FormBuilder, private service: AdminServiceService, private activateRoute: ActivatedRoute, private message: NzMessageService) { 
+    this.addProducts=new addProduct();
+    console.log(this.addProducts)
+  }
+
   submitForm(): void {
 
   }
   submit(myForm: NgForm) {
 
-    
-    this.formData.append('name', this.addProducts.productTitle)
-    this.formData.append('category', this.addProducts.category);
 
+    this.formData.append('name', this.addProducts.productTitle)
+    let idObj= this.categories.find(v=>v.name==this.addProducts.category);
+    this.formData.append('category',idObj.id);
     this.formData.append('image', this.addProducts.image);
     this.formData.append('costprice', this.addProducts.costPrice);
     this.formData.append('price', this.addProducts.salePrice);   //sale price
     this.formData.append('quantity', this.addProducts.productQuantity);
-  
+
     if (this.id != null) {
      
      
@@ -109,7 +117,7 @@ typeBool=false;
   getCategories(id) {
     this.service.getCategory().subscribe(d => {
       this.categories = d;
-      console.log(this.categories);
+
     })
   }
 
@@ -119,10 +127,15 @@ typeBool=false;
       this.addProducts.costPrice = d.costprice
       this.addProducts.productQuantity = d.qty
       this.addProducts.salePrice = d.price
-      this.addProducts.category = d.name
+      this.addProducts.category = d.category.name
       this.addProducts.image = d.image
+
+      console.log(this.addProducts.category)
+      
+      
     })
   }
+
 
 
 
@@ -137,4 +150,6 @@ typeBool=false;
       return true;
     }
   }
+
+
 }

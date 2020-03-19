@@ -123,6 +123,7 @@ chekingSetting=false;
     this.isVisible = false;
   }
 
+
   saveTransaction() {
     let request = {
       amount: this.total,
@@ -141,6 +142,7 @@ chekingSetting=false;
 
   }
 
+
   handleCancel(): void {
     this.isVisible = false;
     this.isVisible2 = false;
@@ -150,8 +152,6 @@ chekingSetting=false;
   showModal2(): void {
     this.isVisible2 = true;
   }
-
-
 
 
   addProduct(obj) {
@@ -240,8 +240,11 @@ chekingSetting=false;
   }
 
 
-  checkingQunatity(data) {
-    if (data.productqty > 0) {
+  
+  checkingQunatity(data){
+    if(data.productqty>0)
+    {
+
       return true;
     }
     else {
@@ -255,6 +258,22 @@ chekingSetting=false;
     else {
       return false;
     }
+  }
+
+  saveTransaction() {
+    
+    let request = {
+      amount: this.total,
+      products: this.checkoutProductsArray   
+    }
+    this.interactionServ.saveTransaction(request).subscribe(
+      data => {
+        //console.log(data);
+        this.message.success('amount added successfully', {
+          nzDuration: 3000
+        });
+      },
+    )
   }
   settingHeader
   print(): void {

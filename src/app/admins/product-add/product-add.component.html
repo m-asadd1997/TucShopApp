@@ -59,7 +59,7 @@
     <!-- <h5 style="margin-top: 5px;">Category: </h5> -->
     <nz-form-control class="nz-group">
       <nz-select name="category" [(ngModel)]="addProducts.category" class="phone-select" nzPlaceHolder="Select a Category" required >
-        <nz-option *ngFor="let item of categories" nzLabel={{item.name}}  nzValue={{item.id}}></nz-option>
+        <nz-option  *ngFor="let item of categories" nzLabel={{item.name}}  nzValue="{{item.name}}"></nz-option>
       </nz-select>
     </nz-form-control>
   </nz-form-item>
@@ -73,7 +73,9 @@
   <div style="text-align: center;">
   <nz-form-item>
     <nz-form-control class="nz-group">
+
       <button nz-button nzType="primary" [nzSize]="large  " (click)="submit(myForm)" [disabled]="isInputValid(myForm)" >Save</button>
+
     </nz-form-control>
   </nz-form-item>
 </div>
@@ -81,4 +83,4 @@
 </nz-card>
 </div>
 
-<!-- myForm.invalid&&typeBool -->
+

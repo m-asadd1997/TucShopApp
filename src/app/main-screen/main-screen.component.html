@@ -1,7 +1,7 @@
 <nz-layout style="width: 100%; height: 100%;" >
   <nz-sider nzCollapsible [(nzCollapsed)]="CollapsedNav" [nzTrigger]="null">
-    <div class="logo" style="height:50px; background-color:#001529">
-      <img src="assets/main-cart.png" />
+    <div class="logo" style="height:50px; background-color:#001529; width: 20px; margin-left: 15px;" >
+      <img src="assets/main-cart.png" [routerLink]="'/admin/layout'"/>
     </div>
     <ul
       nz-menu
@@ -22,23 +22,24 @@
       </li>
     </ul>
   </nz-sider>
+  
   <nz-layout>
-     
-    <!-- <nz-header>
-            <i
-                class="trigger"
-                nz-icon
-                [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
-                (click)="isCollapsed = !isCollapsed"
-              ></i>
-            
-          </nz-header> -->
+    <nz-content> 
+
+      <div style="margin-right: -15px; margin-left: -20px;">
+        <nz-header>
+          <ul nz-menu nzTheme="light" nzMode="horizontal">
+            <li nz-menu-item></li>
+            <li nz-menu-item></li>
+            <li nz-menu-item></li>
+          </ul>
+        </nz-header>
+      </div>
+
+    
+
+    
        
-    <nz-content>
-      <!-- <nz-breadcrumb>
-        <nz-breadcrumb-item>Categories</nz-breadcrumb-item>
-        <nz-breadcrumb-item>Chips</nz-breadcrumb-item>
-      </nz-breadcrumb> -->
       <!-- <div nz-row style="float: right;">
           <button nz-button nzType="primary" (click)="showModal()">
               <span>Show Modal</span>
@@ -52,17 +53,17 @@
             >
               <p>Modal Content</p>
             </nz-modal>
-      </div> -->
-      <div class="inner-content" style="height: 100%;" > 
-        <div nz-col nzSpan="16">
+      </div> --> 
+
+      <div class="inner-content" style="height: 100%;" style="margin-left: -15px; margin-right: -15px;"> 
+        <div nz-col [nzSpan]="mobileView?'16':'24'">
           <app-product-listing></app-product-listing>
         </div>
-        <div nz-col nzSpan="7" nzOffset="1">
+        <div *ngIf="mobileView" nz-col nzSpan="7" nzOffset="1">
           <app-checkout></app-checkout>
         </div>
       </div>
+      <nz-footer>Implement By Stepway &copy; 2020</nz-footer>
     </nz-content>
-
-    <nz-footer>Ant Design ©2019 Implement By Stepway</nz-footer>
   </nz-layout>
 </nz-layout>

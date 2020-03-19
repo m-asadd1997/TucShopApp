@@ -13,8 +13,10 @@ export class ProductListingComponent implements OnInit {
 
   productsArray = [] = [];
   params: any;
+
   categoryHeader: any;
   count = 0;
+
   constructor(private prodService: MainscreenService, private activeRoute: ActivatedRoute) { }
 
 
@@ -34,21 +36,13 @@ export class ProductListingComponent implements OnInit {
     this.activeRoute.paramMap.subscribe(
       params => {
 
-        this.getProducts(params['params'].category
 
-        )
-        this.categoryHeader = params['params'].category;
-
+        this.getProducts(params['params'].category)
+        this.categoryHeader= params['params'].category;
 
       }
-
     );
-
-
-
     this.getAllProducts();
-
-
   }
 
   getProducts(str: any) {
