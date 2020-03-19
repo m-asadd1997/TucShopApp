@@ -20,7 +20,7 @@ import { OutOfStockDetailsComponent } from './out-of-stock-details/out-of-stock-
 import { TransactionsDetailsComponent } from './transactions-details/transactions-details.component';
 import { SettingComponent } from './setting/setting.component';
 import { from } from 'rxjs';
-
+import { ExportAsModule } from 'ngx-export-as';
 
 @NgModule({
 
@@ -57,7 +57,7 @@ import { from } from 'rxjs';
     NzDropDownModule,
     NzFormModule,
     NzLayoutModule,
-    
+    ExportAsModule
   ]
   ,providers:[AuthGuardService]
 })

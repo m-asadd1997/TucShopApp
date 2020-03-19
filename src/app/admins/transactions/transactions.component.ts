@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminServiceService } from './../admin-service.service';
 import { MainscreenService } from './../../main-screen/mainscreen.service';
+import { ExportAsService, ExportAsConfig } from 'ngx-export-as';
+
 // import * as XLSX from 'xlsx'; 
-//import * as XLSX from 'xlsx';
+
 
 @Component({
   selector: 'app-transactions',
@@ -11,7 +13,7 @@ import { MainscreenService } from './../../main-screen/mainscreen.service';
 })
 export class TransactionsComponent implements OnInit {
 
-constructor(private service:AdminServiceService) { }
+constructor(private service:AdminServiceService,private exportAsService: ExportAsService) { }
 
   Transactions = [];
   allTransactions = [];
@@ -96,19 +98,23 @@ constructor(private service:AdminServiceService) { }
 
 //Export Work
 
-exportexcel()
+
+exportAsConfig: ExportAsConfig = {
+  type: 'xlsx', // the type you want to download
+  elementId: 'table1', // the id of html/table element
+}
+
+download()
     {
+      this.exportAsService.save(this.exportAsConfig, 'My File Name').subscribe(() => {
+        // save started
+      });
+      // get the data as base64 or json object for json type - this will be helpful in ionic or SSR
+      this.exportAsService.get(this.exportAsConfig).subscribe(content => {
+        console.log(content);
+      });
      
-      //  let element = document.getElementById('table1'); 
-      //  const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
-
-    
-      //  const wb: XLSX.WorkBook = XLSX.utils.book_new();
-      //  XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-
-    
-      //  XLSX.writeFile(wb, "Transaction.xlsx");
-			
+      
     }
 
 
