@@ -5,8 +5,8 @@ import { LoginPageComponent } from './login-page/login-page.component';
 
 
 const routes: Routes = [
-  {path:'login',  component:LoginPageComponent},
-  {path:'', component:MainScreenComponent},
+  {path:'',  component:LoginPageComponent},
+  {path:'main', component:MainScreenComponent},
   {path:'categories/:category',component:MainScreenComponent},
   {path:'admin', loadChildren:'./admins/admins.module#AdminsModule'}
   ];

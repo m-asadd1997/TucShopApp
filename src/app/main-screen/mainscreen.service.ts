@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { User } from '../login-page/User';
+import { login } from '../login-page/login';
 
 @Injectable({
   providedIn: 'root'
@@ -37,7 +39,8 @@ export class MainscreenService {
   private updateAddQuantityURL = environment.baseUrl + "api/products/add"
   private updateMinusQuantityURL = environment.baseUrl + "api/products/minus";
   private updateMinusAllQuantityURL = environment.baseUrl + "api/products/minusall";
-
+  private registeruserURL=environment.baseUrl+"token/user";
+  private loginUserURL=environment.baseUrl+"token/generate-token";
 
   public sendMessage(obj: Object) {
     this.productSource.next(obj);
@@ -104,5 +107,11 @@ export class MainscreenService {
     return this.http.put(this.updateMinusAllQuantityURL + '/' + id, product)
   }
 
+  public registerUser(user : User):Observable<any>{
+    return this.http.post<any>(this.registeruserURL, user);
+  }
+  public loginUser(login: login):Observable<any>{
+    return this.http.post<any>(this.loginUserURL, login);
+  }
 
 }
