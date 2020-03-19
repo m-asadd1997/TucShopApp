@@ -117,7 +117,7 @@ export class CheckoutComponent implements OnInit {
     }
     this.interactionServ.saveTransaction(request).subscribe(
       data => {
-        //console.log(data);
+        console.log(data,"trasac");
         this.message.success('amount added successfully', {
           nzDuration: 3000
         });

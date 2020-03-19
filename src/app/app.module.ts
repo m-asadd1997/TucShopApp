@@ -41,6 +41,7 @@ registerLocaleData(en);
 
     RecentTransactionsComponent,
 
+
      
    
   ],

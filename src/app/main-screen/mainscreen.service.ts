@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { User } from '../login-page/User';
+import { login } from '../login-page/login';
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +35,8 @@ productQuantityUpdateToProductListing$= this.productQuantityUpdateToProductListi
   private getAllProductURL=environment.baseUrl+"api/products/";
   private getSettingURL= environment.baseUrl+"api/dashboard/settings";
   private postTransactionURL=environment.baseUrl+"api/transaction/post";
+  private registeruserURL=environment.baseUrl+"token/user";
+  private loginUserURL=environment.baseUrl+"token/generate-token";
 
 
   public sendMessage(obj: Object){
@@ -81,5 +85,12 @@ productQuantityUpdateToProductListing$= this.productQuantityUpdateToProductListi
 
   public recentTransactions():Observable<any>{
     return this.http.get(this.getRecenttransactionsURL)
+  }
+
+  public registerUser(user : User):Observable<any>{
+    return this.http.post<any>(this.registeruserURL, user);
+  }
+  public loginUser(login: login):Observable<any>{
+    return this.http.post<any>(this.loginUserURL, login);
   }
 }
