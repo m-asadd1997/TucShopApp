@@ -6,13 +6,13 @@
       <ul nz-menu nzTheme="dark"  nzMode="horizontal">
         <div nz-row>
 
-       <div nz-col nzSpan="3" (click)="navigateBackToHomePage()" > <li nz-menu-item>Home</li></div>
-       <div nz-col nzSpan="2" nzOffset="16"  > <li nz-menu-item>
+       <div nz-col nzSpan="3" (click)="navigateBackToHomePage()" > <li nz-menu-item><b>Home</b> </li></div>
+       <div nz-col nzSpan="2" nzOffset="14"  > <li nz-menu-item>
          
        
 
       <a nz-dropdown [nzDropdownMenu]="menu">
-       Admin
+      <b>Admin</b> 
         <i nz-icon nzType="down"></i>
       </a>
       <nz-dropdown-menu #menu="nzDropdownMenu">
@@ -36,12 +36,12 @@
         <nz-sider nzWidth="200px"  nzCollapsible [(nzCollapsed)]="isCollapsed" >
           <ul nz-menu nzMode="inline" class="sider-menu"[nzInlineCollapsed]="isCollapsed" nzTheme="dark" >
             
-            <li nz-menu-item [routerLink]="'dashboard'">
+            <li nz-menu-item [routerLink]="'dashboard'" style="font-weight: 700;">
               <i nz-icon nzType="dashboard"></i>
               <span>Dashboard</span>
             </li>
             
-            <li nz-submenu nzOpen nzTitle="Products" nzIcon="user">
+            <li nz-submenu nzTitle="Products" nzIcon="user" style="font-weight: 700;">
               <ul>
                <a [routerLink]="'product'"><li nz-menu-item>List</li></a>
                <a [routerLink]="'add-product'" ><li nz-menu-item>Add</li></a>
