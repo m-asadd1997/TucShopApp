@@ -260,21 +260,21 @@ chekingSetting=false;
     }
   }
 
-  saveTransaction() {
+  // saveTransaction() {
     
-    let request = {
-      amount: this.total,
-      products: this.checkoutProductsArray   
-    }
-    this.interactionServ.saveTransaction(request).subscribe(
-      data => {
-        //console.log(data);
-        this.message.success('amount added successfully', {
-          nzDuration: 3000
-        });
-      },
-    )
-  }
+  //   let request = {
+  //     amount: this.total,
+  //     products: this.checkoutProductsArray   
+  //   }
+  //   this.interactionServ.saveTransaction(request).subscribe(
+  //     data => {
+  //       //console.log(data);
+  //       this.message.success('amount added successfully', {
+  //         nzDuration: 3000
+  //       });
+  //     },
+  //   )
+  // }
   settingHeader
   print(): void {
 

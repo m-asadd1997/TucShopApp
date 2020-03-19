@@ -35,6 +35,12 @@
 
         <nz-sider nzWidth="200px"  nzCollapsible [(nzCollapsed)]="isCollapsed" >
           <ul nz-menu nzMode="inline" class="sider-menu"[nzInlineCollapsed]="isCollapsed" nzTheme="dark" >
+            
+            <li nz-menu-item [routerLink]="'dashboard'">
+              <i nz-icon nzType="dashboard"></i>
+              <span>Dashboard</span>
+            </li>
+            
             <li nz-submenu nzOpen nzTitle="Products" nzIcon="user">
               <ul>
                <a [routerLink]="'product'"><li nz-menu-item>List</li></a>
@@ -71,7 +77,7 @@
         </nz-content>
        
       </nz-layout>
-      <nz-footer>Implement By Stepway &copy; 2020</nz-footer>
+      <!-- <nz-footer>Implement By Stepway &copy; 2020</nz-footer> -->
     </nz-content>
    </nz-layout>
 
