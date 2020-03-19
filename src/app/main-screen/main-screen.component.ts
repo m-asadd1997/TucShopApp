@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { MainscreenService } from './mainscreen.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -8,7 +8,8 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./main-screen.component.css']
 })
 export class MainScreenComponent implements OnInit {
-
+  public innerWidth: any;
+  mobileView = true;
   CollapsedNav = true;
   categoriesArray = [] = [];
   isVisible :Boolean;
@@ -19,7 +20,9 @@ export class MainScreenComponent implements OnInit {
   constructor(private mainScreenServ: MainscreenService,private activeRoute:ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
-
+    this.innerWidth = window.innerWidth;
+    this.setupMobileView();
+    this.router.navigate(["categories/Products"]);
   
 
     this.getCat();
@@ -56,5 +59,15 @@ export class MainScreenComponent implements OnInit {
 
   handleCancel(): void {
     this.isVisible = false;
+  }
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.innerWidth = window.innerWidth;
+    console.log(this.innerWidth)
+    this.setupMobileView()
+  }
+
+  setupMobileView(){
+    this.mobileView = this.innerWidth <= 900?false:true;
   }
 }

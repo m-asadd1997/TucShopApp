@@ -22,6 +22,7 @@ import { SettingComponent } from './setting/setting.component';
 import { from } from 'rxjs';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 
+import { ExportAsModule } from 'ngx-export-as';
 
 @NgModule({
 
@@ -59,7 +60,7 @@ import { NzSpinModule } from 'ng-zorro-antd/spin';
     NzDropDownModule,
     NzFormModule,
     NzLayoutModule,
-    
+    ExportAsModule
   ]
   ,providers:[AuthGuardService]
 })

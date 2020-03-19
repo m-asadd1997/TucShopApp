@@ -4,6 +4,7 @@ import { FormBuilder, NgForm } from '@angular/forms';
 import { addProduct } from './addProduct';
 import { FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { NzMessageComponent, NzMessageService } from 'ng-zorro-antd';
 
 
 @Component({
@@ -14,59 +15,90 @@ import { ActivatedRoute } from '@angular/router';
 export class ProductAddComponent implements OnInit {
   id: any;
   categories = []
-  addProducts: addProduct = new addProduct();
+  addProducts: addProduct ;
   formData = new FormData();
 
+typeBool=false;
 
-  constructor(private fb: FormBuilder, private service: AdminServiceService, private activateRoute: ActivatedRoute) { }
+ 
+  
+
+  constructor(private fb: FormBuilder, private service: AdminServiceService, private activateRoute: ActivatedRoute, private message: NzMessageService) { 
+    this.addProducts=new addProduct();
+    console.log(this.addProducts)
+  }
+
   submitForm(): void {
 
   }
   submit(myForm: NgForm) {
-   
-    console.log(this.formData);
-    //debugger
+
+
     this.formData.append('name', this.addProducts.productTitle)
-    this.formData.append('category', this.addProducts.category);
+    let idObj= this.categories.find(v=>v.name==this.addProducts.category);
+    this.formData.append('category',idObj.id);
     this.formData.append('image', this.addProducts.image);
     this.formData.append('costprice', this.addProducts.costPrice);
-    this.formData.append('price', this.addProducts.salePrice);
+    this.formData.append('price', this.addProducts.salePrice);   //sale price
     this.formData.append('quantity', this.addProducts.productQuantity);
-    console.log(this.formData);
+
     if (this.id != null) {
-      this.service.updateProduct(this.id, this.formData).subscribe();
-      myForm.reset();
-      this.formData.delete("name");
-      this.formData.delete("category");
-      this.formData.delete("image");
-      this.formData.delete("costprice");
-      this.formData.delete("price");
-      this.formData.delete("quantity");
-      console.log(this.addProducts.image)
-      this.addProducts.image = null;
-      console.log(this.addProducts.image)
+     
+     
+      if (Number( this.addProducts.salePrice) <= Number( this.addProducts.costPrice)) 
+      { 
+        this.message.warning("Sale Price Must be Greater than Cost Price ") 
+      }
+      else if(this.addProducts.image==null){this.message.warning("Set Image First")}  
+
+      else 
+      {console.log(this.formData)
+        debugger
+        this.service.updateProduct(this.id, this.formData).subscribe(d => 
+          {
+          this.message.success("Updated Successfully", { nzDuration: 3000 });
+        }
+        );
+
+
+        myForm.reset();
+        this.formData.delete("name");
+        this.formData.delete("category");
+        this.formData.delete("image");
+        this.formData.delete("costprice");
+        this.formData.delete("price");
+        this.formData.delete("quantity");
+     
+        this.addProducts.image = null;
+     
+      }
 
     }
 
     else {
-      this.service.postProduct(this.formData).subscribe();
-      this.addProducts.image = null;
-      myForm.reset();
-      this.formData.delete("name");
-      this.formData.delete("category");
-      this.formData.delete("image");
-      this.formData.delete("costprice");
-      this.formData.delete("price");
-      this.formData.delete("quantity");
-      console.log(this.addProducts.image)
-      this.addProducts.image = null;
-      console.log(this.addProducts.image)
+
+      if (Number( this.addProducts.salePrice) <= Number( this.addProducts.costPrice)) { this.message.warning("Sale Price Must be Greater than Cost Price ") }
+      else if(this.addProducts.image==null){this.message.warning("Set Image First")}
+      else {
+        this.service.postProduct(this.formData).subscribe(d => {
+          this.message.success("Added Successfully", { nzDuration: 3000 });
+        });
+        this.addProducts.image = null;
+        myForm.reset();
+        this.formData.delete("name");
+        this.formData.delete("category");
+        this.formData.delete("image");
+        this.formData.delete("costprice");
+        this.formData.delete("price");
+        this.formData.delete("quantity");
+        
+      }
     }
 
   }
 
   handleCategoryBanner(files: FileList) {
-    console.log(files);
+    //console.log(files);
     this.addProducts.image = files[0]
 
 
@@ -85,6 +117,7 @@ export class ProductAddComponent implements OnInit {
   getCategories(id) {
     this.service.getCategory().subscribe(d => {
       this.categories = d;
+
     })
   }
 
@@ -94,8 +127,29 @@ export class ProductAddComponent implements OnInit {
       this.addProducts.costPrice = d.costprice
       this.addProducts.productQuantity = d.qty
       this.addProducts.salePrice = d.price
-      this.addProducts.category = d.name
+      this.addProducts.category = d.category.name
       this.addProducts.image = d.image
+
+      console.log(this.addProducts.category)
+      
+      
     })
   }
+
+
+
+
+
+
+  isInputValid(form){
+    if(form.valid&&this.addProducts.image)
+    {
+      return false;
+    }
+    else{
+      return true;
+    }
+  }
+
+
 }

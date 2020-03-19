@@ -1,18 +1,19 @@
-<h2>Chips</h2>
+<h2>{{categoryHeader}}</h2>
 
-<nz-card style="width: 100%; overflow-y: scroll; height:600px;">
+<nz-card style="width: 100%; overflow-y: scroll; overflow-x: none; height:500px;">
   <div nz-row>
-    <div nz-col nzSpan="5" nzOffset="1" *ngFor="let p of productsArray">
+    <div nz-col nzXs="24" nzSm="24" nzMd="5" nzLg="5" nzXl="5" nzSpan="5" nzOffset="1" *ngFor="let p of productsArray">
       <nz-card
         #CARD
         nzHoverable
         style="width:160px"
         [nzCover]="coverTemplate"
         (click)="sendProducttoCheckout(p,CARD)"
+        id ="cardShadow"
       >
         <nz-card-meta [nzTitle]="p.name">{{ p.name }} </nz-card-meta>
         <p>
-          <b>Price {{ p.price }}</b>
+          <b>Price: {{ p.price }}</b>
         </p>
       </nz-card>
       <div >

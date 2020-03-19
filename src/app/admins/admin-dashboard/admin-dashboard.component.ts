@@ -23,7 +23,7 @@ export class AdminDashboardComponent implements OnInit {
   isTotalTransactionModalVisible = false;
   constructor(private adminService: AdminServiceService, private router: Router) { }
 
-
+showChart=false;
 
 
   type: ChartType = 'Bar';
@@ -31,7 +31,7 @@ export class AdminDashboardComponent implements OnInit {
   data = {
     // labels: ["J", "F", "M"],
     // series: [[1, 2, 3]]
-labels:[],series:[]
+    labels: [], series: []
 
 
   };
@@ -61,6 +61,7 @@ labels:[],series:[]
       }
     }
   };
+  chart
   ngOnInit() {
     this.getRequestedProducts();
     this.getTotalProductQuantity();
@@ -68,8 +69,15 @@ labels:[],series:[]
     this.getTotalTransaction();
     this.getOutOfStockDetailed();
     this.getChartData();
-  }
+    this.settingChart();
 
+
+  }
+  settingChart() {
+    this.chart = document.getElementById('chartist')
+    // console.log(typeof(this.chart));
+    console.log(this.chart)
+  }
 
 
 
@@ -89,12 +97,11 @@ labels:[],series:[]
 
     this.adminService.getChartData().subscribe(d => {
       this.chartResult = d.result;
-      this.data.labels=this.chartResult.labels;
+      this.data.labels = this.chartResult.labels;
       this.data.series.push(this.chartResult.series)
-      console.log(this.chartResult);
-      console.log(this.data.series)
-      console.log(this.data.labels)
-     
+      this.showChart=true;
+
+
     })
   }
 
@@ -112,9 +119,17 @@ labels:[],series:[]
       // this.reqProducts = d;
 
       this.reqProducts = d.result;
-      
+      console.log(d.result)
       if (this.reqProducts.length > 5) {
         this.reqProducts.length = 5;
+      }
+
+      else if (this.reqProducts.length < 5) {
+        let count = this.reqProducts.length;
+        for (let index = count; index < 5; index++) {
+          this.reqProducts[index] = { id: 0, name: "", countName: "" };
+
+        }
       }
 
 
@@ -138,9 +153,17 @@ labels:[],series:[]
   totalTransaction;
   getTotalTransaction() {
     this.adminService.getTotalTransaction().subscribe(d => {
+      console.log(d)
       this.totalTransaction = d.result;
 
+
+
     })
+
+    console.log(this.totalTransaction)
+    if (this.totalTransaction === undefined) {
+      this.totalTransaction = 0;
+    }
   }
 
 

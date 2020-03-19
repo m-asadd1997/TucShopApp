@@ -1,18 +1,20 @@
 <nz-content>
   <nz-breadcrumb> </nz-breadcrumb>
   <div class="inner-content">
+
     <div nz-row>
-     
       <div nz-col nzSpan="3">
-        <h2>Cart :</h2>
+        <h2>Cart:</h2>
       </div>
       <div nz-col nzSpan="2">
         <img src="assets/cartCheckout.png" />
       </div>
-      <div nz-col nzSpan="4" nzOffset="10">
+      <div nz-col nzSpan="4" nzOffset="9">
       <button nz-button nzType="danger" (click)="showModal2()">
         <span>Request For Product</span>
       </button>
+
+
       <nz-modal
         
         [(nzVisible)]="isVisible2"
@@ -49,64 +51,61 @@
       </div>  
     </nz-modal>
     </div>
- 
-     
     </div>
+
     <hr style="color: black;" />
 
-    <div style="height: 520px; overflow-y: scroll;">
-      <div>
+    <div style="height: 450px; overflow-y: scroll;">
+     
         <div *ngFor="let data of checkoutProductsArray">
-          <nz-card nzHoverable style="width:100%">
+          <nz-card id ="cardShadow" nzHoverable style="width:100%; margin-bottom: 6px;">
+
             <div nz-row>
               <div nz-col nzSpan="4">
+                <nz-badge [nzCount]="data.productQuantity">
                 <nz-avatar
                   [nzShape]="'square'"
                   [nzSize]="64"
                   [nzSrc]="data.productImage"
                   [nzIcon]="'user'"
                 ></nz-avatar>
+              </nz-badge>
               </div>
-              <div nz-col nzSpan="4" nzOffset="1">
-                <h4 nz-title style="font-size: 15px;">
-                  {{ data.productTitle }}
+
+              <div nz-col nzSpan="6" nzOffset="3">
+                <h4 nz-title style="font-size: 15px;"><b>
+                  {{ data.productTitle }}</b>
+                  <br>
+                  <!-- Price: {{ data.productPrice }} -->
+                  <nz-tag [nzColor]="'#f50a0a'">Price {{data.productPrice}}</nz-tag>
                 </h4>
+                
               </div>
-              <div nz-col nzSpan="3" nzOffset="1">
+
+              <!-- <div nz-col nzSpan="2" nzOffset="1">
                 <h4 nz-title style="font-size: 15px;">
                   Price: {{ data.productPrice }}
                 </h4>
-              </div>
-              <div nz-col nzSpan="6" style="font-size: 15px;">
+              </div> -->
+  
+              <div nz-col nzSpan="6" nzOffset="2" style="font-size: 15px;">
                 <h4>
-                  Quantity: {{ data.productQuantity }}
+                  <!-- Quantity: {{ data.productQuantity }} -->
                   <nz-button-group>
-
                     <!-- Add Buttons -->
                     <button #btn nz-button  *ngIf="checkingQunatity(data)" (click)="addProduct(data)">
                       <i nz-icon nzType="plus"></i>
                     </button>
 
-
                     <button #btn1 nz-button  disabled *ngIf="!checkingQunatity(data)" >
                       <i nz-icon nzType="plus"></i>
                     </button>
-
-
                     <!--End of Add Buttons  -->
 
-
-
                     <!-- Minus Buttons -->
-
                     <button     nz-button (click)="removeProduct(data)">
                       <i nz-icon nzType="minus"></i>
                     </button>
-
-
-                   
-
-
                     <!-- End of Minus Buttons -->
                   </nz-button-group>
                 </h4>
@@ -114,26 +113,24 @@
 
               <div
                 nz-col
-                nzSpan="3"
+                nzSpan="2"
                 nzOffset="1"
                 (click)="removeProductFromCheckout(data)"
               >
                 <img src="assets/icons8-delete-bin-24.png" />
               </div>
-            </div>
+           </div>
           </nz-card>
         </div>
-      </div>
     </div>
-
     <hr style="color: black;" />
     <div nz-row>
-      <div nz-col nzSpan="12" style="margin-top: 10px;">
+      <div nz-col nzSpan="12" style="margin-top: 6px;">
         <h1>
           <b>Total: {{ total }}</b>
         </h1>
       </div>
-      <div nz-col nzSpan="6" nzOffset="6">
+      <div nz-col nzSpan="6" nzOffset="6" style="margin-top: 6px;">
         <button nz-button nzType="danger" (click)="showModal()">
           Checkout
         </button>
@@ -141,7 +138,7 @@
           [(nzVisible)]="isVisible"
           nzTitle="Checkout"
           nzOkText="Print"
-          nzCancelText="Continue"
+          nzCancelText="Continue Shopping "
           (nzOnOk)="print()"
           (nzOnCancel)="handleCancel()"
         >
@@ -153,11 +150,11 @@
 </nz-content>
 
 <div id="print-section" [hidden]="true">
-<div style="text-align: center;">
-  <img [src]="settingHeader.logo" style="height: 100px; width: 100px;" alt="Hello">
+<div style="text-align: center;"   >
+  <img   *ngIf="(chekingSetting && settingHeader.logo != 'undefined' )" [src]="settingHeader.logo" style="height: 100px; width: 100px;" alt="Hello">
 </div>
 <br> 
-<div style="text-align: center; margin-bottom: 50px;">
+<div  *ngIf="(chekingSetting && settingHeader.header  != 'undefined')" style="text-align: center; margin-bottom: 50px;" >
   <!-- <p class="bd-highlight font-weight-bold">{{settingHeader.header}}</px > -->
     <h2 nz-title>{{settingHeader.header}}</h2>
 </div>
@@ -190,7 +187,7 @@
   </div>
 
   
-    <div style="text-align: center; margin-top: 70px;">
+    <div *ngIf=" (chekingSetting && settingHeader.footer  != 'undefined')" style="text-align: center; margin-top: 70px;" >
       <!-- <p class="bd-highlight font-weight-bold">{{settingHeader.header}}</px > -->
         <h2 nz-title>{{settingHeader.footer}}</h2>
     

@@ -3,6 +3,10 @@ import { AdminServiceService } from './../admin-service.service';
 import { MainscreenService } from './../../main-screen/mainscreen.service';
 import { Router } from '@angular/router';
 import { transactions } from './transactions';
+import { ExportAsService, ExportAsConfig } from 'ngx-export-as';
+
+// import * as XLSX from 'xlsx'; 
+
 
 @Component({
   selector: 'app-transactions',
@@ -11,7 +15,7 @@ import { transactions } from './transactions';
 })
 export class TransactionsComponent implements OnInit {
 
-constructor(private service:AdminServiceService,private router:Router) { }
+constructor(private service:AdminServiceService,private router:Router,private exportAsService: ExportAsService) { }
 
 transactionobj:transactions=new transactions();
   Transactions = [];
@@ -150,5 +154,30 @@ transactionobj:transactions=new transactions();
   }
 
   
+
+
+
+
+//Export Work
+
+
+exportAsConfig: ExportAsConfig = {
+  type: 'xlsx', // the type you want to download
+  elementId: 'table1', // the id of html/table element
+}
+
+download()
+    {
+      this.exportAsService.save(this.exportAsConfig, 'My File Name').subscribe(() => {
+        // save started
+      });
+      // get the data as base64 or json object for json type - this will be helpful in ionic or SSR
+      this.exportAsService.get(this.exportAsConfig).subscribe(content => {
+        console.log(content);
+      });
+     
+      
+    }
+
 
 }

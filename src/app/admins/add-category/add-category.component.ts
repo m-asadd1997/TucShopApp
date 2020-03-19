@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { add_category } from './add_category';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { NzMessageService } from 'ng-zorro-antd';
 
 @Component({
   selector: 'app-add-category',
@@ -15,7 +16,7 @@ export class AddCategoryComponent implements OnInit {
   form: any;
   id: any;
   
-  constructor(private service:AdminServiceService, private activateRoute: ActivatedRoute) { }
+  constructor(private service:AdminServiceService, private activateRoute: ActivatedRoute,private message:NzMessageService) { }
 
   formData = new FormData();
   
@@ -37,7 +38,9 @@ export class AddCategoryComponent implements OnInit {
     this.formData.append("name",this.add_categories.name);
     this.formData.append("image", this.add_categories.icons);
     if(this.id!=null){
-      this.service.updateCategory(this.id,this.formData).subscribe();
+      this.service.updateCategory(this.id,this.formData).subscribe(d=>{
+        this.message.success("Updated Successfully",{nzDuration:3000});
+      });
       myForm.reset();
       this.formData.delete("name");
       
@@ -48,7 +51,9 @@ export class AddCategoryComponent implements OnInit {
 
     else {
       
-      this.service.postCategory(this.formData).subscribe();
+      this.service.postCategory(this.formData).subscribe(d=>{
+        this.message.success("Added Successfully",{nzDuration:3000});
+      });
       myForm.reset();
       this.formData.delete("name");
       
@@ -64,6 +69,17 @@ getCategory(){
   this.add_categories.icons = d.image
   
 })
+}
+
+
+isInputValid(form){
+  if(form.valid&&this.add_categories.icons)
+  {
+    return false;
+  }
+  else{
+    return true;
+  }
 }
 
 }

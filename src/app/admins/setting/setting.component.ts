@@ -27,12 +27,13 @@ export class SettingComponent implements OnInit {
 
   submitSetting(myForm: NgForm) {
     this.formData.append('header', this.settingObj.header)
+    
     this.formData.append('logo', this.settingObj.logo)
     this.formData.append('footer', this.settingObj.footer)
     this.formData.append('headerName',this.settingObj.headerName)
-    console.log(this.settingObj.logo);
-    console.log(this.settingObj.header);
-    console.log(this.settingObj.footer);
+   
+
+    
 
     this.adminService.postSetting(this.formData).subscribe(d => {
       this.message.success('Saved successfully', {
