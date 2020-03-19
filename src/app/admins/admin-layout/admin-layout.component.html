@@ -6,7 +6,23 @@
       <ul nz-menu nzTheme="dark"  nzMode="horizontal">
         <div nz-row>
        <div nz-col nzSpan="3" (click)="navigateBackToHomePage()" > <li nz-menu-item>Home</li></div>
-       <div nz-col nzSpan="2" nzOffset="16" (click)="navigateBackToLoginPage()" > <li nz-menu-item>Logout</li></div>
+       <div nz-col nzSpan="2" nzOffset="16"  > <li nz-menu-item>
+         
+       
+
+      <a nz-dropdown [nzDropdownMenu]="menu">
+       Admin
+        <i nz-icon nzType="down"></i>
+      </a>
+      <nz-dropdown-menu #menu="nzDropdownMenu">
+        <ul nz-menu>
+          <li nz-menu-item (click)="navigateBackToLoginPage()">Logout</li>
+         
+        </ul>
+      </nz-dropdown-menu>
+
+
+    </li></div>
      </div>
       </ul>
      <!-- <h4>Admin Panel  </h4> -->
@@ -14,8 +30,8 @@
     <nz-content class="outer-content"> 
       <!-- <h1 class="font-weight-normal text-center">Admin Dashboard</h1> -->
       <nz-layout class="inner-layout">
-        <nz-sider nzWidth="200px" nzTheme="light">
-          <ul nz-menu nzMode="inline" class="sider-menu">
+        <nz-sider nzWidth="200px"  nzCollapsible [(nzCollapsed)]="isCollapsed" >
+          <ul nz-menu nzMode="inline" class="sider-menu"[nzInlineCollapsed]="isCollapsed" nzTheme="dark" >
             <li nz-submenu nzOpen nzTitle="Products" nzIcon="user">
               <ul>
                <a [routerLink]="'product'"><li nz-menu-item>List</li></a>

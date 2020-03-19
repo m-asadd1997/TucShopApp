@@ -17,16 +17,15 @@ export class ProductAddComponent implements OnInit {
   categories = []
   addProducts: addProduct = new addProduct();
   formData = new FormData();
-
+typeBool=false;
 
   constructor(private fb: FormBuilder, private service: AdminServiceService, private activateRoute: ActivatedRoute, private message: NzMessageService) { }
   submitForm(): void {
 
   }
   submit(myForm: NgForm) {
-debugger
-    console.log(this.formData);
-    //debugger
+
+    
     this.formData.append('name', this.addProducts.productTitle)
     this.formData.append('category', this.addProducts.category);
 
@@ -34,7 +33,7 @@ debugger
     this.formData.append('costprice', this.addProducts.costPrice);
     this.formData.append('price', this.addProducts.salePrice);   //sale price
     this.formData.append('quantity', this.addProducts.productQuantity);
-    console.log(this.formData);
+  
     if (this.id != null) {
      
      
@@ -45,7 +44,8 @@ debugger
       else if(this.addProducts.image==null){this.message.warning("Set Image First")}  
 
       else 
-      {
+      {console.log(this.formData)
+        debugger
         this.service.updateProduct(this.id, this.formData).subscribe(d => 
           {
           this.message.success("Updated Successfully", { nzDuration: 3000 });
@@ -60,9 +60,9 @@ debugger
         this.formData.delete("costprice");
         this.formData.delete("price");
         this.formData.delete("quantity");
-        console.log(this.addProducts.image)
+     
         this.addProducts.image = null;
-        console.log(this.addProducts.image)
+     
       }
 
     }
@@ -83,16 +83,14 @@ debugger
         this.formData.delete("costprice");
         this.formData.delete("price");
         this.formData.delete("quantity");
-        console.log(this.addProducts.image)
-        // this.addProducts.image = null;
-        console.log(this.addProducts.image)
+        
       }
     }
 
   }
 
   handleCategoryBanner(files: FileList) {
-    console.log(files);
+    //console.log(files);
     this.addProducts.image = files[0]
 
 
@@ -111,6 +109,7 @@ debugger
   getCategories(id) {
     this.service.getCategory().subscribe(d => {
       this.categories = d;
+      console.log(this.categories);
     })
   }
 
@@ -123,5 +122,19 @@ debugger
       this.addProducts.category = d.name
       this.addProducts.image = d.image
     })
+  }
+
+
+
+
+
+  isInputValid(form){
+    if(form.valid&&this.addProducts.image)
+    {
+      return false;
+    }
+    else{
+      return true;
+    }
   }
 }
