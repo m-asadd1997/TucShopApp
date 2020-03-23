@@ -1,4 +1,4 @@
-<div style="text-align: center;"> 
+<div style="text-align: center; margin-bottom: 10px;"> 
   <nz-date-picker
   [nzDisabledDate]="disabledStartDate"
   
@@ -20,7 +20,10 @@
   (nzOnOpenChange)="handleEndOpenChange($event)"
 >
 </nz-date-picker>
-</div><nz-table #basicTable1 [nzData]="transactionDetails" [nzShowPagination]="false">
+<button style="margin-left: 250px;" (click)="backToDashboard()" nz-button nzType="primary">Back</button>
+
+</div>
+<nz-table #basicTable1 [nzData]="transactionDetails" [nzShowPagination]="false">
     <thead>
       <tr>
         <th>Date</th>
