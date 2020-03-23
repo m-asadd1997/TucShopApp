@@ -1,6 +1,40 @@
-<div style="margin-left: 90%; margin-bottom: 3%;">   <button (click)="backToDashboard()" nz-button nzType="primary">Back</button></div>
-                                                        <!-- <button nz-button nzType="default" nzShape="circle"><i nz-icon nzType="search"></i></button> -->
+<div style="text-align: center; margin-bottom: 10px;"   >  
+  
+ 
+    <nz-date-picker
+    [nzDisabledDate]="disabledStartDate"
+    
+    nzFormat="yyyy-MM-dd "
+    [(ngModel)]="startValue"
+    nzPlaceHolder="Start"
+    (ngModelChange)="onStartChange($event)"
+    (nzOnOpenChange)="handleStartOpenChange($event)"
+  >
+  </nz-date-picker>
+  <nz-date-picker
+    [nzDisabledDate]="disabledEndDate"
+   
+    nzFormat="yyyy-dd-MM "
+    [(ngModel)]="endValue"
+    nzPlaceHolder="End"
+    [nzOpen]="endOpen"
+    (ngModelChange)="onEndChange($event)"
+    (nzOnOpenChange)="handleEndOpenChange($event)"
+  >
+  </nz-date-picker>
+  
+  
+  <button style="margin-left: 250px;" (click)="backToDashboard()" nz-button nzType="primary">Back</button>
 
+
+
+
+</div>
+                                                     
+
+ 
+ 
+   
 <nz-table #basicTable [nzData]="Products" >
     <thead>
       <tr>
