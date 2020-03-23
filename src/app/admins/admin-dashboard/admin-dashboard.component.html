@@ -7,8 +7,8 @@
 </head>
 <body >
   <div style="background: #ECECEC;padding:10px;">
-    <div nz-row [nzGutter]="8">
-      <div nz-col [nzSpan]="8">
+    <div nz-row [nzGutter]="6">
+      <div nz-col [nzSpan]="6">
         <nz-card nzTitle="Total Products"  (click)="showModalTotalProducts()">
         
           <h1 style="text-align: center;">{{totalProducts}}</h1>  
@@ -18,36 +18,38 @@
       </div>
       
       
-      <div nz-col [nzSpan]="8">
+      <div nz-col [nzSpan]="6">
         <nz-card nzTitle="Out of Stock" (click)="showModalOutOfStock()">
           <h1 style="text-align: center;">{{totalOutOfStockProducts}}</h1>
-          
-
         </nz-card>
       </div>
       
-
-
-
-
-
-
-
-      <div nz-col [nzSpan]="8" >
+      <div nz-col [nzSpan]="6" >
         <nz-card nzTitle="Total Transacation" (click)="showModalTotalTransactions()">
           <h1 style="text-align: center;">{{totalTransaction }}</h1>
         </nz-card>
       </div>
+    
+
+    <div nz-col [nzSpan]="6" >
+      <nz-card nzTitle="Profit">
+        <h1 style="text-align: center;">100%</h1>
+      </nz-card>
     </div>
+  </div>
 
 
-    <div nz-row style="margin-top: 10px;">
+    <div nz-row [nzGutter]="8" style="margin-top: 10px;" >
 
-        <div nz-col [nzSpan]="16"  style="width:70%">
+        <div nz-col [nzSpan]="16" >
 
 
+<<<<<<< HEAD
 
             <nz-card   [nzBordered]="false" nzTitle="Sale Analysis" [nzExtra]="extraTemplate" style="widows: 100px;">
+=======
+            <nz-card   [nzBordered]="false" nzTitle="Sale Analysis" [nzExtra]="extraTemplate" style="widows: 100px; ">
+>>>>>>> 7bbb8e41e4ca167f0b3fec918cdbcc5ad3079fa4
                 <x-chartist id="chartist"
                 *ngIf="showChart"
 
@@ -61,7 +63,7 @@
         </div>
 
 
-        <div nz-col [nzSpan]="8" style="width: 30%;">
+        <div nz-col [nzSpan]="8" >
           <nz-card   nzTitle="Requested Products" >
             <nz-table #basicTable [nzData]="reqProducts" [nzShowPagination]="false">
               <thead>

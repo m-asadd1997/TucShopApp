@@ -17,18 +17,23 @@ export class ProductAddComponent implements OnInit {
   categories = []
   addProducts: addProduct ;
   formData = new FormData();
+
+typeBool=false;
+
+ 
   
 
   constructor(private fb: FormBuilder, private service: AdminServiceService, private activateRoute: ActivatedRoute, private message: NzMessageService) { 
     this.addProducts=new addProduct();
     console.log(this.addProducts)
   }
+
   submitForm(): void {
 
   }
   submit(myForm: NgForm) {
-    console.log(this.formData);
-    //debugger
+
+
     this.formData.append('name', this.addProducts.productTitle)
     let idObj= this.categories.find(v=>v.name==this.addProducts.category);
     this.formData.append('category',idObj.id);
@@ -36,7 +41,6 @@ export class ProductAddComponent implements OnInit {
     this.formData.append('costprice', this.addProducts.costPrice);
     this.formData.append('price', this.addProducts.salePrice);   //sale price
     this.formData.append('quantity', this.addProducts.productQuantity);
-    console.log(this.formData);
 
     if (this.id != null) {
      
@@ -48,7 +52,8 @@ export class ProductAddComponent implements OnInit {
       else if(this.addProducts.image==null){this.message.warning("Set Image First")}  
 
       else 
-      {
+      {console.log(this.formData)
+        debugger
         this.service.updateProduct(this.id, this.formData).subscribe(d => 
           {
           this.message.success("Updated Successfully", { nzDuration: 3000 });
@@ -63,9 +68,9 @@ export class ProductAddComponent implements OnInit {
         this.formData.delete("costprice");
         this.formData.delete("price");
         this.formData.delete("quantity");
-        console.log(this.addProducts.image)
+     
         this.addProducts.image = null;
-        console.log(this.addProducts.image)
+     
       }
 
     }
@@ -86,16 +91,14 @@ export class ProductAddComponent implements OnInit {
         this.formData.delete("costprice");
         this.formData.delete("price");
         this.formData.delete("quantity");
-        console.log(this.addProducts.image)
-        // this.addProducts.image = null;
-        console.log(this.addProducts.image)
+        
       }
     }
 
   }
 
   handleCategoryBanner(files: FileList) {
-    console.log(files);
+    //console.log(files);
     this.addProducts.image = files[0]
 
 
@@ -114,8 +117,7 @@ export class ProductAddComponent implements OnInit {
   getCategories(id) {
     this.service.getCategory().subscribe(d => {
       this.categories = d;
-      console.log(d)
-      
+
     })
   }
 
@@ -134,5 +136,20 @@ export class ProductAddComponent implements OnInit {
     })
   }
 
-  
+
+
+
+
+
+  isInputValid(form){
+    if(form.valid&&this.addProducts.image)
+    {
+      return false;
+    }
+    else{
+      return true;
+    }
+  }
+
+
 }

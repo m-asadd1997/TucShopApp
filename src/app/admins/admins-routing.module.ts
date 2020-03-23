@@ -31,6 +31,7 @@ const routes: Routes = [
       { path: 'add-category/:id', component: AddCategoryComponent },
       { path: 'transactions', component: TransactionsComponent },
       { path: 'user', component: UserComponent },
+      {path:'userlist/:user',component:UserComponent},
       {
         path: 'dashboard', component: AdminDashboardComponent
         

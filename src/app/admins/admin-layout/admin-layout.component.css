@@ -10,16 +10,16 @@
     line-height: 64px;
   }
 
-  .outer-content {
-    /* padding: 0 50px; */
+ 
+  nz-sider{
+    height:auto;
   }
-
   nz-breadcrumb {
     margin: 16px 0;
   }
 
   .inner-layout {
-    padding: 24px 0;
+    /* padding: 24px 0; */
     background: #fff;
   }
 
@@ -28,7 +28,7 @@
   }
 
   .inner-content {
-    padding: 0 24px;
+    padding: 20px 24px;
     min-height: 280px;
   }
 

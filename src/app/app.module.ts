@@ -27,6 +27,9 @@ import { ChartistModule } from 'ng-chartist';
 import { RecentTransactionsComponent } from './recent-transactions/recent-transactions.component';
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
 import { NzAutocompleteModule } from 'ng-zorro-antd/auto-complete';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
+
+import { NzTagModule } from 'ng-zorro-antd/tag';
 
 
 registerLocaleData(en);
@@ -41,6 +44,7 @@ registerLocaleData(en);
 
     RecentTransactionsComponent,
 
+
      
    
   ],
@@ -52,7 +56,9 @@ registerLocaleData(en);
     HttpClientModule,
     BrowserAnimationsModule,
     NzButtonModule,
+    NzTagModule,
     NzIconModule,
+    NzSpinModule,
     NzCardModule,
     NzLayoutModule,
     NzGridModule,

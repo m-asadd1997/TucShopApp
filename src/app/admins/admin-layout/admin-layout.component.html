@@ -1,12 +1,30 @@
 <nz-layout>
     <nz-header>
-      <div class="logo">
-          <a > <img src="assets/cartImage.png" alt=""></a>
+      <div class="logo" style="margin-right: 50px;">
+          <a > <img src="assets/main-cart.png" alt=""></a>
       </div>
       <ul nz-menu nzTheme="dark"  nzMode="horizontal">
         <div nz-row>
-       <div nz-col nzSpan="3" (click)="navigateBackToHomePage()" > <li nz-menu-item>Home</li></div>
-       <div nz-col nzSpan="2" nzOffset="16" (click)="navigateBackToLoginPage()" > <li nz-menu-item>Logout</li></div>
+
+       <div nz-col nzSpan="3" (click)="navigateBackToHomePage()" > <li nz-menu-item><b>Home</b> </li></div>
+       <div nz-col nzSpan="2" nzOffset="14"  > <li nz-menu-item>
+         
+       
+
+      <a nz-dropdown [nzDropdownMenu]="menu">
+      <b>Admin</b> 
+        <i nz-icon nzType="down"></i>
+      </a>
+      <nz-dropdown-menu #menu="nzDropdownMenu">
+        <ul nz-menu>
+          <li nz-menu-item (click)="navigateBackToLoginPage()">Logout</li>
+         
+        </ul>
+      </nz-dropdown-menu>
+
+
+    </li></div>
+
      </div>
       </ul>
      <!-- <h4>Admin Panel  </h4> -->
@@ -14,41 +32,52 @@
     <nz-content class="outer-content"> 
       <!-- <h1 class="font-weight-normal text-center">Admin Dashboard</h1> -->
       <nz-layout class="inner-layout">
-        <nz-sider nzWidth="200px" nzTheme="light">
-          <ul nz-menu nzMode="inline" class="sider-menu">
-            <li nz-menu-item [routerLink]="'dashboard'">
+
+        <nz-sider nzWidth="200px"  nzCollapsible [(nzCollapsed)]="isCollapsed" >
+          <ul nz-menu nzMode="inline" class="sider-menu"[nzInlineCollapsed]="isCollapsed" nzTheme="dark" >
+            
+            <li nz-menu-item [routerLink]="'dashboard'" style="font-weight: 700;">
               <i nz-icon nzType="dashboard"></i>
               <span>Dashboard</span>
             </li>
-            <li nz-submenu nzTitle="Category" nzIcon="laptop">
+            
+            <li nz-submenu nzTitle="Products" nzIcon="user" style="font-weight: 700;">
               <ul>
+               <a [routerLink]="'product'"><li nz-menu-item>List</li></a>
+               <a [routerLink]="'add-product'" ><li nz-menu-item>Add</li></a>
+               </ul> 
+
+            </li>
+            <li nz-submenu nzTitle="Category"  nzIcon="laptop" style="font-weight: 700;">
+            <ul>
               <a [routerLink]="'category'"><li nz-menu-item>List</li></a>
               <a [routerLink]="'add-category'"><li nz-menu-item>Add</li></a>
               </ul>
             </li>
-            <li nz-submenu nzOpen nzTitle="Products" nzIcon="user">
+            <li nz-submenu nzTitle="Products" nzIcon="user" style="font-weight: 700;">
               <ul>
                <a [routerLink]="'product'"><li nz-menu-item>List</li></a>
                <a [routerLink]="'add-product'" ><li nz-menu-item>Add</li></a>
                </ul> 
             </li>
-            <li nz-submenu nzTitle="Transactions" nzIcon="transaction">
+            <li nz-submenu nzTitle="Transactions" nzIcon="transaction" style="font-weight: 700;">
               <ul>
                 <a [routerLink]="'transactions'"><li nz-menu-item>Total Transactions</li></a>
-                <a [routerLink]="'user'"><li nz-menu-item>User Transactions</li></a>
+                <!-- <a [routerLink]="'user'"><li nz-menu-item>User Transactions</li></a> -->
               </ul>
             </li>
             <li nz-menu-item [routerLink]="'setting'">
               <i nz-icon nzType="setting"></i>
-              <span>Setting</span>
+              <span><b>Setting</b></span>
             </li>
           </ul>
         </nz-sider>
         <nz-content class="inner-content">
          <router-outlet></router-outlet>
         </nz-content>
+       
       </nz-layout>
-  <!-- <nz-footer>Implement By Stepway</nz-footer> -->
+      <!-- <nz-footer>Implement By Stepway &copy; 2020</nz-footer> -->
     </nz-content>
    </nz-layout>
 

@@ -11,3 +11,8 @@
   .global-search-item-count {
     flex: none;
   }
+  #cardShadow{
+    /* border: 1px solid; */
+    box-shadow: 5px 10px 18px #888888;
+    
+  }

@@ -1,32 +1,7 @@
-<div ng-row>
-  <div nz-col nzSpan="8" nzOffset="10">
-    <h1>Transactions</h1>
-    </div>
-</div>
-<br>
-<div ng-row>
-  <div nz-col nzSpan="12" nzOffset="7">
-<nz-date-picker
-[nzDisabledDate]="disabledStartDate"
-nzShowTime
-nzFormat="yyyy-MM-dd"
-[(ngModel)]="startValue"
-nzPlaceHolder="Start"
-(ngModelChange)="onStartChange($event)"
-(nzOnOpenChange)="handleStartOpenChange($event)"
->
-</nz-date-picker>
-<nz-date-picker
-[nzDisabledDate]="disabledEndDate"
-nzShowTime
-nzFormat="yyyy-MM-dd"
-[(ngModel)]="endValue"
-nzPlaceHolder="End"
-[nzOpen]="endOpen"
-(ngModelChange)="onEndChange($event)"
-(nzOnOpenChange)="handleEndOpenChange($event)"
->
-</nz-date-picker>
+  <div ng-row>
+    <div nz-col nzSpan="24" nzOffset="">
+      <h1> User Transactions</h1>
+      </div>
   </div>
 </div>
 <div ng-row>
@@ -34,24 +9,89 @@ nzPlaceHolder="End"
 <button nz-button nzType="primary"  nzShape="round">
   <i nz-icon nzType="search"></i>Search</button>
   </div>
+</div>
+  <br>
+  <div ng-row>
+    <div nz-col nzSpan="4" nzOffset="">
+  <nz-date-picker
+  [nzDisabledDate]="disabledStartDate"
+  nzShowTime
+  nzFormat="yyyy-MM-dd"
+  [(ngModel)]="startValue"
+  nzPlaceHolder="Start"
+  (ngModelChange)="onStartChange($event)"
+  (nzOnOpenChange)="handleStartOpenChange($event)"
+  >
+  </nz-date-picker>
   </div>
-<nz-table #basicTable [nzData]="allTransactions">
-    <thead>
-      <tr>
-        <th>Date</th>
-        <th>Product</th>
-        <th>Amount</th>
-        <th>Created by</th>
-        <th>Updated by</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let data of basicTable.data">
-        <td>{{ data.date }}</td>
-        <td>{{ data.product }}</td>
-        <td>{{ data.amount }}</td>
-        <td>{{ data.createdBy }}</td>
-        <td>{{ data.updatedBy }}</td>
-      </tr>
-    </tbody>
-  </nz-table>
+  <div nz-col nzOffset="1" nzSpan="4">
+  <nz-date-picker
+  [nzDisabledDate]="disabledEndDate"
+  nzShowTime
+  nzFormat="yyyy-MM-dd"
+  [(ngModel)]="endValue"
+  nzPlaceHolder="End"
+  [nzOpen]="endOpen"
+  (ngModelChange)="onEndChange($event)"
+  (nzOnOpenChange)="handleEndOpenChange($event)"
+  >
+  </nz-date-picker>
+
+    </div>
+    <div nz-col nzSpan="4" nzOffset="1">
+        <button nz-button (click)="scearchUsertransactions()" nzType="primary" [nzSize]="size" nzShape="round">
+          <i nz-icon nzType="search"></i>Search</button>
+          </div>
+  </div>
+  
+  
+  <nz-table #basicTable [nzData]="allTransactions">
+      <thead>
+        <tr>
+          <th>Date</th>
+          
+          <th>Amount</th>
+          <th>Created by</th>
+          <th>Updated by</th>
+          <th>Actions</th>
+          <!-- <th>Products</th> -->
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of basicTable.data">
+          <td>{{ data.date }}</td>
+         
+          <td>{{ data.amount }}</td>
+          <td>{{ data.createdBy }}</td>
+          <td>{{ data.updatedBy }}</td>
+          <td>
+            <!-- <a (click)="deleteTransactions(data.productname)">Delete</a>
+            <nz-divider nzType="vertical"></nz-divider> -->
+            <a (click)="detailsTransactions(data.productname,data.image)">Details</a>
+          </td>
+           <!-- <td *ngFor="let d of productname">{{ d.name }}</td> -->
+        </tr>
+      </tbody>
+    </nz-table>
+    <nz-spin *ngIf="display" style="margin-left:540px; margin-top:10px" nzSize="large" nzSimple></nz-spin>
+    
+    <nz-modal [(nzVisible)]="isVisible" nzTitle="Products" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+      <!-- <nz-card nzHoverable style="width:100px" [nzCover]="coverTemplate">
+        <nz-card-meta style="font-size:100px" nzTitle="" nzDescription=""></nz-card-meta>
+      </nz-card>
+      <ng-template #coverTemplate>
+        <img alt="example" [src]=productimage />
+        <h2 style="text-align:center;font-family:Arial, Helvetica, sans-serif;text-decoration:none">{{showproductName}} </h2>
+        
+        <h3 style="font-family:Arial, Helvetica, sans-serif;padding-left:5px;font-size:20px">Qty:</h3>
+      </ng-template> -->
+      <nz-card  class="cardShadow" style="background-color:black" nzHoverable style="width:130px;">
+     <img [src]=productimage style="width:70px;height:70px">
+        <hr>
+        <b style="font-size:12px;padding:0px">{{showproductName}}</b><br>
+        <b style="font-size:12px;padding:0px" >quantity:10 </b>
+
+     
+     
+      </nz-card>
+    </nz-modal>
