@@ -7,6 +7,9 @@ import {
 import { ChartType, ChartEvent } from 'ng-chartist';
 import { AdminServiceService } from '../admin-service.service';
 import { Router } from '@angular/router';
+import { element } from 'protractor';
+// import { element } from 'protractor';
+
 
 
 
@@ -23,7 +26,7 @@ export class AdminDashboardComponent implements OnInit {
   isTotalTransactionModalVisible = false;
   constructor(private adminService: AdminServiceService, private router: Router) { }
 
-showChart=false;
+  showChart = false;
 
 
   type: ChartType = 'Bar';
@@ -92,33 +95,120 @@ showChart=false;
   chartResult
 
 
-
+  array = []
   getChartData() {
+    this.showChart = false;
 
     this.adminService.getChartData().subscribe(d => {
-      this.chartResult = d.result;
-      this.data.labels = this.chartResult.labels;
-      this.data.series.push(this.chartResult.series)
-      this.showChart=true;
+      if (this.startValue && this.endValue) {
+        this.chartResult = d.result;
+        this.data.labels = this.chartResult.dates;
+        this.data.series = [];
+        this.data.series.push(this.chartResult.amounts);
+        console.log(this.data.series);
+        // this.array = this.chartResult.dates
+        // this.data.labels.forEach(date => {
+        //      
+        //   var datee = new Date(date)
+
+        // this.data.labels=  this.data.labels.filter(date=>{ 
+        //     this.array.push(this.data.labels.indexOf(date));
+
+        //     (!(datee >= this.startValue && datee < this.endValue))
+        //   })
+
+        var length = this.data.labels.length
+        let i = 0;
+        for (let index = 0; index < length; index++) {
+
+          var datee = new Date(this.data.labels[index]);
+          if (!(datee >= this.startValue && datee <= this.endValue)) {
+            this.data.labels.splice(i, 1);
+            this.data.series[0].splice(i, 1);
+            i = 0;
+
+          }
+          else {
+            i++;
+          }
+
+        }
+
+        // });
+
+
+        this.showChart = true;
+      }
+
+      else {
+        this.chartResult = d.result;
+        this.data.labels = this.chartResult.labels;
+        this.data.series.push(this.chartResult.series)
+        this.showChart = true;
+      }
 
 
     })
   }
 
 
-
+  totalOutofStockObject = []
   getTotalOutOfStockProducts() {
+
     this.adminService.getTotalOutOfStock().subscribe(d => {
-      this.totalOutOfStockProducts = d.result;
+
+      this.totalOutofStockObject = d.result;
+      this.totalOutOfStockProducts = this.totalOutofStockObject.length;
+      if (this.startValue && this.endValue && d) {
+        this.totalOutOfStockProducts = []
+        this.totalOutofStockObject.forEach(e => {
+          let datee = new Date(e[1]);
+          if (datee >= this.startValue && datee <= this.endValue) {
+            this.totalOutOfStockProducts.push(e);
+            // this.totalProducts=this.totalProducts.length
+
+          }
+        });
+        if (this.totalOutOfStockProducts == undefined) {
+
+          this.totalOutOfStockProducts = 0
+        }
+        else
+
+          this.totalOutOfStockProducts = this.totalOutOfStockProducts.length;
+      }
     })
   }
 
+  abcd: Date;
   getRequestedProducts() {
 
     this.adminService.getRequestedProducts().subscribe(d => {
-      // this.reqProducts = d;
-
+      let filteredReqProducts;
       this.reqProducts = d.result;
+      // this.abcd = new Date(this.reqProducts[0].date1);
+
+      if (d && this.startValue && this.endValue) {
+        this.reqProducts.forEach(e => {
+          this.abcd = new Date(e.date1);
+          if (this.abcd >= this.startValue && this.abcd <= this.endValue) {
+            filteredReqProducts.push(e);
+          }
+        })
+
+        this.reqProducts = filteredReqProducts;
+        if (this.reqProducts.length < 5) {
+          let count = this.reqProducts.length;
+          for (let index = count; index < 5; index++) {
+            this.reqProducts[index] = {};
+
+          }
+        }
+
+      }
+
+
+
       console.log(d.result)
       if (this.reqProducts.length > 5) {
         this.reqProducts.length = 5;
@@ -127,7 +217,7 @@ showChart=false;
       else if (this.reqProducts.length < 5) {
         let count = this.reqProducts.length;
         for (let index = count; index < 5; index++) {
-          this.reqProducts[index] = { id: 0, name: "", countName: "" };
+          this.reqProducts[index] = {};
 
         }
       }
@@ -139,32 +229,81 @@ showChart=false;
     })
   };
 
+  totalProductObject = []
   getTotalProductQuantity() {
-    //debugger
+    //  
     this.adminService.getTotalProductQuantity().subscribe(d => {
 
-      this.totalProducts = d.result;
-      console.log(this.totalProducts);
+      if (d) {
+        this.totalProductObject = d.result;
+        this.totalProducts = this.totalProductObject.length
+        if (this.startValue && this.endValue) {
+          this.totalProducts = [];
+          this.totalProductObject.forEach(e => {
+            let datee = new Date(e[1]);
+            if (datee >= this.startValue && datee < this.endValue) {
+              this.totalProducts.push(e);
+              // this.totalProducts=this.totalProducts.length
+
+            }
+          });
+
+          console.log(this.totalProducts);
+
+          if (this.totalProducts == undefined) {
+
+            this.totalProducts = 0
+          }
+          else
+            this.totalProducts = this.totalProducts.length;
+        }
+
+        console.log(this.totalProducts);
+      }
+
     })
   }
 
 
 
   totalTransaction;
+  totalAmount;
+  totalTransactionFiltering;
   getTotalTransaction() {
+    this.totalAmount = 0;
     this.adminService.getTotalTransaction().subscribe(d => {
-      console.log(d)
-      this.totalTransaction = d.result;
+      if (d) {
+
+
+        this.totalTransaction = d.result;
+        this.totalTransaction.forEach(element => {
+          this.totalAmount += element[0];
+        });
 
 
 
+
+        if (this.startValue && this.endValue) {
+          this.totalAmount = 0;
+
+          this.totalTransaction.forEach(element1 => {
+            let datee = new Date(element1[1]);
+            if (datee >= this.startValue && datee < this.endValue) {
+              this.totalAmount += element1[0];
+            }
+
+          });
+        }
+      }
     })
 
-    console.log(this.totalTransaction)
-    if (this.totalTransaction === undefined) {
-      this.totalTransaction = 0;
-    }
+
+
+
   }
+
+
+
 
 
 
@@ -190,13 +329,7 @@ showChart=false;
     this.router.navigate(['/admin/layout/totalproddetails'])
   }
 
-  // handleOkTotalProducts(): void {
 
-  // }
-
-  // handleCancelTotalProducts(): void {
-  //   this.isTotalProductsVisibleModal = false;
-  // }
 
 
 
@@ -209,13 +342,6 @@ showChart=false;
     this.router.navigate(['admin/layout/outOfstockdetail'])
   }
 
-  // handleOkOutOfStock(): void {
-  //   this.isOutOfStockVisibleModal = false;
-  // }
-
-  // handleCancelOutOfStock(): void {
-  //   this.isOutOfStockVisibleModal = false;
-  // }
 
 
 
@@ -224,13 +350,85 @@ showChart=false;
     this.router.navigate(['admin/layout/transactiondetail'])
   }
 
-  // handleOkTotalTransaction(): void {
-  //   this.isTotalTransactionModalVisible = false;
-  // }
 
-  // handleCancelTotalTransaction(): void {
-  //   this.isTotalTransactionModalVisible = false;
-  // }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // Date Picker Work
+
+
+
+  startValue: Date=null;
+  endValue: Date=null;
+  endOpen = false;
+
+  disabledStartDate = (startValue: Date): boolean => {
+    if (!startValue || !this.endValue) {
+      return false;
+    }
+    return startValue.getTime() > this.endValue.getTime();
+  };
+
+  disabledEndDate = (endValue: Date): boolean => {
+    if (!endValue || !this.startValue) {
+      return false;
+    }
+    return endValue.getTime() <= this.startValue.getTime();
+  };
+
+
+
+
+  month
+  onStartChange(date: Date): void {
+
+    this.startValue = date
+
+
+
+
+
+  }
+
+  onEndChange(date: Date): void {
+    this.endValue = date;
+    this.getRequestedProducts();
+    this.getTotalProductQuantity();
+    this.getTotalOutOfStockProducts();
+    this.getTotalTransaction();
+    this.getChartData();
+    debugger
+    
+
+
+  }
+
+  handleStartOpenChange(open: boolean): void {
+    if (!open) {
+      this.endOpen = true;
+    }
+    console.log('handleStartOpenChange', open, this.endOpen);
+  }
+
+  handleEndOpenChange(open: boolean): void {
+    console.log(open);
+    this.endOpen = open;
+  }
 
 }

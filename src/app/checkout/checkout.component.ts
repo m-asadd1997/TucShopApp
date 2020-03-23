@@ -170,7 +170,7 @@ chekingSetting=false;
   handleCancel(): void {
     this.isVisible = false;
     this.isVisible2 = false;
-    this.total = 0;
+    // this.total = 0;
   }
 
   showModal2(): void {

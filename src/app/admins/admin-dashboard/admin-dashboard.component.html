@@ -6,6 +6,39 @@
   <title>Document</title>
 </head>
 <body >
+
+
+
+ 
+  <div style="text-align: center;"> 
+    <nz-date-picker
+    [nzDisabledDate]="disabledStartDate"
+    
+    nzFormat="yyyy-MM-dd "
+    [(ngModel)]="startValue"
+    nzPlaceHolder="Start"
+    (ngModelChange)="onStartChange($event)"
+    (nzOnOpenChange)="handleStartOpenChange($event)"
+  >
+  </nz-date-picker>
+  <nz-date-picker
+    [nzDisabledDate]="disabledEndDate"
+   
+    nzFormat="yyyy-dd-MM "
+    [(ngModel)]="endValue"
+    nzPlaceHolder="End"
+    [nzOpen]="endOpen"
+    (ngModelChange)="onEndChange($event)"
+    (nzOnOpenChange)="handleEndOpenChange($event)"
+  >
+  </nz-date-picker>
+  </div>
+   
+  
+ 
+
+
+  
   <div style="background: #ECECEC;padding:10px;">
     <div nz-row [nzGutter]="6">
       <div nz-col [nzSpan]="6">
@@ -26,7 +59,7 @@
       
       <div nz-col [nzSpan]="6" >
         <nz-card nzTitle="Total Transacation" (click)="showModalTotalTransactions()">
-          <h1 style="text-align: center;">{{totalTransaction }}</h1>
+          <h1 style="text-align: center;">{{totalAmount }}</h1>
         </nz-card>
       </div>
     

@@ -18,11 +18,30 @@ export class MainScreenComponent implements OnInit {
  
   
   constructor(private mainScreenServ: MainscreenService,private activeRoute:ActivatedRoute, private router: Router) { }
-
+category
   ngOnInit() {
     this.innerWidth = window.innerWidth;
     this.setupMobileView();
-    this.router.navigate(["categories/Products"]);
+
+    this.activeRoute.paramMap.subscribe(
+      params => {
+
+
+      this.category= (params['params'].category)
+       
+
+      if(this.category==="Products")
+      {
+        this.router.navigate(["categories/Products"]);
+      }
+
+      }
+    );
+
+
+
+
+    
   
 
     this.getCat();
@@ -44,6 +63,9 @@ export class MainScreenComponent implements OnInit {
   
 
   addCategoryToUrl(urlFilterWithCatName: String){
+
+
+    
     this.router.navigate(["categories/"+urlFilterWithCatName]);
   }
 
