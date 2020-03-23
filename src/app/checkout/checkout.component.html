@@ -43,7 +43,7 @@
         </ng-template>
         <nz-autocomplete #auto>
           <nz-auto-option class="global-search-item" *ngFor="let option of options" [nzValue]="option.name">
-            Found &nbsp; <b>{{ option.name || uppercase }}</b> &nbsp; on &nbsp;
+            Found &nbsp; <b>{{ option.name | uppercase }}</b> &nbsp; on &nbsp;
            
             <span class="global-search-item-count"><b>{{ option.countName }}</b> &nbsp; results</span>
           </nz-auto-option>

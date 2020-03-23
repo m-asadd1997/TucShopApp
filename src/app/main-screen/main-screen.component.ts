@@ -13,6 +13,7 @@ export class MainScreenComponent implements OnInit {
   CollapsedNav = true;
   categoriesArray = [] = [];
   isVisible :Boolean;
+  isCollapsed; 
   
   
  

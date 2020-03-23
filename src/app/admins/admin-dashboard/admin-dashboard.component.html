@@ -80,6 +80,7 @@
             <nz-card   [nzBordered]="false" nzTitle="Sale Analysis" [nzExtra]="extraTemplate" style="widows: 100px; ">
                 <x-chartist id="chartist"
                 *ngIf="showChart"
+
                 [type]="type"
                 [data]="data"
                 [options]="options"
