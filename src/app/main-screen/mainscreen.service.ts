@@ -114,4 +114,8 @@ export class MainscreenService {
     return this.http.post<any>(this.loginUserURL, login);
   }
 
+  loggedIn(){
+    return !!localStorage.getItem('token')
+  }
+
 }
