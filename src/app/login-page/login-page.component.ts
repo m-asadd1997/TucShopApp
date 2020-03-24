@@ -46,8 +46,17 @@ export class LoginPageComponent implements OnInit {
 
     this.service.registerUser(this.registerModel)
     .subscribe(
-        data => console.log('success',data),
-        error => console.log('success',error)
+        data => {
+          if(data.status == 200){
+            this.message.success("Registered Successfully", { nzDuration: 3000 });
+
+          }
+          else{
+            this.message.error("Could Not Register", { nzDuration: 3000 });
+
+          }
+        }
+        
     )
 
   }
@@ -59,21 +68,47 @@ export class LoginPageComponent implements OnInit {
     this.service.loginUser(this.loginModel)
     .subscribe(
         res => {
-          console.log('login Successfull',res);
           if(res){
-            this.route.navigate(['main']);
+            if(res.status == 200){
+              console.log(res);
+              localStorage.setItem('token',res.result.token);
+              this.message.success('Login Successful',{ nzDuration: 3000 });
+              this.route.navigate(['main']);
+
+            }
+            
           }
           
         },
         error =>{
-          console.log('invalid Username or passwaord',error)
           if(error){
+            this.message.error('Invalid Company ID',{ nzDuration: 3000 })
           }
         }       
       )
 
+     
+
       
      }
+     
+     validate(){
+        if(this.registerModel.name && this.registerModel.email){
+          return false;
+        }
+        else{
+          return true
+        }
+    }
+
+    logValidate(){
+      if(this.loginModel.username){
+        return false;
+      }
+      else{
+        return true
+      }
+  }
 
     
 

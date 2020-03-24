@@ -30,8 +30,8 @@ import { NzAutocompleteModule } from 'ng-zorro-antd/auto-complete';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 
 import { NzTagModule } from 'ng-zorro-antd/tag';
-
-
+import { AuthGuard } from './auth.guard';
+ 
 registerLocaleData(en);
 
 @NgModule({
@@ -42,8 +42,7 @@ registerLocaleData(en);
     CheckoutComponent,
     LoginPageComponent,
 
-    RecentTransactionsComponent,
-
+    RecentTransactionsComponent
 
      
    
@@ -71,11 +70,10 @@ registerLocaleData(en);
     ReactiveFormsModule,
     ChartistModule,
     NzAutocompleteModule,
-    NzBadgeModule
-
+    NzBadgeModule,
 
   ],
-  providers: [{ provide: NZ_I18N, useValue: en_US }],
+  providers: [{ provide: NZ_I18N , useValue: en_US }, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
