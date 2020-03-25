@@ -1,5 +1,30 @@
-<h2>{{categoryHeader}}</h2>
+<div style="width: 25%; margin-left: 720px;"> 
+<div class="example-input">
+  <nz-input-group nzSize="large" [nzSuffix]="suffixIcon">
+    <input
+      placeholder="Search Products"
+      nz-input
+      [(ngModel)]="inputValue"
+      (ngModelChange)="onChange($event)"
+      [nzAutocomplete]="auto"
+    />
+  </nz-input-group>
+  <ng-template #suffixIcon>
+    <i nz-icon nzType="search"></i>
+  </ng-template>
+  <nz-autocomplete #auto>
+    <nz-auto-option  *ngFor="let option of searchProduct" [nzValue]="option.name">
+     <span ><b>Category: {{option.category.name}}</b></span>
+      <br>
+       <div>
+        Item: {{ option.name}} <img style="width: 40px; height: 40px; margin-left: 40px;" [src]="option.image" >
+      </div>
+     </nz-auto-option>
+  </nz-autocomplete>
+</div>
+</div>
 
+<h2>{{categoryHeader}}</h2>
 <nz-card style="width: 100%; overflow-y: scroll; overflow-x: none; height:500px;">
   <div nz-row>
     <div nz-col nzXs="24" nzSm="24" nzMd="5" nzLg="5" nzXl="5" nzSpan="5" nzOffset="1" *ngFor="let p of productsArray">
@@ -24,7 +49,6 @@
           <img #image  [src]="p.image" height="120px" width="80px" />
         </ng-template>
       </div>
-
       <br />
     </div>
   </div>

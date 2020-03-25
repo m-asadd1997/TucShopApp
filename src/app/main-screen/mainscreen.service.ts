@@ -44,6 +44,7 @@ export class MainscreenService {
   private updateMinusAllQuantityURL = environment.baseUrl + "api/products/minusall";
   private registeruserURL=environment.baseUrl+"token/user";
   private loginUserURL=environment.baseUrl+"token/generate-token";
+  private searchProductByKeywordURL=environment.baseUrl+"api/products/search/";
 
   public sendMessage(obj: Object) {
     this.productSource.next(obj);
@@ -124,6 +125,11 @@ export class MainscreenService {
 
   loggedIn(){
     return !!localStorage.getItem('token')
+  }
+
+
+  public searchProductByKeyword(keyword:any): Observable<any> {
+    return this.http.get(this.searchProductByKeywordURL+keyword);
   }
 
 }
