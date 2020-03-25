@@ -35,7 +35,7 @@ export class ProductListingComponent implements OnInit {
 
     this.activeRoute.paramMap.subscribe(
       params => {
-
+          
 
         this.getProducts(params['params'].category)
         this.categoryHeader = params['params'].category;
@@ -57,8 +57,9 @@ export class ProductListingComponent implements OnInit {
     else {
 
       this.prodService.getProducts(str).subscribe(d => {
+        debugger
         if (d) {
-          d = d.filter(e => (e.qty > 0))
+          d.result = d.result.filter(e => (e.qty > 0))
         
           this.productsArray = d.result;
         }
@@ -72,7 +73,7 @@ export class ProductListingComponent implements OnInit {
   sendProducttoCheckout(prod, card) {
 
     this.prodService.getProductsById(prod.id).subscribe(d => {
-      debugger
+      
       if (d) {
         prod.qty = d.qty
         console.log("==============Send Product To Checkout===============", d.qty)
@@ -119,7 +120,7 @@ export class ProductListingComponent implements OnInit {
 
   getAllProducts() {
     this.prodService.getAllProducts().subscribe(d => {
-      debugger
+          
       if (d) {
         d = d.filter(e => (e.qty > 0))
         this.productsArray = d;

@@ -31,9 +31,9 @@ category
       this.category= (params['params'].category)
        
 
-      if(this.category==="Products")
+      if(this.category==="products")
       {
-        this.router.navigate(["categories/Products"]);
+        this.router.navigate(["categories/products"]);
       }
 
       }
@@ -65,7 +65,7 @@ category
 
   addCategoryToUrl(urlFilterWithCatName: String){
 
-
+      
     
     this.router.navigate(["categories/"+urlFilterWithCatName]);
   }
