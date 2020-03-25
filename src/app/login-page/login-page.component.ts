@@ -73,7 +73,7 @@ export class LoginPageComponent implements OnInit {
               console.log(res);
               localStorage.setItem('token',res.result.token);
               this.message.success('Login Successful',{ nzDuration: 3000 });
-              this.route.navigate(['main']);
+              this.route.navigate(['categories/products']);
 
             }
             
