@@ -17,18 +17,43 @@ export class ProductAddComponent implements OnInit {
   categories = []
   addProducts: addProduct ;
   formData = new FormData();
+
+  inputValue: string;
+  options: Array<{ variants: string; category: string; count: number }> = [];
+  variants:any;
   
 
   constructor(private fb: FormBuilder, private service: AdminServiceService, private activateRoute: ActivatedRoute, private message: NzMessageService) { 
     this.addProducts=new addProduct();
     console.log(this.addProducts)
   }
+
+   getVariants(value:any){
+     this.service.getVariants(value).subscribe(d=>{
+       console.log("======",d.result);
+       this.variants = d.result;
+     })
+   }
+
+   onChange(e: Event): void {
+    const value = (e.target as HTMLInputElement).value;
+    if (value != null && value != "") {
+      this.getVariants(value);
+      this.options = this.variants;
+     
+    }
+
+  }
+
+
   submitForm(): void {
 
   }
+
+  
   submit(myForm: NgForm) {
     console.log(this.formData);
-    //debugger
+    debugger
     this.formData.append('name', this.addProducts.productTitle)
     let idObj= this.categories.find(v=>v.name==this.addProducts.category);
     this.formData.append('category',idObj.id);
@@ -36,6 +61,7 @@ export class ProductAddComponent implements OnInit {
     this.formData.append('costprice', this.addProducts.costPrice);
     this.formData.append('price', this.addProducts.salePrice);   //sale price
     this.formData.append('quantity', this.addProducts.productQuantity);
+    this.formData.append('variants',this.addProducts.variants.toUpperCase());
     console.log(this.formData);
 
     if (this.id != null) {
@@ -63,6 +89,7 @@ export class ProductAddComponent implements OnInit {
         this.formData.delete("costprice");
         this.formData.delete("price");
         this.formData.delete("quantity");
+        this.formData.delete("variants");
         console.log(this.addProducts.image)
         this.addProducts.image = null;
         console.log(this.addProducts.image)
@@ -86,6 +113,7 @@ export class ProductAddComponent implements OnInit {
         this.formData.delete("costprice");
         this.formData.delete("price");
         this.formData.delete("quantity");
+        this.formData.delete("variants");
         console.log(this.addProducts.image)
         // this.addProducts.image = null;
         console.log(this.addProducts.image)
@@ -103,6 +131,7 @@ export class ProductAddComponent implements OnInit {
 
   ngOnInit(): void {
 
+   
     this.id = this.activateRoute.snapshot.params['id'];
     if (this.id)
       this.getProducts();
@@ -127,6 +156,7 @@ export class ProductAddComponent implements OnInit {
       this.addProducts.salePrice = d.price
       this.addProducts.category = d.category.name
       this.addProducts.image = d.image
+      this.addProducts.variants=d.variants
 
       console.log(this.addProducts.category)
       

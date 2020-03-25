@@ -30,6 +30,8 @@ productQuantityUpdateToProductListing$= this.productQuantityUpdateToProductListi
 
 
   private getAutoCompleteRequestURL=environment.baseUrl+"api/dashboard/autocomplete/";
+
+ 
   private getAllProductURL=environment.baseUrl+"api/products/";
   private getSettingURL= environment.baseUrl+"api/dashboard/settings";
   private postTransactionURL=environment.baseUrl+"api/transaction/post";
@@ -69,6 +71,8 @@ productQuantityUpdateToProductListing$= this.productQuantityUpdateToProductListi
   public getRequestForProductCount(keyword:any):Observable<any>{
     return this.http.get(this.getAutoCompleteRequestURL+keyword);
    }
+
+  
 
    public getAllProducts():Observable<any>{
    return this.http.get(this.getAllProductURL);

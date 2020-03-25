@@ -1,8 +1,8 @@
 <div style="margin-left: 20%;">
-  <nz-card style="width:550px;" nzTitle="Product Add" [nzExtra]="extraTemplate">
+  <nz-card style="width:55%;" nzTitle="Add Products" [nzExtra]="extraTemplate">
    
  
-<form nz-form [nzLayout]="'inline'" #myForm="ngForm" autocomplete="off">
+<form nz-form [nzLayout]="'inline'" #myForm="ngForm" autocomplete="auto">
   <nz-form-item>
     <nz-form-control nzErrorTip="Please input your Product Title!">
       <nz-input-group nzPrefixIcon="project" class="nz-group">
@@ -17,6 +17,65 @@
     </nz-form-control>
   </nz-form-item>
   <br>
+  <br>
+  <br>
+  
+
+
+  <nz-form-item>
+    <nz-form-control nzErrorTip="Please input your Product variants!" >
+     
+      <!-- <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
+        <input 
+        type="text"
+         nzSize="large"
+          required 
+          name="variants" 
+          #variants="ngModel" 
+          [(ngModel)]=addProducts.variants  
+          nz-input 
+          placeholder="Variants" 
+           required  />
+      </nz-input-group>
+      <ng-template #suffixIconButton>
+        <button nz-button nzType="primary" nzSize="large" nzSearch><i nz-icon nzType="search"></i></button>
+      </ng-template> -->
+
+      <div class="example-input">
+        <nz-input-group nzSearch nzSize="large" [nzAddOnAfter]="suffixIconButton">
+          <input
+            placeholder="Variants"
+            nz-input
+            #variants
+            name ="variants"
+            [(ngModel)]="addProducts.variants"
+            (input)="onChange($event)"
+            [nzAutocomplete]="auto"
+          />
+        </nz-input-group>
+        <ng-template #suffixIconButton>
+          <button nz-button nzType="primary" nzSize="large" nzSearch>
+            <i nz-icon nzType="search" nzTheme="outline"></i>
+          </button>
+        </ng-template>
+        <nz-autocomplete #auto>
+          <nz-auto-option class="global-search-item" *ngFor="let option of options" [nzValue]="option.variants">
+            {{ option.variants || uppercase }}
+           
+            <span class="global-search-item-count"></span>
+          </nz-auto-option>
+        </nz-autocomplete>
+      </div>
+     
+      <div *ngIf="variants.touched && variants.invalid">
+        Variants is Required
+      </div> 
+
+     </nz-form-control>
+  </nz-form-item>
+
+  
+  
   <nz-form-item>
     <nz-form-control nzErrorTip="Please input your Product Price!">
       <nz-input-group nzPrefixIcon="dollar" class="nz-group">
@@ -29,7 +88,7 @@
       </div>
     </nz-form-control>
   </nz-form-item>
-<br>
+
   <nz-form-item>
     <nz-form-control nzErrorTip="Please input your Product Price!">
       <nz-input-group nzPrefixIcon="dollar" class="nz-group">
@@ -42,7 +101,7 @@
       </div>
     </nz-form-control>
   </nz-form-item>
-  <br>
+
   <nz-form-item>
     <nz-form-control nzErrorTip="Please input your Product Price!">
       <nz-input-group nzPrefixIcon="account-book" class="nz-group">
@@ -54,7 +113,7 @@
       </div>
     </nz-form-control>
   </nz-form-item>
-<br>
+
   <nz-form-item>
     <!-- <h5 style="margin-top: 5px;">Category: </h5> -->
     <nz-form-control class="nz-group">
@@ -63,11 +122,11 @@
       </nz-select>
     </nz-form-control>
   </nz-form-item>
-  <br>
+  
   <nz-form-item>
   <input type="file"(change)="handleCategoryBanner($event.target.files)" name="image" id="" style="margin-top: 30px;" required>
   </nz-form-item>
-  <br>
+  
   <div style="text-align: center;">
   <nz-form-item>
     <nz-form-control class="nz-group">

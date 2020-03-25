@@ -31,10 +31,13 @@ export class AdminServiceService {
   private postSettingURL=environment.baseUrl+"api/dashboard/settings"; 
   private getChartDataURL=environment.baseUrl+"api/dashboard/salespermonth";
   private getSettingURL= environment.baseUrl+"api/dashboard/settings";
+  private getAutoCompleteVariantsURL = environment.baseUrl+"api/products/variants/";
   
+6
 
-
-
+  public getVariants(keyword:any):Observable<any>{
+    return this.http.get(this.getAutoCompleteVariantsURL+keyword);
+  }
 
   public getProducts(): Observable<any> {
     return this.http.get(this.getProductURL);

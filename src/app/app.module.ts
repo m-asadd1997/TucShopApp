@@ -28,6 +28,10 @@ import { RecentTransactionsComponent } from './recent-transactions/recent-transa
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
 import { NzAutocompleteModule } from 'ng-zorro-antd/auto-complete';
 import { NzTagModule } from 'ng-zorro-antd/tag';
+import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
+
+
 
 
 registerLocaleData(en);
@@ -59,6 +63,7 @@ registerLocaleData(en);
     NzLayoutModule,
     NzGridModule,
     NzPopoverModule,
+    NzPopconfirmModule,
     NzModalModule,
     NzMessageModule,
     NzMessageModule,
@@ -67,7 +72,8 @@ registerLocaleData(en);
     ReactiveFormsModule,
     ChartistModule,
     NzAutocompleteModule,
-    NzBadgeModule
+    NzBadgeModule,
+    NzDividerModule
 
 
   ],

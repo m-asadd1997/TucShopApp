@@ -1,6 +1,8 @@
 import { AdminServiceService } from './../admin-service.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NzMessageService } from 'ng-zorro-antd/message';
+
 
 @Component({
   selector: 'app-category-listing',
@@ -11,7 +13,9 @@ export class CategoryListingComponent implements OnInit {
 
   categories = []
   filteredProducts = []
-  constructor(private service: AdminServiceService, private router:Router) { }
+
+ 
+  constructor(private service: AdminServiceService, private router:Router,private nzMessageService: NzMessageService) { }
 
   ngOnInit() {
     this.getCategories();
