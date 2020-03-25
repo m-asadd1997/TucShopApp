@@ -12,6 +12,10 @@ export class AdminServiceService {
 
 
   private getProductURL=environment.baseUrl + "api/products/";
+
+  private getPaginatedProductsURL = environment.baseUrl+="api/products/paginatedproducts" 
+
+
   private deleteProductURL=environment.baseUrl + "api/products/";
   private postProductURL=environment.baseUrl + "api/products/postproduct";
   private updateProductURL=environment.baseUrl + "api/products/"
@@ -156,6 +160,21 @@ public scearchtransactionofUser(transaction:any):Observable<any>{
 
   public getSetting():Observable<any>{
     return this.http.get(this.getSettingURL);
+  }
+
+
+  // public getPaginatedProducts(){}
+  public getPaginatedProducts(page):Observable<any>{
+    if(page>0)
+    {
+      return this.http.get(this.getPaginatedProductsURL+"?page="+page);
+    }
+    else if(!page||page==0)
+    {
+      return this.http.get(this.getPaginatedProductsURL);
+
+    }
+   
   }
 
 }
