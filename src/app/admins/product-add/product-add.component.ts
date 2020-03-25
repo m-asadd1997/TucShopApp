@@ -67,7 +67,7 @@ typeBool=false;
     this.formData.append('price', this.addProducts.salePrice);   //sale price
     this.formData.append('quantity', this.addProducts.productQuantity);
     this.formData.append('variants',this.addProducts.variants.toUpperCase());
-    console.log(this.formData);
+    console.log(this.addProducts.variants);
 
 
     if (this.id != null) {
