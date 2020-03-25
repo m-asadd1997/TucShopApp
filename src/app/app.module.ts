@@ -31,7 +31,6 @@ import { NzTagModule } from 'ng-zorro-antd/tag';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
-import { NzTagModule } from 'ng-zorro-antd/tag';
 import { AuthGuard } from './auth.guard';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
  
@@ -75,7 +74,7 @@ registerLocaleData(en);
     ChartistModule,
     NzAutocompleteModule,
     NzBadgeModule,
-    NzDividerModule
+    NzDividerModule,
     NzAvatarModule
 
   ],
