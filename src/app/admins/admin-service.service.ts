@@ -13,7 +13,7 @@ export class AdminServiceService {
 
   private getProductURL=environment.baseUrl + "api/products/";
 
-  private getPaginatedProductsURL = environment.baseUrl+="api/products/paginatedproducts" 
+  private getPaginatedProductsURL = environment.baseUrl+"api/products/paginatedproducts" 
 
 
   private deleteProductURL=environment.baseUrl + "api/products/";
