@@ -22,11 +22,18 @@ export class ProductAddComponent implements OnInit {
   options: Array<{ variants: string; category: string; count: number }> = [];
   variants:any;
   
+  imagePath;
+  imgURL: any;
+  message2: string;
+
+typeBool=false;
+  
 
   constructor(private fb: FormBuilder, private service: AdminServiceService, private activateRoute: ActivatedRoute, private message: NzMessageService) { 
     this.addProducts=new addProduct();
     console.log(this.addProducts)
   }
+
 
    getVariants(value:any){
      this.service.getVariants(value).subscribe(d=>{
@@ -45,15 +52,13 @@ export class ProductAddComponent implements OnInit {
 
   }
 
-
   submitForm(): void {
 
   }
 
   
   submit(myForm: NgForm) {
-    console.log(this.formData);
-    debugger
+
     this.formData.append('name', this.addProducts.productTitle)
     let idObj= this.categories.find(v=>v.name==this.addProducts.category);
     this.formData.append('category',idObj.id);
@@ -63,6 +68,7 @@ export class ProductAddComponent implements OnInit {
     this.formData.append('quantity', this.addProducts.productQuantity);
     this.formData.append('variants',this.addProducts.variants.toUpperCase());
     console.log(this.formData);
+
 
     if (this.id != null) {
      
@@ -74,7 +80,8 @@ export class ProductAddComponent implements OnInit {
       else if(this.addProducts.image==null){this.message.warning("Set Image First")}  
 
       else 
-      {
+      {console.log(this.formData)
+        debugger
         this.service.updateProduct(this.id, this.formData).subscribe(d => 
           {
           this.message.success("Updated Successfully", { nzDuration: 3000 });
@@ -91,8 +98,9 @@ export class ProductAddComponent implements OnInit {
         this.formData.delete("quantity");
         this.formData.delete("variants");
         console.log(this.addProducts.image)
+     
         this.addProducts.image = null;
-        console.log(this.addProducts.image)
+     
       }
 
     }
@@ -117,13 +125,14 @@ export class ProductAddComponent implements OnInit {
         console.log(this.addProducts.image)
         // this.addProducts.image = null;
         console.log(this.addProducts.image)
+        
       }
     }
 
   }
 
   handleCategoryBanner(files: FileList) {
-    console.log(files);
+    //console.log(files);
     this.addProducts.image = files[0]
 
 
@@ -143,8 +152,7 @@ export class ProductAddComponent implements OnInit {
   getCategories(id) {
     this.service.getCategory().subscribe(d => {
       this.categories = d;
-      console.log(d)
-      
+
     })
   }
 
@@ -157,6 +165,7 @@ export class ProductAddComponent implements OnInit {
       this.addProducts.category = d.category.name
       this.addProducts.image = d.image
       this.addProducts.variants=d.variants
+      this.imgURL = d.image
 
       console.log(this.addProducts.category)
       
@@ -164,5 +173,38 @@ export class ProductAddComponent implements OnInit {
     })
   }
 
+
+
+
+
+
+  isInputValid(form){
+    if(form.valid&&this.addProducts.image)
+    {
+      return false;
+    }
+    else{
+      return true;
+    }
+  }
+
+
+  preview(files) {
+    if (files.length === 0)
+      return;
   
+    var mimeType = files[0].type;
+    if (mimeType.match(/image\/*/) == null) {
+      this.message2 = "Only images are supported.";
+      return;
+    }
+  
+    var reader = new FileReader();
+    this.imagePath = files;
+    reader.readAsDataURL(files[0]); 
+    reader.onload = (_event) => { 
+      this.imgURL = reader.result; 
+      
+    }
+  }
 }

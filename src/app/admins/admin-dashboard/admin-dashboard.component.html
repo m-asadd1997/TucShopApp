@@ -6,6 +6,21 @@
   <title>Document</title>
 </head>
 <body >
+
+
+
+ 
+  <div style="text-align: center; margin-bottom: 15px;"> 
+   
+  <nz-range-picker [(ngModel)]="dateRange" ></nz-range-picker>
+<button nz-button nzType="primary" style="margin-left: 30px;" (click)="print()" >Filter</button>
+  </div>
+   
+  
+ 
+
+
+  
   <div style="background: #ECECEC;padding:10px;">
     <div nz-row [nzGutter]="6">
       <div nz-col [nzSpan]="6">
@@ -25,8 +40,8 @@
       </div>
       
       <div nz-col [nzSpan]="6" >
-        <nz-card nzTitle="Total Transacation" nzHoverable (click)="showModalTotalTransactions()">
-          <h1 style="text-align: center;">{{totalTransaction }}</h1>
+        <nz-card nzTitle="Total Transacation" (click)="showModalTotalTransactions()">
+          <h1 style="text-align: center;">{{totalAmount }}</h1>
         </nz-card>
       </div>
     
@@ -47,6 +62,7 @@
             <nz-card nzHoverable  [nzBordered]="false" nzTitle="Sale Analysis" [nzExtra]="extraTemplate" style="widows: 100px; ">
                 <x-chartist id="chartist"
                 *ngIf="showChart"
+
                 [type]="type"
                 [data]="data"
                 [options]="options"

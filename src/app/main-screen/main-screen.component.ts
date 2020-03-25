@@ -13,16 +13,36 @@ export class MainScreenComponent implements OnInit {
   CollapsedNav = true;
   categoriesArray = [] = [];
   isVisible :Boolean;
+  isCollapsed; 
   
   
  
   
   constructor(private mainScreenServ: MainscreenService,private activeRoute:ActivatedRoute, private router: Router) { }
-
+category
   ngOnInit() {
     this.innerWidth = window.innerWidth;
     this.setupMobileView();
-    this.router.navigate(["categories/Products"]);
+
+    this.activeRoute.paramMap.subscribe(
+      params => {
+
+
+      this.category= (params['params'].category)
+       
+
+      if(this.category==="products")
+      {
+        this.router.navigate(["categories/products"]);
+      }
+
+      }
+    );
+
+
+
+
+    
   
 
     this.getCat();
@@ -44,6 +64,9 @@ export class MainScreenComponent implements OnInit {
   
 
   addCategoryToUrl(urlFilterWithCatName: String){
+
+      
+    
     this.router.navigate(["categories/"+urlFilterWithCatName]);
   }
 

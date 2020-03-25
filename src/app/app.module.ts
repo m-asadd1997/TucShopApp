@@ -30,10 +30,11 @@ import { NzAutocompleteModule } from 'ng-zorro-antd/auto-complete';
 import { NzTagModule } from 'ng-zorro-antd/tag';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
-
-
-
-
+import { NzSpinModule } from 'ng-zorro-antd/spin';
+import { NzTagModule } from 'ng-zorro-antd/tag';
+import { AuthGuard } from './auth.guard';
+import { NzAvatarModule } from 'ng-zorro-antd/avatar';
+ 
 registerLocaleData(en);
 
 @NgModule({
@@ -44,7 +45,7 @@ registerLocaleData(en);
     CheckoutComponent,
     LoginPageComponent,
 
-    RecentTransactionsComponent,
+    RecentTransactionsComponent
 
      
    
@@ -59,6 +60,7 @@ registerLocaleData(en);
     NzButtonModule,
     NzTagModule,
     NzIconModule,
+    NzSpinModule,
     NzCardModule,
     NzLayoutModule,
     NzGridModule,
@@ -74,10 +76,10 @@ registerLocaleData(en);
     NzAutocompleteModule,
     NzBadgeModule,
     NzDividerModule
-
+    NzAvatarModule
 
   ],
-  providers: [{ provide: NZ_I18N, useValue: en_US }],
+  providers: [{ provide: NZ_I18N , useValue: en_US }, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

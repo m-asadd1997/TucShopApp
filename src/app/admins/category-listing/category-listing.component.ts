@@ -29,18 +29,22 @@ export class CategoryListingComponent implements OnInit {
 
 
   deleteCategory(data) {
+    
     this.filteredProducts = []
     
-    this.service.getCategory().subscribe((d) => {
+    this.service.getProducts().subscribe((d) => {
+      console.log('++++++++++',d,'================')
       d.forEach(element => {
-        if (element.category == data.name) {
+        console.log('==============',element,'======================')
+        if (element.category.name == data.name) {
           this.filteredProducts.push(element);
         }
       }
-
+   
       );
+      console.log(this.filteredProducts,'+++++++++++++++++++++++++++==')
       this.filteredProducts.forEach(d => {
-       this.service.deleteCategory(d.id).subscribe();
+       this.service.deleteProduct(d.id).subscribe();
       })
 
        this.service.deleteCategory(data.id).subscribe();

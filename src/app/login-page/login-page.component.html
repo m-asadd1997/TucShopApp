@@ -1,99 +1,54 @@
 <router-outlet></router-outlet>
-<!-- <!DOCTYPE html>
-<html>
-<head>
-    <title>Login Page</title>
-
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
-        integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-</head>
-<body>
-    <div class="container">
-    <div class="d-flex justify-content-center h-100">
-            <div class="card">
-               
-                <div class="card-header">
-                    <h3 style="font-family: Arial, Helvetica, sans-serif;">Sign In</h3>
-
-                </div>
-                <div class="card-body">
-                    <form>
-                        <div class="input-group form-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-user"></i></span>
-                            </div>
-                            <input #username type="text" class="form-control" placeholder="username">
-
-                        </div>
-                        <div class="input-group form-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-key"></i></span>
-                            </div>
-                            <input #password type="password" class="form-control" placeholder="password">
-                        </div>
-                        
-                        <div class="form-group">
-                            <input  value="Login" class="btn float-right login_btn">
-                        </div>
-                    </form>
-                </div>
-            
-            </div>
-        </div>
-    </div>
-</body>
-</html> -->
 
 
 
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script> -->
 <!------ Include the above in your HEAD tag ---------->
 
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Login Page</title>
-   <!--Made with love by Mutiullah Samim -->
-   
-	<!--Bootsrap 4 CDN-->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    
-    <!--Fontawesome CDN-->
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
-	<!--Custom styles-->
-	<!-- <link rel="stylesheet" type="text/css" href="styles.css"> -->
-</head>
-<body>
-	
 	<div class="container login-container">
 				<div class="row">
 					<div class="col-md-8 login-form-1">
 						<h1>Recent Transactions</h1>
 						<app-recent-transactions></app-recent-transactions>
 					</div>
-					<div class="col-md-4 login-form-2">
+					<div *ngIf="login" class="col-md-4 login-form-2">
 						<h3>Login</h3>
-						<form>
+						<form #loginForm="ngForm" (ngSubmit)="loginSubmit()">
 							<div class="form-group">
-								<input type="text" class="form-control" placeholder="Your Email *" value="" />
+								<input type="password" required [(ngModel)]="loginModel.username" name="username" class="form-control" placeholder="Your Company ID" value="" />
 							</div>
-							<div class="form-group">
-								<input type="password" class="form-control" placeholder="Your Password *" value="" />
+							<div class="form-group" style="text-align: center;">
+								<button  style="background-color: white;color:black;" nz-button nzType="primary" type="submit" name="submit" [disabled]="logValidate()" >Login</button>
 							</div>
-							<div class="form-group">
-								<input type="submit" class="btnSubmit" value="Login" />
-							</div>
-							<div class="form-group">
+							<div class="form-group" style="text-align: center;">
 	
-								<a href="#" class="ForgetPwd" value="Login">Forget Password?</a>
+								<a (click)="gotoRegister()"  class="ForgetPwd" value="Register">Register</a>
 							</div>
 						</form>
 					</div>
+					<div *ngIf="register" class="col-md-4 login-form-2">
+						<h3>Register</h3>
+						<form #registerForm="ngForm" (ngSubmit)="submit()"> 
+							
+							<div class="form-group">
+								<input type="text" required [(ngModel)]="registerModel.name" name="name" class="form-control" placeholder="Your Full Name" value="" />
+							</div>
+							<div class="form-group">
+								<input type="password" required [(ngModel)]="registerModel.email" name="email" class="form-control" placeholder="Your Company ID" value="" />
+							</div>
+							
+							<div class="form-group" style="text-align: center;">
+								<button style="background-color: white;color:black;" nz-button nzType="primary" type="submit" name="submit" [disabled]="validate()"  >Register</button>
+							</div>
+							<div class="form-group" style="text-align: center;">
+	
+								<a (click)="gotoLogin()"  class="ForgetPwd" value="Login">Login</a>
+							</div>
+							
+						</form>
+					</div>
 				</div>
-            </div>
+	</div>
             
-</body>
-</html>

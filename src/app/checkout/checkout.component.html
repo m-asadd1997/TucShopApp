@@ -43,7 +43,7 @@
         </ng-template>
         <nz-autocomplete #auto>
           <nz-auto-option class="global-search-item" *ngFor="let option of options" [nzValue]="option.name">
-            Found &nbsp; <b>{{ option.name || uppercase }}</b> &nbsp; on &nbsp;
+            Found &nbsp; <b>{{ option.name | uppercase }}</b> &nbsp; on &nbsp;
            
             <span class="global-search-item-count"><b>{{ option.countName }}</b> &nbsp; results</span>
           </nz-auto-option>
@@ -142,7 +142,7 @@
           (nzOnOk)="print()"
           (nzOnCancel)="handleCancel()"
         >
-          <h3>Thanks For Shopping.!</h3>
+          <h4>You want to checkout ?</h4>
         </nz-modal>
       </div>
     </div>
@@ -151,10 +151,10 @@
 
 <div id="print-section" [hidden]="true">
 <div style="text-align: center;"   >
-  <img   *ngIf="imageVisible" [src]="settingHeader.logo" style="height: 100px; width: 100px;" alt="Hello">
+  <img   *ngIf="(chekingSetting && settingHeader   && settingHeader.logo != 'undefined'  )" [src]="settingHeader.logo" style="height: 100px; width: 100px;" alt="Hello">
 </div>
 <br> 
-<div style="text-align: center; margin-bottom: 50px;" >
+<div  *ngIf="(chekingSetting && settingHeader  && settingHeader.header  != 'undefined')" style="text-align: center; margin-bottom: 50px;" >
   <!-- <p class="bd-highlight font-weight-bold">{{settingHeader.header}}</px > -->
     <h2 nz-title>{{settingHeader.header}}</h2>
 </div>
@@ -187,7 +187,7 @@
   </div>
 
   
-    <div style="text-align: center; margin-top: 70px;" >
+    <div *ngIf=" (chekingSetting && settingHeader  && settingHeader.footer  != 'undefined')" style="text-align: center; margin-top: 70px;" >
       <!-- <p class="bd-highlight font-weight-bold">{{settingHeader.header}}</px > -->
         <h2 nz-title>{{settingHeader.footer}}</h2>
     
