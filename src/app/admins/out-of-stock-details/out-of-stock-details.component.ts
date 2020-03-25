@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminServiceService } from '../admin-service.service';
 import { Router } from '@angular/router';
+import { NzMessageService } from 'ng-zorro-antd';
 
 @Component({
   selector: 'app-out-of-stock-details',
@@ -9,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class OutOfStockDetailsComponent implements OnInit {
 
-  constructor(private adminService:AdminServiceService, private router:Router) { }
+  constructor(private adminService:AdminServiceService, private router:Router,private message:NzMessageService) { }
   detailedOutOfStockProducts=[]
   ngOnInit() {
     this.getOutOfStockDetailed();
@@ -57,41 +58,54 @@ export class OutOfStockDetailsComponent implements OnInit {
     return endValue.getTime() <= this.startValue.getTime();
   };
 
+dateRange=[]
+  print(){
 
-
-
-  month
-  onStartChange(date: Date): void {
-
-    this.startValue = date
-
-
-
-
-
-  }
-
-  onEndChange(date: Date): void {
-    this.endValue = date;
-
+    if(this.dateRange.length>0){
+    this.startValue=this.dateRange[0];
+    this.endValue=this.dateRange[1];
     this.getOutOfStockDetailed();
 
-
-
-
-  }
-
-  handleStartOpenChange(open: boolean): void {
-    if (!open) {
-      this.endOpen = true;
+  
+  
+    console.log(this.dateRange);}
+    else{
+      this.message.warning("Please Select A range first");
     }
-    console.log('handleStartOpenChange', open, this.endOpen);
   }
 
-  handleEndOpenChange(open: boolean): void {
-    console.log(open);
-    this.endOpen = open;
-  }
+  // month
+  // onStartChange(date: Date): void {
+
+  //   this.startValue = date
+
+
+
+
+
+  // }
+
+  // onEndChange(date: Date): void {
+  //   this.endValue = date;
+
+  //   this.getOutOfStockDetailed();
+
+
+
+
+  // }
+
+  // handleStartOpenChange(open: boolean): void {
+  //   if (!open) {
+  //     this.endOpen = true;
+  //   }
+  //   console.log('handleStartOpenChange', open, this.endOpen);
+  // }
+
+  // handleEndOpenChange(open: boolean): void {
+  //   console.log(open);
+  //   this.endOpen = open;
+  // }
   //
 
 

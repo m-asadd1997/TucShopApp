@@ -10,28 +10,10 @@
 
 
  
-  <div style="text-align: center;"> 
-    <nz-date-picker
-    [nzDisabledDate]="disabledStartDate"
-    
-    nzFormat="yyyy-MM-dd "
-    [(ngModel)]="startValue"
-    nzPlaceHolder="Start"
-    (ngModelChange)="onStartChange($event)"
-    (nzOnOpenChange)="handleStartOpenChange($event)"
-  >
-  </nz-date-picker>
-  <nz-date-picker
-    [nzDisabledDate]="disabledEndDate"
+  <div style="text-align: center; margin-bottom: 15px;"> 
    
-    nzFormat="yyyy-dd-MM "
-    [(ngModel)]="endValue"
-    nzPlaceHolder="End"
-    [nzOpen]="endOpen"
-    (ngModelChange)="onEndChange($event)"
-    (nzOnOpenChange)="handleEndOpenChange($event)"
-  >
-  </nz-date-picker>
+  <nz-range-picker [(ngModel)]="dateRange" ></nz-range-picker>
+<button nz-button nzType="primary" style="margin-left: 30px;" (click)="print()" >Filter</button>
   </div>
    
   
