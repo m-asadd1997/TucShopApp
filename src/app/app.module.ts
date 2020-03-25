@@ -31,6 +31,7 @@ import { NzSpinModule } from 'ng-zorro-antd/spin';
 
 import { NzTagModule } from 'ng-zorro-antd/tag';
 import { AuthGuard } from './auth.guard';
+import { NzAvatarModule } from 'ng-zorro-antd/avatar';
  
 registerLocaleData(en);
 
@@ -71,6 +72,7 @@ registerLocaleData(en);
     ChartistModule,
     NzAutocompleteModule,
     NzBadgeModule,
+    NzAvatarModule
 
   ],
   providers: [{ provide: NZ_I18N , useValue: en_US }, AuthGuard],

@@ -64,12 +64,21 @@
     </nz-form-control>
   </nz-form-item>
   <br>
-  <nz-form-item>
     <nz-form-control class="nz-group">
-  <input  type="file"(change)="handleCategoryBanner($event.target.files)" name="image" id="" style="margin-top: 30px;" >
+      <div class="row">
+      <label style="padding: 5px;
+  background: grey; 
+  display: table;
+  color: #fff;
+  font-size: smaller;
+  margin-left: 3%;
+ ">Select Image
+    <input #files type="file" (change)="handleCategoryBanner($event.target.files); preview($event.target.files)"  name="image" accept=".jpeg,.png,.jpg,.PNG" style="display: none;cursor: pointer;">
+  </label>
+  <nz-avatar style="margin-left: 5%;" [nzShape]="'square'" [nzSrc]="imgURL" [nzSize]="150" nzText="Product"></nz-avatar>
+</div>
 </nz-form-control>  
-</nz-form-item>
-  <br>
+  
   <div style="text-align: center;">
   <nz-form-item>
     <nz-form-control class="nz-group">

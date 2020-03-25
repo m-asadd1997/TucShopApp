@@ -14,12 +14,26 @@
       </nz-form-control>
     </nz-form-item>
     <br>
- 
-    <input type="file" (change)="handleCategoryBanner($event.target.files)"  accept=".jpeg,.png,.jpg" style="margin-top: 50px;">
+    <br>
+    <div class="row">
+      
+  
+  <label style="padding: 10px;
+  background: grey; 
+  display: table;
+  color: #fff;
+  font-size: smaller;
+  margin-left: 3%;
+ ">Select Icon
+    <input #files type="file" (change)="handleCategoryBanner($event.target.files); preview($event.target.files)" accept=".jpeg,.png,.jpg,.PNG" style="display: none;">
+  </label>
+  <nz-avatar style="margin-left: 2%;" [nzShape]="'square'" [nzSrc]="imgURL" [nzSize]="38" nzText="Category"></nz-avatar>
+
+</div>
   
     <br>
     <br>
-    <br>
+      
     <div style="text-align: center;">     <nz-form-item>
       <nz-form-control>
         
