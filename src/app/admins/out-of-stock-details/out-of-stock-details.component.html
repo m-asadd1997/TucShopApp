@@ -1,35 +1,8 @@
-<div style="text-align: center; margin-bottom: 10px;"   >  
-  
- 
-  <nz-date-picker
-  [nzDisabledDate]="disabledStartDate"
-  
-  nzFormat="yyyy-MM-dd "
-  [(ngModel)]="startValue"
-  nzPlaceHolder="Start"
-  (ngModelChange)="onStartChange($event)"
-  (nzOnOpenChange)="handleStartOpenChange($event)"
->
-</nz-date-picker>
-<nz-date-picker
-  [nzDisabledDate]="disabledEndDate"
- 
-  nzFormat="yyyy-dd-MM "
-  [(ngModel)]="endValue"
-  nzPlaceHolder="End"
-  [nzOpen]="endOpen"
-  (ngModelChange)="onEndChange($event)"
-  (nzOnOpenChange)="handleEndOpenChange($event)"
->
-</nz-date-picker>
-
-
-<button style="margin-left: 250px;" (click)="backToDashboard()" nz-button nzType="primary">Back</button>
-
-
-
-
-</div>
+<div style="text-align: center; margin-bottom: 15px;"> 
+   
+  <nz-range-picker [(ngModel)]="dateRange" ></nz-range-picker>
+<button nz-button nzType="primary" style="margin-left: 30px;" (click)="print()" >Filter</button>
+  </div> 
       
 
 <nz-table #basicTable1 [nzData]="detailedOutOfStockProducts" [nzShowPagination]="false">
