@@ -8,6 +8,7 @@ import { ChartType, ChartEvent } from 'ng-chartist';
 import { AdminServiceService } from '../admin-service.service';
 import { Router } from '@angular/router';
 import { element } from 'protractor';
+import { NzMessageService } from 'ng-zorro-antd';
 // import { element } from 'protractor';
 
 
@@ -24,7 +25,8 @@ export class AdminDashboardComponent implements OnInit {
   isTotalProductsVisibleModal = false;
   isOutOfStockVisibleModal = false;
   isTotalTransactionModalVisible = false;
-  constructor(private adminService: AdminServiceService, private router: Router) { }
+  dateRange = [];
+  constructor(private adminService: AdminServiceService, private router: Router,private message:NzMessageService) { }
 
   showChart = false;
 
@@ -184,7 +186,7 @@ export class AdminDashboardComponent implements OnInit {
   getRequestedProducts() {
 
     this.adminService.getRequestedProducts().subscribe(d => {
-      let filteredReqProducts;
+      let filteredReqProducts=[];
       this.reqProducts = d.result;
       // this.abcd = new Date(this.reqProducts[0].date1);
 
@@ -361,7 +363,23 @@ export class AdminDashboardComponent implements OnInit {
 
 
 
+print(){
 
+  if(this.dateRange.length>0){
+  this.startValue=this.dateRange[0];
+  this.endValue=this.dateRange[1];
+  this.getRequestedProducts();
+    this.getTotalProductQuantity();
+    this.getTotalOutOfStockProducts();
+    this.getTotalTransaction();
+    this.getChartData();
+
+
+  console.log(this.dateRange);}
+  else{
+    this.message.warning("Please Select A range first");
+  }
+}
 
 
 

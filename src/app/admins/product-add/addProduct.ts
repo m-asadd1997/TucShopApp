@@ -7,4 +7,5 @@ export class addProduct {
     description: string
     productQuantity: string
     image1:String
+    variants: string
   }

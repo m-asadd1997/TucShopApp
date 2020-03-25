@@ -12,7 +12,7 @@
 <h1>Transactions</h1>
 </div>
 </div>
-
+<div style="text-align: center;">
 <div nz-row>
   <div nz-col nzSpan="4" nzOffset="">
 <nz-date-picker
@@ -26,6 +26,8 @@ nzPlaceHolder="Start"
 >
 </nz-date-picker>
 </div>
+
+
 <div nz-col nzSpan="4" nzOffset="1">
 <nz-date-picker
 [nzDisabledDate]="disabledEndDate"
@@ -43,15 +45,16 @@ nzPlaceHolder="End"
       <button nz-button (click)="scearchTransactions()" nzType="primary" [nzSize]="size" nzShape="round">
         <i nz-icon nzType="search"></i>Search</button>
         </div>
+      </div>
 </div>
 <!-- <button type="submit" value="Search" style="margin-left: 40%;">Search</button> -->
 <div nz-row>
   <div nz-col nzSpan="4" nzOffset="8">
-<button nz-button nzType="primary"  nzShape="round">
-  <i nz-icon nzType="search"></i>Search</button>
+<!-- <button nz-button nzType="primary"  nzShape="round"> -->
+  <!-- <i nz-icon nzType="search"></i>Search</button> -->
   </div>
   <div nz-col nzSpan="4" nzOffset="">
-    <button nz-button nzType="primary"  nzShape="round" (click)="exportexcel()">
+    <button nz-button nzType="primary"  nzShape="round" (click)="download()">
       <i nz-icon nzType="export"></i>Export</button>
       </div>
   </div>

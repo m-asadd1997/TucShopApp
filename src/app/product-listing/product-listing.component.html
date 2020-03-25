@@ -33,17 +33,20 @@
         nzHoverable
         style="width:160px"
         [nzCover]="coverTemplate"
+        [nzSize]="small"
         (click)="sendProducttoCheckout(p,CARD)"
         id ="cardShadow"
       >
-        <nz-card-meta [nzTitle]="p.name">{{ p.name }} </nz-card-meta>
-        <p>
-          <b>Price: {{ p.price }}</b>
-        </p>
+        <nz-card-meta [nzTitle]="" [nzDescription]="" style="text-align: center;"></nz-card-meta>
+          
+           <div style="text-align:center; margin-left: 0px;"><b>{{p.name}}</b></div>
+          <div style="text-align:center; margin-left: 0px;"><b>{{p.variants}}</b></div>
+           <div><nz-tag [nzColor]="'#f50a0a'" style="margin-left: 20px;"> &#8360; {{p.price}}</nz-tag></div>  
+
       </nz-card>
       <div >
         <ng-template #coverTemplate>
-          <img #image  [src]="p.image" />
+          <img #image  [src]="p.image" height="120px" width="80px" />
         </ng-template>
       </div>
       <br />

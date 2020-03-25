@@ -12,6 +12,9 @@ import { NzMessageService } from 'ng-zorro-antd';
 })
 export class AddCategoryComponent implements OnInit {
 
+  imagePath;
+  imgURL: any;
+  message2: string;
   add_categories:add_category= new add_category();
   form: any;
   id: any;
@@ -20,16 +23,22 @@ export class AddCategoryComponent implements OnInit {
 
   formData = new FormData();
   
-  handleCategoryBanner(file:FileList){
+  handleCategoryBanner(file:File){
     this.add_categories.icons=file[0];
+    console.log(this.add_categories.icons)
+   
+    
     
   }
   
   
   ngOnInit() {
     this.id = this.activateRoute.snapshot.params['id'];
-    if (this.id)
-    this.getCategory();
+    if (this.id){
+      this.getCategory();
+      
+    }
+    
   }
 
 
@@ -67,6 +76,8 @@ getCategory(){
   this.service.getCategoryById(this.id).subscribe(d=>{
   this.add_categories.name = d.name
   this.add_categories.icons = d.image
+  this.imgURL = d.image
+  console.log(this.add_categories.icons);
   
 })
 }
@@ -82,5 +93,23 @@ isInputValid(form){
   }
 }
 
+preview(files) {
+  if (files.length === 0)
+    return;
+
+  var mimeType = files[0].type;
+  if (mimeType.match(/image\/*/) == null) {
+    this.message2 = "Only images are supported.";
+    return;
+  }
+
+  var reader = new FileReader();
+  this.imagePath = files;
+  reader.readAsDataURL(files[0]); 
+  reader.onload = (_event) => { 
+    this.imgURL = reader.result; 
+    
+  }
+}
 }
 
