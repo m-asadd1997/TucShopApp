@@ -35,6 +35,11 @@ export class AdminServiceService {
   private postSettingURL=environment.baseUrl+"api/dashboard/settings"; 
   private getChartDataURL=environment.baseUrl+"api/dashboard/salespermonth";
   private getSettingURL= environment.baseUrl+"api/dashboard/settings";
+  private getAutoCompleteVariantsURL = environment.baseUrl+"api/products/variants/";
+  
+  public getVariants(keyword:any):Observable<any>{
+    return this.http.get(this.getAutoCompleteVariantsURL+keyword);
+  }
   private getTransactionByUserUrl=environment.baseUrl+"api/transaction/userTransaction/";
   private scearchAllTransactionUrl=environment.baseUrl+"api/transaction/scearchAllTransaction";
   private scearchtransactionofuserURL=environment.baseUrl+"api/transaction/scearchTransactions";

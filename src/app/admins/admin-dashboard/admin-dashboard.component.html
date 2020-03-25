@@ -24,7 +24,7 @@
   <div style="background: #ECECEC;padding:10px;">
     <div nz-row [nzGutter]="6">
       <div nz-col [nzSpan]="6">
-        <nz-card nzTitle="Total Products"  (click)="showModalTotalProducts()">
+        <nz-card nzTitle="Total Products" nzHoverable (click)="showModalTotalProducts()">
         
           <h1 style="text-align: center;">{{totalProducts}}</h1>  
           
@@ -34,7 +34,7 @@
       
       
       <div nz-col [nzSpan]="6">
-        <nz-card nzTitle="Out of Stock" (click)="showModalOutOfStock()">
+        <nz-card nzTitle="Out of Stock"  nzHoverable (click)="showModalOutOfStock()">
           <h1 style="text-align: center;">{{totalOutOfStockProducts}}</h1>
         </nz-card>
       </div>
@@ -47,7 +47,7 @@
     
 
     <div nz-col [nzSpan]="6" >
-      <nz-card nzTitle="Profit">
+      <nz-card nzTitle="Profit" nzHoverable>
         <h1 style="text-align: center;">100%</h1>
       </nz-card>
     </div>
@@ -59,7 +59,7 @@
         <div nz-col [nzSpan]="16" >
 
 
-            <nz-card   [nzBordered]="false" nzTitle="Sale Analysis" [nzExtra]="extraTemplate" style="widows: 100px; ">
+            <nz-card nzHoverable  [nzBordered]="false" nzTitle="Sale Analysis" [nzExtra]="extraTemplate" style="widows: 100px; ">
                 <x-chartist id="chartist"
                 *ngIf="showChart"
 
@@ -74,7 +74,7 @@
 
 
         <div nz-col [nzSpan]="8" >
-          <nz-card   nzTitle="Requested Products" >
+          <nz-card   nzTitle="Requested Products" nzHoverable >
             <nz-table #basicTable [nzData]="reqProducts" [nzShowPagination]="false">
               <thead>
                 <tr>

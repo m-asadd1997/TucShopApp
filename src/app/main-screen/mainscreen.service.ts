@@ -31,7 +31,10 @@ export class MainscreenService {
 
   private getRecenttransactionsURL = environment.baseUrl + "api/transaction/recent-transactions";
 
-
+  private getAutoCompleteRequestURL=environment.baseUrl+"api/dashboard/autocomplete/";
+  private getAllProductURL=environment.baseUrl+"api/products/";
+  private getSettingURL= environment.baseUrl+"api/dashboard/settings";
+  private postTransactionURL=environment.baseUrl+"api/transaction/post";
   private getAutoCompleteRequestURL = environment.baseUrl + "api/dashboard/autocomplete/";
   private getAllProductURL = environment.baseUrl + "api/products/";
   private getSettingURL = environment.baseUrl + "api/dashboard/settings";
@@ -79,6 +82,11 @@ export class MainscreenService {
 
   public getAllProducts(): Observable<any> {
     return this.http.get(this.getAllProductURL);
+
+  
+
+   public getAllProducts():Observable<any>{
+   return this.http.get(this.getAllProductURL);
 
 
   }
