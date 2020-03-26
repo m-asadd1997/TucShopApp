@@ -138,15 +138,20 @@ export class ProductListingComponent implements OnInit {
 
 searchProductByKeyword(value:any){
 this.prodService.searchProductByKeyword(value).subscribe(d=>{
- this.searchProduct = d.result;
+ if (d){
+
+  this.searchProduct = d.result;
+  this.productsArray = this.searchProduct;
+ } 
+ 
 });
 }
 onChange(value: string): void {
   //const value = (e.target as HTMLInputElement).value;
     if (value != null && value != "") {
       this.searchProductByKeyword(value);
-      this.productsArray = this.searchProduct;
-     console.log(this.productsArray)
+      //this.productsArray = this.searchProduct;
+     //console.log(this.productsArray)
 
     }
      else {
