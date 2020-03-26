@@ -24,20 +24,20 @@ category
     this.innerWidth = window.innerWidth;
     this.setupMobileView();
 
-    this.activeRoute.paramMap.subscribe(
-      params => {
+    // this.activeRoute.paramMap.subscribe(
+    //   params => {
 
 
-      this.category= (params['params'].category)
+    //   this.category= (params['params'].category)
        
 
-      if(this.category==="products")
+      // if(this.category==="products")
       {
         this.router.navigate(["categories/products"]);
       }
-
-      }
-    );
+     
+    //   }
+    // );
 
 
 

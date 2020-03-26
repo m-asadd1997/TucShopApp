@@ -39,7 +39,7 @@ export class ProductListingComponent implements OnInit {
     this.activeRoute.paramMap.subscribe(
       params => {
           
-
+          
         this.getProducts(params['params'].category)
         this.categoryHeader = params['params'].category;
 
@@ -63,11 +63,12 @@ export class ProductListingComponent implements OnInit {
     else {
 
       this.prodService.getProducts(str).subscribe(d => {
-        debugger
+        
         if (d) {
           d.result = d.result.filter(e => (e.qty > 0))
-        
+          debugger
           this.productsArray = d.result;
+          console.log(this.productsArray);
           
         }
         
