@@ -40,7 +40,7 @@ export class ListProductsComponent implements OnInit {
         else{
           this.Products = item.content
     
-    
+          this.filteredProducts= item.content;
           this.allProducts=this.Products;
         }
         
@@ -68,5 +68,27 @@ export class ListProductsComponent implements OnInit {
     this.showProducts(this.index);
   }
   
+
+
+  filteredProducts=[]
+  getVariants(value:any){
+    this.service.getSearchedProducts(value).subscribe(d=>{
+      this.Products = d;
+      console.log(this.filteredProducts)
+    })
+  }
+
+  onChange(e: Event): void {
+   const value = (e.target as HTMLInputElement).value;
+   if (value != null && value != "") {
+     this.getVariants(value);
+     
+    
+   }
+   else{
+     this.Products=this.filteredProducts;
+   }
+
+ }
 
 }
