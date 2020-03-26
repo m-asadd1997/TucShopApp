@@ -4,16 +4,16 @@
 
     <div nz-row>
       <div nz-col nzSpan="3">
-        <h2>Cart:</h2>
+        <h4><b>Cart:</b></h4>
       </div>
       <div nz-col nzSpan="2">
         <img src="assets/cartCheckout.png" />
       </div>
+
       <div nz-col nzSpan="4" nzOffset="9">
       <button nz-button nzType="danger" (click)="showModal2()">
         <span>Request For Product</span>
       </button>
-
 
       <nz-modal
         
@@ -55,7 +55,7 @@
 
     <hr style="color: black;" />
 
-    <div style="height: 450px; overflow-y: scroll;">
+    <div style="height: 440px; overflow-y: scroll;">
      
         <div *ngFor="let data of checkoutProductsArray">
           <nz-card id ="cardShadow" nzHoverable style="width:100%; margin-bottom: 6px;">
@@ -126,9 +126,9 @@
     <hr style="color: black;" />
     <div nz-row>
       <div nz-col nzSpan="12" style="margin-top: 6px;">
-        <h1>
+        <h3>
           <b>Total: {{ total }}</b>
-        </h1>
+        </h3>
       </div>
       <div nz-col nzSpan="6" nzOffset="6" style="margin-top: 6px;">
         <button nz-button nzType="danger" (click)="showModal()">
