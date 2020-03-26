@@ -124,7 +124,7 @@ export class MainscreenService {
   }
 
   loggedIn(){
-    return !!localStorage.getItem('token')
+    return !!sessionStorage.getItem('token')
   }
 
 
