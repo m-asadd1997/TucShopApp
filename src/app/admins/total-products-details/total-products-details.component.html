@@ -5,10 +5,18 @@
   <nz-range-picker [(ngModel)]="dateRange" ></nz-range-picker>
 <button nz-button nzType="primary" style="margin-left: 30px;" (click)="print()" >Filter</button>
 
+
   </div>
+  <div style="text-align: center; margin-left: -60px;">
+  <nz-input-group [nzSuffix]="suffixIconSearch" style="width:29%">
+    <input name="value" [(ngModel)]="value"  (input)="onChange($event)" type="text" nz-input placeholder="input search text" />
+  </nz-input-group>
+  <ng-template #suffixIconSearch>
+    <i nz-icon nzType="search"></i>
+  </ng-template>
  
     
-  
+</div>
     
   
                                                      
