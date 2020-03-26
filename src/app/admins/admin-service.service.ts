@@ -15,7 +15,7 @@ export class AdminServiceService {
 
   private getPaginatedProductsURL = environment.baseUrl+"api/products/paginatedproducts" 
 
-
+private getSearchedProductsURL= environment.baseUrl+"api/dashboard/searchproducts";
   private deleteProductURL=environment.baseUrl + "api/products/";
   private postProductURL=environment.baseUrl + "api/products/postproduct";
   private updateProductURL=environment.baseUrl + "api/products/"
@@ -167,6 +167,10 @@ public scearchtransactionofUser(transaction:any):Observable<any>{
     return this.http.get(this.getSettingURL);
   }
 
+
+  public getSearchedProducts(value):Observable<any>{
+    return this.http.get(this.getSearchedProductsURL+"/"+value);
+  }
 
   // public getPaginatedProducts(){}
   public getPaginatedProducts(page):Observable<any>{

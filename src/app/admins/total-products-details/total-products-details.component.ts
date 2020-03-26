@@ -23,6 +23,7 @@ export class TotalProductsDetailsComponent implements OnInit {
      
      if(this.startValue&&this.endValue&&d){
        this.Products=[];
+       this.filteredProducts=[]
       d.result=d.result.filter(e=>(  new Date(e.date1) >=this.startValue  &&  new Date(e.date1)<=this.endValue  ));
       
 
@@ -30,6 +31,7 @@ export class TotalProductsDetailsComponent implements OnInit {
      }
      
       this.Products = d.result;
+      this.filteredProducts=d.result;
 
 
 
@@ -132,4 +134,29 @@ dateRange=[]
 
 
   // 
+
+
+
+filteredProducts=[]
+  getVariants(value:any){
+    this.adminService.getSearchedProducts(value).subscribe(d=>{
+      this.Products = d;
+      console.log(this.filteredProducts)
+    })
+  }
+
+  onChange(e: Event): void {
+   const value = (e.target as HTMLInputElement).value;
+   if (value != null && value != "") {
+     this.getVariants(value);
+     
+    
+   }
+   else{
+     this.Products=this.filteredProducts;
+   }
+
+ }
+
+
 }
