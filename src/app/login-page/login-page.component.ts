@@ -13,6 +13,8 @@ import { login } from './login';
 })
 export class LoginPageComponent implements OnInit {
 
+  isRegSpinning = false;
+  isLogSpinning = false;
   login = 1;
   register = 0;
   registerModel = new User();
@@ -38,6 +40,8 @@ export class LoginPageComponent implements OnInit {
   }
 
   submit(registerForm : NgForm){
+    this.isRegSpinning = true;
+
     console.log(this.registerModel);
     this.registerModel.userType = 'USER';
     this.registerModel.password = '123';
@@ -47,13 +51,16 @@ export class LoginPageComponent implements OnInit {
     this.service.registerUser(this.registerModel)
     .subscribe(
         data => {
-          if(data.status == 200){
-            this.message.success("Registered Successfully", { nzDuration: 3000 });
+          if(data.result.status == 200){
+            console.log(data.result);
+            this.message.success(data.result.message, { nzDuration: 3000 });
+            this.isRegSpinning = false;
 
           }
           else{
-            this.message.error("Could Not Register", { nzDuration: 3000 });
-
+            console.log(data.result);
+            this.message.error(data.result.message, { nzDuration: 3000 });
+            this.isRegSpinning = false;
           }
         }
         
@@ -62,6 +69,7 @@ export class LoginPageComponent implements OnInit {
   }
 
   loginSubmit(loginForm : NgForm){
+    this.isLogSpinning = true;
     console.log(this.loginModel);
     this.loginModel.password = '123';
 
@@ -71,9 +79,12 @@ export class LoginPageComponent implements OnInit {
           if(res){
             if(res.status == 200){
               console.log(res);
-              localStorage.setItem('token',res.result.token);
+              sessionStorage.setItem('token',res.result.token);
               this.message.success('Login Successful',{ nzDuration: 3000 });
               this.route.navigate(['categories/products']);
+              this.isLogSpinning = false;
+
+              
 
             }
             
@@ -83,8 +94,11 @@ export class LoginPageComponent implements OnInit {
         error =>{
           if(error){
             this.message.error('Invalid Company ID',{ nzDuration: 3000 })
+            this.isLogSpinning = false;
+
           }
-        }       
+        }
+
       )
 
      
