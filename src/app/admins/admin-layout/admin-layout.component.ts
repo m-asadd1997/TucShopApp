@@ -14,7 +14,8 @@ export class AdminLayoutComponent implements OnInit {
   }
 
   navigateBackToHomePage(){
-    location.href=""
+    //location.href="/categories/products"
+    this.router.navigate(['/categories/products'])
   }
   navigateBackToLoginPage(){
     this.router.navigate(['admin'])

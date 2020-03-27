@@ -4,7 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgZorroAntdModule, NZ_I18N, en_US } from 'ng-zorro-antd';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
@@ -27,10 +27,14 @@ import { ChartistModule } from 'ng-chartist';
 import { RecentTransactionsComponent } from './recent-transactions/recent-transactions.component';
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
 import { NzAutocompleteModule } from 'ng-zorro-antd/auto-complete';
-import { NzSpinModule } from 'ng-zorro-antd/spin';
-
 import { NzTagModule } from 'ng-zorro-antd/tag';
+import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { AuthGuard } from './auth.guard';
+import { NzAvatarModule } from 'ng-zorro-antd/avatar';
+import { NoopInterceptor } from './request.intercepts';
+
  
 registerLocaleData(en);
 
@@ -62,6 +66,7 @@ registerLocaleData(en);
     NzLayoutModule,
     NzGridModule,
     NzPopoverModule,
+    NzPopconfirmModule,
     NzModalModule,
     NzMessageModule,
     NzMessageModule,
@@ -71,9 +76,15 @@ registerLocaleData(en);
     ChartistModule,
     NzAutocompleteModule,
     NzBadgeModule,
+    NzDividerModule,
+    NzAvatarModule
 
   ],
-  providers: [{ provide: NZ_I18N , useValue: en_US }, AuthGuard],
+  providers: [{ provide: NZ_I18N , useValue: en_US }, AuthGuard,{
+    provide: HTTP_INTERCEPTORS,
+    useClass: NoopInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

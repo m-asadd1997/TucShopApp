@@ -18,9 +18,10 @@ import { SettingComponent } from './setting/setting.component';
 
 const routes: Routes = [
   { path: '', component: LoginPageComponent },
-  {path:'home',loadChildren:'./../app.module#AppModule'},
+  { path: 'login', component: LoginPageComponent },
+  {path:'home',loadChildren:'./../app.module#AppModule', canActivate:[AuthGuardService]},
   {
-    path: 'layout', component: AdminLayoutComponent,
+    path: 'layout', component: AdminLayoutComponent,canActivate:[AuthGuardService],
     children: [
       { path: '', component: AdminDashboardComponent },
       { path: 'product', component: ListProductsComponent },

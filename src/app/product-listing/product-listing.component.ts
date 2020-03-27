@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NzMessageComponent } from 'ng-zorro-antd';
 import { debug } from 'util';
 
+
 @Component({
   selector: 'app-product-listing',
   templateUrl: './product-listing.component.html',
@@ -16,6 +17,8 @@ export class ProductListingComponent implements OnInit {
 
   categoryHeader: any;
   count = 0;
+  searchProduct:any;
+  options: any;
 
   constructor(private prodService: MainscreenService, private activeRoute: ActivatedRoute) { }
 
@@ -35,14 +38,15 @@ export class ProductListingComponent implements OnInit {
 
     this.activeRoute.paramMap.subscribe(
       params => {
-
-
+          
+          
         this.getProducts(params['params'].category)
         this.categoryHeader = params['params'].category;
 
       }
     );
     this.getAllProducts();
+    
   }
 
   
@@ -53,14 +57,18 @@ export class ProductListingComponent implements OnInit {
 
     if (str === "Products") {
       this.getAllProducts();
+      
+      
     }
     else {
 
       this.prodService.getProducts(str).subscribe(d => {
-        if (d) {
-          d = d.filter(e => (e.qty > 0))
         
+        if (d) {
+          d.result = d.result.filter(e => (e.qty > 0))
           this.productsArray = d.result;
+          console.log(this.productsArray);
+          
         }
         
        
@@ -72,7 +80,7 @@ export class ProductListingComponent implements OnInit {
   sendProducttoCheckout(prod, card) {
 
     this.prodService.getProductsById(prod.id).subscribe(d => {
-      debugger
+      
       if (d) {
         prod.qty = d.qty
         console.log("==============Send Product To Checkout===============", d.qty)
@@ -119,7 +127,6 @@ export class ProductListingComponent implements OnInit {
 
   getAllProducts() {
     this.prodService.getAllProducts().subscribe(d => {
-      debugger
       if (d) {
         d = d.filter(e => (e.qty > 0))
         this.productsArray = d;
@@ -128,4 +135,29 @@ export class ProductListingComponent implements OnInit {
 
     })
   }
+
+searchProductByKeyword(value:any){
+this.prodService.searchProductByKeyword(value).subscribe(d=>{
+ if (d){
+
+  this.searchProduct = d.result;
+  this.productsArray = this.searchProduct;
+ } 
+ 
+});
 }
+onChange(value: string): void {
+  //const value = (e.target as HTMLInputElement).value;
+    if (value != null && value != "") {
+      this.searchProductByKeyword(value);
+      //this.productsArray = this.searchProduct;
+     //console.log(this.productsArray)
+
+    }
+     else {
+     this.getAllProducts();  
+  
+     }
+    }
+
+  }

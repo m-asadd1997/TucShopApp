@@ -5,6 +5,7 @@ import { NgZorroAntdModule, NZ_I18N, en_US, NzFormModule, NzTableModule, NzDropD
 import { ChartistModule } from 'ng-chartist';
 import { AdminsRoutingModule } from './admins-routing.module';
 import { LoginPageComponent } from './login-page/login-page.component';
+import { NzButtonModule } from 'ng-zorro-antd/button';
 import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
 import { ListProductsComponent } from './list-products/list-products.component';
 import { ProductAddComponent } from './product-add/product-add.component';
@@ -50,6 +51,7 @@ import { ExportAsModule } from 'ngx-export-as';
     AdminsRoutingModule,
     NgZorroAntdModule,
     NzFormModule,
+    NzButtonModule,
     CommonModule,
     NzSpinModule,
     FormsModule,

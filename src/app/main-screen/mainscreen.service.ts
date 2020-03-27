@@ -31,16 +31,20 @@ export class MainscreenService {
 
   private getRecenttransactionsURL = environment.baseUrl + "api/transaction/recent-transactions";
 
-
-  private getAutoCompleteRequestURL = environment.baseUrl + "api/dashboard/autocomplete/";
-  private getAllProductURL = environment.baseUrl + "api/products/";
-  private getSettingURL = environment.baseUrl + "api/dashboard/settings";
-  private postTransactionURL = environment.baseUrl + "api/transaction/post";
+  private getAutoCompleteRequestURL=environment.baseUrl+"api/dashboard/autocomplete/";
+  private getAllProductURL=environment.baseUrl+"api/products/";
+  private getSettingURL= environment.baseUrl+"api/dashboard/settings";
+  private postTransactionURL=environment.baseUrl+"api/transaction/post";
+  // private getAutoCompleteRequestURL = environment.baseUrl + "api/dashboard/autocomplete/";
+  // private getAllProductURL = environment.baseUrl + "api/products/";
+  // private getSettingURL = environment.baseUrl + "api/dashboard/settings";
+  // private postTransactionURL = environment.baseUrl + "api/transaction/post";
   private updateAddQuantityURL = environment.baseUrl + "api/products/add"
   private updateMinusQuantityURL = environment.baseUrl + "api/products/minus";
   private updateMinusAllQuantityURL = environment.baseUrl + "api/products/minusall";
   private registeruserURL=environment.baseUrl+"token/user";
   private loginUserURL=environment.baseUrl+"token/generate-token";
+  private searchProductByKeywordURL=environment.baseUrl+"api/products/search/";
 
   public sendMessage(obj: Object) {
     this.productSource.next(obj);
@@ -77,8 +81,13 @@ export class MainscreenService {
     return this.http.get(this.getAutoCompleteRequestURL + keyword);
   }
 
-  public getAllProducts(): Observable<any> {
-    return this.http.get(this.getAllProductURL);
+  // public getAllProducts(): Observable<any> {
+  //   return this.http.get(this.getAllProductURL);
+
+  
+
+   public getAllProducts():Observable<any>{
+   return this.http.get(this.getAllProductURL);
 
 
   }
@@ -115,7 +124,30 @@ export class MainscreenService {
   }
 
   loggedIn(){
-    return !!localStorage.getItem('token')
+    return !!sessionStorage.getItem('token')
+  }
+
+  userRole():boolean{
+    if(sessionStorage.getItem('role') == 'USER'){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+
+  adminRole():boolean{
+    if(sessionStorage.getItem('role') == 'ADMIN'){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+
+
+  public searchProductByKeyword(keyword:any): Observable<any> {
+    return this.http.get(this.searchProductByKeywordURL+keyword);
   }
 
 }

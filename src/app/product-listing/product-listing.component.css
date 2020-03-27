@@ -1,6 +1,16 @@
-
 #cardShadow{
     /* border: 1px solid; */
     padding: 10px;
     box-shadow: 5px 10px 18px #888888;
+  }
+
+
+  .certain-search-item-count {
+    position: absolute;
+    color: #999;
+    right: 16px;
+  }
+
+  .more-link {
+    float: right;
   }

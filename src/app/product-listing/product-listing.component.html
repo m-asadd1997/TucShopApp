@@ -1,4 +1,31 @@
-<h2>{{categoryHeader}}</h2>
+<div style="width: 25%; margin-left: 700px;"> 
+<div class="example-input">
+  <nz-input-group nzSize="large" [nzSuffix]="suffixIcon" style=" margin-left: -90px;">
+
+    <input
+      placeholder="Search Products"
+      nz-input
+      [(ngModel)]="inputValue"
+      (ngModelChange)="onChange($event)"
+      [nzAutocomplete]="auto"
+    />
+  </nz-input-group>
+  <ng-template #suffixIcon>
+    <i nz-icon nzType="search"></i>
+  </ng-template>
+  <nz-autocomplete #auto>
+    <nz-auto-option  *ngFor="let option of searchProduct" [nzValue]="option.name">
+     <span ><b>Category: {{option.category.name}}</b></span>
+      <br>
+       <div>
+        Item: {{ option.name}} <img style="width: 40px; height: 40px; margin-left: 40px;" [src]="option.image" >
+      </div>
+     </nz-auto-option>
+  </nz-autocomplete>
+</div>
+</div>
+
+<h3>{{categoryHeader}}</h3>
 
 <nz-card style="width: 100%; overflow-y: scroll; overflow-x: none; height:500px;">
   <div nz-row>
@@ -8,20 +35,22 @@
         nzHoverable
         style="width:160px"
         [nzCover]="coverTemplate"
+        [nzSize]="small"
         (click)="sendProducttoCheckout(p,CARD)"
         id ="cardShadow"
       >
-        <nz-card-meta [nzTitle]="p.name">{{ p.name }} </nz-card-meta>
-        <p>
-          <b>Price: {{ p.price }}</b>
-        </p>
+        <nz-card-meta [nzTitle]="" [nzDescription]="" style="text-align: center;"></nz-card-meta>
+          
+           <div style="text-align:center; margin-left: 0px;"><b>{{p.name}}</b></div>
+          <div style="text-align:center; margin-left: 0px;"><b>{{p.variants}}</b></div>
+           <div><nz-tag [nzColor]="'#f50a0a'" style="margin-left: 20px;"> &#8360; {{p.price}}</nz-tag></div>  
+
       </nz-card>
       <div >
         <ng-template #coverTemplate>
-          <img #image  [src]="p.image" />
+          <img #image  [src]="p.image" height="120px" width="80px" />
         </ng-template>
       </div>
-
       <br />
     </div>
   </div>

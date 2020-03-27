@@ -25,6 +25,10 @@ export class AdminDashboardComponent implements OnInit {
   isTotalProductsVisibleModal = false;
   isOutOfStockVisibleModal = false;
   isTotalTransactionModalVisible = false;
+<<<<<<< HEAD
+=======
+  dateRange = [];
+>>>>>>> master
   constructor(private adminService: AdminServiceService, private router: Router,private message:NzMessageService) { }
 
   showChart = false;
@@ -185,8 +189,12 @@ export class AdminDashboardComponent implements OnInit {
   getRequestedProducts() {
 
     this.adminService.getRequestedProducts().subscribe(d => {
+<<<<<<< HEAD
       console.log(d);
       let filteredReqProducts;
+=======
+      let filteredReqProducts=[];
+>>>>>>> master
       this.reqProducts = d.result;
       // this.abcd = new Date(this.reqProducts[0].date1);
 
@@ -363,7 +371,23 @@ export class AdminDashboardComponent implements OnInit {
 
 
 
+print(){
 
+  if(this.dateRange.length>0){
+  this.startValue=this.dateRange[0];
+  this.endValue=this.dateRange[1];
+  this.getRequestedProducts();
+    this.getTotalProductQuantity();
+    this.getTotalOutOfStockProducts();
+    this.getTotalTransaction();
+    this.getChartData();
+
+
+  console.log(this.dateRange);}
+  else{
+    this.message.warning("Please Select A range first");
+  }
+}
 
 
 

@@ -18,9 +18,15 @@ export class ProductAddComponent implements OnInit {
   addProducts: addProduct ;
   formData = new FormData();
 
-typeBool=false;
+  inputValue: string;
+  options: Array<{ variants: string; category: string; count: number }> = [];
+  variants:any;
+  
+  imagePath;
+  imgURL: any;
+  message2: string;
 
- 
+typeBool=false;
   
 
   constructor(private fb: FormBuilder, private service: AdminServiceService, private activateRoute: ActivatedRoute, private message: NzMessageService) { 
@@ -28,11 +34,30 @@ typeBool=false;
     console.log(this.addProducts)
   }
 
+
+   getVariants(value:any){
+     this.service.getVariants(value).subscribe(d=>{
+       console.log("======",d.result);
+       this.variants = d.result;
+     })
+   }
+
+   onChange(e: Event): void {
+    const value = (e.target as HTMLInputElement).value;
+    if (value != null && value != "") {
+      this.getVariants(value);
+      this.options = this.variants;
+     
+    }
+
+  }
+
   submitForm(): void {
 
   }
-  submit(myForm: NgForm) {
 
+  
+  submit(myForm: NgForm) {
 
     this.formData.append('name', this.addProducts.productTitle)
     let idObj= this.categories.find(v=>v.name==this.addProducts.category);
@@ -41,6 +66,9 @@ typeBool=false;
     this.formData.append('costprice', this.addProducts.costPrice);
     this.formData.append('price', this.addProducts.salePrice);   //sale price
     this.formData.append('quantity', this.addProducts.productQuantity);
+    this.formData.append('variants',this.addProducts.variants.toUpperCase());
+    console.log(this.addProducts.variants);
+
 
     if (this.id != null) {
      
@@ -68,6 +96,8 @@ typeBool=false;
         this.formData.delete("costprice");
         this.formData.delete("price");
         this.formData.delete("quantity");
+        this.formData.delete("variants");
+        console.log(this.addProducts.image)
      
         this.addProducts.image = null;
      
@@ -91,6 +121,10 @@ typeBool=false;
         this.formData.delete("costprice");
         this.formData.delete("price");
         this.formData.delete("quantity");
+        this.formData.delete("variants");
+        console.log(this.addProducts.image)
+        // this.addProducts.image = null;
+        console.log(this.addProducts.image)
         
       }
     }
@@ -106,6 +140,7 @@ typeBool=false;
 
   ngOnInit(): void {
 
+   
     this.id = this.activateRoute.snapshot.params['id'];
     if (this.id)
       this.getProducts();
@@ -129,6 +164,8 @@ typeBool=false;
       this.addProducts.salePrice = d.price
       this.addProducts.category = d.category.name
       this.addProducts.image = d.image
+      this.addProducts.variants=d.variants
+      this.imgURL = d.image
 
       console.log(this.addProducts.category)
       
@@ -152,4 +189,22 @@ typeBool=false;
   }
 
 
+  preview(files) {
+    if (files.length === 0)
+      return;
+  
+    var mimeType = files[0].type;
+    if (mimeType.match(/image\/*/) == null) {
+      this.message2 = "Only images are supported.";
+      return;
+    }
+  
+    var reader = new FileReader();
+    this.imagePath = files;
+    reader.readAsDataURL(files[0]); 
+    reader.onload = (_event) => { 
+      this.imgURL = reader.result; 
+      
+    }
+  }
 }

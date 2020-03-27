@@ -1,4 +1,15 @@
-<nz-table #basicTable [nzData]="Products" >
+
+  <div style="text-align: center;  margin-bottom: 20px;">
+    <nz-input-group [nzSuffix]="suffixIconSearch" style="width:29%">
+      <input name="value" [(ngModel)]="value"  (input)="onChange($event)" type="text" nz-input placeholder="Search By Name" />
+    </nz-input-group>
+    <ng-template #suffixIconSearch>
+      <i nz-icon nzType="search"></i>
+    </ng-template>
+   
+      
+  </div>
+<nz-table #basicTable [nzData]="Products"  [nzPageSize]="10" [nzShowPagination]="false" >
     <thead>
       <tr>
         <th>Name</th>
@@ -26,6 +37,10 @@
       </tr>
     </tbody>
   </nz-table>
+<div style="text-align: right; margin-top: 20px;">
+  <button [disabled]="index==0" (click)="minusIndexCall()" nz-button nzType="primary" nzShape="circle"><i nz-icon nzType="left" nzTheme="outline"></i></button>
+  
+  <button  [disabled]="disbaleAddQuantity" (click)="plusIndexCall()" style="margin-left: 10px"nz-button nzType="primary" nzShape="circle" ><i nz-icon nzType="right" nzTheme="outline"></i></button></div>
 
 
   

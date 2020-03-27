@@ -9,7 +9,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class MainScreenComponent implements OnInit {
   public innerWidth: any;
-  mobileView = true;
+  // mobileView = true;
   CollapsedNav = true;
   categoriesArray = [] = [];
   isVisible :Boolean;
@@ -22,22 +22,22 @@ export class MainScreenComponent implements OnInit {
 category
   ngOnInit() {
     this.innerWidth = window.innerWidth;
-    this.setupMobileView();
+    // this.setupMobileView();
 
-    this.activeRoute.paramMap.subscribe(
-      params => {
+    // this.activeRoute.paramMap.subscribe(
+    //   params => {
 
 
-      this.category= (params['params'].category)
+    //   this.category= (params['params'].category)
        
 
-      if(this.category==="Products")
+      // if(this.category==="products")
       {
-        this.router.navigate(["categories/Products"]);
+        this.router.navigate(["categories/products"]);
       }
-
-      }
-    );
+     
+    //   }
+    // );
 
 
 
@@ -65,7 +65,7 @@ category
 
   addCategoryToUrl(urlFilterWithCatName: String){
 
-
+      
     
     this.router.navigate(["categories/"+urlFilterWithCatName]);
   }
@@ -83,14 +83,15 @@ category
   handleCancel(): void {
     this.isVisible = false;
   }
-  @HostListener('window:resize', ['$event'])
-  onResize(event) {
-    this.innerWidth = window.innerWidth;
-    console.log(this.innerWidth)
-    this.setupMobileView()
-  }
+  // @HostListener('window:resize', ['$event'])
+  // onResize(event) {
+  //   this.innerWidth = window.innerWidth;
+  //   console.log(this.innerWidth)
+  //   this.setupMobileView()
+// }
+  
 
-  setupMobileView(){
-    this.mobileView = this.innerWidth <= 900?false:true;
-  }
+  // setupMobileView(){
+  //   this.mobileView = this.innerWidth <= 900?false:true;
+  // }
 }
