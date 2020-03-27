@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from './User';
 import { NgForm } from '@angular/forms';
 import { MainscreenService } from  '../main-screen/mainscreen.service';
-import { NzMessageComponent, NzMessageService } from 'ng-zorro-antd';
+import {  NzMessageService } from 'ng-zorro-antd';
 import { Router } from '@angular/router';
 import { login } from './login';
 
@@ -24,6 +24,9 @@ export class LoginPageComponent implements OnInit {
   constructor( private service: MainscreenService , private route :Router, private message: NzMessageService) { }
 
   ngOnInit() {
+
+    localStorage.clear();
+    sessionStorage.clear();
     
   }
 
@@ -72,7 +75,7 @@ export class LoginPageComponent implements OnInit {
     this.isLogSpinning = true;
     console.log(this.loginModel);
     this.loginModel.password = '123';
-
+    this.loginModel.Role = 'USER';
     this.service.loginUser(this.loginModel)
     .subscribe(
         res => {
@@ -80,9 +83,16 @@ export class LoginPageComponent implements OnInit {
             if(res.status == 200){
               console.log(res);
               sessionStorage.setItem('token',res.result.token);
-              this.message.success('Login Successful',{ nzDuration: 3000 });
+              sessionStorage.setItem('username',res.result.username);
+              sessionStorage.setItem('role',res.result.userType);
               this.route.navigate(['categories/products']);
               this.isLogSpinning = false;
+              if(this.route.url == '/login'){
+                this.message.error('Login Failed',{ nzDuration: 3000 });
+
+              }else{
+                this.message.success('Login Successful',{ nzDuration: 3000 });
+              }
 
               
 
