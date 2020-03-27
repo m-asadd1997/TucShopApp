@@ -127,6 +127,24 @@ export class MainscreenService {
     return !!sessionStorage.getItem('token')
   }
 
+  userRole():boolean{
+    if(sessionStorage.getItem('role') == 'USER'){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+
+  adminRole():boolean{
+    if(sessionStorage.getItem('role') == 'ADMIN'){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+
 
   public searchProductByKeyword(keyword:any): Observable<any> {
     return this.http.get(this.searchProductByKeywordURL+keyword);

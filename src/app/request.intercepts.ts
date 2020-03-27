@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 
 @Injectable()
 export class NoopInterceptor implements HttpInterceptor {
-
+  url:string = this.router.url;
   constructor(private router:Router){}
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
       // console.log("hello interceptor");
@@ -22,7 +22,7 @@ export class NoopInterceptor implements HttpInterceptor {
         return next.handle(changedReq);
       }else{
         sessionStorage.clear();
-        this.router.navigate(['']);
+        this.router.navigate([this.url+'/login']);
          const changedReq = req.clone({headers: req.headers.set('Content-Type', 'application/json')});
         // const changedReq = req.clone();
          return next.handle(changedReq);
