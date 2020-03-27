@@ -34,7 +34,12 @@ export class AdminServiceService {
   private getTransactionByUserUrl=environment.baseUrl+"api/transaction/userTransaction/";
   private scearchAllTransactionUrl=environment.baseUrl+"api/transaction/scearchAllTransaction";
   private scearchtransactionofuserURL=environment.baseUrl+"api/transaction/scearchTransactions";
+  private deleterequestedproductURL=environment.baseUrl+"api/products/deletereqproduct/";
 
+
+  public deleterequestedproduct(productName:any):Observable<any>{
+    return this.http.delete(this.deleterequestedproductURL+productName);
+  }
 
  public getTransactionsByUser(user:any):Observable<any>{
    return this.http.get(this.getTransactionByUserUrl+user);

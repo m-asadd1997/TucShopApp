@@ -21,6 +21,7 @@ import { TransactionsDetailsComponent } from './transactions-details/transaction
 import { SettingComponent } from './setting/setting.component';
 import { from } from 'rxjs';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
+import { NzProgressModule } from 'ng-zorro-antd/progress';
 
 import { ExportAsModule } from 'ngx-export-as';
 
@@ -55,6 +56,7 @@ import { ExportAsModule } from 'ngx-export-as';
     ReactiveFormsModule ,
     ChartistModule,
     NzGridModule,
+    NzProgressModule,
     NgZorroAntdModule,
     NzTableModule,
     NzDropDownModule,
