@@ -1,8 +1,7 @@
-<div style="width: 25%; margin-left: 700px;"> 
+<div style="width: 25%; float:right;"> 
 <div class="example-input">
-  <nz-input-group nzSize="large" [nzSuffix]="suffixIcon" style=" margin-left: -90px;">
-
-    <input
+  <nz-input-group nzSize="large" [nzSuffix]="suffixIcon" > 
+  <input
       placeholder="Search Products"
       nz-input
       [(ngModel)]="inputValue"
@@ -18,15 +17,13 @@
      <span ><b>Category: {{option.category.name}}</b></span>
       <br>
        <div>
-        Item: {{ option.name}} <img style="width: 40px; height: 40px; margin-left: 40px;" [src]="option.image" >
+        Item:{{ option.name}}<img style="width: 40px; height: 40px; margin-left: 40px;" [src]="option.image" >
       </div>
      </nz-auto-option>
   </nz-autocomplete>
 </div>
 </div>
-
-<h3>{{categoryHeader}}</h3>
-
+<h3 style="float: left;">{{categoryHeader}}</h3>
 <nz-card style="width: 100%; overflow-y: scroll; overflow-x: none; height:500px;">
   <div nz-row>
     <div nz-col nzXs="24" nzSm="24" nzMd="5" nzLg="5" nzXl="5" nzSpan="5" nzOffset="1" *ngFor="let p of productsArray">
