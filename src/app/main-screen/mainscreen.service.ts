@@ -124,7 +124,25 @@ export class MainscreenService {
   }
 
   loggedIn(){
-    return !!localStorage.getItem('token')
+    return !!sessionStorage.getItem('token')
+  }
+
+  userRole():boolean{
+    if(sessionStorage.getItem('role') == 'USER'){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+
+  adminRole():boolean{
+    if(sessionStorage.getItem('role') == 'ADMIN'){
+      return true;
+    }
+    else{
+      return false;
+    }
   }
 
 

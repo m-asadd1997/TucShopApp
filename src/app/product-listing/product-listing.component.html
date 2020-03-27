@@ -1,6 +1,7 @@
 <div style="width: 25%; margin-left: 700px;"> 
 <div class="example-input">
   <nz-input-group nzSize="large" [nzSuffix]="suffixIcon" style=" margin-left: -90px;">
+
     <input
       placeholder="Search Products"
       nz-input
@@ -25,6 +26,7 @@
 </div>
 
 <h3>{{categoryHeader}}</h3>
+
 <nz-card style="width: 100%; overflow-y: scroll; overflow-x: none; height:500px;">
   <div nz-row>
     <div nz-col nzXs="24" nzSm="24" nzMd="5" nzLg="5" nzXl="5" nzSpan="5" nzOffset="1" *ngFor="let p of productsArray">
