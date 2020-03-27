@@ -48,10 +48,6 @@ export class ProductListingComponent implements OnInit {
     this.getAllProducts();
     
   }
-
-  
-  
-  
   
   getProducts(str: any) {
 
