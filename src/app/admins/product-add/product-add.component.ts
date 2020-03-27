@@ -179,7 +179,7 @@ typeBool=false;
 
 
   isInputValid(form){
-    if(form.valid&&this.addProducts.image)
+    if(form.valid&&this.addProducts.image&&(this.addProducts.variants!="" ||this.addProducts.variants))
     {
       return false;
     }
@@ -207,4 +207,7 @@ typeBool=false;
       
     }
   }
+
+
+  
 }
