@@ -70,6 +70,7 @@ export class LoginPageComponent implements OnInit {
         error =>{
           if(error){
             this.message.error('Invalid Company ID',{ nzDuration: 3000 })
+            this.route.navigate(['admin']);
             this.isLogSpinning = false;
 
           }

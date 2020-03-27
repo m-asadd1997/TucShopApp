@@ -87,12 +87,8 @@ export class LoginPageComponent implements OnInit {
               sessionStorage.setItem('role',res.result.userType);
               this.route.navigate(['categories/products']);
               this.isLogSpinning = false;
-              if(this.route.url == '/login'){
-                this.message.error('Login Failed',{ nzDuration: 3000 });
-
-              }else{
-                this.message.success('Login Successful',{ nzDuration: 3000 });
-              }
+              this.message.success('Login Successful',{ nzDuration: 3000 });
+              
 
               
 

@@ -25,7 +25,9 @@ export class AdminDashboardComponent implements OnInit {
   isTotalProductsVisibleModal = false;
   isOutOfStockVisibleModal = false;
   isTotalTransactionModalVisible = false;
+
   dateRange = [];
+
   constructor(private adminService: AdminServiceService, private router: Router,private message:NzMessageService) { }
 
   showChart = false;
@@ -211,18 +213,18 @@ export class AdminDashboardComponent implements OnInit {
 
 
 
-      console.log(d.result)
-      if (this.reqProducts.length > 5) {
-        this.reqProducts.length = 5;
-      }
+      // console.log(d.result)
+      // if (this.reqProducts.length > 5) {
+      //   this.reqProducts.length = 5;
+      // }
 
-      else if (this.reqProducts.length < 5) {
-        let count = this.reqProducts.length;
-        for (let index = count; index < 5; index++) {
-          this.reqProducts[index] = {};
+      // else if (this.reqProducts.length < 5) {
+      //   let count = this.reqProducts.length;
+      //   for (let index = count; index < 5; index++) {
+      //     this.reqProducts[index] = {};
 
-        }
-      }
+      //   }
+      // }
 
 
 
@@ -448,5 +450,19 @@ print(){
     console.log(open);
     this.endOpen = open;
   }
+
+  deleterequestedproduct(productName:string){
+    this.adminService.deleterequestedproduct(productName).subscribe(data=>{
+      console.log(data);
+      if(data.status=="200"){
+        this.message.success("Deleted successfully", { nzDuration: 3000 });
+      this.getRequestedProducts();
+      }
+    })
+    
+
+  
+  }
+
 
 }

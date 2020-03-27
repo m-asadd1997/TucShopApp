@@ -1,8 +1,7 @@
-<div style="width: 25%; margin-left: 700px;"> 
+<div style="width: 25%; float:right;"> 
 <div class="example-input">
-  <nz-input-group nzSize="large" [nzSuffix]="suffixIcon" style=" margin-left: -90px;">
-
-    <input
+  <nz-input-group nzSize="large" [nzSuffix]="suffixIcon" > 
+  <input
       placeholder="Search Products"
       nz-input
       [(ngModel)]="inputValue"
@@ -18,7 +17,7 @@
      <span ><b>Category: {{option.category.name}}</b></span>
       <br>
        <div>
-        Item: {{ option.name}} <img style="width: 40px; height: 40px; margin-left: 40px;" [src]="option.image" >
+        Item:{{ option.name}}<img style="width: 40px; height: 40px; margin-left: 40px;" [src]="option.image" >
       </div>
      </nz-auto-option>
   </nz-autocomplete>
