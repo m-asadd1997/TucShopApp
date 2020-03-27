@@ -66,7 +66,6 @@ export class ProductListingComponent implements OnInit {
         
         if (d) {
           d.result = d.result.filter(e => (e.qty > 0))
-          debugger
           this.productsArray = d.result;
           console.log(this.productsArray);
           

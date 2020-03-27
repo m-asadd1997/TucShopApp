@@ -1,19 +1,19 @@
 <nz-content>
   <nz-breadcrumb> </nz-breadcrumb>
-  <div class="inner-content">
+  <div class="inner-content" style="margin-top: 10px;">
 
-    <div nz-row>
+    <div nz-row style="margin-left: -25px;">
       <div nz-col nzSpan="3">
-        <h2>Cart:</h2>
+        <h4><b>Cart: </b></h4>
       </div>
       <div nz-col nzSpan="2">
         <img src="assets/cartCheckout.png" />
       </div>
+
       <div nz-col nzSpan="4" nzOffset="9">
-      <button nz-button nzType="danger" (click)="showModal2()">
+      <button nz-button nzType="danger" (click)="showModal2()" style="margin-left: -10px;">
         <span>Request For Product</span>
       </button>
-
 
       <nz-modal
         
@@ -53,9 +53,9 @@
     </div>
     </div>
 
-    <hr style="color: black;" />
+    <hr style="color: black; margin-left: -10px; margin-right: 25px; margin-top: 20px;" />
 
-    <div style="height: 450px; overflow-y: scroll;">
+    <div style="height: 420px; overflow-y: scroll;">
      
         <div *ngFor="let data of checkoutProductsArray">
           <nz-card id ="cardShadow" nzHoverable style="width:100%; margin-bottom: 6px;">
@@ -126,9 +126,9 @@
     <hr style="color: black;" />
     <div nz-row>
       <div nz-col nzSpan="12" style="margin-top: 6px;">
-        <h1>
+        <h3>
           <b>Total: {{ total }}</b>
-        </h1>
+        </h3>
       </div>
       <div nz-col nzSpan="6" nzOffset="6" style="margin-top: 6px;">
         <button nz-button nzType="danger" (click)="showModal()">
