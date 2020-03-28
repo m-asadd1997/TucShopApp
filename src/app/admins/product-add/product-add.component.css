@@ -15,7 +15,7 @@
     /* margin-top: 50px; */
   }
   .nz-group{
-    margin-top: 50px;
+    margin-top: 20px;
   }
   .dropbtn {
     background-color: #3498DB;
@@ -62,9 +62,10 @@
   .show {display:block;}
 
   .phone-select {
-    margin-top: 10px;
+    /* margin-top: 10px; */
     width: 200px;
-  } .global-search-item {
+  } 
+  .global-search-item {
     display: flex;
   }
 
@@ -79,3 +80,6 @@
   }
 
   
+ nz-select{
+   width: 500px;
+ }
