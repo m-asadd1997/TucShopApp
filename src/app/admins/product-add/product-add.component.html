@@ -1,4 +1,4 @@
-<div style="margin-left: 3%;">
+<div style="margin-left: 3%; margin-top: 80px;">
   <nz-card style="width:90%;" nzTitle="Add Products" [nzExtra]="extraTemplate" style="box-shadow:5px 5px 5px 5px">
 
     <form nz-form [nzLayout]="'inline'" #myForm="ngForm" autocomplete="auto">
@@ -11,15 +11,15 @@
 
 
         <nz-form-item>
+          <nz-form-label  nzFor="email">Product Title</nz-form-label>
+          <br>
           <nz-form-control nzErrorTip="Please input your Product Title!">
-            <nz-input-group nzPrefixIcon="project" class="nz-group">
-              <input required name="productTitle" #title="ngModel" [(ngModel)]="addProducts.productTitle" nz-input
+            <nz-input-group nzPrefixIcon="project" >
+              <input  required name="productTitle" #title="ngModel" [(ngModel)]="addProducts.productTitle" nz-input
                 placeholder="Product Title" required />
             </nz-input-group>
 
-            <div *ngIf="title.touched && title.invalid">
-              Title is Required
-            </div>
+            
 
           </nz-form-control>
         </nz-form-item>
@@ -28,13 +28,15 @@
 
 
         <nz-form-item>
+          <nz-form-label  nzFor="email">Variant</nz-form-label>
+          <br>
           <nz-form-control nzErrorTip="Please input your Product variants!">
 
 
 
             <div class="example-input">
-              <nz-input-group nzSearch nzSize="large" [nzAddOnAfter]="suffixIconButton" class="nz-group" style="margin-left:10px"     >
-                <input placeholder="Variants" nz-input #variants name="variants" [(ngModel)]="addProducts.variants"
+              <nz-input-group nzSearch nzSize="large" [nzAddOnAfter]="suffixIconButton"   style="margin-left:10px"     >
+                <input placeholder="Variants" nz-input #variants name="variants" required [(ngModel)]="addProducts.variants"
                   (input)="onChange($event)" [nzAutocomplete]="auto" style="width: 440px;" />
               </nz-input-group>
               <ng-template #suffixIconButton>
@@ -67,22 +69,26 @@
 
       <!-- 2nd Row -->
         <div>
-      <nz-form-item>
+      <nz-form-item class="nz-group">
+        <nz-form-label  nzFor="email">Cost Price</nz-form-label>
+        <br>
         <nz-form-control nzErrorTip="Please input your Cost Price!">
-          <nz-input-group nzPrefixIcon="dollar" class="nz-group">
-            <input type="number" required #costPrice="ngModel" name="costPrice" [(ngModel)]="addProducts.costPrice" nz-input
-              type="text" placeholder="Cost Price" required />
+          <nz-input-group nzPrefixIcon="dollar"  >
+            <input type="number" minlength="1" maxlength="4" required #costPrice="ngModel" name="costPrice" [(ngModel)]="addProducts.costPrice" nz-input
+               placeholder="Cost Price" required />
           </nz-input-group>
 
          
         </nz-form-control>
       </nz-form-item>
 
-      <nz-form-item>
+      <nz-form-item class="nz-group">
+        <nz-form-label  nzFor="email">Product Price</nz-form-label>
+        <br>
         <nz-form-control nzErrorTip="Please input your Product Price!">
-          <nz-input-group nzPrefixIcon="dollar" class="nz-group" style="margin-left:10px">
-            <input  required #saleprice="ngModel" name="salePrice" [(ngModel)]="addProducts.salePrice" nz-input
-              type="text" placeholder="Sale Price" required />
+          <nz-input-group nzPrefixIcon="dollar"   style="margin-left:10px">
+            <input type="number" minlength="1" maxlength="4" required #saleprice="ngModel" name="salePrice" [(ngModel)]="addProducts.salePrice" nz-input
+              placeholder="Sale Price" required />
           </nz-input-group>
 
           
@@ -96,12 +102,14 @@
 
  <!-- 3rd  Row -->
  <div nz-row>
-   <div nz-col  nzSpan="9" > 
+   <div nz-col  nzSpan="9" class="nz-group"> 
+    <nz-form-label  nzFor="email">Product Quantity</nz-form-label>
+    <br>
       <nz-form-item>
-        <nz-form-control nzErrorTip="Please input your Product Price!">
-          <nz-input-group nzPrefixIcon="account-book" class="nz-group">
-            <input type="number" required #productQuantity="ngModel" name="productQuantity" [(ngModel)]="addProducts.productQuantity"
-              nz-input type="text" placeholder="Product Quantity" required />
+        <nz-form-control nzErrorTip="Please input your Product Quantity!">
+          <nz-input-group nzPrefixIcon="account-book"  >
+            <input type="number" minlength="1" maxlength="4"   required #productQuantity="ngModel" name="productQuantity" [(ngModel)]="addProducts.productQuantity"
+              nz-input  placeholder="Product Quantity"  />
           </nz-input-group>
           
         </nz-form-control>
@@ -119,10 +127,12 @@
 
 
 
-    <div nz-col   nzSpan="10" nzOffset="2"  > 
+    <div nz-col   nzSpan="10"  style="margin-left: 88px;" class="nz-group"> 
       <nz-form-item>
          
-          <nz-form-control class="nz-group">
+          <nz-form-control  >
+            <nz-form-label  nzFor="email">Category</nz-form-label>
+            <br>
             <nz-select name="category" nzSize="large" [(ngModel)]="addProducts.category" class="phone-select" 
               nzPlaceHolder="Select a Category" required>
               <nz-option *ngFor="let item of categories" nzLabel={{item.name}} nzValue="{{item.name}}"></nz-option>
@@ -138,11 +148,11 @@
 
 
 <!-- 4th Row -->
-<div nz-row>
+<div nz-row class="nz-group">
         <!-- <br> -->
 
         <div nz-col nzSpan="15">
-        <nz-form-control class="nz-group">
+        <nz-form-control  >
           <div class="row">
             <label style="padding: 5px;
   background: grey; 
@@ -172,10 +182,10 @@
 
 <!-- Button -->
       
-<div nz-col nzSpan="8">
+<div nz-col nzSpan="8" style="margin-left: -200px;">
   <!-- <div style="text-align: center;"> -->
           <nz-form-item>
-            <nz-form-control class="nz-group">
+            <nz-form-control  >
 
               <button style="margin-top: 30px; height: 40px; width: 100px;" nz-button nzType="primary" [nzSize]="large" (click)="submit(myForm)"
                 [disabled]="isInputValid(myForm)">Save</button>

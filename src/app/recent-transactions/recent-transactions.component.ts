@@ -25,53 +25,60 @@ export class RecentTransactionsComponent implements OnInit {
 
 
       console.log(res);
+      if (res) {
+        let countArray;
+        this.data = res.map((value, index) => {
+          value.countArray = [];
+          this.data.push(value)
+          countArray = [];
 
-      let countArray;
-      this.data=res.map((value, index) => {
-        value.countArray=[];
-        this.data.push(value)
-        countArray = [];
+          value.products.map((d) => {
+            if (!countArray.find((a) => d.name == a.name)) {
 
-        value.products.map((d) => {
-          if (!countArray.find((a) => d.name == a.name)) {
-           
-            let countObj={
-              name:d.name,
-              count:1
+              let countObj = {
+                name: d.name,
+                count: 1
+              }
+              countArray.push(countObj);
+
+
             }
-            countArray.push(countObj);
+            else {
 
-           
-          }
-          else {
-          
-          countArray=countArray.map((a)=>{
-            if(a.name==d.name)
-            a.count++;
-            return a;
-          });
+              countArray = countArray.map((a) => {
+                if (a.name == d.name)
+                  a.count++;
+                return a;
+              });
 
-          }
+            }
 
-        
-        
+
+
+          })
+
+
+          let newData = value;
+          newData.countArray = countArray;
+          return newData;
         })
+        // console.log(countArray,"===================");
 
-        
-        let newData=value;
-        newData.countArray=countArray;
-        return newData;
-      })
-      // console.log(countArray,"===================");
-     
-      console.log(this.data,"==============newdata");
+        console.log(this.data, "==============newdata");
+      }
     })
 
 
 
   }
 
-
+checking(){
+  if(this.data.length>0&&this.data)
+  {
+    return true;
+  }
+  return false;
+}
 
 
 }

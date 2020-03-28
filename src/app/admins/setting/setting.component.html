@@ -1,6 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
 
-<div style="margin-left: 20%; margin-top: 20px;">
-    <nz-card style="width:700px;" nzTitle="Header and Footer" [nzExtra]="extraTemplate">
+
+<div style="margin-left: 3%; margin-top: 80px;">
+    <nz-card style="width:98%;" nzTitle="Header and Footer" [nzExtra]="extraTemplate" style="box-shadow:5px 5px 5px 5px">
 
         <form nzForm #myForm="ngForm" style="margin-top: 50px;">
 
@@ -8,101 +18,87 @@
             <nz-form-item>
                 <nz-form-control>
                     <div nz-row>
-                        <!-- <div nz-col nzSpan="6">
-                        <h4 nz-title>Header Name</h4>
-                    </div> -->
+
                         <div nz-col nzSpan="12">
+                            <nz-form-label  nzFor="email">Header Name</nz-form-label>
                             <nz-input-group nzPrefixIcon="user" class="nz-group">
                                 <input type="text" name="headerName" nz-input [(ngModel)]="settingObj.headerName"
                                     placeholder="HeaderName">
                             </nz-input-group>
+
+
+
                         </div>
+                        <div nz-col nzSpan="12">
+                            <nz-form-label  nzFor="email">Header</nz-form-label>
+
+                            <nz-input-group nzPrefixIcon="user" class="nz-group">
+                                
+                                <textarea style="height: 50px;padding-top: 15px;" nz-input placeholder="Header" [(ngModel)]="settingObj.header"
+                                    [nzAutosize]="{ minRows: 1, maxRows: 6 }"></textarea>
+                            </nz-input-group>
+                        </div>
+
+
+
+
                     </div>
                 </nz-form-control>
             </nz-form-item>
             <br>
+
+
+
+
+
             <nz-form-item>
 
                 <nz-form-control>
                     <div nz-row>
-
-                        <!-- <div nz-col nzSpan="6">
->>>>>>> 47608e8fcfb187b56dcd3815177fb250843c3592
-                    <h4 nz-title>Header</h4>
-                </div> -->
-
-
                         <div nz-col nzSpan="12">
+                            <nz-form-label  nzFor="email">Footer</nz-form-label>
                             <nz-input-group nzPrefixIcon="user" class="nz-group">
-                                <textarea nz-input
-                                placeholder="Header"
-                                [(ngModel)]="settingObj.header" [nzAutosize]="{ minRows: 1, maxRows: 6 }"></textarea>
+                                 
+                                <textarea nz-input placeholder="Footer" style="height: 50px;padding-top: 15px;" [(ngModel)]="settingObj.footer"
+                                    [nzAutosize]="{ minRows: 1, maxRows: 6 }"></textarea>
                             </nz-input-group>
                         </div>
 
-                    </div>
-
-                </nz-form-control>
-            </nz-form-item>
-            <br><br><br>
-
-
-            <nz-form-item>
-                <nz-form-control>
-                    <div nz-row>
-                        <!-- <div nz-col nzSpan="6">
-                    <h4 nz-title>Logo</h4>
-                </div> -->
-
-
-
 
                         <div nz-col nzSpan="12">
+                            <nz-form-label  nzFor="email">Logo</nz-form-label>
+<br>
                             <input type="file" name="Logo" id="" (change)="handleLogo($event.target.files)">
                         </div>
 
-                    </div>
 
-
-
-                </nz-form-control>
-            </nz-form-item>
-
-            <br><br><br>
-
-
-            <nz-form-item>
-                <nz-form-control>
-                    <div nz-row>
-                        <!-- <div nz-col nzSpan="6">
-                    <h4 nz-title>Footer</h4>
-                </div> -->
-
-
-
-
-                        <div nz-col nzSpan="12">
-                            <nz-input-group nzPrefixIcon="user" class="nz-group">
-                                <!-- <textarea rows="5" nz-input name="footer" [(ngModel)]="settingObj.footer"
-                                    placeholder="Footer"></textarea> -->
-                                <textarea nz-input
-                                    placeholder="Footer"
-                                    [(ngModel)]="settingObj.footer" [nzAutosize]="{ minRows: 1, maxRows: 6 }"></textarea>
-                            </nz-input-group>
-                        </div>
+                        
 
                     </div>
 
                 </nz-form-control>
             </nz-form-item>
-            <br><br>
+
+
+
+
+
+
+
+
+
+
+                       
+
+             
 
 
             <nz-form-item>
                 <nz-form-control>
                     <div nz-row>
+                        <!-- <div nz-col nzSpan="8" nzOffset="5" style="float: left;"></div> -->
 
-                        <div nz-col style="text-align: center;">
+                        <div nz-col nzSpan="24" style="margin-left: 500px;  ">
                             <button nz-button nzType="primary" (click)="submitSetting(myForm)">Submit</button>
                         </div>
 
@@ -117,3 +113,5 @@
         </form>
     </nz-card>
 </div>
+</body>
+</html>

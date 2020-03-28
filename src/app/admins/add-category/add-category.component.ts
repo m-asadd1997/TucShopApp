@@ -4,6 +4,7 @@ import { add_category } from './add_category';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd';
+import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-add-category',
@@ -18,15 +19,20 @@ export class AddCategoryComponent implements OnInit {
   add_categories:add_category= new add_category();
   form: any;
   id: any;
+  FileImage;
+  imageFile = new Map();
+  
   
   constructor(private service:AdminServiceService, private activateRoute: ActivatedRoute,private message:NzMessageService) { }
 
   formData = new FormData();
   
   handleCategoryBanner(file:File){
+    
     this.add_categories.icons=file[0];
-    console.log(this.add_categories.icons)
-   
+    console.log(typeof(file[0]));
+
+    
     
     
   }
@@ -45,6 +51,7 @@ export class AddCategoryComponent implements OnInit {
   submit(myForm:NgForm){
     
     this.formData.append("name",this.add_categories.name);
+    if(this.add_categories.icons)
     this.formData.append("image", this.add_categories.icons);
     if(this.id!=null){
       this.service.updateCategory(this.id,this.formData).subscribe(d=>{
@@ -54,6 +61,7 @@ export class AddCategoryComponent implements OnInit {
       this.formData.delete("name");
       
       this.formData.delete("image");
+      this.imgURL=""
       
 
     }
@@ -67,15 +75,17 @@ export class AddCategoryComponent implements OnInit {
       this.formData.delete("name");
       
       this.formData.delete("image");
+      this.imgURL="";
       
         }
       
 }
 
-getCategory(){
+  getCategory(){
   this.service.getCategoryById(this.id).subscribe(d=>{
+    
   this.add_categories.name = d.name
-  this.add_categories.icons = d.image
+ 
   this.imgURL = d.image
   console.log(this.add_categories.icons);
   
