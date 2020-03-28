@@ -2,55 +2,56 @@
 
 
 
-<!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script> -->
-<!------ Include the above in your HEAD tag ---------->
 
 
-	<div class="container login-container">
-				<div class="row">
-					<div class="col-md-8 login-form-1">
-						<h1>Recent Transactions</h1>
-						<app-recent-transactions></app-recent-transactions>
-					</div>
-					<div *ngIf="login" class="col-md-4 login-form-2">
-						<h3>Login</h3>
-						<form #loginForm="ngForm" (ngSubmit)="loginSubmit()">
-							<div class="form-group">
-								<input type="password" required [(ngModel)]="loginModel.username" name="username" class="form-control" placeholder="Your Company ID" value="" />
-							</div>
-							<div class="form-group" style="text-align: center;">
-								<nz-spin *ngIf="isLogSpinning" [nzDelay]="500" nzSimple    [nzSize]="'large'"></nz-spin>
-								<button *ngIf="!isLogSpinning"  style="background-color: white;color:black;" nz-button nzType="primary" type="submit" name="submit" [disabled]="logValidate()" >Login</button>
-							</div>
-							<div class="form-group" style="text-align: center;">
-	
-								<a (click)="gotoRegister()"  class="ForgetPwd" value="Register">Register</a>
-							</div>
-						</form>
-					</div>
-					<div *ngIf="register" class="col-md-4 login-form-2">
-						<h3>Register</h3>
-						<form #registerForm="ngForm" (ngSubmit)="submit()"> 
-							
-							<div class="form-group">
-								<input type="text" required [(ngModel)]="registerModel.name" name="name" class="form-control" placeholder="Your Full Name" value="" />
-							</div>
-							<div class="form-group">
-								<input type="password" required [(ngModel)]="registerModel.email" name="email" class="form-control" placeholder="Your Company ID" value="" />
-							</div>
-							
-							<div class="form-group" style="text-align: center;">
-								<nz-spin *ngIf="isRegSpinning" [nzDelay]="500"  [nzSize]="'large'"></nz-spin>
-								<button *ngIf="!isRegSpinning" style="background-color: white;color:black;" nz-button nzType="primary" type="submit" name="submit" [disabled]="validate()"  >Register</button>
-							</div>
-							<div class="form-group" style="text-align: center;">
-	
-								<a (click)="gotoLogin()"  class="ForgetPwd" value="Login">Login</a>
-							</div>
-							
-						</form>
-					</div>
+<div class="container login-container">
+	<div class="row">
+		<div class="col-md-8 login-form-1">
+			<h1>Recent Transactions</h1>
+			<app-recent-transactions></app-recent-transactions>
+		</div>
+		<div *ngIf="login" class="col-md-4 login-form-2">
+			<h3>Login</h3>
+			<form #loginForm="ngForm" (ngSubmit)="loginSubmit()">
+				<div class="form-group">
+					<input type="password" required [(ngModel)]="loginModel.username" name="username"
+						class="form-control" placeholder="Your Company ID" value="" />
 				</div>
+				<div class="form-group" style="text-align: center;">
+					<nz-spin *ngIf="isLogSpinning" [nzDelay]="500" nzSimple [nzSize]="'large'"></nz-spin>
+					<button *ngIf="!isLogSpinning" style="background-color: white;color:black;" nz-button
+						nzType="primary" type="submit" name="submit" [disabled]="logValidate()">Login</button>
+				</div>
+				<div class="form-group" style="text-align: center;">
+
+					<a (click)="gotoRegister()" class="ForgetPwd" value="Register">Register</a>
+				</div>
+			</form>
+		</div>
+		<div *ngIf="register" class="col-md-4 login-form-2">
+			<h3>Register</h3>
+			<form #registerForm="ngForm" (ngSubmit)="submit()">
+
+				<div class="form-group">
+					<input type="text" required [(ngModel)]="registerModel.name" name="name" class="form-control"
+						placeholder="Your Full Name" value="" />
+				</div>
+				<div class="form-group">
+					<input type="password" required [(ngModel)]="registerModel.email" name="email" class="form-control"
+						placeholder="Your Company ID" value="" />
+				</div>
+
+				<div class="form-group" style="text-align: center;">
+					<nz-spin *ngIf="isRegSpinning" [nzDelay]="500" [nzSize]="'large'"></nz-spin>
+					<button *ngIf="!isRegSpinning" style="background-color: white;color:black;" nz-button
+						nzType="primary" type="submit" name="submit" [disabled]="validate()">Register</button>
+				</div>
+				<div class="form-group" style="text-align: center;">
+
+					<a (click)="gotoLogin()" class="ForgetPwd" value="Login">Login</a>
+				</div>
+
+			</form>
+		</div>
 	</div>
-            
+</div>

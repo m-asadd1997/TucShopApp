@@ -1,96 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 </head>
-<script> var global = global || window; var Buffer = Buffer || []; var process = process || { env: { DEBUG: undefined }, version: [] }; </script> 
+<script> var global = global || window; var Buffer = Buffer || []; var process = process || { env: { DEBUG: undefined }, version: [] }; </script>
 
 <div nz-row>
   <div nz-col nzSpan="24" nzOffset="">
-<h1>Transactions</h1>
-</div>
+    <h1>Transactions</h1>
+  </div>
 </div>
 <div style="text-align: center;">
-<div nz-row>
-  <div nz-col nzSpan="4" nzOffset="">
-<nz-date-picker
-[nzDisabledDate]="disabledStartDate"
-nzShowTime
-nzFormat="yyyy-MM-dd"
-[(ngModel)]="startValue"
-nzPlaceHolder="Start"
-(ngModelChange)="onStartChange($event)"
-(nzOnOpenChange)="handleStartOpenChange($event)"
->
-</nz-date-picker>
-</div>
+  <div nz-row>
+    <div nz-col nzSpan="4" nzOffset="">
+      <nz-date-picker [nzDisabledDate]="disabledStartDate" nzShowTime nzFormat="yyyy-MM-dd" [(ngModel)]="startValue"
+        nzPlaceHolder="Start" (ngModelChange)="onStartChange($event)" (nzOnOpenChange)="handleStartOpenChange($event)">
+      </nz-date-picker>
+    </div>
 
 
-<div nz-col nzSpan="4" nzOffset="1">
-<nz-date-picker
-[nzDisabledDate]="disabledEndDate"
-nzShowTime
-nzFormat="yyyy-MM-dd"
-[(ngModel)]="endValue"
-nzPlaceHolder="End"
-[nzOpen]="endOpen"
-(ngModelChange)="onEndChange($event)"
-(nzOnOpenChange)="handleEndOpenChange($event)"
->
-</nz-date-picker>
-  </div>
-  <div nz-col nzSpan="4" nzOffset="1">
+    <div nz-col nzSpan="4" nzOffset="">
+      <nz-date-picker [nzDisabledDate]="disabledEndDate" nzShowTime nzFormat="yyyy-MM-dd" [(ngModel)]="endValue"
+        nzPlaceHolder="End" [nzOpen]="endOpen" (ngModelChange)="onEndChange($event)"
+        (nzOnOpenChange)="handleEndOpenChange($event)">
+      </nz-date-picker>
+    </div>
+    <div nz-col nzSpan="4" nzOffset="">
       <button nz-button (click)="scearchTransactions()" nzType="primary" [nzSize]="size" nzShape="round">
         <i nz-icon nzType="search"></i>Search</button>
+    </div>
+    <div nz-col nzSpan="8" nzOffset="4">
+      <button nz-button nzType="primary"  nzShape="round" (click)="download()">
+        <i nz-icon nzType="export"></i>Export</button>
         </div>
-      </div>
+  </div>
 </div>
-<!-- <button type="submit" value="Search" style="margin-left: 40%;">Search</button> -->
-<div nz-row>
-  <div nz-col nzSpan="4" nzOffset="8">
-<!-- <button nz-button nzType="primary"  nzShape="round"> -->
-  <!-- <i nz-icon nzType="search"></i>Search</button> -->
-  </div>
-  <div nz-col nzSpan="4" nzOffset="">
-    <button nz-button nzType="primary"  nzShape="round" (click)="download()">
-      <i nz-icon nzType="export"></i>Export</button>
-      </div>
-  </div>
-<nz-table #basicTable id="table1"[nzData]="Transactions">
-    <thead>
-      <tr>
-        <th>Date</th>
-        <th>User</th>
-        <th>Amount</th>
-        <th>Created by</th>
-        <th>Updated by</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
-        <!-- <nz-spin *ngIf="display" style="margin-left:500px; margin-top:10px" nzSize="large" nzSimple></nz-spin> -->
-      <tr *ngFor="let data of basicTable.data">
-        <td>{{ data.date }}</td>
-        <td>{{ data.createdBy }}</td>
-        <td>{{ data.amount }}</td>
-        <td>{{ data.createdBy }}</td>
-        <td>{{ data.updatedBy }}</td>
-        <td>
-          <!-- <a (click)="deleteTransactions(data.id)">Delete</a>
+       
+
+
+<nz-table #basicTable id="table1" [nzData]="Transactions">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>User</th>
+      <th>Amount</th>
+      <th>Created by</th>
+      <th>Updated by</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- <nz-spin *ngIf="display" style="margin-left:500px; margin-top:10px" nzSize="large" nzSimple></nz-spin> -->
+    <tr *ngFor="let data of basicTable.data">
+      <td>{{ data.date }}</td>
+      <td>{{ data.createdBy }}</td>
+      <td>{{ data.amount }}</td>
+      <td>{{ data.createdBy }}</td>
+      <td>{{ data.updatedBy }}</td>
+      <td>
+        <!-- <a (click)="deleteTransactions(data.id)">Delete</a>
           <nz-divider nzType="vertical"></nz-divider> -->
-          <a (click)="detailsTransactions(data.createdBy)">Details</a>
-        </td>
-      </tr>
-      
-    </tbody>
-   
-     
-    
-    
-  </nz-table>
-  <nz-spin *ngIf="display" style="margin-left:540px; margin-top:10px" nzSize="large" nzSimple></nz-spin>
-  
-  
- 
+        <a (click)="detailsTransactions(data.createdBy)">Details</a>
+      </td>
+    </tr>
+
+  </tbody>
+
+
+
+
+</nz-table>
+<nz-spin *ngIf="display" style="margin-left:540px; margin-top:10px" nzSize="large" nzSimple></nz-spin>

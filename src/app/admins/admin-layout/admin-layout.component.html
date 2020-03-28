@@ -1,58 +1,37 @@
 <nz-layout>
-    <!-- <nz-header style="background-color: white;">
-      <div class="logo" style="margin-right:5%">
-          <a > <img src="assets/main-cart.png" alt=""></a>
-      </div>
-      <ul nz-menu nzTheme="light"  nzMode="horizontal">
-        <div nz-row>
-
-       <div nz-col nzSpan="1" (click)="navigateBackToHomePage()" > <li nz-menu-item><b>Home</b> </li></div>
-       <div nz-col nzSpan="2" nzOffset="14"  > <li nz-menu-item>
-         
-       
-
-      <a nz-dropdown [nzDropdownMenu]="menu">
-      <b>Admin</b> 
-        <i nz-icon nzType="down"></i>
-      </a>
-      <nz-dropdown-menu #menu="nzDropdownMenu">
-        <ul nz-menu>
-          <li nz-menu-item (click)="navigateBackToLoginPage()">Logout</li>
-         
-        </ul>
-      </nz-dropdown-menu>
-
-
-    </li></div>
-
-     </div>
-      </ul>
-    
-    </nz-header> -->
+  
     <nav
   class="navbar navbar-light bg-light"
-  style="background-color: white !important;border-top-color: black;border-top-style:solid; border-top-width: thin; border-bottom-style: ridge; box-shadow:0px 5px 5px rgb(179, 179, 179);"
->
+  style="background-color: white !important;border-top-color: black;border-top-style:solid; border-top-width: thin; border-bottom-style: ridge; box-shadow:0px 5px 5px rgb(179, 179, 179);">
+
   <div>
     <a > <img src="assets/main-cart.png" alt=""></a>
   </div>
-  <div  style="margin-right:75%;cursor: pointer;">
+  <div  style="cursor: pointer;margin-right:75%;">
     <button nz-button  (click)="navigateBackToHomePage()">
     Home
   </button>
   </div>
-  <div >
-    <button nz-button nz-dropdown [nzDropdownMenu]="menu4">
-      Admin
-      <i nz-icon nzType="down"></i>
-    </button>
-  <nz-dropdown-menu #menu4="nzDropdownMenu">
-    <ul nz-menu>
-      <li nz-menu-item (click)="navigateBackToLoginPage()">Logout</li>
-    </ul>
-  </nz-dropdown-menu>
+  <div  style="margin-left: -50px;">
+    <nz-button-group>
+      <button nz-button >Admin</button>
+      <button nz-button nz-dropdown [nzDropdownMenu]="menu2" nzPlacement="bottomRight">
+        <i nz-icon nzType="user"></i>
+      </button>
+    </nz-button-group>
+    <nz-dropdown-menu #menu2="nzDropdownMenu">
+      <ul nz-menu>
+        <li (click)="navigateBackToLoginPage()" nz-menu-item>Log Out</li>
+       
+      </ul>
+    </nz-dropdown-menu>
+
+    
 </div>
 </nav>
+
+
+
     <nz-content class="outer-content"> 
       <!-- <h1 class="font-weight-normal text-center">Admin Dashboard</h1> -->
       <nz-layout class="inner-layout">

@@ -1,47 +1,100 @@
-<div style="margin-left: 20%; margin-top: 20px;" >
-  <nz-card style="width:550px;" nzTitle="Category Add" >
-   
-<form nz-form [nzLayout]="'inline'" #myForm="ngForm">
-    <nz-form-item>
-      <nz-form-control >
-        <nz-input-group nzPrefixIcon="user" class="nz-group">
-          <input  required  ngform #category="ngModel" name="productTitle" [(ngModel)]="add_categories.name" nz-input placeholder="Category Name" />
-          
-        </nz-input-group>
-        <div *ngIf="category.touched && category.invalid"> 
-            Category is Required
+<div style="margin-left: 2%; margin-top: 80px;">
+  <nz-card style="width:90px;" nzTitle="Category Add" style="box-shadow: 5px 5px 5px 5px">
+
+    <form nz-form [nzLayout]="'inline'" #myForm="ngForm">
+
+
+
+
+
+
+      <div nz-row>
+
+        <div nz-col nzSpan="8">
+
+          <nz-form-item>
+            <nz-form-control>
+              <nz-input-group nzPrefixIcon="user" class="nz-group">
+                <input required ngform #category="ngModel" name="productTitle" [(ngModel)]="add_categories.name"
+                  nz-input placeholder="Category Name" />
+
+              </nz-input-group>
+              <div *ngIf="category.touched && category.invalid">
+                Category is Required
+              </div>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
       </div>
-      </nz-form-control>
-    </nz-form-item>
-    <br>
-    <br>
-    <div class="row">
-      
-  
-  <label style="padding: 10px;
-  background: grey; 
-  display: table;
-  color: #fff;
-  font-size: smaller;
-  margin-left: 3%;
- ">Select Icon
-    <input #files type="file" (change)="handleCategoryBanner($event.target.files); preview($event.target.files)" accept=".jpeg,.png,.jpg,.PNG" style="display: none;">
-  </label>
-  <nz-avatar style="margin-left: 2%;" [nzShape]="'square'" [nzSrc]="imgURL" [nzSize]="38" nzText="Category"></nz-avatar>
 
-</div>
-  
-    <br>
-    <br>
-      
-    <div style="text-align: center;">     <nz-form-item>
-      <nz-form-control>
+
+
+
+      <!-- Next Row -->
+
+      <!-- <div nz-row>
+       
+
+
+
+
+
+        <div nz-col style="margin-top: 20px;">
+        <input #files type="file" value="Select File" (change)="handleCategoryBanner($event.target.files); preview($event.target.files)"
+          accept=".jpeg,.png,.jpg,.PNG" >
+        </div>
         
-        <button nz-button nzType="primary" (click)="submit(myForm);"  [disabled]="isInputValid(myForm)">Save</button>
-      </nz-form-control>
-    </nz-form-item>
-  </div>
+      
+        
+      <nz-avatar style="margin-left: 2%;" [nzShape]="'square'" [nzSrc]="imgURL" [nzSize]="38" nzText="Category">
+      </nz-avatar>
+    
+        </div> -->
 
-  </form>
+
+        <div nz-row class="nz-group">
+          <!-- <br> -->
+  
+          <div nz-col nzSpan="15">
+          <nz-form-control  >
+            <div class="row">
+              <label style="padding: 5px;
+    background: grey; 
+    display: table;
+    color: #fff;
+    font-size: smaller;
+    margin-left: 3%;
+   ">Select Image
+                <input #files type="file"
+                  (change)="handleCategoryBanner($event.target.files); preview($event.target.files)" name="image"
+                  accept=".jpeg,.png,.jpg,.PNG" style="display: none;cursor: pointer;">
+              </label>
+              <nz-avatar style="margin-left: 5%;" [nzShape]="'square'" [nzSrc]="imgURL" [nzSize]="90" nzText="Product">
+              </nz-avatar>
+            </div>
+          </nz-form-control>
+        
+        </div>
+        <div nz-col nzSpan="8" style="margin-left: -200px;">
+          <!-- <div style="text-align: center;"> -->
+                  <nz-form-item>
+                    <nz-form-control  >
+        
+                      <button style="margin-top: 30px; height: 40px; width: 100px;" nz-button nzType="primary" [nzSize]="large" (click)="submit(myForm)"
+                        [disabled]="isInputValid(myForm)">Save</button>
+        
+                    </nz-form-control>
+                  </nz-form-item>
+                <!-- </div> -->
+              </div>
+        </div>
+
+      
+
+
+    
+     
+
+    </form>
   </nz-card>
-  </div>
+</div>

@@ -12,10 +12,11 @@
   input{
     width:500px; 
     height: 50px;
+    /* border: solid black 1px; */
     /* margin-top: 50px; */
   }
   .nz-group{
-    margin-top: 20px;
+    margin-top: 30px;
   }
   .dropbtn {
     background-color: #3498DB;
@@ -82,4 +83,5 @@
   
  nz-select{
    width: 500px;
+   /* border: solid black 1px; */
  }

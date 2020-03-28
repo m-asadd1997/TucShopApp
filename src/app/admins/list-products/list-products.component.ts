@@ -19,6 +19,7 @@ export class ListProductsComponent implements OnInit {
   index=0;
   allProducts=[];
   disbaleAddQuantity=false;
+  checkingForNgOnIt=false;
   
 
   ngOnInit() {
@@ -31,7 +32,7 @@ export class ListProductsComponent implements OnInit {
     this.service.getPaginatedProducts(index).subscribe(item => {
       if(item){
 
-        if(item.content.length==0){
+        if(item.content.length==0&&this.checkingForNgOnIt){
           this.message.warning("No More Products");
           
           this.index--; 
@@ -59,11 +60,14 @@ export class ListProductsComponent implements OnInit {
   }
 
   plusIndexCall(){
+    this.checkingForNgOnIt=true;
     this.index+=1;
     this.showProducts(this.index);
   }
 
   minusIndexCall(){
+    this.checkingForNgOnIt=true;
+
     this.index-=1;
     this.showProducts(this.index);
   }
@@ -71,7 +75,7 @@ export class ListProductsComponent implements OnInit {
 
 
   filteredProducts=[]
-  getVariants(value:any){
+  getProducts(value:any){
     this.service.getSearchedProducts(value).subscribe(d=>{
       this.Products = d;
       console.log(this.filteredProducts)
@@ -81,7 +85,7 @@ export class ListProductsComponent implements OnInit {
   onChange(e: Event): void {
    const value = (e.target as HTMLInputElement).value;
    if (value != null && value != "") {
-     this.getVariants(value);
+     this.getProducts(value);
      
     
    }
