@@ -148,12 +148,25 @@ chekingSetting=false;
     this.isVisible = false;
   }
 
+    objToPushForTransaction=[];
 
-  saveTransaction() {
+  saveTransaction() {  
+    this.objToPushForTransaction=[] 
+    console.log(this.checkoutProductsArray);
+   
+    this.checkoutProductsArray.forEach(prod=>{
+      let obj={
+        "product":prod,
+        "quantity":prod.productQuantity
+      }
+      this.objToPushForTransaction.push(obj)
+    });
+
     let request = {
-      amount: this.total,
-      products: this.checkoutProductsArray
+      "amount": this.total,
+      "productTransactions": this.objToPushForTransaction
     }
+    console.log(request)
     this.interactionServ.saveTransaction(request).subscribe(
       data => {
         this.message.success('amount added successfully', {
