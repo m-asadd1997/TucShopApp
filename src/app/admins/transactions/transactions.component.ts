@@ -25,6 +25,9 @@ transactionobj:transactions=new transactions();
   allTransactions = [];
   startValue: Date | null = null;
   endValue: Date | null = null;
+  startDate
+  endDate;
+  
   endOpen = false;
 
   disabledStartDate = (startValue: Date): boolean => {
@@ -43,11 +46,13 @@ transactionobj:transactions=new transactions();
 
   onStartChange(date: Date): void {
     this.startValue = date;
+    this.startDate=this.changedatetostring(this.startValue)
   }
 
   onEndChange(date: Date): void {
     
     this.endValue = date;
+    this.endDate=this.changedatetostring(this.endValue)
   }
 
   handleStartOpenChange(open: boolean): void {
@@ -60,13 +65,15 @@ transactionobj:transactions=new transactions();
     console.log(open);
     this.endOpen = open;
   }
-
+datee1;
   ngOnInit() {
     console.log(this.date);
    this.checkdate= this.changedatetostring(this.date);
    console.log(this.checkdate);
-    
-    this.showTransactions();
+   this.datee1= new Date();
+   this.startDate="01-"+this.datee1.getFullYear()+"-"+ (this.datee1.getMonth()+1)
+   this.endDate="31-"+this.datee1.getFullYear()+"-"+(this.datee1.getMonth()+1);    
+   this.showTransactions();
     
   }
 
@@ -76,6 +83,10 @@ transactionobj:transactions=new transactions();
      
         this.Transactions = d;
             this.allTransactions = this.Transactions;
+            this.startDate=this.Transactions[0].date
+            this.endDate=this.Transactions[this.Transactions.length-1].date
+
+            console.log(d);
       
       },error=>{
         this.display=true;
@@ -83,11 +94,7 @@ transactionobj:transactions=new transactions();
 
       )
 
-    // this.service.getTransactions().subscribe(item => {
-    //   console.log(item);
-    //   this.Transactions = item;
-    //   this.allTransactions=this.Transactions;
-    // })
+    
   }
   deleteTransactions(data){
     console.log("huadu",data);

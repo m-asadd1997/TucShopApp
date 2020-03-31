@@ -17,7 +17,7 @@ export class ProductAddComponent implements OnInit {
   categories = []
   addProducts: addProduct ;
   formData = new FormData();
-
+  checker:boolean=false;
   inputValue: string;
   options: Array<{ variants: string; category: string; count: number }> = [];
   variants:any;
@@ -25,6 +25,7 @@ export class ProductAddComponent implements OnInit {
   imagePath;
   imgURL: any;
   message2: string;
+  Checker:Boolean=false;
 
 typeBool=false;
   
@@ -62,7 +63,7 @@ typeBool=false;
     this.formData.append('name', this.addProducts.productTitle)
     let idObj= this.categories.find(v=>v.name==this.addProducts.category);
     this.formData.append('category',idObj.id);
-    this.formData.append('image', this.addProducts.image);
+    this.formData.append('image', this.addProducts.image,this.addProducts.productTitle+".png");
     this.formData.append('costprice', this.addProducts.costPrice);
     this.formData.append('price', this.addProducts.salePrice);   //sale price
     this.formData.append('quantity', this.addProducts.productQuantity);
@@ -98,9 +99,9 @@ typeBool=false;
         this.formData.delete("quantity");
         this.formData.delete("variants");
         console.log(this.addProducts.image)
+        this.Checker=true;
      
-        this.addProducts.image = null;
-     
+          this.imgURL=null;
       }
 
     }
@@ -114,7 +115,7 @@ typeBool=false;
           this.message.success("Added Successfully", { nzDuration: 3000 });
         });
         this.addProducts.image = null;
-        myForm.reset();
+         myForm.reset();
         this.formData.delete("name");
         this.formData.delete("category");
         this.formData.delete("image");
@@ -124,6 +125,8 @@ typeBool=false;
         this.formData.delete("variants");
         console.log(this.addProducts.image)
         // this.addProducts.image = null;
+        this.imgURL=null;
+        this.Checker=true;
         console.log(this.addProducts.image)
         
       }
@@ -134,6 +137,7 @@ typeBool=false;
   handleCategoryBanner(files: FileList) {
     //console.log(files);
     this.addProducts.image = files[0]
+    this.Checker=true;
 
 
   }
@@ -142,9 +146,11 @@ typeBool=false;
 
    
     this.id = this.activateRoute.snapshot.params['id'];
-    if (this.id)
+    if (this.id){
+    this.checker=true;
+    this.Checker=true;//ye image waala hai
       this.getProducts();
-    this.getCategories(this.id);
+    this.getCategories(this.id);}
 
   }
 
@@ -163,14 +169,29 @@ typeBool=false;
       this.addProducts.productQuantity = d.qty
       this.addProducts.salePrice = d.price
       this.addProducts.category = d.category.name
-      this.addProducts.image = d.image
+
+       this.service.getImage(d.image).subscribe(e=>{
+         if(e)
+         {
+          this.addProducts.image =this.blobToFile(e,"abc");
+         }
+       })
+
+
       this.addProducts.variants=d.variants
       this.imgURL = d.image
+      this.Checker=true;
 
       console.log(this.addProducts.category)
       
       
     })
+  }
+  blobToFile(theBlob, fileName){
+    //A Blob() is almost a File() - it's just missing the two properties below which we will add
+    theBlob.lastModifiedDate = new Date();
+    theBlob.filename = fileName;
+    return theBlob;
   }
 
 
@@ -179,7 +200,7 @@ typeBool=false;
 
 
   isInputValid(form){
-    if(form.valid&&this.addProducts.image&&(this.addProducts.variants!="" ||this.addProducts.variants))
+    if((form.valid&&this.addProducts.image&&(this.addProducts.variants!="" ||this.addProducts.variants))||(form.valid&&this.checker))
     {
       return false;
     }

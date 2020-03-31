@@ -350,6 +350,7 @@ chekingSetting=false;
       this.message.success('Requested Product saved successfully', {
         nzDuration: 3000
       });
+      this.checkOutObj.name="";
     });
   }
 
