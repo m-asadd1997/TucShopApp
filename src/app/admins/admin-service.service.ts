@@ -191,4 +191,14 @@ public scearchtransactionofUser(transaction:any):Observable<any>{
    
   }
 
+
+
+
+
+  //
+  public getImage(value):Observable<any>{
+    return this.http.get(value,
+    {responseType:'blob'});
+  }
+  
 }

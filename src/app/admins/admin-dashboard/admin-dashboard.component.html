@@ -90,7 +90,7 @@
                   <td>{{data.name}}</td>
                   <!-- <td>{{data.countName}}</td> -->
                   <td>  <nz-progress [nzPercent]=data.count nzType="circle" [nzWidth]="50"></nz-progress> </td>
-                  <td> <button nz-button (click)="deleterequestedproduct(data.name)" nzType="default">Completed</button> </td>
+                  <td><img nz-tooltip nzTooltipTitle="Mark As Completed" (click)="deleterequestedproduct(data)" src="./../../../assets/send.png" alt=""> </td>
                 
                 </tr>
               </tbody>

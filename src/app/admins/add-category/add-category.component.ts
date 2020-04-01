@@ -21,7 +21,8 @@ export class AddCategoryComponent implements OnInit {
   id: any;
   FileImage;
   imageFile = new Map();
-  
+  checker:boolean=false;
+  avatarDisplay:Boolean=false;
   
   constructor(private service:AdminServiceService, private activateRoute: ActivatedRoute,private message:NzMessageService) { }
 
@@ -30,6 +31,7 @@ export class AddCategoryComponent implements OnInit {
   handleCategoryBanner(file:File){
     
     this.add_categories.icons=file[0];
+    this.avatarDisplay=true;
     console.log(typeof(file[0]));
 
     
@@ -41,6 +43,7 @@ export class AddCategoryComponent implements OnInit {
   ngOnInit() {
     this.id = this.activateRoute.snapshot.params['id'];
     if (this.id){
+      this.checker=true;
       this.getCategory();
       
     }
@@ -50,10 +53,17 @@ export class AddCategoryComponent implements OnInit {
 
   submit(myForm:NgForm){
     
-    this.formData.append("name",this.add_categories.name);
-    if(this.add_categories.icons)
-    this.formData.append("image", this.add_categories.icons);
+    
+    
     if(this.id!=null){
+       
+      this.formData.append("name",this.add_categories.name);
+          debugger
+        if(this.add_categories.icons)
+      this.formData.append("image", this.add_categories.icons,this.add_categories.name+".png");
+
+      
+
       this.service.updateCategory(this.id,this.formData).subscribe(d=>{
         this.message.success("Updated Successfully",{nzDuration:3000});
       });
@@ -62,11 +72,16 @@ export class AddCategoryComponent implements OnInit {
       
       this.formData.delete("image");
       this.imgURL=""
+      this.avatarDisplay=false;
       
 
     }
 
     else {
+      this.formData.append("name",this.add_categories.name);
+   
+
+    this.formData.append("image", this.add_categories.icons);
       
       this.service.postCategory(this.formData).subscribe(d=>{
         this.message.success("Added Successfully",{nzDuration:3000});
@@ -76,6 +91,7 @@ export class AddCategoryComponent implements OnInit {
       
       this.formData.delete("image");
       this.imgURL="";
+      this.avatarDisplay=false;
       
         }
       
@@ -85,16 +101,25 @@ export class AddCategoryComponent implements OnInit {
   this.service.getCategoryById(this.id).subscribe(d=>{
     
   this.add_categories.name = d.name
- 
+  
+  this.service.getImage(d.image).subscribe(e=>{
+    debugger
+    if(e){
+    console.log((e.name));
+    this.add_categories.icons= this.blobToFile(e,"abc.png");
+      
+  }
+  })
+  this.avatarDisplay=true;
   this.imgURL = d.image
-  console.log(this.add_categories.icons);
+  console.log();
   
 })
 }
 
 
 isInputValid(form){
-  if(form.valid&&this.add_categories.icons)
+  if((form.valid&&this.add_categories.icons)||(form.valid&&this.checker))
   {
     return false;
   }
@@ -120,6 +145,13 @@ preview(files) {
     this.imgURL = reader.result; 
     
   }
+}
+
+ blobToFile(theBlob, fileName){
+  //A Blob() is almost a File() - it's just missing the two properties below which we will add
+  theBlob.lastModifiedDate = new Date();
+  theBlob.filename = fileName;
+  return theBlob;
 }
 }
 

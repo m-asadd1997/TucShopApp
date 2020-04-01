@@ -1,4 +1,4 @@
-<div style="margin-left: 3%; margin-top: 80px;">
+<div style="margin-left: 3%; margin-top: 7px;">
   <nz-card style="width:90%;" nzTitle="Add Products" [nzExtra]="extraTemplate" style="box-shadow:5px 5px 5px 5px">
 
     <form nz-form [nzLayout]="'inline'" #myForm="ngForm" autocomplete="auto">
@@ -11,15 +11,15 @@
 
 
         <nz-form-item>
-          <nz-form-label  nzFor="email">Product Title</nz-form-label>
+          <nz-form-label nzFor="email">Product Title</nz-form-label>
           <br>
           <nz-form-control nzErrorTip="Please input your Product Title!">
-            <nz-input-group nzPrefixIcon="project" >
-              <input  required name="productTitle" #title="ngModel" [(ngModel)]="addProducts.productTitle" nz-input
+            <nz-input-group nzPrefixIcon="project">
+              <input required name="productTitle" #title="ngModel" [(ngModel)]="addProducts.productTitle" nz-input
                 placeholder="Product Title" required />
             </nz-input-group>
 
-            
+
 
           </nz-form-control>
         </nz-form-item>
@@ -28,16 +28,17 @@
 
 
         <nz-form-item>
-          <nz-form-label  nzFor="email">Variant</nz-form-label>
+          <nz-form-label nzFor="email">Variant</nz-form-label>
           <br>
           <nz-form-control nzErrorTip="Please input your Product variants!">
 
 
 
             <div class="example-input">
-              <nz-input-group nzSearch nzSize="large" [nzAddOnAfter]="suffixIconButton"   style="margin-left:10px"     >
-                <input placeholder="Variants" nz-input #variants name="variants" required [(ngModel)]="addProducts.variants"
-                  (input)="onChange($event)" [nzAutocomplete]="auto" style="width: 440px;" />
+              <nz-input-group nzSearch nzSize="large" [nzAddOnAfter]="suffixIconButton" style="margin-left:10px">
+                <input placeholder="Variants" nz-input #variants name="variants" required
+                  [(ngModel)]="addProducts.variants" (input)="onChange($event)" [nzAutocomplete]="auto"
+                  style="width: 440px;" />
               </nz-input-group>
               <ng-template #suffixIconButton>
                 <button nz-button nzType="primary" nzSize="large" nzSearch style="height: 50px;">
@@ -53,7 +54,7 @@
               </nz-autocomplete>
             </div>
 
-           
+
 
           </nz-form-control>
         </nz-form-item>
@@ -68,110 +69,110 @@
 
 
       <!-- 2nd Row -->
-        <div>
-      <nz-form-item class="nz-group">
-        <nz-form-label  nzFor="email">Cost Price</nz-form-label>
-        <br>
-        <nz-form-control nzErrorTip="Please input your Cost Price!">
-          <nz-input-group nzPrefixIcon="dollar"  >
-            <input type="number" minlength="1" maxlength="4" required #costPrice="ngModel" name="costPrice" [(ngModel)]="addProducts.costPrice" nz-input
-               placeholder="Cost Price" required />
-          </nz-input-group>
-
-         
-        </nz-form-control>
-      </nz-form-item>
-
-      <nz-form-item class="nz-group">
-        <nz-form-label  nzFor="email">Product Price</nz-form-label>
-        <br>
-        <nz-form-control nzErrorTip="Please input your Product Price!">
-          <nz-input-group nzPrefixIcon="dollar"   style="margin-left:10px">
-            <input type="number" minlength="1" maxlength="4" required #saleprice="ngModel" name="salePrice" [(ngModel)]="addProducts.salePrice" nz-input
-              placeholder="Sale Price" required />
-          </nz-input-group>
-
-          
-        </nz-form-control>
-      </nz-form-item>
-    </div>
-
-<!--  2nd Row -->
+      <div>
+        <nz-form-item class="nz-group">
+          <nz-form-label nzFor="email">Cost Price</nz-form-label>
+          <br>
+          <nz-form-control nzErrorTip="Please input your Cost Price!">
+            <nz-input-group nzPrefixIcon="dollar">
+              <input type="number" minlength="1" maxlength="4" required #costPrice="ngModel" name="costPrice"
+                [(ngModel)]="addProducts.costPrice" nz-input placeholder="Cost Price" required />
+            </nz-input-group>
 
 
+          </nz-form-control>
+        </nz-form-item>
 
- <!-- 3rd  Row -->
- <div nz-row>
-   <div nz-col  nzSpan="9" class="nz-group"> 
-    <nz-form-label  nzFor="email">Product Quantity</nz-form-label>
-    <br>
-      <nz-form-item>
-        <nz-form-control nzErrorTip="Please input your Product Quantity!">
-          <nz-input-group nzPrefixIcon="account-book"  >
-            <input type="number" minlength="1" maxlength="4"   required #productQuantity="ngModel" name="productQuantity" [(ngModel)]="addProducts.productQuantity"
-              nz-input  placeholder="Product Quantity"  />
-          </nz-input-group>
-          
-        </nz-form-control>
-      </nz-form-item>
-
-    </div>
-      
+        <nz-form-item class="nz-group">
+          <nz-form-label nzFor="email">Product Price</nz-form-label>
+          <br>
+          <nz-form-control nzErrorTip="Please input your Product Price!">
+            <nz-input-group nzPrefixIcon="dollar" style="margin-left:10px">
+              <input type="number" minlength="1" maxlength="4" required #saleprice="ngModel" name="salePrice"
+                [(ngModel)]="addProducts.salePrice" nz-input placeholder="Sale Price" required />
+            </nz-input-group>
 
 
-
-
-     
-
-
-
-
-
-    <div nz-col   nzSpan="10"  style="margin-left: 88px;" class="nz-group"> 
-      <nz-form-item>
-         
-          <nz-form-control  >
-            <nz-form-label  nzFor="email">Category</nz-form-label>
-            <br>
-            <nz-select name="category" nzSize="large" [(ngModel)]="addProducts.category" class="phone-select" 
-              nzPlaceHolder="Select a Category" required>
-              <nz-option *ngFor="let item of categories" nzLabel={{item.name}} nzValue="{{item.name}}"></nz-option>
-            </nz-select>
           </nz-form-control>
         </nz-form-item>
       </div>
 
+      <!--  2nd Row -->
+
+
+
+      <!-- 3rd  Row -->
+      <div nz-row>
+        <div nz-col nzSpan="9" class="nz-group">
+          <nz-form-label nzFor="email">Product Quantity</nz-form-label>
+          <br>
+          <nz-form-item>
+            <nz-form-control nzErrorTip="Please input your Product Quantity!">
+              <nz-input-group nzPrefixIcon="account-book">
+                <input type="number" minlength="1" maxlength="4" required #productQuantity="ngModel"
+                  name="productQuantity" [(ngModel)]="addProducts.productQuantity" nz-input
+                  placeholder="Product Quantity" />
+              </nz-input-group>
+
+            </nz-form-control>
+          </nz-form-item>
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+        <div nz-col nzSpan="10" style="margin-left: 88px;" class="nz-group">
+          <nz-form-item>
+
+            <nz-form-control>
+              <nz-form-label nzFor="email">Category</nz-form-label>
+              <br>
+              <nz-select name="category" nzSize="large" [(ngModel)]="addProducts.category" class="phone-select"
+                nzPlaceHolder="Select a Category" required>
+                <nz-option *ngFor="let item of categories" nzLabel={{item.name}} nzValue="{{item.name}}"></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
 
       </div>
- <!-- 3rd  Row -->
+      <!-- 3rd  Row -->
 
 
 
-<!-- 4th Row -->
-<div nz-row class="nz-group">
+      <!-- 4th Row -->
+      <div nz-row class="nz-group">
         <!-- <br> -->
 
         <div nz-col nzSpan="15">
-        <nz-form-control  >
-          <div class="row">
-            <label style="padding: 5px;
+          <nz-form-control>
+            <div class="row">
+              <label style="padding: 5px;
   background: grey; 
   display: table;
   color: #fff;
   font-size: smaller;
   margin-left: 3%;
  ">Select Image
-              <input #files type="file"
-                (change)="handleCategoryBanner($event.target.files); preview($event.target.files)" name="image"
-                accept=".jpeg,.png,.jpg,.PNG" style="display: none;cursor: pointer;">
-            </label>
-            <nz-avatar style="margin-left: 5%;" [nzShape]="'square'" [nzSrc]="imgURL" [nzSize]="150" nzText="Product">
-            </nz-avatar>
-          </div>
-        </nz-form-control>
-      
-      </div>
-     
+                <input #files type="file"
+                  (change)="handleCategoryBanner($event.target.files); preview($event.target.files)" name="image"
+                  accept=".jpeg,.png,.jpg,.PNG" style="display: none;cursor: pointer;">
+              </label>
+              <nz-avatar  *ngIf="Checker" style="margin-left: 5%;" [nzShape]="'square'" [nzSrc]="imgURL" [nzSize]="150" nzText="Product">
+              </nz-avatar>
+            </div>
+          </nz-form-control>
+
+        </div>
 
 
 
@@ -180,21 +181,22 @@
 
 
 
-<!-- Button -->
-      
-<div nz-col nzSpan="8" style="margin-left: -200px;">
-  <!-- <div style="text-align: center;"> -->
+
+        <!-- Button -->
+
+        <div nz-col nzSpan="8" style="margin-left: -200px;">
+          <!-- <div style="text-align: center;"> -->
           <nz-form-item>
-            <nz-form-control  >
+            <nz-form-control>
 
-              <button style="margin-top: 30px; height: 40px; width: 100px;" nz-button nzType="primary" [nzSize]="large" (click)="submit(myForm)"
-                [disabled]="isInputValid(myForm)">Save</button>
+              <button style="margin-top: 30px; height: 40px; width: 100px;" nz-button nzType="primary" [nzSize]="large"
+                (click)="submit(myForm)" [disabled]="isInputValid(myForm)">Save</button>
 
             </nz-form-control>
           </nz-form-item>
-        <!-- </div> -->
-      </div>
-<!-- Button -->
+          <!-- </div> -->
+        </div>
+        <!-- Button -->
 
       </div>
     </form>

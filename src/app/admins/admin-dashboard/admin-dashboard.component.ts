@@ -213,18 +213,7 @@ export class AdminDashboardComponent implements OnInit {
 
 
 
-      // console.log(d.result)
-      // if (this.reqProducts.length > 5) {
-      //   this.reqProducts.length = 5;
-      // }
-
-      // else if (this.reqProducts.length < 5) {
-      //   let count = this.reqProducts.length;
-      //   for (let index = count; index < 5; index++) {
-      //     this.reqProducts[index] = {};
-
-      //   }
-      // }
+      
 
 
 
@@ -451,12 +440,13 @@ print(){
     this.endOpen = open;
   }
 
-  deleterequestedproduct(productName:string){
-    this.adminService.deleterequestedproduct(productName).subscribe(data=>{
+  deleterequestedproduct(data){
+    this.adminService.deleterequestedproduct(data.name).subscribe(data=>{
       console.log(data);
       if(data.status=="200"){
-        this.message.success("Deleted successfully", { nzDuration: 3000 });
+        this.message.success("Request Completed Successfully", { nzDuration: 3000 });
       this.getRequestedProducts();
+    this.reqProducts=  this.reqProducts.filter(f=>(data.id!=f.id))
       }
     })
     
