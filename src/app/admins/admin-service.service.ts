@@ -36,6 +36,7 @@ private getSearchedProductsURL= environment.baseUrl+"api/dashboard/searchproduct
   private getChartDataURL=environment.baseUrl+"api/dashboard/salespermonth";
   private getSettingURL= environment.baseUrl+"api/dashboard/settings";
   private getAutoCompleteVariantsURL = environment.baseUrl+"api/products/variants/";
+  private getProfitURL = environment.baseUrl+"api/dashboard/profit/";
   
   public getVariants(keyword:any):Observable<any>{
     return this.http.get(this.getAutoCompleteVariantsURL+keyword);
@@ -49,6 +50,11 @@ private getSearchedProductsURL= environment.baseUrl+"api/dashboard/searchproduct
   public deleterequestedproduct(productName:any):Observable<any>{
     return this.http.delete(this.deleterequestedproductURL+productName);
   }
+
+  public getProfit(startDate:any, endDate:any):Observable<any>{
+  return this.http.get(this.getProfitURL+startDate+"/"+endDate)
+}
+
 
  public getTransactionsByUser(user:any):Observable<any>{
    return this.http.get(this.getTransactionByUserUrl+user);

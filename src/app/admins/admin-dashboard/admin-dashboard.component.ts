@@ -27,6 +27,7 @@ export class AdminDashboardComponent implements OnInit {
   isTotalTransactionModalVisible = false;
 
   dateRange = [];
+  profit : any
 
   constructor(private adminService: AdminServiceService, private router: Router,private message:NzMessageService) { }
 
@@ -77,8 +78,10 @@ export class AdminDashboardComponent implements OnInit {
     this.getOutOfStockDetailed();
     this.getChartData();
     this.settingChart();
-
-
+    let date1= new Date();
+    let start="1880-3-2";
+    let end =date1.getFullYear()+"-"+(date1.getMonth()+1)+"-"+date1.getDate();
+    this.getProfit(start,end,true);
   }
   settingChart() {
     this.chart = document.getElementById('chartist')
@@ -277,8 +280,7 @@ export class AdminDashboardComponent implements OnInit {
 
 
         if (this.startValue && this.endValue) {
-          this.totalAmount = 0;
-
+          this.totalAmount =  0;
           this.totalTransaction.forEach(element1 => {
             let datee = new Date(element1[1]);
             if (datee >= this.startValue && datee < this.endValue) {
@@ -364,6 +366,7 @@ print(){
     this.getTotalOutOfStockProducts();
     this.getTotalTransaction();
     this.getChartData();
+    this.getProfit(this.startValue, this.endValue,false);
 
 
   console.log(this.dateRange);}
@@ -422,6 +425,8 @@ print(){
     this.getTotalOutOfStockProducts();
     this.getTotalTransaction();
     this.getChartData();
+    // this.getProfit(this.startValue, this.endValue)
+    
     debugger
     
 
@@ -454,5 +459,13 @@ print(){
   
   }
 
-
+  getProfit(startValue, endValue, flag){
+    if(startValue && endValue&&!flag){
+    startValue=startValue.getFullYear()+"-"+ (startValue.getMonth()+1)+"-"+(startValue.getDate())
+    endValue=endValue.getFullYear()+"-"+ (endValue.getMonth()+1)+"-"+(endValue.getDate())
+    }
+    this.adminService.getProfit(startValue, endValue).subscribe(d=>{
+    this.profit = d.result[0].profit
+   });
+}
 }
