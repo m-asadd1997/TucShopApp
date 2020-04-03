@@ -19,7 +19,7 @@
                 <nz-form-control>
                     <div nz-row>
 
-                        <div nz-col nzSpan="12">
+                        <!-- <div nz-col nzSpan="12">
                             <nz-form-label  nzFor="email">Header Name</nz-form-label>
                             <nz-input-group nzPrefixIcon="user" class="nz-group">
                                 <input type="text" name="headerName" nz-input [(ngModel)]="settingObj.headerName"
@@ -28,13 +28,13 @@
 
 
 
-                        </div>
+                        </div> -->
                         <div nz-col nzSpan="12">
                             <nz-form-label  nzFor="email">Header</nz-form-label>
 
                             <nz-input-group nzPrefixIcon="user" class="nz-group">
                                 
-                                <textarea style="height: 50px;padding-top: 15px;" nz-input placeholder="Header" [(ngModel)]="settingObj.header"
+                                <textarea style="height: 50px;padding-top: 15px;" nz-input placeholder="header" name="header" [(ngModel)]="settingObj.header"
                                     [nzAutosize]="{ minRows: 1, maxRows: 6 }"></textarea>
                             </nz-input-group>
                         </div>
@@ -59,7 +59,7 @@
                             <nz-form-label  nzFor="email">Footer</nz-form-label>
                             <nz-input-group nzPrefixIcon="user" class="nz-group">
                                  
-                                <textarea nz-input placeholder="Footer" style="height: 50px;padding-top: 15px;" [(ngModel)]="settingObj.footer"
+                                <textarea nz-input placeholder="footer" style="height: 50px;padding-top: 15px;" name="footer" [(ngModel)]="settingObj.footer"
                                     [nzAutosize]="{ minRows: 1, maxRows: 6 }"></textarea>
                             </nz-input-group>
                         </div>
