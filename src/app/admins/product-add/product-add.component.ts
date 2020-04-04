@@ -150,12 +150,14 @@ typeBool=false;
     this.checker=true;
     this.Checker=true;//ye image waala hai
       this.getProducts();
-    this.getCategories(this.id);}
+    
+  }
+  this.getCategories();
 
   }
 
 
-  getCategories(id) {
+  getCategories() {
     this.service.getCategory().subscribe(d => {
       this.categories = d;
 

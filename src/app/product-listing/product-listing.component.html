@@ -38,10 +38,20 @@
         id ="cardShadow"
       >
         <nz-card-meta [nzTitle]="" [nzDescription]="" style="text-align: center;"></nz-card-meta>
-          
-           <div style="text-align:center; margin-left: 0px;"><b>{{p.name}}</b></div>
+          <div class="row">
+              <div style="margin-left: 0px;"><b>{{p.name | uppercase}}</b></div>
+          </div>
+          <div class="row">
+             <div class="col-md-4 ">
+                <div style="    margin-left: -14px;  font-size: 11px;"><b >{{p.variants}}</b></div>
+             </div>
+             <div class="col-md-8">
+                <div><nz-tag [nzColor]="'#f50a0a'" style="margin-left: 20px;"> &#8360; {{p.price}}</nz-tag></div>
+              </div>
+            </div>
+           <!-- <div style="text-align:center; margin-left: 0px;"><b>{{p.name | uppercase}}</b></div>
           <div style="text-align:center; margin-left: 0px;"><b>{{p.variants}}</b></div>
-           <div><nz-tag [nzColor]="'#f50a0a'" style="margin-left: 20px;"> &#8360; {{p.price}}</nz-tag></div>  
+           <div><nz-tag [nzColor]="'#f50a0a'" style="margin-left: 20px;"> &#8360; {{p.price}}</nz-tag></div>   -->
 
       </nz-card>
       <div >
