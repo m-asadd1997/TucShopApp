@@ -159,13 +159,14 @@ typeBool=false;
 
   getCategories() {
     this.service.getCategory().subscribe(d => {
+      
       this.categories = d;
 
     })
   }
 
   getProducts() {
-    this.service.getProductsById(this.id).subscribe(d => {
+     this.service.getProductsById(this.id).subscribe(d => {
       this.addProducts.productTitle = d.name
       this.addProducts.costPrice = d.costprice
       this.addProducts.productQuantity = d.qty

@@ -10,29 +10,20 @@
 
 <div nz-row>
   <div nz-col nzSpan="24" nzOffset="">
-    <h1 style="display: inline;">Transactions </h1 ><span style="font-size: larger;">({{startDate }} &nbsp; - &nbsp; {{endDate}})</span>
+    <h1 style="display: inline;">Transactions </h1 ><span style="font-size: 29px;">({{startDate }} &nbsp; - &nbsp; {{endDate}})</span>
   </div>
 </div>
 <div style="text-align: center;">
   <div nz-row>
-    <div nz-col nzSpan="4" nzOffset="">
-      <nz-date-picker [nzDisabledDate]="disabledStartDate" nzShowTime nzFormat="yyyy-MM-dd" [(ngModel)]="startValue"
-        nzPlaceHolder="Start" (ngModelChange)="onStartChange($event)" (nzOnOpenChange)="handleStartOpenChange($event)">
-      </nz-date-picker>
+    <div nz-col nzSpan="8" nzOffset="">
+     
+  <nz-range-picker [(ngModel)]="datevariable" ></nz-range-picker>
     </div>
-
-
-    <div nz-col nzSpan="4" nzOffset="">
-      <nz-date-picker [nzDisabledDate]="disabledEndDate" nzShowTime nzFormat="yyyy-MM-dd" [(ngModel)]="endValue"
-        nzPlaceHolder="End" [nzOpen]="endOpen" (ngModelChange)="onEndChange($event)"
-        (nzOnOpenChange)="handleEndOpenChange($event)">
-      </nz-date-picker>
-    </div>
-    <div nz-col nzSpan="4" nzOffset="">
+    <div nz-col nzSpan="3" nzOffset="">
       <button nz-button (click)="scearchTransactions()" nzType="primary" [nzSize]="size" nzShape="round">
         <i nz-icon nzType="search"></i>Search</button>
     </div>
-    <div nz-col nzSpan="8" nzOffset="4">
+    <div nz-col nzSpan="8" nzOffset="5">
       <button nz-button nzType="primary"  nzShape="round" (click)="download()">
         <i nz-icon nzType="export"></i>Export</button>
         </div>

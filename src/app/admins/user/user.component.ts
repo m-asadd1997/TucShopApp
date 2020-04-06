@@ -3,6 +3,7 @@ import { AdminServiceService } from './../admin-service.service';
 import { MainscreenService } from './../../main-screen/mainscreen.service';
 import { ActivatedRoute } from '@angular/router';
 import { transactions } from '../transactions/transactions';
+import { ExportAsService, ExportAsConfig } from 'ngx-export-as';
 
 @Component({
   selector: 'app-user',
@@ -11,8 +12,10 @@ import { transactions } from '../transactions/transactions';
 })
 export class UserComponent implements OnInit {
   display: boolean;
-  constructor(private service:AdminServiceService,private activatedroute:ActivatedRoute) { }
+  constructor(private service:AdminServiceService,private activatedroute:ActivatedRoute,private exportAsService: ExportAsService) { }
 
+  productDetails:any[]=[];
+  datevariable:any[]=[];
   transactionOBJ:transactions=new transactions();
   isVisible:boolean=false;
   user:any;
@@ -74,14 +77,14 @@ export class UserComponent implements OnInit {
     this.service.getTransactionsByUser(this.user).subscribe(data=>{
       
 console.log("response",data)
-data.map(d=>{
-        d.products.map(f=>{
-          
-          this.productname.push({date:d.date,amount:d.amount,createdBy:d.createdBy,updatedBy:d.updatedBy,productname:f.name,image:f.image,price:f.price})
-        })
-      })
-      console.log("my obj",this.productname);
-    this.allTransactions=this.productname;
+// console.log(data.productTransactions.product['name']);
+// data.map(d=>{
+//         d.productTransactions.map(f=>{
+//  this.productname.push({date:d.date,amount:d.amount,createdBy:d.createdBy,updatedBy:d.updatedBy,product:f.product.name,image:f.product.image,price:f.product.price,quantity:f.quantity})
+//         })
+//       })
+//       console.log("my obj",this.productname);
+    this.allTransactions=data;
       // console.log(this.productname);
       // console.log(data);
       // this.allTransactions=data;
@@ -95,16 +98,23 @@ data.map(d=>{
     
 
   }
-  detailsTransactions(products:String,image:String){
+  detailsTransactions(data){
+    
+    // this.showproductName=products
+    // this.productimage=image;
+    this.productDetails=data;
     this.isVisible=true;
-    this.showproductName=products
-    this.productimage=image;
 
 
 
     
 
   }
+  exportAsConfig: ExportAsConfig = {
+    type: 'xlsx', // the type you want to download
+    elementId: 'table1', // the id of html/table element
+  }
+  
 
   handleCancel(){
     this.isVisible=false;
@@ -114,27 +124,23 @@ data.map(d=>{
   }
 
   scearchUsertransactions(){
-    if(this.startValue==null|| this.endValue==null){
+    if(this.datevariable[0]==null|| this.datevariable[1]==null){
       this.transactionOBJ.dateFrom=this.changedatetostring(new Date());
       this.transactionOBJ.dateTill=this.changedatetostring(new Date());
     }
     else{
 
-    this.transactionOBJ.dateFrom=this.changedatetostring(this.startValue);
+    this.transactionOBJ.dateFrom=this.changedatetostring(this.datevariable[0]);
     
-    this.transactionOBJ.dateTill=this.changedatetostring(this.endValue);
+    this.transactionOBJ.dateTill=this.changedatetostring(this.datevariable[1]);
     this.transactionOBJ.user=this.user;
     console.log(this.transactionOBJ);
     
     }
     this.service.scearchtransactionofUser(this.transactionOBJ).subscribe(data=>{
       console.log(data);
-      data.map(d=>{
-        d.products.map(f=>{
-          this.productname.push({date:d.date,amount:d.amount,createdBy:d.createdBy,updatedBy:d.updatedBy,productname:f.name,image:f.image,price:f.price})
-        })
-      })
-      this.allTransactions=this.productname;
+     
+      this.allTransactions=data;
       
     })
 
@@ -149,4 +155,17 @@ data.map(d=>{
 
 
   }
+  download()
+    {
+      this.exportAsService.save(this.exportAsConfig, 'My File Name').subscribe(() => {
+        // save started
+      });
+      // get the data as base64 or json object for json type - this will be helpful in ionic or SSR
+      this.exportAsService.get(this.exportAsConfig).subscribe(content => {
+        console.log(content);
+      });
+     
+      
+    }
+
 }

@@ -17,6 +17,7 @@ export class TransactionsComponent implements OnInit {
 
 constructor(private service:AdminServiceService,private router:Router,private exportAsService: ExportAsService) { }
 
+datevariable:any[]=[];
 transactionobj:transactions=new transactions();
   Transactions = [];
   checkdate:string;
@@ -65,14 +66,14 @@ transactionobj:transactions=new transactions();
     console.log(open);
     this.endOpen = open;
   }
-datee1;
+datee1:Date;
   ngOnInit() {
     console.log(this.date);
    this.checkdate= this.changedatetostring(this.date);
    console.log(this.checkdate);
-   this.datee1= new Date();
-   this.startDate="01-"+this.datee1.getFullYear()+"-"+ (this.datee1.getMonth()+1)
-   this.endDate="31-"+this.datee1.getFullYear()+"-"+(this.datee1.getMonth()+1);    
+  //  this.datee1= new Date();
+  //  this.startDate="01-"+this.date.getFullYear()+"-"+ (this.date.getMonth()+1)
+  //  this.endDate="31-"+this.date.getFullYear()+"-"+(this.date.getMonth()+1);    
    this.showTransactions();
     
   }
@@ -80,11 +81,11 @@ datee1;
   showTransactions(){
     this.service.getTransaction().subscribe(d=>{
       console.log(d);
-     
+    
         this.Transactions = d;
             this.allTransactions = this.Transactions;
-            this.startDate=this.Transactions[0].date
-            this.endDate=this.Transactions[this.Transactions.length-1].date
+            this.startDate="1"+" " +this.date.toLocaleString("en", { month: "long"  })+" "+this.date.getFullYear() ;
+            this.endDate=this.date.getUTCDate()+" "+this.date.toLocaleString("en", { month: "long"  })+" "+this.date.getFullYear() ;
 
             console.log(d);
       
@@ -120,15 +121,20 @@ datee1;
 
   scearchTransactions(){
 
-    if(this.startValue==null|| this.endValue==null){
+    if(this.datevariable[0]==null|| this.datevariable[1]==null){
       this.transactionobj.dateFrom=this.changedatetostring(new Date());
       this.transactionobj.dateTill=this.changedatetostring(new Date());
+      this.showdate(this.date);
+
     }
     else{
 
-    this.transactionobj.dateFrom=this.changedatetostring(this.startValue);
+    this.transactionobj.dateFrom=this.changedatetostring(this.datevariable[0]);
     
-    this.transactionobj.dateTill=this.changedatetostring(this.endValue);
+    this.transactionobj.dateTill=this.changedatetostring(this.datevariable[1]);
+    this.startDate=this.datevariable[0].getUTCDate()+" "+this.datevariable[0].toLocaleString("en", { month: "long"  })+" "+this.datevariable[0].getFullYear() ;
+   this.endDate= this.datevariable[1].getUTCDate()+" "+this.datevariable[1].toLocaleString("en", { month: "long"  })+" "+this.datevariable[1].getFullYear() ;
+
     console.log(this.transactionobj);
   
     }
@@ -148,6 +154,12 @@ datee1;
 
     
     
+
+  }
+
+  showdate(date:Date){
+    this.startDate=this.date.getUTCDate()+" "+this.date.toLocaleString("en", { month: "long"  })+" "+this.date.getFullYear() ;
+    this.endDate=this.date.getUTCDate()+" "+this.date.toLocaleString("en", { month: "long"  })+" "+this.date.getFullYear() ;
 
   }
 
