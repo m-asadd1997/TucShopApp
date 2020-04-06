@@ -150,20 +150,23 @@ typeBool=false;
     this.checker=true;
     this.Checker=true;//ye image waala hai
       this.getProducts();
-    this.getCategories(this.id);}
+    this.getCategories();}
+    this.getCategories();
+    
 
   }
 
 
-  getCategories(id) {
+  getCategories() {
     this.service.getCategory().subscribe(d => {
+      
       this.categories = d;
 
     })
   }
 
   getProducts() {
-    this.service.getProductsById(this.id).subscribe(d => {
+     this.service.getProductsById(this.id).subscribe(d => {
       this.addProducts.productTitle = d.name
       this.addProducts.costPrice = d.costprice
       this.addProducts.productQuantity = d.qty

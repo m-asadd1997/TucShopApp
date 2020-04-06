@@ -1,18 +1,50 @@
 <nz-table *ngIf="checking()" [nzData]="data"  #headerTable  [nzPageSize]="50" [nzScroll]="{ y: '240px' }">
     <thead>
       <tr>
-        <th nzWidth="100px">Name</th>
-        <th nzWidth="150px">Date</th>
-        <th>Amount</th>
-        <th>Products</th>
+        <th nzWidth="160px">Name</th>
+        <th nzWidth="160px">Date</th>
+        <th nzWidth="160px" >Amount</th>
+        <th >Products</th>
       </tr>
     </thead>
     <tbody>
-      <tr  *ngFor="let pdata of data">
-        <td>{{ pdata.createdBy }}</td>
-        <td>{{ pdata.date }}</td>
-        <td>{{ pdata.amount }}</td>
-        <td ><div *ngFor="let p of pdata.countArray">{{ p.name }}({{p.count}}),</div></td>
+      <tr  *ngFor="let d of data">
+        <td>{{ d.createdBy }}</td>
+        <td>{{ d.date }}</td>
+        <td>{{ d.amount }}</td>
+     <!-- <td><a (click)="showproducts(d.productTransactions)">Show</a></td> -->
+   <td >  <button nz-tooltip nzTooltipTitle="Click to view products" (click)="showproducts(d.productTransactions)"  nzGhost="true" style="color:#0062cc;border-color:#0062cc" nzSize="small" nz-button nzType="primary"><i nz-icon nzType="eye"></i>show</button> </td>
       </tr>
     </tbody>
   </nz-table>
+  <nz-modal [(nzVisible)]="isVisible" nzTitle="Products" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+      <!-- <nz-card nzHoverable style="width:100px" [nzCover]="coverTemplate">
+        <nz-card-meta style="font-size:100px" nzTitle="" nzDescription=""></nz-card-meta>
+      </nz-card>
+      <ng-template #coverTemplate>
+        <img alt="example" [src]=productimage />
+        <h2 style="text-align:center;font-family:Arial, Helvetica, sans-serif;text-decoration:none">{{showproductName}} </h2>
+        
+        <h3 style="font-family:Arial, Helvetica, sans-serif;padding-left:5px;font-size:20px">Qty:</h3>
+      </ng-template> -->
+      <div nz-row>
+      <div nz-col nzXs="24" nzSm="24" nzMd="5" nzLg="7" nzXl="7" nzSpan="7" nzOffset="1" *ngFor="let p of productsarray">
+      <nz-card   class="cardShadow" style="background-color:black" nzHoverable style="width:130px;">
+     <img [src]=p.product.image style="width:70px;height:70px">
+        <hr>
+        <b style="font-size:12px;padding:0px">Product: {{p.product.name}}</b><br>
+        <b style="font-size:12px;padding:0px" >Quantity: {{p.quantity}} </b><br>
+        <!-- <b style="font-size:12px;padding:0px" >Price: {{p.product.price}} </b> -->
+        <nz-tag style="margin-top:2px" [nzColor]="'#f50a0a'" style="margin-left: 20px;"> &#8360; {{p.product.price}}</nz-tag>
+
+     
+      
+      <!-- <div style="text-align:center; margin-left: 0px;"><b>Product:{{p.product.name}}</b></div>
+      <div style="text-align:center; margin-left: 0px;"><b>Quantity:{{p.quantity}}</b></div>
+       <div><nz-tag [nzColor]="'#f50a0a'" style="margin-left: 20px;"> &#8360; {{p.product.price}}</nz-tag></div>   -->
+
+     
+      </nz-card>
+      </div>
+      </div>
+    </nz-modal>
