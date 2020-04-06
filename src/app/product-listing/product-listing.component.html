@@ -22,10 +22,9 @@
      </nz-auto-option>
   </nz-autocomplete>
 </div>
+<br>
 </div>
-
 <h4 style="text-transform:capitalize;">{{categoryHeader}}</h4>
-
 <nz-card style="width: 100%; overflow-y: scroll; overflow-x: none; height:500px;">
   <div nz-row>
     <div nz-col nzXs="24" nzSm="24" nzMd="5" nzLg="5" nzXl="5" nzSpan="5" nzOffset="1" *ngFor="let p of productsArray">
@@ -39,10 +38,20 @@
         id ="cardShadow"
       >
         <nz-card-meta [nzTitle]="" [nzDescription]="" style="text-align: center;"></nz-card-meta>
-          
-           <div style="text-align:center; margin-left: 0px;"><b>{{p.name}}</b></div>
+          <div class="row">
+              <div style="margin-left: 0px;"><b>{{p.name | uppercase}}</b></div>
+          </div>
+          <div class="row">
+             <div class="col-md-4 ">
+                <div style="    margin-left: -14px;  font-size: 11px;"><b >{{p.variants}}</b></div>
+             </div>
+             <div class="col-md-8">
+                <div><nz-tag [nzColor]="'#f50a0a'" style="margin-left: 20px;"> &#8360; {{p.price}}</nz-tag></div>
+              </div>
+            </div>
+           <!-- <div style="text-align:center; margin-left: 0px;"><b>{{p.name | uppercase}}</b></div>
           <div style="text-align:center; margin-left: 0px;"><b>{{p.variants}}</b></div>
-           <div><nz-tag [nzColor]="'#f50a0a'" style="margin-left: 20px;"> &#8360; {{p.price}}</nz-tag></div>  
+           <div><nz-tag [nzColor]="'#f50a0a'" style="margin-left: 20px;"> &#8360; {{p.price}}</nz-tag></div>   -->
 
       </nz-card>
       <div >

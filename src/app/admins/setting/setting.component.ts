@@ -27,10 +27,9 @@ export class SettingComponent implements OnInit {
 
   submitSetting(myForm: NgForm) {
     this.formData.append('header', this.settingObj.header)
-    
     this.formData.append('logo', this.settingObj.logo)
     this.formData.append('footer', this.settingObj.footer)
-    this.formData.append('headerName',this.settingObj.headerName)
+    //this.formData.append('headerName',this.settingObj.headerName)
    
 
     
@@ -45,7 +44,7 @@ export class SettingComponent implements OnInit {
     this.formData.delete('header');
     this.formData.delete('logo');
     this.formData.delete('footer');
-    this.formData.delete('headerName')
+    //this.formData.delete('headerName')
 
   }
 }
