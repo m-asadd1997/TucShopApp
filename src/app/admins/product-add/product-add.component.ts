@@ -150,7 +150,8 @@ typeBool=false;
     this.checker=true;
     this.Checker=true;//ye image waala hai
       this.getProducts();
-    
+     
+      
   }
   this.getCategories();
 
