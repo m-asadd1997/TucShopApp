@@ -37,6 +37,8 @@ private getSearchedProductsURL= environment.baseUrl+"api/dashboard/searchproduct
   private getSettingURL= environment.baseUrl+"api/dashboard/settings";
   private getAutoCompleteVariantsURL = environment.baseUrl+"api/products/variants/";
   private getProfitURL = environment.baseUrl+"api/dashboard/profit/";
+  private getTotalProfitURL = environment.baseUrl+"api/dashboard/totalprofit";
+
   
   public getVariants(keyword:any):Observable<any>{
     return this.http.get(this.getAutoCompleteVariantsURL+keyword);
@@ -53,6 +55,10 @@ private getSearchedProductsURL= environment.baseUrl+"api/dashboard/searchproduct
 
   public getProfit(startDate:any, endDate:any):Observable<any>{
   return this.http.get(this.getProfitURL+startDate+"/"+endDate)
+}
+
+  public getTotalProfit():Observable<any>{
+  return this.http.get(this.getTotalProfitURL)
 }
 
 
