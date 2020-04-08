@@ -27,7 +27,6 @@ export class AdminDashboardComponent implements OnInit {
   isTotalTransactionModalVisible = false;
 
   dateRange = [];
-  profit : any
 
   constructor(private adminService: AdminServiceService, private router: Router,private message:NzMessageService) { }
 
@@ -70,6 +69,7 @@ export class AdminDashboardComponent implements OnInit {
     }
   };
   chart
+  filtering:Boolean=false;
   ngOnInit() {
     this.getRequestedProducts();
     this.getTotalProductQuantity();
@@ -78,11 +78,14 @@ export class AdminDashboardComponent implements OnInit {
     this.getOutOfStockDetailed();
     this.getChartData();
     this.settingChart();
-    let date1= new Date();
-    let start="1880-3-2";
-    let end =date1.getFullYear()+"-"+(date1.getMonth()+1)+"-"+date1.getDate();
-    this.getProfit(start,end,true);
-  }
+    this.getTotalProfit();
+    
+    
+    
+
+}
+
+
   settingChart() {
     this.chart = document.getElementById('chartist')
     // console.log(typeof(this.chart));
@@ -261,7 +264,7 @@ export class AdminDashboardComponent implements OnInit {
   }
 
 
-
+     
   totalTransaction;
   totalAmount;
   totalTransactionFiltering;
@@ -269,8 +272,6 @@ export class AdminDashboardComponent implements OnInit {
     this.totalAmount = 0;
     this.adminService.getTotalTransaction().subscribe(d => {
       if (d) {
-
-
         this.totalTransaction = d.result;
         this.totalTransaction.forEach(element => {
           this.totalAmount += element[0];
@@ -289,6 +290,13 @@ export class AdminDashboardComponent implements OnInit {
 
           });
         }
+
+        
+
+        
+       
+        
+        
       }
     })
 
@@ -357,7 +365,7 @@ export class AdminDashboardComponent implements OnInit {
 
 
 print(){
-
+  
   if(this.dateRange.length>0){
   this.startValue=this.dateRange[0];
   this.endValue=this.dateRange[1];
@@ -366,7 +374,7 @@ print(){
     this.getTotalOutOfStockProducts();
     this.getTotalTransaction();
     this.getChartData();
-    this.getProfit(this.startValue, this.endValue,false);
+    this.getProfit(this.startValue, this.endValue);
 
 
   console.log(this.dateRange);}
@@ -412,11 +420,7 @@ print(){
 
     this.startValue = date
 
-
-
-
-
-  }
+}
 
   onEndChange(date: Date): void {
     this.endValue = date;
@@ -425,13 +429,7 @@ print(){
     this.getTotalOutOfStockProducts();
     this.getTotalTransaction();
     this.getChartData();
-    // this.getProfit(this.startValue, this.endValue)
-    
-    debugger
-    
-
-
-  }
+    }
 
   handleStartOpenChange(open: boolean): void {
     if (!open) {
@@ -458,14 +456,42 @@ print(){
 
   
   }
-
-  getProfit(startValue, endValue, flag){
-    if(startValue && endValue&&!flag){
+  profit =0;
+  getProfit(startValue, endValue){
+    if(startValue && endValue){
     startValue=startValue.getFullYear()+"-"+ (startValue.getMonth()+1)+"-"+(startValue.getDate())
     endValue=endValue.getFullYear()+"-"+ (endValue.getMonth()+1)+"-"+(endValue.getDate())
-    }
+  } 
     this.adminService.getProfit(startValue, endValue).subscribe(d=>{
+    if(d.result==null){
+      this.profit=0;
+    }else{
     this.profit = d.result[0].profit
-   });
+    }
+  });
+  
+  
+  }
+  
+
+
+  getTotalProfit(){
+  this.adminService.getTotalProfit().subscribe(d=>{
+    if(d.result==null){
+      this.profit=0;
+    }else{
+   this.profit = d.result[0].profit
+    } 
+});
+   
+} 
 }
-}
+ 
+
+
+
+  
+
+
+
+
