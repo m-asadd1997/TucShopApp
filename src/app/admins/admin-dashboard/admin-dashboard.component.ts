@@ -196,27 +196,8 @@ export class AdminDashboardComponent implements OnInit {
     this.adminService.getRequestedProducts().subscribe(d => {
       let filteredReqProducts=[];
       this.reqProducts = d.result;
-      // this.abcd = new Date(this.reqProducts[0].date1);
 
-      if (d && this.startValue && this.endValue) {
-        this.reqProducts.forEach(e => {
-          this.abcd = new Date(e.date1);
-          if (this.abcd >= this.startValue && this.abcd <= this.endValue) {
-            filteredReqProducts.push(e);
-          }
-        })
-
-        this.reqProducts = filteredReqProducts;
-        if (this.reqProducts.length < 5) {
-          let count = this.reqProducts.length;
-          for (let index = count; index < 5; index++) {
-            this.reqProducts[index] = {};
-
-          }
-        }
-
-      }
-
+     
 
 
       
