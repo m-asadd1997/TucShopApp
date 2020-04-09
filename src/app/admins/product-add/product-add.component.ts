@@ -15,40 +15,40 @@ import { NzMessageComponent, NzMessageService } from 'ng-zorro-antd';
 export class ProductAddComponent implements OnInit {
   id: any;
   categories = []
-  addProducts: addProduct ;
+  addProducts: addProduct;
   formData = new FormData();
-  checker:boolean=false;
+  checker: boolean = false;
   inputValue: string;
   options: Array<{ variants: string; category: string; count: number }> = [];
-  variants:any;
-  
+  variants: any;
+
   imagePath;
   imgURL: any;
   message2: string;
-  Checker:Boolean=false;
+  Checker: Boolean = false;
 
-typeBool=false;
-  
+  typeBool = false;
 
-  constructor(private fb: FormBuilder, private service: AdminServiceService, private activateRoute: ActivatedRoute, private message: NzMessageService) { 
-    this.addProducts=new addProduct();
+
+  constructor(private fb: FormBuilder, private service: AdminServiceService, private activateRoute: ActivatedRoute, private message: NzMessageService) {
+    this.addProducts = new addProduct();
     console.log(this.addProducts)
   }
 
 
-   getVariants(value:any){
-     this.service.getVariants(value).subscribe(d=>{
-       console.log("======",d.result);
-       this.variants = d.result;
-     })
-   }
+  getVariants(value: any) {
+    this.service.getVariants(value).subscribe(d => {
+      console.log("======", d.result);
+      this.variants = d.result;
+    })
+  }
 
-   onChange(e: Event): void {
+  onChange(e: Event): void {
     const value = (e.target as HTMLInputElement).value;
     if (value != null && value != "") {
       this.getVariants(value);
       this.options = this.variants;
-     
+
     }
 
   }
@@ -57,78 +57,67 @@ typeBool=false;
 
   }
 
-  
+
   submit(myForm: NgForm) {
 
     this.formData.append('name', this.addProducts.productTitle)
-    let idObj= this.categories.find(v=>v.name==this.addProducts.category);
-    this.formData.append('category',idObj.id);
-    this.formData.append('image', this.addProducts.image,this.addProducts.productTitle+".png");
+    let idObj = this.categories.find(v => v.name == this.addProducts.category);
+    this.formData.append('category', idObj.id);
+    this.formData.append('image', this.addProducts.image, this.addProducts.productTitle + ".png");
     this.formData.append('costprice', this.addProducts.costPrice);
     this.formData.append('price', this.addProducts.salePrice);   //sale price
     this.formData.append('quantity', this.addProducts.productQuantity);
-    this.formData.append('variants',this.addProducts.variants.toUpperCase());
+    this.formData.append('variants', this.addProducts.variants.toUpperCase());
     console.log(this.addProducts.variants);
 
 
     if (this.id != null) {
-     
-     
-      if (Number( this.addProducts.salePrice) <= Number( this.addProducts.costPrice)) 
-      { 
-        this.message.warning("Sale Price Must be Greater than Cost Price ") 
-      }
-      else if(this.addProducts.image==null){this.message.warning("Set Image First")}  
 
-      else 
-      {console.log(this.formData)
-        debugger
-        this.service.updateProduct(this.id, this.formData).subscribe(d => 
-          {
+
+      if (Number(this.addProducts.salePrice) <= Number(this.addProducts.costPrice)) {
+        this.message.warning("Sale Price Must be Greater than Cost Price ");
+        this.erasingFormData();
+      }
+      else if (this.addProducts.image == null) { this.message.warning("Set Image First") ;this.erasingFormData();}
+
+      else {
+        console.log(this.formData)
+        // debugger
+        this.service.updateProduct(this.id, this.formData).subscribe(d => {
+          debugger
           this.message.success("Updated Successfully", { nzDuration: 3000 });
         }
         );
 
 
         myForm.reset();
-        this.formData.delete("name");
-        this.formData.delete("category");
-        this.formData.delete("image");
-        this.formData.delete("costprice");
-        this.formData.delete("price");
-        this.formData.delete("quantity");
-        this.formData.delete("variants");
+
         console.log(this.addProducts.image)
-        this.Checker=true;
-     
-          this.imgURL=null;
+        this.Checker = true;
+
+        this.imgURL = null;
       }
 
     }
 
     else {
 
-      if (Number( this.addProducts.salePrice) <= Number( this.addProducts.costPrice)) { this.message.warning("Sale Price Must be Greater than Cost Price ") }
-      else if(this.addProducts.image==null){this.message.warning("Set Image First")}
+      if (Number(this.addProducts.salePrice) < Number(this.addProducts.costPrice)) { this.message.warning("Sale Price Must be Greater than Cost Price "); this.erasingFormData(); }
+      else if (this.addProducts.image == null) { this.message.warning("Set Image First"); this.erasingFormData(); }
       else {
         this.service.postProduct(this.formData).subscribe(d => {
           this.message.success("Added Successfully", { nzDuration: 3000 });
         });
         this.addProducts.image = null;
-         myForm.reset();
-        this.formData.delete("name");
-        this.formData.delete("category");
-        this.formData.delete("image");
-        this.formData.delete("costprice");
-        this.formData.delete("price");
-        this.formData.delete("quantity");
-        this.formData.delete("variants");
+        myForm.reset();
+        this.erasingFormData();
+       
         console.log(this.addProducts.image)
-        // this.addProducts.image = null;
-        this.imgURL=null;
-        this.Checker=true;
+       
+        this.imgURL = null;
+        this.Checker = true;
         console.log(this.addProducts.image)
-        
+
       }
     }
 
@@ -137,22 +126,23 @@ typeBool=false;
   handleCategoryBanner(files: FileList) {
     //console.log(files);
     this.addProducts.image = files[0]
-    this.Checker=true;
+    this.Checker = true;
 
 
   }
 
   ngOnInit(): void {
 
-   
+
     this.id = this.activateRoute.snapshot.params['id'];
-    if (this.id){
-    this.checker=true;
-    this.Checker=true;//ye image waala hai
+    if (this.id) {
+      this.checker = true;
+      this.Checker = true;//ye image waala hai
       this.getProducts();
-    
-  }
-  this.getCategories();
+
+
+    }
+    this.getCategories();
 
   }
 
@@ -172,24 +162,23 @@ typeBool=false;
       this.addProducts.salePrice = d.price
       this.addProducts.category = d.category.name
 
-       this.service.getImage(d.image).subscribe(e=>{
-         if(e)
-         {
-          this.addProducts.image =this.blobToFile(e,"abc");
-         }
-       })
+      this.service.getImage(d.image).subscribe(e => {
+        if (e) {
+          this.addProducts.image = this.blobToFile(e, "abc");
+        }
+      })
 
 
-      this.addProducts.variants=d.variants
+      this.addProducts.variants = d.variants
       this.imgURL = d.image
-      this.Checker=true;
+      this.Checker = true;
 
       console.log(this.addProducts.category)
-      
-      
+
+
     })
   }
-  blobToFile(theBlob, fileName){
+  blobToFile(theBlob, fileName) {
     //A Blob() is almost a File() - it's just missing the two properties below which we will add
     theBlob.lastModifiedDate = new Date();
     theBlob.filename = fileName;
@@ -201,12 +190,11 @@ typeBool=false;
 
 
 
-  isInputValid(form){
-    if((form.valid&&this.addProducts.image&&(this.addProducts.variants!="" ||this.addProducts.variants))||(form.valid&&this.checker))
-    {
+  isInputValid(form) {
+    if ((form.valid && this.addProducts.image && (this.addProducts.variants != "" || this.addProducts.variants)) || (form.valid && this.checker)) {
       return false;
     }
-    else{
+    else {
       return true;
     }
   }
@@ -215,22 +203,32 @@ typeBool=false;
   preview(files) {
     if (files.length === 0)
       return;
-  
+
     var mimeType = files[0].type;
     if (mimeType.match(/image\/*/) == null) {
       this.message2 = "Only images are supported.";
       return;
     }
-  
+
     var reader = new FileReader();
     this.imagePath = files;
-    reader.readAsDataURL(files[0]); 
-    reader.onload = (_event) => { 
-      this.imgURL = reader.result; 
-      
+    reader.readAsDataURL(files[0]);
+    reader.onload = (_event) => {
+      this.imgURL = reader.result;
+
     }
   }
 
 
-  
+  erasingFormData() {
+    this.formData.delete("name");
+    this.formData.delete("category");
+    this.formData.delete("image");
+    this.formData.delete("costprice");
+    this.formData.delete("price");
+    this.formData.delete("quantity");
+    this.formData.delete("variants");
+  }
+
+
 }

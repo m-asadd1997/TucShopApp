@@ -51,7 +51,7 @@ export class ProductListingComponent implements OnInit {
   
   getProducts(str: any) {
 
-    if (str === "Products") {
+    if (str === "products") {
       this.getAllProducts();
       
       
