@@ -86,14 +86,7 @@ export class AdminDashboardComponent implements OnInit {
     this.getTotalProfit();
     this.getTotalInventory();
     
-    
-    
-
-
-
-
-
-  }
+ }
 
 
   settingChart() {
@@ -195,7 +188,7 @@ export class AdminDashboardComponent implements OnInit {
   };
 
 
-
+ backupTotalInventory:any
   getTotalInventory(){
     this.adminService.getTotalInventory().subscribe(d=>{
       if(d.result==null){
@@ -203,6 +196,7 @@ export class AdminDashboardComponent implements OnInit {
        } else{
       console.log("Total Inventory",d);
       this.totalInventory=d.result;
+      this.backupTotalInventory=d.result;
        }
     });
   }
@@ -344,6 +338,7 @@ export class AdminDashboardComponent implements OnInit {
       this.getChartData();
       this.getProfit(this.startValue, this.endValue);
       this.getFilteredTotalInventory(this.startValue,this.endValue);
+      
 
 
       console.log(this.dateRange);
@@ -479,6 +474,7 @@ onChange(){
     this.totalOutOfStockProducts=this.backupTotalOutOfStock;
     this.totalAmount=this.backupTotalTransaction;
     this.profit=this.backupTotalProfit;
+    this.totalInventory=this.backupTotalInventory;
   }
 }
 
