@@ -80,12 +80,6 @@ private getSearchedProductsURL= environment.baseUrl+"api/dashboard/searchproduct
 }
 
 
-
-public getVariants(keyword:any):Observable<any>{
-  return this.http.get(this.getAutoCompleteVariantsURL+keyword);
-}
-
-
   public getTotalProfit():Observable<any>{
   return this.http.get(this.getTotalProfitURL)
 }
