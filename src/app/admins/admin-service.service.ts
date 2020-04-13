@@ -46,16 +46,30 @@ private getSearchedProductsURL= environment.baseUrl+"api/dashboard/searchproduct
   private  getOutOfStockFilteredURL = environment.baseUrl+'api/dashboard/outofstockfiltered/'
   public getFilteredTransactionURL= environment.baseUrl+'api/dashboard/filteredtransaction/'
   public getFilteredDetailedTransaction= environment.baseUrl+'api/dashboard/detailedfilteretransactions/';
-
-
-  
-  
   private getTransactionByUserUrl=environment.baseUrl+"api/transaction/userTransaction/";
   private scearchAllTransactionUrl=environment.baseUrl+"api/transaction/scearchAllTransaction";
   private scearchtransactionofuserURL=environment.baseUrl+"api/transaction/scearchTransactions";
   private deleterequestedproductURL=environment.baseUrl+"api/products/deletereqproduct/";
+  private getTotalInventoryURL = environment.baseUrl+"api/dashboard/totalinventory";
+  private getFilteredTotalInventoryURL = environment.baseUrl+"api/dashboard/totalinventory/";
   private getFilteredQuantityURL = environment.baseUrl+"api/dashboard/filteredtotalproducts/";
 
+
+
+
+  public getTotalInventory():Observable<any>{
+   
+    return this.http.get(this.getTotalInventoryURL);
+  }
+
+  public getFilteredTotalInventory(startDate:any, endDate:any):Observable<any>{
+    return this.http.get(this.getFilteredTotalInventoryURL+startDate+"/"+endDate)
+  }
+
+   
+  public getVariants(keyword:any):Observable<any>{
+    return this.http.get(this.getAutoCompleteVariantsURL+keyword);
+  }
 
   public deleterequestedproduct(productName:any):Observable<any>{
     return this.http.delete(this.deleterequestedproductURL+productName);
