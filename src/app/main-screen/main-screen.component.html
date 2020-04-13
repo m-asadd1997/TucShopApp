@@ -1,45 +1,61 @@
-<nz-layout style="width: 100%; height: 100%;" >
+<nz-layout style="width: 100%; height: 100%;">
+
   <nz-sider nzCollapsible [(nzCollapsed)]="CollapsedNav" [nzTrigger]="null">
-    <div class="logo" style="height:50px; background-color:#001529; width: 20px; margin-left: 15px;" >
-      <img src="assets/main-cart.png" [routerLink]="'/admin/layout'"/>
+    <div class="logo" style="height:50px; background-color:#001529; width: 20px; margin-left: 15px;">
+      <img src="assets/main-cart.png" [routerLink]="'/admin/layout'" />
     </div>
-    <ul
-      nz-menu
-      nzTheme="dark"
-      nzMode="inline"
-      [nzInlineCollapsed]="isCollapsed"
-    >
-      <li
-        nz-menu-item
-        *ngFor="let c of categoriesArray"
-        (click)="addCategoryToUrl(c.name)"
-        nz-popover
-        [nzPopoverContent]="c.name"
-        nzPopoverPlacement="right"
-      >
+    <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+      <li nz-menu-item *ngFor="let c of categoriesArray" (click)="addCategoryToUrl(c.name)" nz-popover
+        [nzPopoverContent]="c.name" nzPopoverPlacement="right">
         <img [src]="c.image" />
         <!-- <span>{{c.name}}</span> -->
       </li>
     </ul>
   </nz-sider>
-  
+
   <nz-layout>
-    <nz-content> 
+    <nz-content>
 
       <div style="margin-right: -15px; margin-left: -20px;">
         <nz-header>
-          <ul nz-menu nzTheme="light" nzMode="horizontal" style="padding: -2px; margin: auto; height: 50px;">
-            <li nz-menu-item></li>
-            <li nz-menu-item></li>
-            <li nz-menu-item></li>
+          <ul nz-menu nzTheme="light" nzMode="horizontal" style="padding: -2px; margin: auto; height: 55px;">
+            <!-- <nav
+            class="navbar navbar-light bg-light"
+            style="background-color: white !important;height: 50px;;border-top-color: black;border-top-style:solid; border-top-width: thin; border-bottom-style: ridge; box-shadow:0px 5px 5px rgb(179, 179, 179);"> -->
+
+            <!-- <div>
+              <a > <img src="assets/main-cart.png" alt=""></a>
+            </div>
+            <div  style="cursor: pointer;margin-right:75%;">
+              <button nz-button  (click)="navigateBackToHomePage()">
+              Home
+            </button>
+            </div> -->
+            <div style="margin-left: 1100px;">
+              <nz-button-group>
+                <button nz-button>Admin</button>
+                <button nz-button nz-dropdown [nzDropdownMenu]="menu2" nzPlacement="bottomRight">
+                  <i nz-icon nzType="user"></i>
+                </button>
+              </nz-button-group>
+              <nz-dropdown-menu #menu2="nzDropdownMenu">
+                <ul nz-menu>
+                  <li (click)="navigateBackToLoginPage()" nz-menu-item>Log Out</li>
+
+                </ul>
+              </nz-dropdown-menu>
+
+
+            </div>
+            <!-- </nav> -->
           </ul>
         </nz-header>
       </div>
 
-    
 
-    
-       
+
+
+
       <!-- <div nz-row style="float: right;">
           <button nz-button nzType="primary" (click)="showModal()">
               <span>Show Modal</span>
@@ -53,9 +69,9 @@
             >
               <p>Modal Content</p>
             </nz-modal>
-      </div> --> 
+      </div> -->
 
-      <div class="inner-content" style="height: 100%;" style="margin-left: -15px; margin-right: -15px;"> 
+      <div class="inner-content" style="height: 100%;" style="margin-left: -15px; margin-right: -15px;">
         <div nz-col nzSpan="16">
           <app-product-listing></app-product-listing>
         </div>
