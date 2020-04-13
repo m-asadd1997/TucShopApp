@@ -1,7 +1,7 @@
 <div style="text-align: right;"> <button nz-button nzType="primary"  (click)="backToDashboard()" >Back</button></div>
 <div style="text-align: left; margin-bottom: 15px; margin-top: 8px; " > 
    
-  <nz-range-picker [(ngModel)]="dateRange" ></nz-range-picker>
+  <nz-range-picker [(ngModel)]="dateRange" (ngModelChange)="onChange($event)" ></nz-range-picker>
 <button nz-button nzType="primary" style="margin-left: 30px;" (click)="print()" >Filter</button>
 
   </div>

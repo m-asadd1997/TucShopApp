@@ -7,6 +7,11 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class AdminServiceService {
+  
+  
+  
+  
+  
 
   constructor(private http: HttpClient) { }
 
@@ -30,7 +35,7 @@ private getSearchedProductsURL= environment.baseUrl+"api/dashboard/searchproduct
   private getTotalProductQuantityURL=environment.baseUrl+"api/dashboard/totalproducts"; 
   private getTotalTransactionURL=environment.baseUrl+"api/dashboard/totaltransaction"; 
   private getTotalTransactionDetailsURL=environment.baseUrl+"api/dashboard/transactiondetails"; 
-  private getTotalProductQuantityDetailsURL=environment.baseUrl+'api/dashboard/totalproductdetails';
+  private getTotalProductQuantityDetailsURL=environment.baseUrl+'api/dashboard/totalproductdetails/';
   private getRequestedProductURL=environment.baseUrl+"api/dashboard/toprequestedproducts"; 
   private postSettingURL=environment.baseUrl+"api/dashboard/settings"; 
   private getChartDataURL=environment.baseUrl+"api/dashboard/salespermonth";
@@ -38,15 +43,18 @@ private getSearchedProductsURL= environment.baseUrl+"api/dashboard/searchproduct
   private getAutoCompleteVariantsURL = environment.baseUrl+"api/products/variants/";
   private getProfitURL = environment.baseUrl+"api/dashboard/profit/";
   private getTotalProfitURL = environment.baseUrl+"api/dashboard/totalprofit";
+  private  getOutOfStockFilteredURL = environment.baseUrl+'api/dashboard/outofstockfiltered/'
+  public getFilteredTransactionURL= environment.baseUrl+'api/dashboard/filteredtransaction/'
+  public getFilteredDetailedTransaction= environment.baseUrl+'api/dashboard/detailedfilteretransactions/';
+
 
   
-  public getVariants(keyword:any):Observable<any>{
-    return this.http.get(this.getAutoCompleteVariantsURL+keyword);
-  }
+  
   private getTransactionByUserUrl=environment.baseUrl+"api/transaction/userTransaction/";
   private scearchAllTransactionUrl=environment.baseUrl+"api/transaction/scearchAllTransaction";
   private scearchtransactionofuserURL=environment.baseUrl+"api/transaction/scearchTransactions";
   private deleterequestedproductURL=environment.baseUrl+"api/products/deletereqproduct/";
+  private getFilteredQuantityURL = environment.baseUrl+"api/dashboard/filteredtotalproducts/";
 
 
   public deleterequestedproduct(productName:any):Observable<any>{
@@ -56,6 +64,13 @@ private getSearchedProductsURL= environment.baseUrl+"api/dashboard/searchproduct
   public getProfit(startDate:any, endDate:any):Observable<any>{
   return this.http.get(this.getProfitURL+startDate+"/"+endDate)
 }
+
+
+
+public getVariants(keyword:any):Observable<any>{
+  return this.http.get(this.getAutoCompleteVariantsURL+keyword);
+}
+
 
   public getTotalProfit():Observable<any>{
   return this.http.get(this.getTotalProfitURL)
@@ -128,8 +143,8 @@ private getSearchedProductsURL= environment.baseUrl+"api/dashboard/searchproduct
   }
 
 
-  public getTotalProductQuantityDetails():Observable<any>{
-    return this.http.get(this.getTotalProductQuantityDetailsURL);
+  public getTotalProductQuantityDetails(startValue,endValue):Observable<any>{
+    return this.http.get(this.getTotalProductQuantityDetailsURL+startValue+"/"+endValue);
   }
 
   public scearchAllTransaction(transaction:any ):Observable<any>{
@@ -211,6 +226,39 @@ public scearchtransactionofUser(transaction:any):Observable<any>{
   public getImage(value):Observable<any>{
     return this.http.get(value,
     {responseType:'blob'});
+  }
+
+
+
+
+
+
+
+
+
+  public getFilteredQuantity(startValue,endValue):Observable<any> {
+
+    return this.http.get(this.getFilteredQuantityURL+startValue+"/"+endValue);
+    
+  }
+
+
+  public getFilteredOutOfStock(startValue,endValue):Observable<any> {
+
+    return this.http.get(this.getOutOfStockFilteredURL+startValue+"/"+endValue);
+    
+  }
+
+
+
+
+  getFilteredTransaction(startValue, endValue):Observable<any> {
+    return this.http.get(this.getFilteredTransactionURL+startValue+"/"+endValue);
+  }
+  
+
+  getFilteredDetailedTransactionMethod(startValue, endValue):Observable<any>{
+    return this.http.get(this.getFilteredDetailedTransaction+startValue+"/"+endValue);
   }
   
 }
