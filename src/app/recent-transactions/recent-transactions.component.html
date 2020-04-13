@@ -29,13 +29,13 @@
       </ng-template> -->
       <div nz-row>
       <div nz-col nzXs="24" nzSm="24" nzMd="5" nzLg="7" nzXl="7" nzSpan="7" nzOffset="1" *ngFor="let p of productsarray">
-      <nz-card   class="cardShadow" style="background-color:black" nzHoverable style="width:130px;">
-     <img [src]=p.product.image style="width:70px;height:70px">
+      <nz-card   class="cardShadow" style="background-color:black" nzHoverable style="width:150px;margin-top:15px">
+     <img [src]=p.product.image style="width:75px;height:75px">
         <hr>
-        <b style="font-size:12px;padding:0px">Product: {{p.product.name}}</b><br>
+        <b style="font-size:12px;padding:0px"> {{p.product.name | uppercase}}</b><br>
         <b style="font-size:12px;padding:0px" >Quantity: {{p.quantity}} </b><br>
         <!-- <b style="font-size:12px;padding:0px" >Price: {{p.product.price}} </b> -->
-        <nz-tag style="margin-top:2px" [nzColor]="'#f50a0a'" style="margin-left: 20px;"> &#8360; {{p.product.price}}</nz-tag>
+        <nz-tag style="margin-top:2px" [nzColor]="'#f50a0a'" > &#8360; {{p.product.price}}</nz-tag>
 
      
       
