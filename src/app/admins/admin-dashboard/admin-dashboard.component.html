@@ -23,7 +23,13 @@
   
   <div style="background: #ECECEC;padding:10px;">
     <div nz-row [nzGutter]="6">
-      <div nz-col [nzSpan]="6">
+      <div nz-col [nzSpan]="6" >
+        <nz-card nzTitle="Total Inventory" >
+          <h1 style="text-align: center;">{{totalInventory}}</h1>
+        </nz-card>
+      </div>
+    
+      <!-- <div nz-col [nzSpan]="6">
         <nz-card nzTitle="Total Products" nzHoverable (click)="showModalTotalProducts()">
         
           <h1 style="text-align: center;">{{totalProducts}}</h1>  
@@ -31,7 +37,7 @@
 
         </nz-card>
       </div>
-      
+       -->
       
       <div nz-col [nzSpan]="6">
         <nz-card nzTitle="Out of Stock"  nzHoverable (click)="showModalOutOfStock()">
@@ -44,7 +50,8 @@
           <h1 style="text-align: center;">{{totalAmount }}</h1>
         </nz-card>
       </div>
-    
+
+  
 
     <div nz-col [nzSpan]="6" >
       <nz-card nzTitle="Profit" nzHoverable>

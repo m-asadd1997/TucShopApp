@@ -79,6 +79,7 @@ export class AdminDashboardComponent implements OnInit {
     this.getChartData();
     this.settingChart();
     this.getTotalProfit();
+    this.getTotalInventory();
     
     
     
@@ -103,6 +104,7 @@ export class AdminDashboardComponent implements OnInit {
   totalProducts
   totalOutOfStockProducts
   chartResult
+  
 
 
   array = []
@@ -197,17 +199,36 @@ export class AdminDashboardComponent implements OnInit {
       let filteredReqProducts=[];
       this.reqProducts = d.result;
 
-     
-
-
-      
-
-
-
-
-
     })
   };
+
+
+  getTotalInventory(){
+    this.adminService.getTotalInventory().subscribe(d=>{
+      if(d.result==null){
+        this.totalInventory=0;
+       } else{
+      console.log("Total Inventory",d);
+      this.totalInventory=d.result;
+       }
+    });
+  }
+
+  totalInventory =0;
+  getFilteredTotalInventory(startValue, endValue){
+    if(startValue && endValue){
+    startValue=startValue.getFullYear()+"-"+ (startValue.getMonth()+1)+"-"+(startValue.getDate())
+    endValue=endValue.getFullYear()+"-"+ (endValue.getMonth()+1)+"-"+(endValue.getDate())
+  } 
+    this.adminService.getFilteredTotalInventory(startValue, endValue).subscribe(d=>{
+    if(d.result==null){
+      this.totalInventory=0;
+    }else{
+      console.log("********",d.result);
+    this.totalInventory = d.result;
+    }
+  });
+}
 
   totalProductObject = []
   getTotalProductQuantity() {
@@ -356,6 +377,7 @@ print(){
     this.getTotalTransaction();
     this.getChartData();
     this.getProfit(this.startValue, this.endValue);
+    this.getFilteredTotalInventory(this.startValue,this.endValue);
 
 
   console.log(this.dateRange);}
