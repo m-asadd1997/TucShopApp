@@ -13,25 +13,31 @@ export class TotalProductsDetailsComponent implements OnInit {
   constructor(private adminService: AdminServiceService, private router: Router,private message :NzMessageService) { }
 
   ngOnInit() {
-    this.getProductsDetails();
+    // this.getProductsDetails();
+
+    this.adminService.getProducts().subscribe(d=>{
+      if(d){
+        this.Products=d;
+        this.filteredProducts=d;
+      }
+    })
   }
 
   Products = []
-  getProductsDetails() {
+  backupProducts=[]
+  getProductsDetails(startValue,endValue) {
+    if (startValue && endValue) {
+      startValue = startValue.getFullYear() + "-" + (startValue.getMonth() + 1) + "-" + (startValue.getDate())
+      endValue = endValue.getFullYear() + "-" + (endValue.getMonth() + 1) + "-" + (endValue.getDate())
+    }
 
-    this.adminService.getTotalProductQuantityDetails().subscribe(d => {
+    this.adminService.getTotalProductQuantityDetails(startValue,endValue).subscribe(d => {
      
-     if(this.startValue&&this.endValue&&d){
-       this.Products=[];
-       this.filteredProducts=[]
-      d.result=d.result.filter(e=>(  new Date(e.date1) >=this.startValue  &&  new Date(e.date1)<=this.endValue  ));
       
-
-
-     }
+     this.Products=d.result;
+     this.backupProducts=d.result;
      
-      this.Products = d.result;
-      this.filteredProducts=d.result;
+     
 
 
 
@@ -46,20 +52,6 @@ export class TotalProductsDetailsComponent implements OnInit {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-  // 
-
-
   startValue: Date = null;
   endValue: Date = null;
   endOpen = false;
@@ -67,76 +59,17 @@ export class TotalProductsDetailsComponent implements OnInit {
 dateRange=[]
 
   print(){
-
+    console.log(this.dateRange);
     if(this.dateRange.length>0){
     this.startValue=this.dateRange[0];
     this.endValue=this.dateRange[1];
-    this.getProductsDetails();
+    this.getProductsDetails(this.startValue,this.endValue);
   
   
-    console.log(this.dateRange);}
-    else{
-      this.message.warning("Please Select A range first");
     }
   }
   
   
-
-  // disabledStartDate = (startValue: Date): boolean => {
-  //   if (!startValue || !this.endValue) {
-  //     return false;
-  //   }
-  //   return startValue.getTime() > this.endValue.getTime();
-  // };
-
-  // disabledEndDate = (endValue: Date): boolean => {
-  //   if (!endValue || !this.startValue) {
-  //     return false;
-  //   }
-  //   return endValue.getTime() <= this.startValue.getTime();
-  // };
-
-
-
-
-  // month
-  // onStartChange(date: Date): void {
-
-  //   this.startValue = date
-
-
-
-
-
-  // }
-
-  // onEndChange(date: Date): void {
-  //   this.endValue = date;
-
-  //   this.getProductsDetails();
-
-
-
-
-  // }
-
-  // handleStartOpenChange(open: boolean): void {
-  //   if (!open) {
-  //     this.endOpen = true;
-  //   }
-  //   console.log('handleStartOpenChange', open, this.endOpen);
-  // }
-
-  // handleEndOpenChange(open: boolean): void {
-  //   console.log(open);
-  //   this.endOpen = open;
-  // }
-
-
-  // 
-
-
-
 filteredProducts=[]
   getVariants(value:any){
     this.adminService.getSearchedProducts(value).subscribe(d=>{
@@ -156,10 +89,13 @@ filteredProducts=[]
      this.Products=this.filteredProducts;
    }
 
+   if(this.dateRange.length==0){
+     this.Products= this.backupProducts;
+   }
+
  }
 
 
- 
 
 
 }
