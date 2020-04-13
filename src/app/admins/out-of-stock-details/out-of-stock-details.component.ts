@@ -15,18 +15,11 @@ export class OutOfStockDetailsComponent implements OnInit {
   ngOnInit() {
     this.getOutOfStockDetailed();
   }
+  backupProducts=[]
   getOutOfStockDetailed(){
     this.adminService.getOutofStockDetails().subscribe(d=>{
-        console.log(d);
-      if(this.startValue&&this.endValue&&d){
-        this.detailedOutOfStockProducts=[];
-       d.result=d.result.filter(e=>(  new Date(e.date1) >=this.startValue  &&  new Date(e.date1)<=this.endValue  ));
-       
- 
- 
-      }
       this.detailedOutOfStockProducts=d.result;
-      console.log(this.detailedOutOfStockProducts);
+      this.backupProducts=d.result;
     })
   }
 
@@ -64,7 +57,7 @@ dateRange=[]
     if(this.dateRange.length>0){
     this.startValue=this.dateRange[0];
     this.endValue=this.dateRange[1];
-    this.getOutOfStockDetailed();
+    this.getProductsDetails(this.startValue,this.endValue);
 
   
   
@@ -74,39 +67,35 @@ dateRange=[]
     }
   }
 
-  // month
-  // onStartChange(date: Date): void {
+  
 
-  //   this.startValue = date
+  getProductsDetails(startValue,endValue) {
+    if (startValue && endValue) {
+      startValue = startValue.getFullYear() + "-" + (startValue.getMonth() + 1) + "-" + (startValue.getDate())
+      endValue = endValue.getFullYear() + "-" + (endValue.getMonth() + 1) + "-" + (endValue.getDate())
+    }
 
-
-
-
-
-  // }
-
-  // onEndChange(date: Date): void {
-  //   this.endValue = date;
-
-  //   this.getOutOfStockDetailed();
-
+    this.adminService.getFilteredOutOfStock(startValue,endValue).subscribe(d => {
+     console.log(d.result);
+      
+     this.detailedOutOfStockProducts =d.result;
+     
+     
 
 
 
-  // }
+    })
 
-  // handleStartOpenChange(open: boolean): void {
-  //   if (!open) {
-  //     this.endOpen = true;
-  //   }
-  //   console.log('handleStartOpenChange', open, this.endOpen);
-  // }
+  }
 
-  // handleEndOpenChange(open: boolean): void {
-  //   console.log(open);
-  //   this.endOpen = open;
-  // }
-  //
 
+  onChange(result: Date): void {
+   debugger 
+    if(this.dateRange.length===0)
+   {
+     
+     this.detailedOutOfStockProducts=this.backupProducts;
+   }
+  }
 
 }

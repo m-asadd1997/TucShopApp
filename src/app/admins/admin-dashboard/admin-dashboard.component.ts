@@ -28,9 +28,14 @@ export class AdminDashboardComponent implements OnInit {
 
   dateRange = [];
 
-  constructor(private adminService: AdminServiceService, private router: Router,private message:NzMessageService) { }
+  constructor(private adminService: AdminServiceService, private router: Router, private message: NzMessageService) { }
 
   showChart = false;
+  backupTotalProducts
+  backupTotalOutOfStock;
+  backupTotalTransaction;
+  backupTotalProfit;
+
 
 
   type: ChartType = 'Bar';
@@ -69,7 +74,7 @@ export class AdminDashboardComponent implements OnInit {
     }
   };
   chart
-  filtering:Boolean=false;
+  filtering: Boolean = false;
   ngOnInit() {
     this.getRequestedProducts();
     this.getTotalProductQuantity();
@@ -84,7 +89,11 @@ export class AdminDashboardComponent implements OnInit {
     
     
 
-}
+
+
+
+
+  }
 
 
   settingChart() {
@@ -168,27 +177,10 @@ export class AdminDashboardComponent implements OnInit {
   getTotalOutOfStockProducts() {
 
     this.adminService.getTotalOutOfStock().subscribe(d => {
+      
 
-      this.totalOutofStockObject = d.result;
-      this.totalOutOfStockProducts = this.totalOutofStockObject.length;
-      if (this.startValue && this.endValue && d) {
-        this.totalOutOfStockProducts = []
-        this.totalOutofStockObject.forEach(e => {
-          let datee = new Date(e[1]);
-          if (datee >= this.startValue && datee <= this.endValue) {
-            this.totalOutOfStockProducts.push(e);
-            // this.totalProducts=this.totalProducts.length
-
-          }
-        });
-        if (this.totalOutOfStockProducts == undefined) {
-
-          this.totalOutOfStockProducts = 0
-        }
-        else
-
-          this.totalOutOfStockProducts = this.totalOutOfStockProducts.length;
-      }
+      this.totalOutOfStockProducts=d.result;
+      this.backupTotalOutOfStock=d.result;
     })
   }
 
@@ -196,11 +188,12 @@ export class AdminDashboardComponent implements OnInit {
   getRequestedProducts() {
 
     this.adminService.getRequestedProducts().subscribe(d => {
-      let filteredReqProducts=[];
+      let filteredReqProducts = [];
       this.reqProducts = d.result;
 
     })
   };
+
 
 
   getTotalInventory(){
@@ -231,42 +224,35 @@ export class AdminDashboardComponent implements OnInit {
 }
 
   totalProductObject = []
+
+
+
+  getFilteredProductQuantity(startValue,endValue){
+    if (startValue && endValue) {
+      startValue = startValue.getFullYear() + "-" + (startValue.getMonth() + 1) + "-" + (startValue.getDate())
+      endValue = endValue.getFullYear() + "-" + (endValue.getMonth() + 1) + "-" + (endValue.getDate())
+    } 
+
+    this.adminService.getFilteredQuantity(startValue,endValue).subscribe(d=>{this.totalProducts=d.result});
+  }
+
+
+
   getTotalProductQuantity() {
     //  
     this.adminService.getTotalProductQuantity().subscribe(d => {
 
       if (d) {
-        this.totalProductObject = d.result;
-        this.totalProducts = this.totalProductObject.length
-        if (this.startValue && this.endValue) {
-          this.totalProducts = [];
-          this.totalProductObject.forEach(e => {
-            let datee = new Date(e[1]);
-            if (datee >= this.startValue && datee < this.endValue) {
-              this.totalProducts.push(e);
-              // this.totalProducts=this.totalProducts.length
 
-            }
-          });
-
-          console.log(this.totalProducts);
-
-          if (this.totalProducts == undefined) {
-
-            this.totalProducts = 0
-          }
-          else
-            this.totalProducts = this.totalProducts.length;
-        }
-
-        console.log(this.totalProducts);
+        this.totalProducts = d.result;
+        this.backupTotalProducts=d.result;
       }
-
     })
+   
   }
 
 
-     
+
   totalTransaction;
   totalAmount;
   totalTransactionFiltering;
@@ -274,37 +260,12 @@ export class AdminDashboardComponent implements OnInit {
     this.totalAmount = 0;
     this.adminService.getTotalTransaction().subscribe(d => {
       if (d) {
-        this.totalTransaction = d.result;
-        this.totalTransaction.forEach(element => {
-          this.totalAmount += element[0];
-        });
-
-
-
-
-        if (this.startValue && this.endValue) {
-          this.totalAmount =  0;
-          this.totalTransaction.forEach(element1 => {
-            let datee = new Date(element1[1]);
-            if (datee >= this.startValue && datee < this.endValue) {
-              this.totalAmount += element1[0];
-            }
-
-          });
-        }
-
-        
-
-        
+        this.totalAmount = d.result;
+        this.backupTotalTransaction=d.result;
        
-        
-        
+
       }
     })
-
-
-
-
   }
 
 
@@ -358,33 +319,52 @@ export class AdminDashboardComponent implements OnInit {
 
 
 
+    
 
 
+    getFilteredOutOfStockProducts(startValue,endValue){
+
+      if (startValue && endValue) {
+        startValue = startValue.getFullYear() + "-" + (startValue.getMonth() + 1) + "-" + (startValue.getDate())
+        endValue = endValue.getFullYear() + "-" + (endValue.getMonth() + 1) + "-" + (endValue.getDate())
+      }
+      this.adminService.getFilteredOutOfStock(startValue,endValue).subscribe(d=>{this.totalOutOfStockProducts=d.result.length})
+    }
 
 
+  print() {
+
+    if (this.dateRange.length > 0) {
+      this.startValue = this.dateRange[0];
+      this.endValue = this.dateRange[1];
+      // this.getRequestedProducts();
+      this.getFilteredProductQuantity(this.startValue,this.endValue);
+      this.getFilteredOutOfStockProducts(this.startValue,this.endValue);
+      this.getFilteredTotalTransaction(this.startValue,this.endValue);
+      this.getChartData();
+      this.getProfit(this.startValue, this.endValue);
+      this.getFilteredTotalInventory(this.startValue,this.endValue);
 
 
-
-
-print(){
-  
-  if(this.dateRange.length>0){
-  this.startValue=this.dateRange[0];
-  this.endValue=this.dateRange[1];
-  this.getRequestedProducts();
-    this.getTotalProductQuantity();
-    this.getTotalOutOfStockProducts();
-    this.getTotalTransaction();
-    this.getChartData();
-    this.getProfit(this.startValue, this.endValue);
-    this.getFilteredTotalInventory(this.startValue,this.endValue);
-
-
-  console.log(this.dateRange);}
-  else{
-    this.message.warning("Please Select A range first");
+      console.log(this.dateRange);
+    }
+    else {
+      this.message.warning("Please Select A range first");
+    }
   }
-}
+ 
+ 
+  getFilteredTotalTransaction(startValue, endValue) {
+
+    if (startValue && endValue) {
+      startValue = startValue.getFullYear() + "-" + (startValue.getMonth() + 1) + "-" + (startValue.getDate())
+      endValue = endValue.getFullYear() + "-" + (endValue.getMonth() + 1) + "-" + (endValue.getDate())
+    }
+    this.adminService.getFilteredTransaction(startValue,endValue).subscribe(d=>{
+      this.totalAmount=d.result;
+    });
+  }
+  
 
 
 
@@ -397,8 +377,8 @@ print(){
 
 
 
-  startValue: Date=null;
-  endValue: Date=null;
+  startValue: Date = null;
+  endValue: Date = null;
   endOpen = false;
 
   disabledStartDate = (startValue: Date): boolean => {
@@ -423,7 +403,7 @@ print(){
 
     this.startValue = date
 
-}
+  }
 
   onEndChange(date: Date): void {
     this.endValue = date;
@@ -432,7 +412,7 @@ print(){
     this.getTotalOutOfStockProducts();
     this.getTotalTransaction();
     this.getChartData();
-    }
+  }
 
   handleStartOpenChange(open: boolean): void {
     if (!open) {
@@ -446,54 +426,68 @@ print(){
     this.endOpen = open;
   }
 
-  deleterequestedproduct(data){
-    this.adminService.deleterequestedproduct(data.name).subscribe(data=>{
+  deleterequestedproduct(data) {
+    this.adminService.deleterequestedproduct(data.name).subscribe(data => {
       console.log(data);
-      if(data.status=="200"){
+      if (data.status == "200") {
         this.message.success("Request Completed Successfully", { nzDuration: 3000 });
-      this.getRequestedProducts();
-    this.reqProducts=  this.reqProducts.filter(f=>(data.id!=f.id))
+        this.getRequestedProducts();
+        this.reqProducts = this.reqProducts.filter(f => (data.id != f.id))
       }
     })
-    
 
-  
+
+
   }
-  profit =0;
-  getProfit(startValue, endValue){
-    if(startValue && endValue){
-    startValue=startValue.getFullYear()+"-"+ (startValue.getMonth()+1)+"-"+(startValue.getDate())
-    endValue=endValue.getFullYear()+"-"+ (endValue.getMonth()+1)+"-"+(endValue.getDate())
-  } 
-    this.adminService.getProfit(startValue, endValue).subscribe(d=>{
-    if(d.result==null){
-      this.profit=0;
-    }else{
-    this.profit = d.result[0].profit
+  profit = 0;
+  getProfit(startValue, endValue) {
+    if (startValue && endValue) {
+      startValue = startValue.getFullYear() + "-" + (startValue.getMonth() + 1) + "-" + (startValue.getDate())
+      endValue = endValue.getFullYear() + "-" + (endValue.getMonth() + 1) + "-" + (endValue.getDate())
     }
-  });
-  
-  
+    this.adminService.getProfit(startValue, endValue).subscribe(d => {
+      if (d.result == null) {
+        this.profit = 0;
+      } else {
+        this.profit = d.result[0].profit
+      }
+    });
+
+
   }
-  
 
 
-  getTotalProfit(){
-  this.adminService.getTotalProfit().subscribe(d=>{
-    if(d.result==null){
-      this.profit=0;
-    }else{
-   this.profit = d.result[0].profit
-    } 
-});
-   
-} 
+
+  getTotalProfit() {
+    this.adminService.getTotalProfit().subscribe(d => {
+      if (d.result == null) {
+        this.profit = 0;
+      } else {
+        this.profit = d.result[0].profit
+        this.backupTotalProfit = d.result[0].profit
+      }
+    });
+
+  }
+
+
+
+
+onChange(){
+  if(this.dateRange.length==0){
+    this.totalProducts=this.backupTotalProducts;
+    this.totalOutOfStockProducts=this.backupTotalOutOfStock;
+    this.totalAmount=this.backupTotalTransaction;
+    this.profit=this.backupTotalProfit;
+  }
 }
- 
+
+}
 
 
 
-  
+
+
 
 
 

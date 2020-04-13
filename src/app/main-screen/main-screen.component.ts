@@ -24,26 +24,11 @@ category
     this.innerWidth = window.innerWidth;
     // this.setupMobileView();
 
-    // this.activeRoute.paramMap.subscribe(
-    //   params => {
-
-
-    //   this.category= (params['params'].category)
-       
-
-      // if(this.category==="products")
-      {
-        this.router.navigate(["categories/products"]);
-      }
-     
-    //   }
-    // );
-
-
-
-
     
-  
+      
+        this.router.navigate(["categories/products"]);
+      
+     
 
     this.getCat();
     
@@ -83,15 +68,7 @@ category
   handleCancel(): void {
     this.isVisible = false;
   }
-  // @HostListener('window:resize', ['$event'])
-  // onResize(event) {
-  //   this.innerWidth = window.innerWidth;
-  //   console.log(this.innerWidth)
-  //   this.setupMobileView()
-// }
-  
-
-  // setupMobileView(){
-  //   this.mobileView = this.innerWidth <= 900?false:true;
-  // }
+  navigateBackToLoginPage(){
+    this.router.navigate(['login'])
+  }
 }

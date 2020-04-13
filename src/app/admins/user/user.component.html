@@ -64,14 +64,14 @@
         <h3 style="font-family:Arial, Helvetica, sans-serif;padding-left:5px;font-size:20px">Qty:</h3>
       </ng-template> -->
       <div nz-row>
-      <div nz-col nzXs="24" nzSm="24" nzMd="5" nzLg="7" nzXl="7" nzSpan="7" nzOffset="1" *ngFor="let p of productDetails">
-      <nz-card   class="cardShadow" style="background-color:black" nzHoverable style="width:130px;">
-     <img [src]=p.product.image style="width:70px;height:70px">
+      <div nz-col nzXs="24" nzSm="24" nzMd="8" nzLg="7" nzXl="7" nzSpan="7" nzOffset="1" *ngFor="let p of productDetails">
+      <nz-card   class="cardShadow"  nzHoverable style="width:150px;margin-top: 15px">
+     <img [src]=p.product.image style="width:75px;height:75px;text-align:center">
         <hr>
-        <b style="font-size:12px;padding:0px">Product: {{p.product.name}}</b><br>
+        <b style="font-size:12px;padding:0px;text-align:left!important"> {{p.product.name| uppercase}}</b><br>
         <b style="font-size:12px;padding:0px" >Quantity: {{p.quantity}} </b><br>
         <!-- <b style="font-size:12px;padding:0px" >Price: {{p.product.price}} </b> -->
-        <nz-tag style="margin-top:2px" [nzColor]="'#f50a0a'" style="margin-left: 20px;"> &#8360; {{p.product.price}}</nz-tag>
+        <nz-tag style="margin-top:2px" [nzColor]="'#f50a0a'" > &#8360; {{p.product.price}}</nz-tag>
 
      
       

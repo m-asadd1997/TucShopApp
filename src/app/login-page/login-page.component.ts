@@ -28,6 +28,7 @@ export class LoginPageComponent implements OnInit {
     localStorage.clear();
     sessionStorage.clear();
     
+    
   }
 
   gotoLogin() {
@@ -130,6 +131,6 @@ export class LoginPageComponent implements OnInit {
       }
   }
 
-    
+  
 
 }
