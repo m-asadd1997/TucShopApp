@@ -1,0 +1,62 @@
+<div style="margin-left: 3%; margin-top: 7px;">
+    <nz-card style="width:90%;" nzTitle="Create User" [nzExtra]="extraTemplate" style="box-shadow:5px 5px 5px 5px">
+  
+      <form nz-form [nzLayout]="'inline'" #registerForm="ngForm" (ngSubmit)="submit()" autocomplete="auto">
+  
+  
+        <!-- Firsst Two Row -->
+        <div>
+          <nz-form-item>
+            <nz-form-label nzFor="email">Name</nz-form-label>
+            <br>
+            <nz-form-control nzErrorTip="Please input your user name!">
+              <nz-input-group >
+                <input type="text" required [(ngModel)]="registerModel.name" name="name" class="form-control"
+						 value="" />
+              </nz-input-group>
+  
+  
+  
+            </nz-form-control>
+          </nz-form-item> 
+        </div>
+
+        <div>
+            <nz-form-item>
+              <nz-form-label nzFor="email">User ID</nz-form-label>
+              <br>
+              <nz-form-control nzErrorTip="Please input your user ID!">
+                <nz-input-group >
+                  <input type="text" required [(ngModel)]="registerModel.email" name="email" class="form-control"
+                           value="" />
+                </nz-input-group>
+    
+    
+    
+              </nz-form-control>
+            </nz-form-item> 
+        </div>
+
+
+
+
+  
+          <!-- Button -->
+  
+        <div nz-col nzSpan="4" nzSpan="8" style="margin-left: 950px;">
+            <!-- <div style="text-align: center;"> -->
+            <nz-form-item>
+              <nz-form-control>
+  
+                <button style="margin-top: 30px; height: 40px; width: 100px;" [disabled]="validate()" nz-button nzType="primary" [nzSize]="large"
+                   >Save</button>
+  
+              </nz-form-control>
+            </nz-form-item>
+            <!-- </div> -->
+          </div>
+          <!-- Button -->
+  
+      </form>
+    </nz-card>
+  </div>
