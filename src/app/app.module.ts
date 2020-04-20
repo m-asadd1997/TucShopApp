@@ -34,6 +34,8 @@ import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { AuthGuard } from './auth.guard';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NoopInterceptor } from './request.intercepts';
+;
+
 
  
 registerLocaleData(en);
@@ -45,7 +47,6 @@ registerLocaleData(en);
     ProductListingComponent,
     CheckoutComponent,
     LoginPageComponent,
-
     RecentTransactionsComponent
 
      
@@ -78,7 +79,7 @@ registerLocaleData(en);
     NzBadgeModule,
     NzDividerModule,
     NzAvatarModule
-
+    
   ],
   providers: [{ provide: NZ_I18N , useValue: en_US }, AuthGuard,{
     provide: HTTP_INTERCEPTORS,
