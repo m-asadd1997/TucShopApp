@@ -43,8 +43,10 @@ import { AddUserComponent } from './add-user/add-user.component';
                  OutOfStockDetailsComponent,
                  TransactionsDetailsComponent,
                  SettingComponent,
+
                  AdminUserComponent,
                  AddUserComponent,
+
                  ],
 
                  
