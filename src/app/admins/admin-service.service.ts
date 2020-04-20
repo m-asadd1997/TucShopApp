@@ -55,8 +55,13 @@ private getSearchedProductsURL= environment.baseUrl+"api/dashboard/searchproduct
   private getFilteredQuantityURL = environment.baseUrl+"api/dashboard/filteredtotalproducts/";
   private getFrequencyByCategoryURL = environment.baseUrl+"api/dashboard/frequencybycategory";
   private getUsersURL = environment.baseUrl+"token/getusers";
+  private getTransactionMethodURL = environment.baseUrl+"api/dashboard/gettransactionmethod";
 
 
+
+ public getTransactionMethod():Observable<any>{
+   return this.http.get(this.getTransactionMethodURL);
+ }
  
   public getFrequencyByCategory():Observable<any>{
     return this.http.get(this.getFrequencyByCategoryURL);
