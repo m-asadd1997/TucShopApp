@@ -46,8 +46,7 @@ registerLocaleData(en);
     CheckoutComponent,
     LoginPageComponent,
 
-    RecentTransactionsComponent
-
+    RecentTransactionsComponent,
      
    
   ],

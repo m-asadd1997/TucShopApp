@@ -25,6 +25,8 @@ import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzProgressModule } from 'ng-zorro-antd/progress';
 
 import { ExportAsModule } from 'ngx-export-as';
+import { AdminUserComponent } from './admin-user/admin-user.component';
+import { AddUserComponent } from './add-user/add-user.component';
 
 @NgModule({
 
@@ -41,7 +43,10 @@ import { ExportAsModule } from 'ngx-export-as';
                  OutOfStockDetailsComponent,
                  TransactionsDetailsComponent,
                  SettingComponent,
-                 
+
+                 AdminUserComponent,
+                 AddUserComponent,
+
                  ],
 
                  
