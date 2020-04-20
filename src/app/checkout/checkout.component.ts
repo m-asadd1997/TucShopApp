@@ -164,6 +164,8 @@ chekingSetting=false;
 
     let request = {
       "amount": this.total,
+      "requestedUser":"bilal",
+      "action":"ROD", 
       "productTransactions": this.objToPushForTransaction
     }
     console.log(request)

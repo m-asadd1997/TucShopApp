@@ -1,0 +1,142 @@
+<nav
+  class="navbar navbar-light bg-light"
+  style="background-color: white !important;border-top-color: black;border-top-style:solid; border-top-width: thin; border-bottom-style: ridge; box-shadow:0px 5px 5px rgb(179, 179, 179);">
+
+  <div>
+    <!-- <a > <img src="assets/main-cart.png" alt=""></a> -->
+  </div>
+  <div  style="cursor: pointer;margin-right:75%;">
+    <!-- <button nz-button  (click)="navigateBackToHomePage()">
+    Home
+  </button> -->
+  </div>
+  <div  style="margin-left: -50px;">
+    <nz-button-group>
+      <button nz-button >Admin</button>
+      <button nz-button nz-dropdown [nzDropdownMenu]="menu2" nzPlacement="bottomRight">
+        <i nz-icon nzType="user"></i>
+      </button>
+    </nz-button-group>
+    <nz-dropdown-menu #menu2="nzDropdownMenu">
+      <ul nz-menu>
+        <li (click)="navigateBackToLoginPage()" nz-menu-item>Log Out</li>      
+      </ul>
+    </nz-dropdown-menu>   
+</div>
+</nav>
+
+<!-- <nz-card style="height: 880px;">
+<div style="float: right;">    
+<button nz-button nzType="primary">Refresh</button>
+</div>
+<nz-card style="height: 250px; width: 1293px; margin-top: 50px; ">
+<div>
+      <div style="height: 230px; width: 960px; float: left;">
+        <ngu-carousel #myCarousel [inputs]="carouselTileConfig" [dataSource]="carouselTileItems$ | async">
+            <ngu-tile *nguCarouselDef="let item; let i = index; let ani = animate">
+              <div class="tile" [style.background]="'url('+item+')'">
+              <div style="text-align: center; padding-right: 15px;">
+              <nz-badge [nzCount]="2">
+              <h6>{{i + 1}}
+              <img #image  src="http://localhost:8080/api/products/image/Chips/Lays/1586519281932Lays.png" height="120px" width="120px" />
+              </h6>  
+             </nz-badge> 
+              </div>
+              <div style="text-align: center;">
+              <b>name</b>
+               <br>
+               <b>variants</b>
+               <br>
+               <b>price</b>
+               <br>
+              </div>
+             </div>
+            </ngu-tile>
+            <button NguCarouselPrev class="leftRs" [style.opacity]="myCarousel.isFirst ? 0.5:1">&lt;</button>
+            <button NguCarouselNext class="rightRs" [style.opacity]="myCarousel.isLast ? 0.5:1">&gt;</button>
+          </ngu-carousel>    
+        </div>
+<nz-card style="height: 200px; width: 280px; float: right; ">
+<div>
+<b>Name: Bilal </b>
+<br>
+<b>Amount: 200 </b>
+<br>
+<b>Date: 15-4-2020 </b>
+</div>
+<div style="margin-top: 60px;"> 
+<div style="float: left; padding-left: 30px;">        
+    <button nz-button nzType="primary">Complete</button>
+    </div>
+    <div style="float: right; padding-right: 30px; ">
+    <button nz-button nzType="primary">Cancel</button>
+    </div> 
+</div> 
+</nz-card>
+</div>
+</nz-card>    
+</nz-card> -->
+
+<nz-content class="outer-content"> 
+  <nz-layout class="inner-layout">
+
+    <nz-sider nzWidth="200px"  nzCollapsible [(nzCollapsed)]="isCollapsed" >
+    <ul nz-menu nzMode="inline" class="sider-menu"[nzInlineCollapsed]="isCollapsed" nzTheme="dark" >
+    </ul>
+    </nz-sider>
+    <nz-content class="inner-content">
+      <nz-card style="height: 880px;">
+        <div style="float: right;">    
+        <button nz-button nzType="primary">Refresh</button>
+        </div>
+        <div *ngIf="flag">
+        <nz-card  style="height: 250px; width: 1293px; margin-top: 50px; "  >
+        <div>
+              <div style="height: 230px; width: 960px; float: left;">
+                <ngu-carousel #myCarousel [inputs]="carouselTileConfig" [dataSource]="carouselTileItems$ | async">
+                    <ngu-tile *nguCarouselDef="let item; let i = index; let ani = animate" > 
+                      <div class="tile" [style.background]="'url('+item+')'">
+                      <div style="text-align: center;">
+                      <nz-badge [nzCount]="2">
+                      <img #image  [src]="item.image" height="120px" width="120px" />  
+                      </nz-badge> 
+                      </div>
+                      <div style="text-align: center;">
+                      <b>{{item.name}}</b>
+                       <br>
+                       <b>{{item.variants}}</b>
+                       <br>
+                       <b>{{item.price}}</b>
+                       <br>
+                      </div>
+                     </div>
+                    </ngu-tile>
+                    <button NguCarouselPrev class="leftRs" [style.opacity]="myCarousel.isFirst ? 0.5:1">&lt;</button>
+                    <button NguCarouselNext class="rightRs" [style.opacity]="myCarousel.isLast ? 0.5:1">&gt;</button>
+                  </ngu-carousel>    
+                </div>
+        <nz-card style="height: 200px; width: 280px; float: right; ">
+        <div>
+        <b>Name: Bilal </b>
+        <br>
+        <b>Amount: 200 </b>
+        <br>
+        <b>Date: 15-4-2020 </b>
+        </div>
+        <div style="margin-top: 60px;"> 
+        <div style="float: left; padding-left: 30px;">        
+            <button nz-button nzType="primary">Complete</button>
+            </div>
+            <div style="float: right; padding-right: 30px; ">
+            <button nz-button nzType="primary">Cancel</button>
+            </div> 
+        </div> 
+        </nz-card>
+        </div>
+        </nz-card>
+      </div>    
+        </nz-card>             
+    </nz-content>
+  </nz-layout>
+  <!-- <nz-footer>Implement By Stepway &copy; 2020</nz-footer> -->
+</nz-content>

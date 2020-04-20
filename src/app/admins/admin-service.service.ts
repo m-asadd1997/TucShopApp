@@ -53,6 +53,7 @@ private getSearchedProductsURL= environment.baseUrl+"api/dashboard/searchproduct
   private getTotalInventoryURL = environment.baseUrl+"api/dashboard/totalinventory";
   private getFilteredTotalInventoryURL = environment.baseUrl+"api/dashboard/totalinventory/";
   private getFilteredQuantityURL = environment.baseUrl+"api/dashboard/filteredtotalproducts/";
+  private getAllPendingTransactionURL= environment.baseUrl+"api/transaction/pending";
 
 
 
@@ -269,4 +270,9 @@ public scearchtransactionofUser(transaction:any):Observable<any>{
     return this.http.get(this.getFilteredDetailedTransaction+startValue+"/"+endValue);
   }
   
+
+  getAllPendingTransaction():Observable<any>{
+   return this.http.get(this.getAllPendingTransactionURL);
+  }
+
 }

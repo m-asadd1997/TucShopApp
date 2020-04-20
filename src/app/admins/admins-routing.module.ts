@@ -14,12 +14,13 @@ import { TotalProductsDetailsComponent } from './total-products-details/total-pr
 import { OutOfStockDetailsComponent } from './out-of-stock-details/out-of-stock-details.component';
 import { TransactionsDetailsComponent } from './transactions-details/transactions-details.component';
 import { SettingComponent } from './setting/setting.component';
+import { DeskRequestComponent } from './desk-request/desk-request.component';
 
 
 const routes: Routes = [
   { path: '', component: LoginPageComponent },
   { path: 'login', component: LoginPageComponent },
-  {path:'home',loadChildren:'./../app.module#AppModule', canActivate:[AuthGuardService]},
+  {path:'home',loadChildren:() => import('./../app.module').then(m => m.AppModule), canActivate:[AuthGuardService]},
   {
     path: 'layout', component: AdminLayoutComponent,canActivate:[AuthGuardService],
     children: [
@@ -33,22 +34,17 @@ const routes: Routes = [
       { path: 'transactions', component: TransactionsComponent },
       { path: 'user', component: UserComponent },
       {path:'userlist/:user',component:UserComponent},
-      {
-        path: 'dashboard', component: AdminDashboardComponent
-        
-
-      },
-      {
-        path: 'setting', component: SettingComponent
-        
-
-      },
+      {path: 'dashboard', component: AdminDashboardComponent},
+      {path: 'setting', component: SettingComponent},
       { path: 'totalproddetails', component: TotalProductsDetailsComponent },
       {path:'outOfstockdetail',component:OutOfStockDetailsComponent},
-      {path:'transactiondetail',component:TransactionsDetailsComponent}
+      {path:'transactiondetail',component:TransactionsDetailsComponent},
+      
 
     ]
-  }
+    
+  },
+  {path:'deskrequest', component:DeskRequestComponent}
 ];
 
 @NgModule({

@@ -23,8 +23,9 @@ import { SettingComponent } from './setting/setting.component';
 import { from } from 'rxjs';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzProgressModule } from 'ng-zorro-antd/progress';
-
 import { ExportAsModule } from 'ngx-export-as';
+import { DeskRequestComponent } from './desk-request/desk-request.component';
+import { NguCarouselModule } from '@ngu/carousel';
 
 @NgModule({
 
@@ -41,6 +42,7 @@ import { ExportAsModule } from 'ngx-export-as';
                  OutOfStockDetailsComponent,
                  TransactionsDetailsComponent,
                  SettingComponent,
+                 DeskRequestComponent,
                  ],
 
                  
@@ -64,7 +66,9 @@ import { ExportAsModule } from 'ngx-export-as';
     NzDropDownModule,
     NzFormModule,
     NzLayoutModule,
-    ExportAsModule
+    ExportAsModule,
+    NguCarouselModule,
+    
   ]
   ,providers:[AuthGuardService]
 })
