@@ -23,8 +23,12 @@ import { SettingComponent } from './setting/setting.component';
 import { from } from 'rxjs';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzProgressModule } from 'ng-zorro-antd/progress';
-
 import { ExportAsModule } from 'ngx-export-as';
+import { FusionChartsModule } from 'angular-fusioncharts';
+import * as FusionCharts from 'fusioncharts';
+import * as Charts from 'fusioncharts/fusioncharts.charts';
+import * as FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
+FusionChartsModule.fcRoot(FusionCharts, Charts, FusionTheme)
 import { AdminUserComponent } from './admin-user/admin-user.component';
 import { AddUserComponent } from './add-user/add-user.component';
 
@@ -70,7 +74,8 @@ import { AddUserComponent } from './add-user/add-user.component';
     NzDropDownModule,
     NzFormModule,
     NzLayoutModule,
-    ExportAsModule
+    ExportAsModule,
+    FusionChartsModule
   ]
   ,providers:[AuthGuardService]
 })

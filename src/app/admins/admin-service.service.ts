@@ -53,13 +53,16 @@ private getSearchedProductsURL= environment.baseUrl+"api/dashboard/searchproduct
   private getTotalInventoryURL = environment.baseUrl+"api/dashboard/totalinventory";
   private getFilteredTotalInventoryURL = environment.baseUrl+"api/dashboard/totalinventory/";
   private getFilteredQuantityURL = environment.baseUrl+"api/dashboard/filteredtotalproducts/";
+  private getFrequencyByCategoryURL = environment.baseUrl+"api/dashboard/frequencybycategory";
   private getUsersURL = environment.baseUrl+"token/getusers";
 
 
-
+ 
+  public getFrequencyByCategory():Observable<any>{
+    return this.http.get(this.getFrequencyByCategoryURL);
+  }
 
   public getTotalInventory():Observable<any>{
-   
     return this.http.get(this.getTotalInventoryURL);
   }
 
