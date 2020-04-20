@@ -70,22 +70,7 @@ export class AdminDashboardComponent implements OnInit {
       theme: "fusion"
     },
     data: [
-      {
-        label: "Apache",
-        value: "32647479"
-      },
-      {
-        label: "Microsoft",
-        value: "22100932"
-      },
-      {
-        label: "Zeus",
-        value: "14376"
-      },
-      {
-        label: "Other",
-        value: "18674221"
-      }
+  
     ]
   };
   width1 = 500;
@@ -220,10 +205,14 @@ export class AdminDashboardComponent implements OnInit {
 
   getPieChartDataForTransactionMethod(){
     this.showCharttt  = false;
-    
+    this.adminService.getTransactionMethod().subscribe(d=>{
+      console.log("PieChart2",d.result)
+      if(d){
+        this.data2.data=d.result;
+        this.showCharttt = true;
   
-    this.showCharttt = true;
-  
+      }
+    })
   } 
 
 
