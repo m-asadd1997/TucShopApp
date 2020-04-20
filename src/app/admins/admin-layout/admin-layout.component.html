@@ -7,11 +7,7 @@
   <div>
     <a > <img src="assets/main-cart.png" alt=""></a>
   </div>
-  <div  style="cursor: pointer;margin-right:75%;">
-    <button nz-button  (click)="navigateBackToHomePage()">
-    Home
-  </button>
-  </div>
+  
   <div  style="margin-left: -50px;">
     <nz-button-group>
       <button nz-button >Admin</button>
@@ -42,6 +38,11 @@
             <li nz-menu-item [routerLink]="'dashboard'" style="font-weight: 700;">
               <i nz-icon nzType="dashboard"></i>
               <span>Dashboard</span>
+            </li>
+
+            <li nz-menu-item [routerLink]="'admin-user'">
+              <i nz-icon nzType="user"></i>
+              <span><b>Users</b></span>
             </li>
             
             <li nz-submenu nzTitle="Products" nzIcon="user" style="font-weight: 700;">

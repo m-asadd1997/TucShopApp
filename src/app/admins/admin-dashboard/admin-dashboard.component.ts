@@ -139,7 +139,8 @@ export class AdminDashboardComponent implements OnInit {
     this.getTotalInventory();
     this.getPieChartDataForCategoryBasedTransaction();
     this.getPieChartDataForTransactionMethod();
-  }
+    
+ }
 
 
   settingChart() {
@@ -169,23 +170,15 @@ export class AdminDashboardComponent implements OnInit {
         this.data.series = [];
         this.data.series.push(this.chartResult.amounts);
         console.log(this.data.series);
-        // this.array = this.chartResult.dates
-        // this.data.labels.forEach(date => {
-        //      
-        //   var datee = new Date(date)
-
-        // this.data.labels=  this.data.labels.filter(date=>{ 
-        //     this.array.push(this.data.labels.indexOf(date));
-
-        //     (!(datee >= this.startValue && datee < this.endValue))
-        //   })
+       
 
         var length = this.data.labels.length
         let i = 0;
+        debugger
         for (let index = 0; index < length; index++) {
 
           var datee = new Date(this.data.labels[index]);
-          if (!(datee >= this.startValue && datee <= this.endValue)) {
+          if (!(datee.getDate() >= this.startValue.getDate() && datee.getDate() <= this.endValue.getDate())) {
             this.data.labels.splice(i, 1);
             this.data.series[0].splice(i, 1);
             i = 0;
@@ -256,7 +249,7 @@ export class AdminDashboardComponent implements OnInit {
   };
 
 
-
+ backupTotalInventory:any
   getTotalInventory(){
     this.adminService.getTotalInventory().subscribe(d=>{
       if(d.result==null){
@@ -264,6 +257,7 @@ export class AdminDashboardComponent implements OnInit {
        } else{
       console.log("Total Inventory",d);
       this.totalInventory=d.result;
+      this.backupTotalInventory=d.result;
        }
     });
   }
@@ -405,6 +399,7 @@ export class AdminDashboardComponent implements OnInit {
       this.getChartData();
       this.getProfit(this.startValue, this.endValue);
       this.getFilteredTotalInventory(this.startValue,this.endValue);
+      
 
 
       console.log(this.dateRange);
@@ -540,6 +535,7 @@ onChange(){
     this.totalOutOfStockProducts=this.backupTotalOutOfStock;
     this.totalAmount=this.backupTotalTransaction;
     this.profit=this.backupTotalProfit;
+    this.totalInventory=this.backupTotalInventory;
   }
 }
 

@@ -54,6 +54,7 @@ private getSearchedProductsURL= environment.baseUrl+"api/dashboard/searchproduct
   private getFilteredTotalInventoryURL = environment.baseUrl+"api/dashboard/totalinventory/";
   private getFilteredQuantityURL = environment.baseUrl+"api/dashboard/filteredtotalproducts/";
   private getFrequencyByCategoryURL = environment.baseUrl+"api/dashboard/frequencybycategory";
+  private getUsersURL = environment.baseUrl+"token/getusers";
 
 
  
@@ -178,9 +179,10 @@ public scearchtransactionofUser(transaction:any):Observable<any>{
 
 
   public getTotalTransaction():Observable<any>{
-    return this.http.get(this.getTotalTransactionURL);//ye change hoga upar
+    return this.http.get(this.getTotalTransactionURL);//ye change hoga upar 
   }
 
+  // Ye tou Hogaaaaaa
 
   public getTotalProductQuantity():Observable<any>{
     return this.http.get(this.getTotalProductQuantityURL);//ye change hoga upar
@@ -270,6 +272,10 @@ public scearchtransactionofUser(transaction:any):Observable<any>{
 
   getFilteredDetailedTransactionMethod(startValue, endValue):Observable<any>{
     return this.http.get(this.getFilteredDetailedTransaction+startValue+"/"+endValue);
+  }
+
+  public getUsers(): Observable<any> {
+    return this.http.get(this.getUsersURL);
   }
   
 }

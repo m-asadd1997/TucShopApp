@@ -5,6 +5,7 @@ import { Checkout } from './Checkout';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { error } from '@angular/compiler/src/util';
 import { debug } from 'util';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: "app-checkout",
@@ -15,16 +16,15 @@ export class CheckoutComponent implements OnInit {
 
   @HostListener("window:beforeunload", ["$event"]) unloadHandler(event: Event) {
 
-  
-    this.checkoutProductsArray.forEach(data=>{
-      let  obj={
-        "quantity":0,
-        "count":data.productQuantity
+
+    this.checkoutProductsArray.forEach(data => {
+      let obj = {
+        "quantity": 0,
+        "count": data.productQuantity
       }
-      this.interactionServ.updateMinusAllQuantity(data.id,obj).subscribe(d=>{
-        if(d)
-        {
-          data.productqty=d.result.qty
+      this.interactionServ.updateMinusAllQuantity(data.id, obj).subscribe(d => {
+        if (d) {
+          data.productqty = d.result.qty
           let index = this.checkoutProductsArray.findIndex(p => p.id == data.id);
           this.total = this.total - this.checkoutProductsArray[index].productPrice;
           this.checkoutProductsArray.splice(index, 1);
@@ -33,37 +33,48 @@ export class CheckoutComponent implements OnInit {
 
     })
 
-   
- }
+
+  }
   checkoutProductsArray = [];
   productQuantity = 0;
   total = 0;
   isVisible = false;
   addButtonDisbale = false;
-  isOkLoading:boolean;
+  isOkLoading: boolean;
   // minusButtonDisbale = false;
   isVisible2 = false;
   imageVisible = false;
   inputValue: string;
   options: Array<{ name: string; countName: number }> = [];
   checkOutObj: Checkout = new Checkout();
-  checking:boolean=false; 
+  checking: boolean = false;
 
   cols: { header: string; }[];
   requestProduct: any;
   constructor(
     private interactionServ: MainscreenService,
-    private message: NzMessageService
+    private message: NzMessageService,
+    private router :Router,
+    private activeRoute:ActivatedRoute
   ) { }
-chekingSetting=false;
+  chekingSetting = false;
+  userName
   ngOnInit() {
     this.interactionServ.getSetting().subscribe(d => {
-     
-      if(d){
-      this.settingHeader = d[0]; 
-        this.chekingSetting=true;
-    }
-       
+      this.activeRoute.paramMap.subscribe(
+        params => {
+            
+            this.userName=params['params'].user;
+            console.log(this.userName);
+         
+        }
+      );
+
+      if (d) {
+        this.settingHeader = d[0];
+        this.chekingSetting = true;
+      }
+
       // if (!this.settingHeader) {
       //   this.settingHeader = {
       //     header: "",
@@ -84,60 +95,61 @@ chekingSetting=false;
 
     this.populateCols();
 
-    this.interactionServ.productMessage$.subscribe(d   => {
-    //  debugger
-      if(d){
-      let found = this.checkoutProductsArray.findIndex(
-        p => p.productTitle == d["name"]
-      );
-      
-       
-      if (d['qty'] <= 0) {
-        this.addButtonDisbale = true;
-      
-      }
+    this.interactionServ.productMessage$.subscribe(d => {
+      //  debugger
+      if (d) {
+        let found = this.checkoutProductsArray.findIndex(
+          p => p.productTitle == d["name"]
+        );
 
 
-      if (found > -1) {
-        this.checkoutProductsArray[found].productPrice += d["price"];
-        this.total = this.total + d["price"];
-        this.checkoutProductsArray[found]["productQuantity"] += 1;
-        this.checkoutProductsArray[found].productqty = d["qty"];
-      
-      } else {
-        this.checkoutProductsArray.push({
-          id: d["id"],
-          productTitle: d["name"],
-          productPrice: d["price"],
-          productImage: d["image"],
-          productQuantity: this.productQuantity = 1,
-          productqty: d['qty'],
-          printProductPrice: d["price"]
+        if (d['qty'] <= 0) {
+          this.addButtonDisbale = true;
 
         }
-        );
-        this.total += d["price"];
 
-      }}
+
+        if (found > -1) {
+          this.checkoutProductsArray[found].productPrice += d["price"];
+          this.total = this.total + d["price"];
+          this.checkoutProductsArray[found]["productQuantity"] += 1;
+          this.checkoutProductsArray[found].productqty = d["qty"];
+
+        } else {
+          this.checkoutProductsArray.push({
+            id: d["id"],
+            productTitle: d["name"],
+            productPrice: d["price"],
+            productImage: d["image"],
+            productQuantity: this.productQuantity = 1,
+            productqty: d['qty'],
+            printProductPrice: d["price"]
+
+          }
+          );
+          this.total += d["price"];
+
+        }
+      }
     });
   }
 
   removeProductFromCheckout(data) {
-    let obj1={
-    "quantity":0
-    ,"count":data.productQuantity
+    let obj1 = {
+      "quantity": 0
+      , "count": data.productQuantity
     }
-    console.log("===========================",data)
-    this.interactionServ.updateMinusAllQuantity(data.id,obj1).subscribe(d=>{
-      if(d){
-      data.productqty=d.result.qty
-      let index = this.checkoutProductsArray.findIndex(p => p.id == data.id);
-      this.total = this.total - this.checkoutProductsArray[index].productPrice;
-      this.checkoutProductsArray.splice(index, 1);
-  
-    }
+    console.log("===========================", data)
+    this.interactionServ.updateMinusAllQuantity(data.id, obj1).subscribe(d => {
+      if (d) {
+        data.productqty = d.result.qty
+        let index = this.checkoutProductsArray.findIndex(p => p.id == data.id);
+        this.total = this.total - this.checkoutProductsArray[index].productPrice;
+        this.checkoutProductsArray.splice(index, 1);
+
+      }
     })
-   
+
   }
 
   showModal(): void {
@@ -148,25 +160,32 @@ chekingSetting=false;
     this.isVisible = false;
   }
 
-    objToPushForTransaction=[];
+  objToPushForTransaction = [];
 
-  saveTransaction() {  
-    this.objToPushForTransaction=[] 
+
+
+
+  saveTransaction(reqUser,action) {
+    debugger
+    this.objToPushForTransaction = []
     console.log(this.checkoutProductsArray);
-   
-    this.checkoutProductsArray.forEach(prod=>{
-      let obj={
-        "product":prod,
-        "quantity":prod.productQuantity
+
+    this.checkoutProductsArray.forEach(prod => {
+      let obj = {
+        "product": prod,
+        "quantity": prod.productQuantity
       }
       this.objToPushForTransaction.push(obj)
     });
 
     let request = {
       "amount": this.total,
+      "requestedUser":reqUser,
+      "action":action, 
       "productTransactions": this.objToPushForTransaction
     }
     console.log(request)
+   
     this.interactionServ.saveTransaction(request).subscribe(
       data => {
         this.message.success('amount added successfully', {
@@ -178,10 +197,20 @@ chekingSetting=false;
     )
 
 
+
+    if(action==="ROD")
+    {
+      this.checkoutProductsArray = [];
+      this.total = 0;
+      this.handleCancel()
+    }
   }
 
 
-  handleCancel(): void {
+
+
+
+    handleCancel(): void {
     this.isVisible = false;
     this.isVisible2 = false;
     // this.total = 0;
@@ -195,94 +224,94 @@ chekingSetting=false;
   addProduct(obj) {
     // this.checking=true
     console.log(obj)
-    this.interactionServ.getProductsById(obj["id"]).subscribe(d=>{
-      if(d){
-      obj.productqty = d.qty;
-      console.log(  "==============Add Product===============",d.qty)
-      console.log(  "==============Checking===============")
-
-      
-      this.checking=true;
-      let index = this.checkoutProductsArray.findIndex(p => p.id == obj["id"]);
-
-    var obj1 = {
-      "qty": 0
-    }
-
-  
-    
+    this.interactionServ.getProductsById(obj["id"]).subscribe(d => {
+      if (d) {
+        obj.productqty = d.qty;
+        console.log("==============Add Product===============", d.qty)
+        console.log("==============Checking===============")
 
 
-    
-    if (obj.productqty != 0&&this.checking) {
-      this.checking=false;
+        this.checking = true;
+        let index = this.checkoutProductsArray.findIndex(p => p.id == obj["id"]);
 
-      console.log(  "==============IF===============")
+        var obj1 = {
+          "qty": 0
+        }
 
-      this.interactionServ.updateAddQuantity(obj["id"], obj).subscribe(d => {
-        if(d) 
-        obj.productqty = d.result.qty;
-        })
-        
-      let productPrice = obj.printProductPrice
-      this.total = this.total + productPrice;
-      this.checkoutProductsArray[index].productPrice += productPrice;
 
-      this.checkoutProductsArray[index]["productQuantity"] += 1;
-          
-    }
+
+
+
+
+        if (obj.productqty != 0 && this.checking) {
+          this.checking = false;
+
+          console.log("==============IF===============")
+
+          this.interactionServ.updateAddQuantity(obj["id"], obj).subscribe(d => {
+            if (d)
+              obj.productqty = d.result.qty;
+          })
+
+          let productPrice = obj.printProductPrice
+          this.total = this.total + productPrice;
+          this.checkoutProductsArray[index].productPrice += productPrice;
+
+          this.checkoutProductsArray[index]["productQuantity"] += 1;
+
+        }
       }
-     
+
     })
-      
-    
+
+
 
   }
-  checkingMinusCall=false;
+  checkingMinusCall = false;
   removeProduct(obj) {
 
-    let obj1={
-      "quantity":0
-      ,"count":obj.productQuantity
-      }
-    // this.checkingMinusCall=true;
- 
-    this.interactionServ.updateMinusQuantity(obj["id"], obj1).subscribe(d => {
-      if(d){
-        this.checkingMinusCall=true;
-      obj.productqty = d.result.qty;
-      
-      console.log(  "============== d of Minus Call  ===============",d)
-      if(this.checkingMinusCall){
-      
-        console.log(  "==============IF Of Minus===============")
-        this.checkingMinusCall=false;
-      let index = this.checkoutProductsArray.findIndex(p => p.id == obj["id"]);
-      let productPrice = obj.printProductPrice;
-      this.total = this.total - productPrice;
-      this.checkoutProductsArray[index].productPrice = this.checkoutProductsArray[index].productPrice - productPrice;
-     
-  
-  
-      if (this.checkoutProductsArray[index]['productQuantity'] <= 1) {
-        this.checkoutProductsArray.splice(index, 1);
-  
-      } else {
-        this.checkoutProductsArray[index]["productQuantity"] -= 1;
-      }}  
-       
+    let obj1 = {
+      "quantity": 0
+      , "count": obj.productQuantity
     }
+    // this.checkingMinusCall=true;
+
+    this.interactionServ.updateMinusQuantity(obj["id"], obj1).subscribe(d => {
+      if (d) {
+        this.checkingMinusCall = true;
+        obj.productqty = d.result.qty;
+
+        console.log("============== d of Minus Call  ===============", d)
+        if (this.checkingMinusCall) {
+
+          console.log("==============IF Of Minus===============")
+          this.checkingMinusCall = false;
+          let index = this.checkoutProductsArray.findIndex(p => p.id == obj["id"]);
+          let productPrice = obj.printProductPrice;
+          this.total = this.total - productPrice;
+          this.checkoutProductsArray[index].productPrice = this.checkoutProductsArray[index].productPrice - productPrice;
+
+
+
+          if (this.checkoutProductsArray[index]['productQuantity'] <= 1) {
+            this.checkoutProductsArray.splice(index, 1);
+
+          } else {
+            this.checkoutProductsArray[index]["productQuantity"] -= 1;
+          }
+        }
+
+      }
     });
 
-    
+
 
   }
 
 
-  
-  checkingQunatity(data){
-    if(data.productqty>0)
-    {
+
+  checkingQunatity(data) {
+    if (data.productqty > 0) {
 
       return true;
     }
@@ -300,7 +329,7 @@ chekingSetting=false;
   }
 
   // saveTransaction() {
-    
+
   //   let request = {
   //     amount: this.total,
   //     products: this.checkoutProductsArray   
@@ -321,9 +350,9 @@ chekingSetting=false;
 
 
   settingHeader
-  print(): void {
+  print(reqUser,action): void {
 
-    this.saveTransaction();
+    this.saveTransaction(reqUser,action);
 
     let printContents, popupWin;
     printContents = document.getElementById('print-section').innerHTML;
@@ -345,6 +374,14 @@ chekingSetting=false;
 
     this.checkoutProductsArray = [];
     this.total = 0;
+    this.handleCancel()
+
+    if(action=="ROD")
+    {
+      this.message.success('Request Sent', {
+        nzDuration:3000}); 
+        this.isVisible1=false;
+    }
 
   }
 
@@ -363,7 +400,7 @@ chekingSetting=false;
       this.message.success('Requested Product saved successfully', {
         nzDuration: 3000
       });
-      this.checkOutObj.name="";
+      this.checkOutObj.name = "";
     });
   }
 
@@ -383,4 +420,63 @@ chekingSetting=false;
 
     });
   }
+
+  navigateToUserSelection() {
+    this.router.navigate(['admin/userselection']);
+
+  }
+
+
+
+
+//////Second Modal
+
+user=[
+  {id:1,name:"Zamar",email:"z@z.com",status:"active",image:"https://bootdey.com/img/Content/user_2.jpg"},
+  {id:2,name:"Hassan",email:"h@h.com",status:"active",image:"https://bootdey.com/img/Content/user_3.jpg"},
+  {id:3,name:"Raju",email:"r@r.com",status:"active",image:"https://bootdey.com/img/Content/user_1.jpg"}
+]
+
+buttonDisable=false;
+func(username){
+  this.buttonDisable=true;
+  this.saveTransaction(username,"ROD");
+  this.message.success('Request Sent', {
+  nzDuration:3000}); 
+  this.isVisible1=false;
+
+
+
+}
+
+isVisible1 = false;
+
+  
+
+  showModal1(): void {
+    this.isVisible1 = true;
+    this.isVisible = false;
+  }
+
+  handleOk1(): void {
+    console.log('Button ok clicked!');
+    this.isVisible1 = false;
+  }
+
+  handleCancel1(): void {
+    console.log('Button cancel clicked!');
+    this.isVisible1 = false;
+  }
+
+
+
+  postTransaction(request){
+  
+  }
+
+
+
+
+
+
 }

@@ -4,6 +4,7 @@ import { login } from './login';
 import { NgForm } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd';
 import { MainscreenService } from  '../../main-screen/mainscreen.service';
+import { debug } from 'util';
 
 
 
@@ -58,7 +59,16 @@ export class LoginPageComponent implements OnInit {
               sessionStorage.setItem('token',res.result.token);
               sessionStorage.setItem('username',res.result.username);
               sessionStorage.setItem('role',res.result.userType);
+
+              if(res.result.userType==='DeskUser')
+              {
+                this.route.navigate(['/admin/deskrequest']);
+              
+              }
+              else{
               this.route.navigate(['/admin/layout']);
+                }
+
               this.isLogSpinning = false;
               this.message.success('Login Successful',{ nzDuration: 3000 });
               

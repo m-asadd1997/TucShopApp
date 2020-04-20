@@ -14,6 +14,8 @@ import { TotalProductsDetailsComponent } from './total-products-details/total-pr
 import { OutOfStockDetailsComponent } from './out-of-stock-details/out-of-stock-details.component';
 import { TransactionsDetailsComponent } from './transactions-details/transactions-details.component';
 import { SettingComponent } from './setting/setting.component';
+import { AdminUserComponent } from './admin-user/admin-user.component';
+import { AddUserComponent } from './add-user/add-user.component';
 
 
 const routes: Routes = [
@@ -32,7 +34,10 @@ const routes: Routes = [
       { path: 'add-category/:id', component: AddCategoryComponent },
       { path: 'transactions', component: TransactionsComponent },
       { path: 'user', component: UserComponent },
+      { path: 'add-user', component: AddUserComponent },
       {path:'userlist/:user',component:UserComponent},
+      {path:'admin-user',component:AdminUserComponent},
+
       {
         path: 'dashboard', component: AdminDashboardComponent
         
@@ -48,7 +53,7 @@ const routes: Routes = [
       {path:'transactiondetail',component:TransactionsDetailsComponent}
 
     ]
-  }
+  },
 ];
 
 @NgModule({
