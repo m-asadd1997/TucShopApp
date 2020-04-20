@@ -33,6 +33,7 @@
      <img [src]=p.product.image style="width:75px;height:75px">
         <hr>
         <b style="font-size:12px;padding:0px"> {{p.product.name | uppercase}}</b><br>
+        <b style="font-size:10px;padding:0px" >{{p.product.variants}} </b><br>
         <b style="font-size:12px;padding:0px" >Quantity: {{p.quantity}} </b><br>
         <!-- <b style="font-size:12px;padding:0px" >Price: {{p.product.price}} </b> -->
         <nz-tag style="margin-top:2px" [nzColor]="'#f50a0a'" > &#8360; {{p.product.price}}</nz-tag>

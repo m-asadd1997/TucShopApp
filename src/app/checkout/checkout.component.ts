@@ -85,10 +85,10 @@ chekingSetting=false;
     this.populateCols();
 
     this.interactionServ.productMessage$.subscribe(d   => {
-    //  debugger
+    console.log("dsfsdgsdg",d);
       if(d){
       let found = this.checkoutProductsArray.findIndex(
-        p => p.productTitle == d["name"]
+        p => p.productTitle == d["name"] && p.productVariant==d["variants"]
       );
       
        
@@ -112,7 +112,9 @@ chekingSetting=false;
           productImage: d["image"],
           productQuantity: this.productQuantity = 1,
           productqty: d['qty'],
-          printProductPrice: d["price"]
+          printProductPrice: d["price"],
+          productVariant:d["variants"]
+
 
         }
         );
