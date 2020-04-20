@@ -41,6 +41,7 @@ import { ExportAsModule } from 'ngx-export-as';
                  OutOfStockDetailsComponent,
                  TransactionsDetailsComponent,
                  SettingComponent,
+                 
                  ],
 
                  

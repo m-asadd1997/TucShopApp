@@ -120,23 +120,15 @@ export class AdminDashboardComponent implements OnInit {
         this.data.series = [];
         this.data.series.push(this.chartResult.amounts);
         console.log(this.data.series);
-        // this.array = this.chartResult.dates
-        // this.data.labels.forEach(date => {
-        //      
-        //   var datee = new Date(date)
-
-        // this.data.labels=  this.data.labels.filter(date=>{ 
-        //     this.array.push(this.data.labels.indexOf(date));
-
-        //     (!(datee >= this.startValue && datee < this.endValue))
-        //   })
+       
 
         var length = this.data.labels.length
         let i = 0;
+        debugger
         for (let index = 0; index < length; index++) {
 
           var datee = new Date(this.data.labels[index]);
-          if (!(datee >= this.startValue && datee <= this.endValue)) {
+          if (!(datee.getDate() >= this.startValue.getDate() && datee.getDate() <= this.endValue.getDate())) {
             this.data.labels.splice(i, 1);
             this.data.series[0].splice(i, 1);
             i = 0;

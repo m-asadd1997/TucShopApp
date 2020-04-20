@@ -17,12 +17,13 @@ export class MainScreenComponent implements OnInit {
   
   
  
-  
+  userName
   constructor(private mainScreenServ: MainscreenService,private activeRoute:ActivatedRoute, private router: Router) { }
 category
   ngOnInit() {
     this.innerWidth = window.innerWidth;
     // this.setupMobileView();
+    this.userName= sessionStorage.getItem('username');
 
     
       
