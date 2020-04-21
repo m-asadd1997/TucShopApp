@@ -17,10 +17,8 @@ export class AdminServiceService {
 
 
   private getProductURL=environment.baseUrl + "api/products/";
-
   private getPaginatedProductsURL = environment.baseUrl+"api/products/paginatedproducts" 
-
-private getSearchedProductsURL= environment.baseUrl+"api/dashboard/searchproducts";
+  private getSearchedProductsURL= environment.baseUrl+"api/dashboard/searchproducts";
   private deleteProductURL=environment.baseUrl + "api/products/";
   private postProductURL=environment.baseUrl + "api/products/postproduct";
   private updateProductURL=environment.baseUrl + "api/products/"
@@ -56,12 +54,21 @@ private getSearchedProductsURL= environment.baseUrl+"api/dashboard/searchproduct
   private getFrequencyByCategoryURL = environment.baseUrl+"api/dashboard/frequencybycategory";
   private getUsersURL = environment.baseUrl+"token/getusers";
   private getTransactionMethodURL = environment.baseUrl+"api/dashboard/gettransactionmethod";
+  private getFilteredFrequencyByCategoryURL= environment.baseUrl+"api/dashboard/frequencybycategory/";
+  private getFilteredTransactionMethodURL= environment.baseUrl+"api/dashboard/gettransactionmethod/";
 
+  
 
+  public getFilteredFrequencyBycategory(startDate:any, endDate:any):Observable<any>{
+   return this.http.get(this.getFilteredFrequencyByCategoryURL+startDate+"/"+endDate);
+  }
+  public getFilteredTransactionMethod(startDate:any, endDate:any):Observable<any>{
+  return this.http.get(this.getFilteredTransactionMethodURL+startDate+"/"+endDate);
+  }
 
- public getTransactionMethod():Observable<any>{
+  public getTransactionMethod():Observable<any>{
    return this.http.get(this.getTransactionMethodURL);
- }
+  }
  
   public getFrequencyByCategory():Observable<any>{
     return this.http.get(this.getFrequencyByCategoryURL);
