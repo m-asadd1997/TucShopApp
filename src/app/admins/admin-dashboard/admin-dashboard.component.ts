@@ -203,17 +203,53 @@ export class AdminDashboardComponent implements OnInit {
   })
   } 
 
+  getFilteredPieChartDataForCategoryBasedTransaction(startValue,endValue){
+    this.showChartt = false;
+    if(startValue && endValue){
+      startValue=startValue.getFullYear()+"-"+ (startValue.getMonth()+1)+"-"+(startValue.getDate())
+      endValue=endValue.getFullYear()+"-"+ (endValue.getMonth()+1)+"-"+(endValue.getDate())
+    } 
+    this.adminService.getFilteredFrequencyBycategory(startValue,endValue).subscribe(d=>{
+      console.log("Filtered",d.result)
+      if(d.result===null){
+        this.data1.data = [];
+      }
+      else if(d){
+        this.data1.data = d.result;
+        console.log(this.data1.data)
+      }
+      this.showChartt=true;
+    })
+  }
+
   getPieChartDataForTransactionMethod(){
     this.showCharttt  = false;
     this.adminService.getTransactionMethod().subscribe(d=>{
       console.log("PieChart2",d.result)
       if(d){
-        this.data2.data=d.result;
+        this.data2.data = d.result;
         this.showCharttt = true;
   
       }
     })
   } 
+  getFilteredTransactionMethod(startValue,endValue){
+    this.showCharttt = false;
+    if(startValue && endValue){
+      startValue=startValue.getFullYear()+"-"+ (startValue.getMonth()+1)+"-"+(startValue.getDate())
+      endValue=endValue.getFullYear()+"-"+ (endValue.getMonth()+1)+"-"+(endValue.getDate())
+    } 
+    this.adminService.getFilteredTransactionMethod(startValue,endValue).subscribe(d=>{
+      console.log("FilteredDATA",d.result);
+      if(d.result===null){
+        this.data2.data = [];
+      }
+      else{
+        this.data2.data=d.result;
+      }
+      this.showCharttt=true;
+    })
+  }
 
 
   totalOutofStockObject = []
@@ -388,6 +424,8 @@ export class AdminDashboardComponent implements OnInit {
       this.getChartData();
       this.getProfit(this.startValue, this.endValue);
       this.getFilteredTotalInventory(this.startValue,this.endValue);
+      this.getFilteredPieChartDataForCategoryBasedTransaction(this.startValue,this.endValue);
+      this.getFilteredTransactionMethod(this.startValue,this.endValue);
       
 
 
