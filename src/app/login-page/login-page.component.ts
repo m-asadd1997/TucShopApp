@@ -86,6 +86,7 @@ export class LoginPageComponent implements OnInit {
               sessionStorage.setItem('token',res.result.token);
               sessionStorage.setItem('username',res.result.username);
               sessionStorage.setItem('role',res.result.userType);
+              
               this.route.navigate(['categories/products']);
               this.isLogSpinning = false;
               this.message.success('Login Successful',{ nzDuration: 3000 });

@@ -2,17 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import {
   IBarChartOptions,
   IChartistAnimationOptions,
-  IChartistData
+  IChartistData,
+  sum
 } from 'chartist';
 import { ChartType, ChartEvent } from 'ng-chartist';
 import { AdminServiceService } from '../admin-service.service';
 import { Router } from '@angular/router';
 import { element } from 'protractor';
 import { NzMessageService } from 'ng-zorro-antd';
+
+
 // import { element } from 'protractor';
-
-
-
 
 
 
@@ -31,24 +31,62 @@ export class AdminDashboardComponent implements OnInit {
   constructor(private adminService: AdminServiceService, private router: Router, private message: NzMessageService) { }
 
   showChart = false;
+  showChartt= false;
+  showCharttt= false;
   backupTotalProducts
   backupTotalOutOfStock;
   backupTotalTransaction;
   backupTotalProfit;
 
 
+  data1 = {
+    chart: {
+      caption: "Category Based Transaction",
+      plottooltext: "<b>$percentValue</b> of transactions are based on $label",
+      showlegend: "1",
+      showpercentvalues: "1",
+      legendposition: "bottom",
+      usedataplotcolorforlabels: "1",
+      theme: "fusion"
+    },
+    data: [
+      
+    ]
+  };
+  width = 500;
+  height = 400;
+  type1 = "pie2d";
+  dataFormat = "json";
+  dataSource = this.data1;
+
+  data2  = {
+    chart: {
+      caption: "Transaction Method",
+      plottooltext: "<b>$percentValue</b> using $label method",
+      showlegend: "1",
+      showpercentvalues: "1",
+      legendposition: "bottom",
+      usedataplotcolorforlabels: "1",
+      theme: "fusion"
+    },
+    data: [
+  
+    ]
+  };
+  width1 = 500;
+  height1 = 400;
+  type2 = "pie2d";
+  dataFormat1 = "json";
+  dataSource1 = this.data2;
+
+
 
   type: ChartType = 'Bar';
-
   data = {
     // labels: ["J", "F", "M"],
     // series: [[1, 2, 3]]
     labels: [], series: []
-
-
   };
-
-
 
   options: IBarChartOptions = {
     axisX: {
@@ -56,8 +94,6 @@ export class AdminDashboardComponent implements OnInit {
     },
     height: 300
   };
-
-
 
   events: ChartEvent = {
     draw: (data) => {
@@ -75,6 +111,7 @@ export class AdminDashboardComponent implements OnInit {
   };
   chart
   filtering: Boolean = false;
+
   ngOnInit() {
     this.getRequestedProducts();
     this.getTotalProductQuantity();
@@ -85,6 +122,8 @@ export class AdminDashboardComponent implements OnInit {
     this.settingChart();
     this.getTotalProfit();
     this.getTotalInventory();
+    this.getPieChartDataForCategoryBasedTransaction();
+    this.getPieChartDataForTransactionMethod();
     
  }
 
@@ -97,17 +136,13 @@ export class AdminDashboardComponent implements OnInit {
 
 
 
-
-
-
-
   reqProducts = []
   finalReqProducts = []
   totalProducts
   totalOutOfStockProducts
   chartResult
+  charttResult
   
-
 
   array = []
   getChartData() {
@@ -120,23 +155,15 @@ export class AdminDashboardComponent implements OnInit {
         this.data.series = [];
         this.data.series.push(this.chartResult.amounts);
         console.log(this.data.series);
-        // this.array = this.chartResult.dates
-        // this.data.labels.forEach(date => {
-        //      
-        //   var datee = new Date(date)
-
-        // this.data.labels=  this.data.labels.filter(date=>{ 
-        //     this.array.push(this.data.labels.indexOf(date));
-
-        //     (!(datee >= this.startValue && datee < this.endValue))
-        //   })
+       
 
         var length = this.data.labels.length
         let i = 0;
+        debugger
         for (let index = 0; index < length; index++) {
 
           var datee = new Date(this.data.labels[index]);
-          if (!(datee >= this.startValue && datee <= this.endValue)) {
+          if (!(datee.getDate() >= this.startValue.getDate() && datee.getDate() <= this.endValue.getDate())) {
             this.data.labels.splice(i, 1);
             this.data.series[0].splice(i, 1);
             i = 0;
@@ -160,10 +187,33 @@ export class AdminDashboardComponent implements OnInit {
         this.data.series.push(this.chartResult.series)
         this.showChart = true;
       }
-
-
     })
   }
+
+  getPieChartDataForCategoryBasedTransaction(){
+
+    this.showChartt  = false;
+    this.adminService.getFrequencyByCategory().subscribe(d=>{
+    console.log("PieChart",d.result)
+    if(d){
+      this.data1.data= d.result; 
+      this.showChartt = true;
+    }
+   
+  })
+  } 
+
+  getPieChartDataForTransactionMethod(){
+    this.showCharttt  = false;
+    this.adminService.getTransactionMethod().subscribe(d=>{
+      console.log("PieChart2",d.result)
+      if(d){
+        this.data2.data=d.result;
+        this.showCharttt = true;
+  
+      }
+    })
+  } 
 
 
   totalOutofStockObject = []

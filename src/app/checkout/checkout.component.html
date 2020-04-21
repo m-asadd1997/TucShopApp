@@ -15,6 +15,56 @@
         <span>Request For Product</span>
       </button>
 
+      <nz-modal [(nzVisible)]="isVisible1" nzTitle="User Selection" (nzOnCancel)="handleCancel1()" (nzOnOk)="handleOk1()">
+        <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+        <hr>
+        <div class="container bootstrap snippet">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="main-box no-header clearfix">
+                        <div class="main-box-body clearfix">
+                            <div class="table-responsive">
+                                <table class="table user-list">
+                                    <thead>
+                                        <tr>
+                                        <th><span>User</span></th>
+                                        <!-- <th><span>Created</span></th> -->
+                                        <th class="text-center"><span>Status</span></th>
+                                        <th><span>Email</span></th>
+                                        <th>&nbsp;</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of user">
+                                            <td>
+                                                <img src={{item.image}} alt="">
+                                                <a href="#" class="user-link">{{item.name}}</a>
+                                                <span class="user-subhead">Worker</span>
+                                            </td>
+                                            <!-- <td>2013/08/12</td> -->
+                                            <td class="text-center">
+                                                <span class="label label-default">{{item.status}}</span>
+                                            </td>
+                                            <td>
+                                                <a href="#">{{item.email}}</a>
+                                            </td>
+                                            <td style="width: 20%;">
+                                                <button [disabled]="buttonDisable" (click)="print(item.name,'ROD')" nz-button nzType="primary">Request</button>
+                                            </td>
+                                        </tr>
+                                       
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </nz-modal>
+        
+      
+
       <nz-modal
         
         [(nzVisible)]="isVisible2"
@@ -132,18 +182,28 @@
         </h3>
       </div>
       <div nz-col nzSpan="6" nzOffset="6" style="margin-top: 6px;">
-        <button nz-button nzType="danger" (click)="showModal()">
+        <button [disabled]="checkoutProductsArray.length==0" nz-button nzType="danger" (click)="showModal()">
           Checkout
         </button>
         <nz-modal
           [(nzVisible)]="isVisible"
           nzTitle="Checkout"
-          nzOkText="Print"
+         
           nzCancelText="Continue Shopping "
-          (nzOnOk)="print()"
+         
           (nzOnCancel)="handleCancel()"
         >
-          <h4>You want to checkout ?</h4>
+        <!--  nzOkText="Print"    (nzOnOk)="print()" -->
+          <h4>Please select how you want to checkout</h4>
+          <div nz-row style="margin-top:22px">
+
+
+           <div nz-col nzSpan="9" nzOffset="3"> <button (click)="print('','SC')" nz-button nzType="primary">Self Checkout</button></div>
+
+           <div nz-col nzSpan="9" nzOffset="2">  <button nz-button nzType="primary"(click)="showModal1()" >Delievery on Desk</button></div>
+          </div>
+       
+
         </nz-modal>
       </div>
     </div>
@@ -194,3 +254,5 @@
     
   </div>
 </div>
+
+

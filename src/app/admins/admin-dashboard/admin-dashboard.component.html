@@ -1,35 +1,37 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 </head>
-<body >
+<body > -->
+
+  <div nz-row>
+
+    <div nz-col [nzSpan]="12">
+      <h3><strong>Dashboard</strong></h3>
+    </div>
+   <div nz-col [nzSpan]="12" style="text-align:right ; margin-bottom: 15px;">
+  <nz-range-picker [(ngModel)]="dateRange" (ngModelChange)="onChange($event)"></nz-range-picker>
+  <button nz-button nzType="primary" style="margin-left: 30px;" (click)="print()">Filter</button>
+</div>
+</div>
 
 
 
- 
-  <div style="text-align:right ; margin-bottom: 15px;"> 
-   
-  <nz-range-picker [(ngModel)]="dateRange"  (ngModelChange)="onChange($event)"></nz-range-picker>
-<button nz-button nzType="primary" style="margin-left: 30px;" (click)="print()" >Filter</button>
-  </div>
-   
-  
- 
 
 
-  
-  <div style="background: #ECECEC;padding:10px;">
-    <div nz-row [nzGutter]="6">
-      <div nz-col [nzSpan]="6" >
-        <nz-card nzTitle="Total Inventory" >
-          <h1 style="text-align: center;">{{totalInventory}}</h1>
-        </nz-card>
-      </div>
-    
-      <!-- <div nz-col [nzSpan]="6">
+
+<div style="background: #ECECEC;padding:10px;">
+  <div nz-row [nzGutter]="6">
+    <div nz-col [nzSpan]="6">
+      <nz-card nzTitle="Total Inventory">
+        <h1 style="text-align: center;">{{totalInventory}}</h1>
+      </nz-card>
+    </div>
+
+    <!-- <div nz-col [nzSpan]="6">
         <nz-card nzTitle="Total Products" nzHoverable (click)="showModalTotalProducts()">
         
           <h1 style="text-align: center;">{{totalProducts}}</h1>  
@@ -38,22 +40,22 @@
         </nz-card>
       </div>
        -->
-      
-      <div nz-col [nzSpan]="6">
-        <nz-card nzTitle="Out of Stock"  nzHoverable (click)="showModalOutOfStock()">
-          <h1 style="text-align: center;">{{totalOutOfStockProducts}}</h1>
-        </nz-card>
-      </div>
-      
-      <div nz-col [nzSpan]="6" >
-        <nz-card nzTitle="Total Transacation" (click)="showModalTotalTransactions()">
-          <h1 style="text-align: center;">{{totalAmount }}</h1>
-        </nz-card>
-      </div>
 
-  
+    <div nz-col [nzSpan]="6">
+      <nz-card nzTitle="Out of Stock" nzHoverable (click)="showModalOutOfStock()">
+        <h1 style="text-align: center;">{{totalOutOfStockProducts}}</h1>
+      </nz-card>
+    </div>
 
-    <div nz-col [nzSpan]="6" >
+    <div nz-col [nzSpan]="6">
+      <nz-card nzTitle="Total Transacation" (click)="showModalTotalTransactions()">
+        <h1 style="text-align: center;">{{totalAmount }}</h1>
+      </nz-card>
+    </div>
+
+
+
+    <div nz-col [nzSpan]="6">
       <nz-card nzTitle="Profit" nzHoverable>
         <h1 style="text-align: center;">{{ profit }}</h1>
         <!-- <div style="text-align: center;">
@@ -64,57 +66,87 @@
   </div>
 
 
-    <div nz-row [nzGutter]="8" style="margin-top: 10px;" >
+  <div nz-row [nzGutter]="8" style="margin-top: 10px;">
 
-        <div nz-col [nzSpan]="16" >
+    <div nz-col [nzSpan]="12">
+      <nz-card  nzHoverable [nzBordered]="false" nzTitle="Category Based Transaction" [nzExtra]="extraTemplate"
+        style="widows: 100px; ">
 
+      <fusioncharts
+      *ngIf="showChartt"
+       [width]="width"
+       [height]="height"
+       [type]="type1"
+       [dataFormat]="dataFormat"
+       [dataSource]="dataSource"
+      >
+     </fusioncharts>
 
-            <nz-card nzHoverable  [nzBordered]="false" nzTitle="Sale Analysis" [nzExtra]="extraTemplate" style="widows: 100px; ">
-                <x-chartist id="chartist"
-                *ngIf="showChart"
-
-                [type]="type"
-                [data]="data"
-                [options]="options"
-                [events]="events"
-
-              ></x-chartist>
-              </nz-card>
-        </div>
-
-
-        <div nz-col [nzSpan]="8" >
-          <nz-card   nzTitle="Requested Products" nzHoverable >
-            <nz-table #basicTable [nzData]="reqProducts" [nzShowPagination]="false">
-              <thead>
-                <tr>
-                  <th>Product Name</th>
-                  <th>Count</th>
-                  <th>Actions </th>
-                 
-                  
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let data of basicTable.data">
-                  <td>{{data.name}}</td>
-                  <!-- <td>{{data.countName}}</td> -->
-                  <td>  <nz-progress [nzPercent]=data.count nzType="circle" [nzWidth]="50"></nz-progress> </td>
-                  <td><img nz-tooltip nzTooltipTitle="Mark As Completed" (click)="deleterequestedproduct(data)" src="./../../../assets/send.png" alt=""> </td>
-                
-                </tr>
-              </tbody>
-            </nz-table>
-          </nz-card>
-
-        </div>
+        
+      </nz-card>
     </div>
-
+    <div nz-col [nzSpan]="12">
+      <nz-card  nzHoverable [nzBordered]="false" nzTitle="Transaction Method" [nzExtra]="extraTemplate"
+        style="widows: 100px; ">
+        <fusioncharts
+        *ngIf="showCharttt"
+         [width]="width1"
+         [height]="height1"
+         [type]="type2"
+         [dataFormat]="dataFormat1"
+         [dataSource]="dataSource1"
+        >
+       </fusioncharts>
+       
+        
+      </nz-card> 
+    </div>
 
   </div>
 
-</body>
-</html>
+    
+
+  <div nz-row [nzGutter]="8" style="margin-top: 10px;">
+
+    <div nz-col [nzSpan]="16">
+      <nz-card nzHoverable [nzBordered]="false" nzTitle="Sale Analysis" [nzExtra]="extraTemplate"
+        style="widows: 100px; ">
+        <x-chartist id="chartist" *ngIf="showChart" [type]="type" [data]="data" [options]="options" [events]="events">
+        </x-chartist>
+      </nz-card>
+    </div>
+  <div nz-col [nzSpan]="8">
+    <nz-card nzTitle="Requested Products" nzHoverable>
+      <nz-table #basicTable [nzData]="reqProducts" [nzShowPagination]="false">
+        <thead>
+          <tr>
+            <th>Product Name</th>
+            <th>Count</th>
+            <th>Actions </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of basicTable.data">
+            <td>{{data.name}}</td>
+            <!-- <td>{{data.countName}}</td> -->
+            <td>
+              <nz-progress [nzPercent]=data.count nzType="circle" [nzWidth]="50"></nz-progress>
+            </td>
+            <td><img nz-tooltip nzTooltipTitle="Mark As Completed" (click)="deleterequestedproduct(data)"
+                src="./../../../assets/send.png" alt=""> </td>
+
+          </tr>
+        </tbody>
+      </nz-table>
+    </nz-card>
+  </div>
+</div>
+
+
+<!-- <div id="chart6" class="ct-chart ct-major-tenth" style="height: 100px; width: 100px;"></div> -->
+
+  <!-- </body>
+</html> -->
 
 
 
@@ -175,4 +207,3 @@
 </nz-modal> -->
 
   <!-- YE TOP ROW HAI -->
-
