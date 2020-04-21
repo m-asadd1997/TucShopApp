@@ -95,16 +95,50 @@ export class CheckoutComponent implements OnInit {
 
     this.populateCols();
 
-    this.interactionServ.productMessage$.subscribe(d => {
-      //  debugger
-      if (d) {
-        let found = this.checkoutProductsArray.findIndex(
-          p => p.productTitle == d["name"]
-        );
+// <<<<<<< variants-work
+    this.interactionServ.productMessage$.subscribe(d   => {
+    console.log("dsfsdgsdg",d);
+      if(d){
+      let found = this.checkoutProductsArray.findIndex(
+        p => p.productTitle == d["name"] && p.productVariant==d["variants"]
+      );
+      
+       
+      if (d['qty'] <= 0) {
+        this.addButtonDisbale = true;
+      
+      }
 
 
-        if (d['qty'] <= 0) {
-          this.addButtonDisbale = true;
+      if (found > -1) {
+        this.checkoutProductsArray[found].productPrice += d["price"];
+        this.total = this.total + d["price"];
+        this.checkoutProductsArray[found]["productQuantity"] += 1;
+        this.checkoutProductsArray[found].productqty = d["qty"];
+      
+      } else {
+        this.checkoutProductsArray.push({
+          id: d["id"],
+          productTitle: d["name"],
+          productPrice: d["price"],
+          productImage: d["image"],
+          productQuantity: this.productQuantity = 1,
+          productqty: d['qty'],
+          printProductPrice: d["price"],
+          productVariant:d["variants"]
+
+// =======
+//     this.interactionServ.productMessage$.subscribe(d => {
+//       //  debugger
+//       if (d) {
+//         let found = this.checkoutProductsArray.findIndex(
+//           p => p.productTitle == d["name"]
+//         );
+
+
+//         if (d['qty'] <= 0) {
+//           this.addButtonDisbale = true;
+// >>>>>>> master
 
         }
 
