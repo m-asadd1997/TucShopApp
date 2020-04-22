@@ -112,7 +112,7 @@ export class CheckoutComponent implements OnInit {
 
       if (found > -1) {
         this.checkoutProductsArray[found].productPrice += d["price"];
-        this.total = this.total + d["price"];
+        // this.total = this.total + d["price"];
         this.checkoutProductsArray[found]["productQuantity"] += 1;
         this.checkoutProductsArray[found].productqty = d["qty"];
       
