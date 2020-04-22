@@ -125,7 +125,7 @@ export class CheckoutComponent implements OnInit {
           productQuantity: this.productQuantity = 1,
           productqty: d['qty'],
           printProductPrice: d["price"],
-          productVariant:d["variants"]
+          productVariant:d["variants"],
 
 // =======
 //     this.interactionServ.productMessage$.subscribe(d => {
@@ -143,30 +143,31 @@ export class CheckoutComponent implements OnInit {
         }
 
 
-        if (found > -1) {
-          this.checkoutProductsArray[found].productPrice += d["price"];
-          this.total = this.total + d["price"];
-          this.checkoutProductsArray[found]["productQuantity"] += 1;
-          this.checkoutProductsArray[found].productqty = d["qty"];
+        // if (found > -1) {
+        //   this.checkoutProductsArray[found].productPrice += d["price"];
+        //   this.total = this.total + d["price"];
+        //   this.checkoutProductsArray[found]["productQuantity"] += 1;
+        //   this.checkoutProductsArray[found].productqty = d["qty"];
 
-        } else {
-          this.checkoutProductsArray.push({
-            id: d["id"],
-            productTitle: d["name"],
-            productPrice: d["price"],
-            productImage: d["image"],
-            productQuantity: this.productQuantity = 1,
-            productqty: d['qty'],
-            printProductPrice: d["price"]
+        // } else {
+        //   this.checkoutProductsArray.push({
+        //     id: d["id"],
+        //     productTitle: d["name"],
+        //     productPrice: d["price"],
+        //     productImage: d["image"],
+        //     productQuantity: this.productQuantity = 1,
+        //     productqty: d['qty'],
+        //     printProductPrice: d["price"]
 
-          }
-          );
+        //   }
+        //   );
+        //   
+        
+          )  }
           this.total += d["price"];
 
-        }
-      }
-    });
-  }
+    };
+  })}
 
   removeProductFromCheckout(data) {
     let obj1 = {
@@ -222,9 +223,10 @@ export class CheckoutComponent implements OnInit {
    
     this.interactionServ.saveTransaction(request).subscribe(
       data => {
-        this.message.success('amount added successfully', {
+        if(action==="SC"){
+        this.message.success('Transaction Completed', {
           nzDuration: 3000
-        });
+        });}
       },
 
 
@@ -388,22 +390,22 @@ export class CheckoutComponent implements OnInit {
 
     this.saveTransaction(reqUser,action);
 
-    let printContents, popupWin;
-    printContents = document.getElementById('print-section').innerHTML;
-    popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
-    popupWin.document.open();
-    popupWin.document.write(`
-        <html>
-          <head>
-            <title>Print tab</title>
-            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-            </head>
-      <body onload="window.print();window.close()">${printContents}</body>
-        </html>`
-    );
-    popupWin.window.print();
+    // let printContents, popupWin;
+    // printContents = document.getElementById('print-section').innerHTML;
+    // popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
+    // popupWin.document.open();
+    // popupWin.document.write(`
+    //     <html>
+    //       <head>
+    //         <title>Print tab</title>
+    //         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    //         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    //         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    //         </head>
+    //   <body onload="window.print();window.close()">${printContents}</body>
+    //     </html>`
+    // );
+    // popupWin.window.print();
     // popupWin.document.close();
 
     this.checkoutProductsArray = [];
@@ -412,7 +414,7 @@ export class CheckoutComponent implements OnInit {
 
     if(action=="ROD")
     {
-      this.message.success('Request Sent', {
+      this.message.success(`Request Sent to  ${reqUser}`, {
         nzDuration:3000}); 
         this.isVisible1=false;
     }
