@@ -35,7 +35,7 @@ const routes: Routes = [
       { path: 'transactions', component: TransactionsComponent },
       { path: 'user', component: UserComponent },
       { path: 'add-user', component: AddUserComponent },
-      {path:'userlist/:user',component:UserComponent},
+      {path:'add-user/:id',component:AddUserComponent},
       {path:'admin-user',component:AdminUserComponent},
 
       {

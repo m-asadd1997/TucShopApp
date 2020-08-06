@@ -334,13 +334,14 @@ export class AdminDashboardComponent implements OnInit {
 
 
   totalTransaction;
-  totalAmount;
+  totalAmount=0;
   totalTransactionFiltering;
   getTotalTransaction() {
     this.totalAmount = 0;
     this.adminService.getTotalTransaction().subscribe(d => {
-      if (d) {
+      if (d&&d.result) {
         this.totalAmount = d.result;
+        
         this.backupTotalTransaction=d.result;
        
 

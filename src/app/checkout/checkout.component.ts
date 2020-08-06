@@ -468,9 +468,7 @@ export class CheckoutComponent implements OnInit {
 //////Second Modal
 
 user=[
-  {id:1,name:"Zamar",email:"z@z.com",status:"active",image:"https://bootdey.com/img/Content/user_2.jpg"},
-  {id:2,name:"Hassan",email:"h@h.com",status:"active",image:"https://bootdey.com/img/Content/user_3.jpg"},
-  {id:3,name:"Raju",email:"r@r.com",status:"active",image:"https://bootdey.com/img/Content/user_1.jpg"}
+  
 ]
 
 buttonDisable=false;
@@ -490,8 +488,15 @@ isVisible1 = false;
   
 
   showModal1(): void {
-    this.isVisible1 = true;
-    this.isVisible = false;
+    this.interactionServ.getUsers().subscribe(d=>{
+      if(d){
+         console.log("Helllo",d);
+        this.user=d.result;
+      this.user=  this.user.filter(user=> user.userType==="DESK");
+      this.isVisible1 = true;
+      this.isVisible = false;}
+    })
+   
   }
 
   handleOk1(): void {

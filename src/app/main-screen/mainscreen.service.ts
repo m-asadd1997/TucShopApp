@@ -9,6 +9,7 @@ import { login } from '../login-page/login';
   providedIn: 'root'
 })
 export class MainscreenService {
+ 
 
   private productSource = new Subject<Object>();
   productMessage$ = this.productSource.asObservable();
@@ -45,6 +46,7 @@ export class MainscreenService {
   private registeruserURL=environment.baseUrl+"token/user";
   private loginUserURL=environment.baseUrl+"token/generate-token";
   private searchProductByKeywordURL=environment.baseUrl+"api/products/search/";
+  private getUsersURL = environment.baseUrl+"api/user/";
 
   public sendMessage(obj: Object) {
     this.productSource.next(obj);
@@ -148,6 +150,11 @@ export class MainscreenService {
 
   public searchProductByKeyword(keyword:any): Observable<any> {
     return this.http.get(this.searchProductByKeywordURL+keyword);
+  }
+
+  
+  public getUsers(): Observable<any> {
+    return this.http.get(this.getUsersURL);
   }
 
 }

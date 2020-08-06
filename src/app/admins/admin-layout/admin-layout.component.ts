@@ -10,7 +10,11 @@ export class AdminLayoutComponent implements OnInit {
 
   constructor( private router:Router) { }
 
+
+adminName
+
   ngOnInit() {
+    this.adminName=sessionStorage.getItem('username')
   }
 
   navigateBackToHomePage(){
