@@ -37,7 +37,7 @@ const routes: Routes = [
       { path: 'add-user', component: AddUserComponent },
       {path:'add-user/:id',component:AddUserComponent},
       {path:'admin-user',component:AdminUserComponent},
-
+      {path:'userlist/:user',component:UserComponent},
       {
         path: 'dashboard', component: AdminDashboardComponent
         
