@@ -60,12 +60,12 @@ export class LoginPageComponent implements OnInit {
               sessionStorage.setItem('username',res.result.username);
               sessionStorage.setItem('role',res.result.userType);
 
-              if(res.result.userType==='DeskUser')
+              if(res.result.userType==='DESK')
               {
                 this.route.navigate(['/admin/deskrequest']);
               
               }
-              else{
+              else if(res.result.userType="ADMIN"){
               this.route.navigate(['/admin/layout']);
                 }
 

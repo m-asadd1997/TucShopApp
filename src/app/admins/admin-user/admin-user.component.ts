@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminServiceService } from '../admin-service.service';
 import { Router } from '@angular/router';
+import { NzMessageService } from 'ng-zorro-antd';
 
 @Component({
   selector: 'app-admin-user',
@@ -9,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class AdminUserComponent implements OnInit {
 
-  constructor(private service:AdminServiceService, private route:Router) { }
+  constructor(private service:AdminServiceService, private route:Router,private nzMessageService: NzMessageService) { }
 
   usersData = []
   
@@ -25,6 +26,8 @@ export class AdminUserComponent implements OnInit {
     this.service.getUsers().subscribe(response=>{
 
       console.log(response);
+      response=response.result;
+    
       this.usersData=response;
     })        
     
@@ -34,21 +37,23 @@ export class AdminUserComponent implements OnInit {
     this.route.navigate(['admin/layout/add-user']);
   }
 
-  // deleteProduct(data){
-  //  this.service.deleteProduct(data.id).subscribe();
-  //  this.Products = this.Products.filter(d => d.id !== data.id);
-
-  // }
-  // updateProduct(id){
-  //   this.router.navigate(['/admin/layout/add-product',id])
-
-  // }
+ 
 
   
 
 
  
+  deleteUser(data){
 
+
+    this.usersData = this.usersData.filter(d => d.id !== data.id)
+    this.service.deleteUser(data.id).subscribe(d=>{
+      this.nzMessageService.success("Deleted Successfully");
+    });
+  }
+  updateUser(id){
+    this.route.navigate(['admin/layout/add-user/'+id]) 
+  }
   
 
 

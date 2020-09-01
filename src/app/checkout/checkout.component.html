@@ -37,13 +37,13 @@
                                     <tbody>
                                         <tr *ngFor="let item of user">
                                             <td>
-                                                <img src={{item.image}} alt="">
+                                                <img src="./../../assets/user.png" alt="">
                                                 <a href="#" class="user-link">{{item.name}}</a>
-                                                <span class="user-subhead">Worker</span>
+                                                <span class="user-subhead">Office Boy</span>
                                             </td>
                                             <!-- <td>2013/08/12</td> -->
                                             <td class="text-center">
-                                                <span class="label label-default">{{item.status}}</span>
+                                                <span class="label label-default">{{item.active}}</span>
                                             </td>
                                             <td>
                                                 <a href="#">{{item.email}}</a>
@@ -200,7 +200,7 @@
 
            <div nz-col nzSpan="9" nzOffset="3"> <button (click)="print('','SC')" nz-button nzType="primary">Self Checkout</button></div>
 
-           <div nz-col nzSpan="9" nzOffset="2">  <button nz-button nzType="primary"(click)="showModal1()" >Delievery on Desk</button></div>
+           <div nz-col nzSpan="9" nzOffset="2">  <button nz-button nzType="primary"(click)="showModal1()" [disabled]="true" >Delievery on Desk</button></div>
           </div>
        
 

@@ -81,7 +81,8 @@
   }
 
   
- nz-select{
-   width: 500px;
-   /* border: solid black 1px; */
- }
+  nz-select {
+    margin: 0 8px 10px 0;
+    width: 500px;
+    height: 40px;
+  }

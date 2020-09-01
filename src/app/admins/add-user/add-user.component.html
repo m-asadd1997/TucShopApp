@@ -1,62 +1,116 @@
 <div style="margin-left: 3%; margin-top: 7px;">
     <nz-card style="width:90%;" nzTitle="Create User" [nzExtra]="extraTemplate" style="box-shadow:5px 5px 5px 5px">
-  
+
       <form nz-form [nzLayout]="'inline'" #registerForm="ngForm" (ngSubmit)="submit()" autocomplete="auto">
-  
-  
+
+
         <!-- Firsst Two Row -->
-        <div>
+        <div nz-row>
+        <div nz-col nzSpan="10" >
           <nz-form-item>
             <nz-form-label nzFor="email">Name</nz-form-label>
             <br>
-            <nz-form-control nzErrorTip="Please input your user name!">
+            <nz-form-control >
               <nz-input-group >
                 <input type="text" required [(ngModel)]="registerModel.name" name="name" class="form-control"
-						 value="" />
+						 value="" autocomplete="off" />
               </nz-input-group>
-  
-  
-  
+
+
+
             </nz-form-control>
-          </nz-form-item> 
+          </nz-form-item>
         </div>
 
-        <div>
+        <div nz-col nzSpan="10" nzOffset="2">
             <nz-form-item>
-              <nz-form-label nzFor="email">User ID</nz-form-label>
+              <nz-form-label nzFor="email">Email</nz-form-label>
               <br>
-              <nz-form-control nzErrorTip="Please input your user ID!">
+              <nz-form-control >
                 <nz-input-group >
                   <input type="text" required [(ngModel)]="registerModel.email" name="email" class="form-control"
-                           value="" />
+                           value=""  autocomplete="off"/>
                 </nz-input-group>
-    
-    
-    
+
+
+
               </nz-form-control>
-            </nz-form-item> 
+            </nz-form-item>
         </div>
+      </div>
+
+
+      <!-- Other one -->
+      <div nz-row>
+        <div nz-col nzSpan="10">
+          <nz-form-item>
+            <nz-form-label nzFor="Password">Password</nz-form-label>
+            <br>
+            <nz-form-control >
+              <nz-input-group >
+                <input type="password" required [(ngModel)]="registerModel.password" name="password" class="form-control"
+                         value="" />
+                         <small *ngIf="id">If password field is left empty.Current password will be applied</small>
+              </nz-input-group>
+
+
+
+            </nz-form-control>
+          </nz-form-item>
+      </div>
+
+
+      <div nz-col nzSpan="10" nzOffset="2">
+        <nz-form-item>
+          <nz-form-label nzFor="Password">Type</nz-form-label>
+          <br>
+          <nz-form-control >
+            <!-- <nz-input-group > -->
+              <nz-select [(ngModel)]="registerModel.userType" nzAllowClear nzPlaceHolder="Choose" name="type" >
+                <nz-option nzValue="USER" nzLabel="User"></nz-option>
+                <nz-option nzValue="ADMIN" nzLabel="Admin"></nz-option>
+                <nz-option nzValue="DESK" nzLabel="Office Boy"></nz-option>
+
+              </nz-select>
+              <!-- </nz-input-group> -->
+
+          </nz-form-control>
+        </nz-form-item>
+    </div>
+
+      <!-- <div nz-col nzSpan="10" nzOffset="2" class="form-control" >
+        <nz-select [(ngModel)]="registerModel.userType" nzAllowClear nzPlaceHolder="Choose">
+        <nz-option nzValue="USER" nzLabel="User"></nz-option>
+        <nz-option nzValue="ADMIN" nzLabel="Admin"></nz-option>
+        <nz-option nzValue="DESK" nzLabel="Office Boy"></nz-option>
+
+      </nz-select>
+    </div> -->
+
+  </div>
 
 
 
 
-  
+
+
           <!-- Button -->
-  
+    <div nz-row>
         <div nz-col nzSpan="4" nzSpan="8" style="margin-left: 950px;">
             <!-- <div style="text-align: center;"> -->
             <nz-form-item>
               <nz-form-control>
-  
-                <button style="margin-top: 30px; height: 40px; width: 100px;" [disabled]="validate()" nz-button nzType="primary" [nzSize]="large"
-                   >Save</button>
-  
+
+                <button style="margin-top: 30px; height: 40px; width: 100px;" [disabled]="validate()" nz-button nzType="primary" [nzSize]="large">Save</button>
+
               </nz-form-control>
             </nz-form-item>
             <!-- </div> -->
           </div>
+
+        </div>
           <!-- Button -->
-  
+
       </form>
     </nz-card>
   </div>

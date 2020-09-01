@@ -8,11 +8,6 @@ import { environment } from 'src/environments/environment';
 })
 export class AdminServiceService {
   
-  
-  
-  
-  
-
   constructor(private http: HttpClient) { }
 
 
@@ -52,10 +47,12 @@ export class AdminServiceService {
   private getFilteredTotalInventoryURL = environment.baseUrl+"api/dashboard/totalinventory/";
   private getFilteredQuantityURL = environment.baseUrl+"api/dashboard/filteredtotalproducts/";
   private getFrequencyByCategoryURL = environment.baseUrl+"api/dashboard/frequencybycategory";
-  private getUsersURL = environment.baseUrl+"token/getusers";
+  private getUsersURL = environment.baseUrl+"api/user/";
   private getTransactionMethodURL = environment.baseUrl+"api/dashboard/gettransactionmethod";
   private getFilteredFrequencyByCategoryURL= environment.baseUrl+"api/dashboard/frequencybycategory/";
   private getFilteredTransactionMethodURL= environment.baseUrl+"api/dashboard/gettransactionmethod/";
+  private deleteUserById= environment.baseUrl+"api/user/";
+
 
   
 
@@ -286,8 +283,26 @@ public scearchtransactionofUser(transaction:any):Observable<any>{
     return this.http.get(this.getFilteredDetailedTransaction+startValue+"/"+endValue);
   }
 
+  
+
+
+
+  //User CRUD
+
+
   public getUsers(): Observable<any> {
     return this.http.get(this.getUsersURL);
   }
+
   
+  deleteUser(id):Observable<any> {
+    return this.http.delete(this.deleteUserById+id);
+  }
+
+  getUserById(id):Observable<any>{
+    return this.http.get(this.getUsersURL+id);
+  }
+  updateUser(id,obj):Observable<any>{
+    return this.http.put(this.getUsersURL+id,obj);
+  }
 }
