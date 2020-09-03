@@ -34,7 +34,8 @@ import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { AuthGuard } from './auth.guard';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NoopInterceptor } from './request.intercepts';
-;
+import { NzDrawerModule } from 'ng-zorro-antd/drawer';
+
 
 
  

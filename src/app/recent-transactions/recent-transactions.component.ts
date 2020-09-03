@@ -82,12 +82,13 @@ export class RecentTransactionsComponent implements OnInit {
     })
   }
 
-  showproducts(productTransaction:any[]){
+showproducts(productTransaction:any[]){
+  
 this.productsarray=productTransaction;
 this.isVisible=true;
+}
 
 
-  }
   handleOk(){
     this.isVisible=false;
   }
