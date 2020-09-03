@@ -1,11 +1,12 @@
 import { Component, OnInit, ViewEncapsulation, Input, HostListener } from "@angular/core";
 import { MainscreenService } from "../main-screen/mainscreen.service";
-import { NzModalService, ButtonConfig, NzButtonComponent } from "ng-zorro-antd";
+import { NzModalService, ButtonConfig, NzButtonComponent, NzDrawerPlacement } from "ng-zorro-antd";
 import { Checkout } from './Checkout';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { error } from '@angular/compiler/src/util';
 import { debug } from 'util';
 import { Router, ActivatedRoute } from '@angular/router';
+import { count } from 'console';
 
 @Component({
   selector: "app-checkout",
@@ -36,8 +37,12 @@ export class CheckoutComponent implements OnInit {
 
   }
   checkoutProductsArray = [];
+  productsarray:any[]=[];
+  productsarrayy:any[]=[];
   productQuantity = 0;
+  data = [];
   total = 0;
+  isVisiblee:boolean=false;
   isVisible = false;
   addButtonDisbale = false;
   isOkLoading: boolean;
@@ -58,8 +63,20 @@ export class CheckoutComponent implements OnInit {
     private activeRoute:ActivatedRoute
   ) { }
   chekingSetting = false;
-  userName
+  userName:any;
+  usernamee:any;
+  transObj = {
+    product:{},
+    quantity:null,
+    amount:null
+  }
   ngOnInit() {
+    // this.gettingRecentTransactions();
+    this.getTotalTransactionByUser();
+    this.getRecentTransactionByUser();
+    this.usernamee= sessionStorage.getItem('username').toUpperCase();
+    this.usernamee = "<div class='row'> <i class='fa fa-user user'></i><h6>"+this.usernamee+"</h6></div>";
+    console.log(this.usernamee);
     this.interactionServ.getSetting().subscribe(d => {
       this.activeRoute.paramMap.subscribe(
         params => {
@@ -300,6 +317,7 @@ export class CheckoutComponent implements OnInit {
 
     })
 
+    console.log(this.userName);
 
 
   }
@@ -515,9 +533,81 @@ isVisible1 = false;
   
   }
 
+  visible = false;
+  placement: NzDrawerPlacement = 'right';
+  open(): void {
+    this.visible = true;
+  }
+
+  close(): void {
+    this.visible = false;
+  }
+
+  handleOkk(){
+    this.isVisiblee=false;
+  }
+  handleCancell(){
+    this.isVisiblee=false;
+  }
+
+  gettingRecentTransactions(){
+    this.interactionServ.recentTransactions().subscribe(response=>{
+
+      console.log(response);
+      this.data=response;
+    })
+  }
+
+  showproducts(productTransaction:any[]){
+    this.productsarray=productTransaction;
+    this.isVisiblee=true;
+    
+}
+
+checkingg(){
+  if(this.data.length>0&&this.data)
+  {
+    return true;
+  }
+  return false;
+}
+
+tranByUser=[];
+totalTrans:any;
+getRecentTransactionByUser(){
+this.usernamee= sessionStorage.getItem('username');
+this.interactionServ.getRecentTransactionByUser(this.usernamee).subscribe(r=>{
+  this.totalTrans = r.length;
+  r.map(item=>{
+         item.productTransactions.map(opt=>{
+           this.transObj = opt;
+           this.transObj.amount = item.amount
+           this.tranByUser.push(this.transObj); 
+        })
+      })
+ })
+}
 
 
 
+totalamount:any;
+getTotalTransactionByUser(){
+this.usernamee= sessionStorage.getItem('username');
+this.interactionServ.getTotalTransactionByUser(this.usernamee).subscribe(r=>{
+  this.totalamount = r.result;
+  console.log(this.totalamount);
+})
+}
+
+
+dayclose(){
+let name =sessionStorage.getItem('username').toLowerCase();
+this.interactionServ.dayClose(name).subscribe(d=>{
+console.log(d);
+})
+
+
+}
 
 
 }
