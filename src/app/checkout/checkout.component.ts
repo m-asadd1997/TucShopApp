@@ -72,6 +72,7 @@ export class CheckoutComponent implements OnInit {
   }
   ngOnInit() {
     // this.gettingRecentTransactions();
+    this.getLoginTime();
     this.getTotalTransactionByUser();
     this.getRecentTransactionByUser();
     this.usernamee= sessionStorage.getItem('username').toUpperCase();
@@ -594,8 +595,18 @@ totalamount:any;
 getTotalTransactionByUser(){
 this.usernamee= sessionStorage.getItem('username');
 this.interactionServ.getTotalTransactionByUser(this.usernamee).subscribe(r=>{
-  this.totalamount = r.result;
-  console.log(this.totalamount);
+   if(r.result ==null){
+   
+    this.totalamount=0;
+       
+   } 
+   else
+   {
+   this.totalamount = r.result;
+   console.log(this.totalamount);
+   }
+
+    
 })
 }
 
@@ -604,6 +615,20 @@ dayclose(){
 let name =sessionStorage.getItem('username').toLowerCase();
 this.interactionServ.dayClose(name).subscribe(d=>{
 console.log(d);
+})
+
+
+}
+
+date:any;
+time:any;
+getLoginTime(){
+let name = sessionStorage.getItem('username').toLowerCase();
+this.interactionServ.getLoginTime(name).subscribe(d=>{
+ 
+  this.date =  d.result[0].date;
+  this.time = d.result[0].time;
+
 })
 
 
