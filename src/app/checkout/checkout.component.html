@@ -1,6 +1,3 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-
 <nz-content>
   <nz-breadcrumb> </nz-breadcrumb>
   <div class="inner-content" style="margin-top: 10px;">
@@ -113,17 +110,21 @@
     
     <h5><p> <img src="assets/total-sales.png"> {{totalamount}}</p></h5>
     </nz-card>
-    </div>  
+    </div>
+    <br>  
     <div style="text-align: center;">
     <nz-card style="width:200px;" nzTitle="Total Transaction" [nzExtra]="extraTemplate">  
     <!-- <nz-progress [nzPercent]="totalTrans" nzType="dashboard"></nz-progress> -->
     <h5><p> <img src="assets/ledger.png"> {{totalTrans}}</p></h5>
     </nz-card>
-    </div>  
+    </div> 
+    <br> 
     <div style="text-align: center;">
       <nz-card style="width:200px;" nzTitle="Last Login" [nzExtra]="extraTemplate">  
       <!-- <nz-progress [nzPercent]="totalTrans" nzType="dashboard"></nz-progress> -->
       <!-- <h5><p> <img src="assets/ledger.png"> {{totalTrans}}</p></h5> -->
+      <h5>{{time}}</h5>
+      <h5>{{date}}</h5>
       </nz-card>
       </div>
     <div style="text-align:center; position:absolute; bottom:5px;">

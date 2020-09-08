@@ -50,6 +50,7 @@ export class MainscreenService {
   private getRecentTransactionByUserURL = environment.baseUrl+"api/transaction/getRecentTransactionByUser/";
   private getTotalTransactionByUserURL = environment.baseUrl+"api/transaction/getTotalTransactionByUser/";
   private dayCloseURL = environment.baseUrl+"api/transaction/closing/";
+  private getLoginTimeURL=environment.baseUrl+"api/user/getUserTimeDate/";
 
   public sendMessage(obj: Object) {
     this.productSource.next(obj);
@@ -169,8 +170,10 @@ public getTotalTransactionByUser(id:any): Observable<any> {
 
 public dayClose(id:any):Observable<any>{
 return this.http.get(this.dayCloseURL+id);
+}
 
-
+public getLoginTime (id:any):Observable <any>{
+return this.http.get (this.getLoginTimeURL+id);
 }
 
 }
