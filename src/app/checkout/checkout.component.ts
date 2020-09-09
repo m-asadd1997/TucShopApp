@@ -75,8 +75,9 @@ export class CheckoutComponent implements OnInit {
     this.getLoginTime();
     this.getTotalTransactionByUser();
     this.getRecentTransactionByUser();
-    this.usernamee= sessionStorage.getItem('username').toUpperCase();
-    this.usernamee = "<div class='row'> <i class='fa fa-user user'></i><h6>"+this.usernamee+"</h6></div>";
+    // this.usernamee= sessionStorage.getItem('username').toUpperCase();
+    // this.usernamee = "<div class='row'> <i class='fa fa-user user'></i><h6>"+this.usernamee+"</h6></div>";
+    this.fafaicon();
     console.log(this.usernamee);
     this.interactionServ.getSetting().subscribe(d => {
       this.activeRoute.paramMap.subscribe(
@@ -241,6 +242,10 @@ export class CheckoutComponent implements OnInit {
    
     this.interactionServ.saveTransaction(request).subscribe(
       data => {
+        this.getRecentTransactionByUser();
+        this.getTotalTransactionByUser();
+        this.fafaicon();
+        this.getLoginTime();
         if(action==="SC"){
         this.message.success('Transaction Completed', {
           nzDuration: 3000
@@ -631,6 +636,13 @@ this.interactionServ.getLoginTime(name).subscribe(d=>{
 
 })
 
+
+}
+
+fafaicon(){
+
+  this.usernamee= sessionStorage.getItem('username').toUpperCase();
+  this.usernamee = "<div class='row'> <i class='fa fa-user user'></i><h6>"+this.usernamee+"</h6></div>";
 
 }
 
