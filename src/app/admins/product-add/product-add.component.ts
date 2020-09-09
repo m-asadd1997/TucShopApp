@@ -84,7 +84,7 @@ export class ProductAddComponent implements OnInit {
         console.log(this.formData)
         // debugger
         this.service.updateProduct(this.id, this.formData).subscribe(d => {
-          debugger
+
           this.message.success("Updated Successfully", { nzDuration: 3000 });
         }
         );
@@ -106,14 +106,17 @@ export class ProductAddComponent implements OnInit {
       else if (this.addProducts.image == null) { this.message.warning("Set Image First"); this.erasingFormData(); }
       else {
         this.service.postProduct(this.formData).subscribe(d => {
-          this.message.success("Added Successfully", { nzDuration: 3000 });
+          console.log(d);
+          if(d.status!=200)  this.message.error("Duplicate Product", { nzDuration: 3000 });
+          else   this.message.success("Added Successfully", { nzDuration: 3000 });
+
         });
         this.addProducts.image = null;
         myForm.reset();
         this.erasingFormData();
-       
+
         console.log(this.addProducts.image)
-       
+
         this.imgURL = null;
         this.Checker = true;
         console.log(this.addProducts.image)
@@ -149,7 +152,7 @@ export class ProductAddComponent implements OnInit {
 
   getCategories() {
     this.service.getCategory().subscribe(d => {
-      
+
       this.categories = d;
 
     })

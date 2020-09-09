@@ -26,7 +26,7 @@ id
   ngOnInit() {
     this.id = this.activateRoute.snapshot.params['id'];
     if (this.id) {
-     
+
     this.getUserById();
 
 
@@ -44,7 +44,7 @@ id
       // this.registerModel.userType = d.user_type;
       this.registerModel.active = d.active;
       this.registerModel.clientId = d.clientId;
-      
+
 
     });
   }
@@ -70,7 +70,6 @@ id
     else{
     console.log(this.registerModel);
     this.registerModel.userType = this.registerModel.userType;
-    // this.registerModel.password = '123';
     this.registerModel.active = true;
     if(this.registerModel.userType==="USER")
     {this.registerModel.clientId = 1;}
@@ -83,10 +82,8 @@ id
             console.log(data.result);
             this.registerModel.name=""
             this.registerModel.email=""
-             this.registerModel.password = '';
-             this.registerModel.userType='';
-             
-            // this.router.navigate(['admin/layout/admin-user']);
+            this.registerModel.password = '';
+            this.registerModel.userType=null;
             this.message.success(data.result.message, { nzDuration: 3000 });
             this.isRegSpinning = false;
 
@@ -97,7 +94,7 @@ id
             this.isRegSpinning = false;
           }
         }
-        
+
     )
 
       }
@@ -112,12 +109,7 @@ id
     }
 }
 
-erasingFormData() {
-  this.formData.delete("name");
-  this.formData.delete("email");
 
-
-}
 
 
 
