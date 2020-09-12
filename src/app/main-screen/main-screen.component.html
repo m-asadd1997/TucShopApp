@@ -2,7 +2,7 @@
 
   <nz-sider nzCollapsible [(nzCollapsed)]="CollapsedNav" [nzTrigger]="null">
     <div class="logo" style="height:50px; background-color:#001529; width: 20px; margin-left: 15px;">
-      <img src="assets/main-cart.png" [routerLink]="'/admin/layout'" />
+      <img src="assets/main-cart.png"  />
     </div>
     <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
       <li nz-menu-item *ngFor="let c of categoriesArray" (click)="addCategoryToUrl(c.name)" nz-popover
