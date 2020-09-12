@@ -82,10 +82,10 @@ export class CheckoutComponent implements OnInit {
     this.interactionServ.getSetting().subscribe(d => {
       this.activeRoute.paramMap.subscribe(
         params => {
-            
+
             this.userName=params['params'].user;
             console.log(this.userName);
-         
+
         }
       );
 
@@ -121,11 +121,11 @@ export class CheckoutComponent implements OnInit {
       let found = this.checkoutProductsArray.findIndex(
         p => p.productTitle == d["name"] && p.productVariant==d["variants"]
       );
-      
-       
+
+
       if (d['qty'] <= 0) {
         this.addButtonDisbale = true;
-      
+
       }
 
 
@@ -134,7 +134,7 @@ export class CheckoutComponent implements OnInit {
         // this.total = this.total + d["price"];
         this.checkoutProductsArray[found]["productQuantity"] += 1;
         this.checkoutProductsArray[found].productqty = d["qty"];
-      
+
       } else {
         this.checkoutProductsArray.push({
           id: d["id"],
@@ -180,8 +180,8 @@ export class CheckoutComponent implements OnInit {
 
         //   }
         //   );
-        //   
-        
+        //
+
           )  }
           this.total += d["price"];
 
@@ -235,11 +235,11 @@ export class CheckoutComponent implements OnInit {
     let request = {
       "amount": this.total,
       "requestedUser":reqUser,
-      "action":action, 
+      "action":action,
       "productTransactions": this.objToPushForTransaction
     }
     console.log(request)
-   
+
     this.interactionServ.saveTransaction(request).subscribe(
       data => {
         this.getRecentTransactionByUser();
@@ -392,7 +392,7 @@ export class CheckoutComponent implements OnInit {
 
   //   let request = {
   //     amount: this.total,
-  //     products: this.checkoutProductsArray   
+  //     products: this.checkoutProductsArray
   //   }
   //   this.interactionServ.saveTransaction(request).subscribe(
   //     data => {
@@ -412,6 +412,7 @@ export class CheckoutComponent implements OnInit {
   settingHeader
   print(reqUser,action): void {
 
+    if(!this.invalidAmount){
     this.saveTransaction(reqUser,action);
 
     // let printContents, popupWin;
@@ -439,10 +440,13 @@ export class CheckoutComponent implements OnInit {
     if(action=="ROD")
     {
       this.message.success(`Request Sent to  ${reqUser}`, {
-        nzDuration:3000}); 
+        nzDuration:3000});
         this.isVisible1=false;
     }
-
+    this.amountReceived=0;
+    this.returnedAmount=0;
+  }
+  else this.message.error("Checkout Failed")
   }
 
   populateCols() {
@@ -492,7 +496,7 @@ export class CheckoutComponent implements OnInit {
 //////Second Modal
 
 user=[
-  
+
 ]
 
 buttonDisable=false;
@@ -500,7 +504,7 @@ func(username){
   this.buttonDisable=true;
   this.saveTransaction(username,"ROD");
   this.message.success('Request Sent', {
-  nzDuration:3000}); 
+  nzDuration:3000});
   this.isVisible1=false;
 
 
@@ -509,7 +513,7 @@ func(username){
 
 isVisible1 = false;
 
-  
+
 
   showModal1(): void {
     this.interactionServ.getUsers().subscribe(d=>{
@@ -520,7 +524,7 @@ isVisible1 = false;
       this.isVisible1 = true;
       this.isVisible = false;}
     })
-   
+
   }
 
   handleOk1(): void {
@@ -536,7 +540,7 @@ isVisible1 = false;
 
 
   postTransaction(request){
-  
+
   }
 
   visible = false;
@@ -567,7 +571,7 @@ isVisible1 = false;
   showproducts(productTransaction:any[]){
     this.productsarray=productTransaction;
     this.isVisiblee=true;
-    
+
 }
 
 checkingg(){
@@ -588,7 +592,7 @@ this.interactionServ.getRecentTransactionByUser(this.usernamee).subscribe(r=>{
          item.productTransactions.map(opt=>{
            this.transObj = opt;
            this.transObj.amount = item.amount
-           this.tranByUser.push(this.transObj); 
+           this.tranByUser.push(this.transObj);
         })
       })
  })
@@ -601,17 +605,17 @@ getTotalTransactionByUser(){
 this.usernamee= sessionStorage.getItem('username');
 this.interactionServ.getTotalTransactionByUser(this.usernamee).subscribe(r=>{
    if(r.result ==null){
-   
+
     this.totalamount=0;
-       
-   } 
+
+   }
    else
    {
    this.totalamount = r.result;
    console.log(this.totalamount);
    }
 
-    
+
 })
 }
 
@@ -630,11 +634,28 @@ time:any;
 getLoginTime(){
 let name = sessionStorage.getItem('username').toLowerCase();
 this.interactionServ.getLoginTime(name).subscribe(d=>{
- 
+
   this.date =  d.result[0].date;
   this.time = d.result[0].time;
 
 })
+
+
+}
+amountReceived
+returnedAmount
+invalidAmount=false
+change(event){
+ this.invalidAmount=false
+
+  this.returnedAmount=0;
+  if(this.amountReceived>=this.total)
+  this.returnedAmount=this.amountReceived- this.total
+  else
+  {
+    this.returnedAmount=-1
+    this.invalidAmount=true
+  }
 
 
 }
@@ -648,3 +669,5 @@ fafaicon(){
 
 
 }
+
+

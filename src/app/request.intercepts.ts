@@ -26,7 +26,7 @@ export class NoopInterceptor implements HttpInterceptor {
         sessionStorage.clear();
 
          const changedReq = req.clone({headers: req.headers.set('Content-Type', 'application/json')});
-        //  this.router.navigate(['']);
+         this.router.navigate(['']);
          return next.handle(changedReq);
       }
 

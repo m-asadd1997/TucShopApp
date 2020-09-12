@@ -22,8 +22,8 @@ adminName
     this.router.navigate(['/categories/products'])
   }
   navigateBackToLoginPage(){
-    this.router.navigate(['admin'])
+    this.router.navigate([''])
   }
 
-  
+
 }
