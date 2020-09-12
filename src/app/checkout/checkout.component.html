@@ -22,7 +22,6 @@
          <img src="assets/cartCheckout.png" />
         </div>
 
-
         <div nz-col nzSpan="4" nzOffset="9">
         <button nz-button nzType="danger" (click)="showModal2()" style="margin-left: -10px;">
           <span>Request For Product</span>
@@ -113,37 +112,6 @@
           </nz-autocomplete>
         </div>
       </nz-modal>
-
-        
-    </div>
-     </div>
-    <button nz-button nzType="primary" (click)="open()">Open</button>
-    <nz-drawer   [nzClosable]="false" [nzVisible]="visible" [nzPlacement]="placement"  [nzTitle]="usernamee" (nzOnClose)="close()">
-    <!-- <p> <img src="assets/cart.png"> <button nz-tooltip nzTooltipTitle="Click to view products" (click)="showproducts()"  nzGhost="true" style="color:#0062cc;border-color:#0062cc" nzSize="small" nz-button nzType="primary"><i nz-icon nzType="eye"></i>show</button></p> -->
-    <div style="text-align: center;">
-    <nz-card style="width:200px;" class="colornz">
-    <h5>Total Amount</h5>
-    <h6><p> <img src="assets/total-sales.png"> {{totalamount}}</p></h6>
-    </nz-card>
-    </div>
-    <br>  
-    <div style="text-align: center;">
-    <nz-card style="width:200px;" class="colornzz"  >  
-    <h5>Total Transaction</h5> 
-    <!-- <nz-progress [nzPercent]="totalTrans" nzType="dashboard"></nz-progress> -->
-    <h6><p> <img src="assets/ledger.png"> {{totalTrans}}</p></h6>
-    </nz-card>
-    </div> 
-    <br> 
-    <div style="text-align: center;">
-      <nz-card style="width:200px;" class="colornzzz" >  
-      <h5>24 Login Time</h5>  
-      <!-- <nz-progress [nzPercent]="totalTrans" nzType="dashboard"></nz-progress> -->
-      <!-- <h5><p> <img src="assets/ledger.png"> {{totalTrans}}</p></h5> -->
-      <h6>{{time}}</h6>
-      <h6>{{date}}</h6>
-      </nz-card>
-
       </div>
        </div>
       <button nz-button nzType="primary" (click)="open()">Open</button>
