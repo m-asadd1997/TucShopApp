@@ -20,7 +20,7 @@ import { AddUserComponent } from './add-user/add-user.component';
 
 const routes: Routes = [
   { path: '', component: LoginPageComponent },
-  { path: 'login', component: LoginPageComponent },
+  // { path: 'login', component: LoginPageComponent },
   {path:'home',loadChildren:'./../app.module#AppModule', canActivate:[AuthGuardService]},
   {
     path: 'layout', component: AdminLayoutComponent,canActivate:[AuthGuardService],
@@ -35,17 +35,17 @@ const routes: Routes = [
       { path: 'transactions', component: TransactionsComponent },
       { path: 'user', component: UserComponent },
       { path: 'add-user', component: AddUserComponent },
-      {path:'userlist/:user',component:UserComponent},
+      {path:'add-user/:id',component:AddUserComponent},
       {path:'admin-user',component:AdminUserComponent},
-
+      {path:'userlist/:user',component:UserComponent},
       {
         path: 'dashboard', component: AdminDashboardComponent
-        
+
 
       },
       {
         path: 'setting', component: SettingComponent
-        
+
 
       },
       { path: 'totalproddetails', component: TotalProductsDetailsComponent },

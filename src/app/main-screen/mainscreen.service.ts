@@ -9,6 +9,7 @@ import { login } from '../login-page/login';
   providedIn: 'root'
 })
 export class MainscreenService {
+ 
 
   private productSource = new Subject<Object>();
   productMessage$ = this.productSource.asObservable();
@@ -46,6 +47,11 @@ export class MainscreenService {
   private loginUserURL=environment.baseUrl+"token/generate-token";
   private searchProductByKeywordURL=environment.baseUrl+"api/products/search/";
   private deleteTransactionURL=environment.baseUrl+"api/transaction/deleteTransaction/";
+  private getUsersURL = environment.baseUrl+"api/user/";
+  private getRecentTransactionByUserURL = environment.baseUrl+"api/transaction/getRecentTransactionByUser/";
+  private getTotalTransactionByUserURL = environment.baseUrl+"api/transaction/getTotalTransactionByUser/";
+  private dayCloseURL = environment.baseUrl+"api/transaction/closing/";
+  private getLoginTimeURL=environment.baseUrl+"api/user/getUserTimeDate/";
 
   public sendMessage(obj: Object) {
     this.productSource.next(obj);
@@ -154,5 +160,25 @@ export class MainscreenService {
   public searchProductByKeyword(keyword:any): Observable<any> {
     return this.http.get(this.searchProductByKeywordURL+keyword);
   }
+
+  
+  public getUsers(): Observable<any> {
+    return this.http.get(this.getUsersURL);
+  }
+  public getRecentTransactionByUser(id:any): Observable<any> {
+    return this.http.get(this.getRecentTransactionByUserURL+id);
+}
+
+public getTotalTransactionByUser(id:any): Observable<any> {
+  return this.http.get(this.getTotalTransactionByUserURL+id);
+}
+
+public dayClose(id:any):Observable<any>{
+return this.http.get(this.dayCloseURL+id);
+}
+
+public getLoginTime (id:any):Observable <any>{
+return this.http.get (this.getLoginTimeURL+id);
+}
 
 }

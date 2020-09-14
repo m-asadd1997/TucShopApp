@@ -10,7 +10,11 @@ export class AdminLayoutComponent implements OnInit {
 
   constructor( private router:Router) { }
 
+
+adminName
+
   ngOnInit() {
+    this.adminName=sessionStorage.getItem('username')
   }
 
   navigateBackToHomePage(){
@@ -18,8 +22,8 @@ export class AdminLayoutComponent implements OnInit {
     this.router.navigate(['/categories/products'])
   }
   navigateBackToLoginPage(){
-    this.router.navigate(['admin'])
+    this.router.navigate([''])
   }
 
-  
+
 }

@@ -5,12 +5,12 @@
   style="background-color: white !important;border-top-color: black;border-top-style:solid; border-top-width: thin; border-bottom-style: ridge; box-shadow:0px 5px 5px rgb(179, 179, 179);">
 
   <div>
-    <a > <img src="assets/main-cart.png" alt=""></a>
+    <a href="/home" > <img src="assets/main-cart.png" alt=""></a>
   </div>
   
   <div  style="margin-left: -50px;">
     <nz-button-group>
-      <button nz-button >Admin</button>
+      <button nz-button >{{adminName}}</button>
       <button nz-button nz-dropdown [nzDropdownMenu]="menu2" nzPlacement="bottomRight">
         <i nz-icon nzType="user"></i>
       </button>
@@ -40,10 +40,21 @@
               <span>Dashboard</span>
             </li>
 
-            <li nz-menu-item [routerLink]="'admin-user'">
+            <!-- <li nz-menu-item [routerLink]="'admin-user'">
               <i nz-icon nzType="user"></i>
               <span><b>Users</b></span>
+            </li> -->
+
+            <li nz-submenu nzTitle="User" nzIcon="user" style="font-weight: 700;">
+              <ul>
+               <a [routerLink]="'admin-user'"><li nz-menu-item>List</li></a>
+               <a [routerLink]="'add-user'" ><li nz-menu-item>Add</li></a>
+               </ul> 
+
             </li>
+
+
+
             
             <li nz-submenu nzTitle="Products" nzIcon="user" style="font-weight: 700;">
               <ul>
