@@ -37,12 +37,12 @@ export class CheckoutComponent implements OnInit {
 
   }
   checkoutProductsArray = [];
-  productsarray:any[]=[];
-  productsarrayy:any[]=[];
+  productsarray: any[] = [];
+  productsarrayy: any[] = [];
   productQuantity = 0;
   data = [];
   total = 0;
-  isVisiblee:boolean=false;
+  isVisiblee: boolean = false;
   isVisible = false;
   addButtonDisbale = false;
   isOkLoading: boolean;
@@ -59,16 +59,17 @@ export class CheckoutComponent implements OnInit {
   constructor(
     private interactionServ: MainscreenService,
     private message: NzMessageService,
-    private router :Router,
-    private activeRoute:ActivatedRoute
+    private router: Router,
+    private activeRoute: ActivatedRoute
   ) { }
   chekingSetting = false;
-  userName:any;
-  usernamee:any;
+  discount
+  userName: any;
+  usernamee: any;
   transObj = {
-    product:{},
-    quantity:null,
-    amount:null
+    product: {},
+    quantity: null,
+    amount: null
   }
   ngOnInit() {
     // this.gettingRecentTransactions();
@@ -83,8 +84,8 @@ export class CheckoutComponent implements OnInit {
       this.activeRoute.paramMap.subscribe(
         params => {
 
-            this.userName=params['params'].user;
-            console.log(this.userName);
+          this.userName = params['params'].user;
+          console.log(this.userName);
 
         }
       );
@@ -114,79 +115,81 @@ export class CheckoutComponent implements OnInit {
 
     this.populateCols();
 
-// <<<<<<< variants-work
-    this.interactionServ.productMessage$.subscribe(d   => {
-    console.log("dsfsdgsdg",d);
-      if(d){
-      let found = this.checkoutProductsArray.findIndex(
-        p => p.productTitle == d["name"] && p.productVariant==d["variants"]
-      );
+    // <<<<<<< variants-work
+    this.interactionServ.productMessage$.subscribe(d => {
+      console.log("dsfsdgsdg", d);
+      if (d) {
+        let found = this.checkoutProductsArray.findIndex(
+          p => p.productTitle == d["name"] && p.productVariant == d["variants"]
+        );
 
 
-      if (d['qty'] <= 0) {
-        this.addButtonDisbale = true;
-
-      }
-
-
-      if (found > -1) {
-        this.checkoutProductsArray[found].productPrice += d["price"];
-        // this.total = this.total + d["price"];
-        this.checkoutProductsArray[found]["productQuantity"] += 1;
-        this.checkoutProductsArray[found].productqty = d["qty"];
-
-      } else {
-        this.checkoutProductsArray.push({
-          id: d["id"],
-          productTitle: d["name"],
-          productPrice: d["price"],
-          productImage: d["image"],
-          productQuantity: this.productQuantity = 1,
-          productqty: d['qty'],
-          printProductPrice: d["price"],
-          productVariant:d["variants"],
-
-// =======
-//     this.interactionServ.productMessage$.subscribe(d => {
-//       //  debugger
-//       if (d) {
-//         let found = this.checkoutProductsArray.findIndex(
-//           p => p.productTitle == d["name"]
-//         );
-
-
-//         if (d['qty'] <= 0) {
-//           this.addButtonDisbale = true;
-// >>>>>>> master
+        if (d['qty'] <= 0) {
+          this.addButtonDisbale = true;
 
         }
 
 
-        // if (found > -1) {
-        //   this.checkoutProductsArray[found].productPrice += d["price"];
-        //   this.total = this.total + d["price"];
-        //   this.checkoutProductsArray[found]["productQuantity"] += 1;
-        //   this.checkoutProductsArray[found].productqty = d["qty"];
+        if (found > -1) {
+          this.checkoutProductsArray[found].productPrice += d["price"];
+          // this.total = this.total + d["price"];
+          this.checkoutProductsArray[found]["productQuantity"] += 1;
+          this.checkoutProductsArray[found].productqty = d["qty"];
 
-        // } else {
-        //   this.checkoutProductsArray.push({
-        //     id: d["id"],
-        //     productTitle: d["name"],
-        //     productPrice: d["price"],
-        //     productImage: d["image"],
-        //     productQuantity: this.productQuantity = 1,
-        //     productqty: d['qty'],
-        //     printProductPrice: d["price"]
+        } else {
+          this.checkoutProductsArray.push({
+            id: d["id"],
+            productTitle: d["name"],
+            productPrice: d["price"],
+            productImage: d["image"],
+            productQuantity: this.productQuantity = 1,
+            productqty: d['qty'],
+            printProductPrice: d["price"],
+            productVariant: d["variants"],
 
-        //   }
-        //   );
-        //
+            // =======
+            //     this.interactionServ.productMessage$.subscribe(d => {
+            //       //  debugger
+            //       if (d) {
+            //         let found = this.checkoutProductsArray.findIndex(
+            //           p => p.productTitle == d["name"]
+            //         );
 
-          )  }
-          this.total += d["price"];
 
-    };
-  })}
+            //         if (d['qty'] <= 0) {
+            //           this.addButtonDisbale = true;
+            // >>>>>>> master
+
+          }
+
+
+            // if (found > -1) {
+            //   this.checkoutProductsArray[found].productPrice += d["price"];
+            //   this.total = this.total + d["price"];
+            //   this.checkoutProductsArray[found]["productQuantity"] += 1;
+            //   this.checkoutProductsArray[found].productqty = d["qty"];
+
+            // } else {
+            //   this.checkoutProductsArray.push({
+            //     id: d["id"],
+            //     productTitle: d["name"],
+            //     productPrice: d["price"],
+            //     productImage: d["image"],
+            //     productQuantity: this.productQuantity = 1,
+            //     productqty: d['qty'],
+            //     printProductPrice: d["price"]
+
+            //   }
+            //   );
+            //
+
+          )
+        }
+        this.total += d["price"];
+
+      };
+    })
+  }
 
   removeProductFromCheckout(data) {
     let obj1 = {
@@ -219,7 +222,7 @@ export class CheckoutComponent implements OnInit {
 
 
 
-  saveTransaction(reqUser,action) {
+  saveTransaction(reqUser, action) {
     debugger
     this.objToPushForTransaction = []
     console.log(this.checkoutProductsArray);
@@ -234,9 +237,10 @@ export class CheckoutComponent implements OnInit {
 
     let request = {
       "amount": this.total,
-      "requestedUser":reqUser,
-      "action":action,
-      "productTransactions": this.objToPushForTransaction
+      "requestedUser": reqUser,
+      "action": action,
+      "productTransactions": this.objToPushForTransaction,
+      "discount": this.discount
     }
     console.log(request)
 
@@ -246,10 +250,11 @@ export class CheckoutComponent implements OnInit {
         this.getTotalTransactionByUser();
         this.fafaicon();
         this.getLoginTime();
-        if(action==="SC"){
-        this.message.success('Transaction Completed', {
-          nzDuration: 3000
-        });}
+        if (action === "SC") {
+          this.message.success('Transaction Completed', {
+            nzDuration: 3000
+          });
+        }
       },
 
 
@@ -257,8 +262,7 @@ export class CheckoutComponent implements OnInit {
 
 
 
-    if(action==="ROD")
-    {
+    if (action === "ROD") {
       this.checkoutProductsArray = [];
       this.total = 0;
       this.handleCancel()
@@ -269,7 +273,7 @@ export class CheckoutComponent implements OnInit {
 
 
 
-    handleCancel(): void {
+  handleCancel(): void {
     this.isVisible = false;
     this.isVisible2 = false;
     // this.total = 0;
@@ -410,43 +414,43 @@ export class CheckoutComponent implements OnInit {
 
 
   settingHeader
-  print(reqUser,action): void {
+  print(reqUser, action): void {
 
-    if(!this.invalidAmount){
-    this.saveTransaction(reqUser,action);
+    if (!this.invalidAmount) {
+      this.saveTransaction(reqUser, action);
 
-    // let printContents, popupWin;
-    // printContents = document.getElementById('print-section').innerHTML;
-    // popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
-    // popupWin.document.open();
-    // popupWin.document.write(`
-    //     <html>
-    //       <head>
-    //         <title>Print tab</title>
-    //         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    //         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    //         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-    //         </head>
-    //   <body onload="window.print();window.close()">${printContents}</body>
-    //     </html>`
-    // );
-    // popupWin.window.print();
-    // popupWin.document.close();
+      // let printContents, popupWin;
+      // printContents = document.getElementById('print-section').innerHTML;
+      // popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
+      // popupWin.document.open();
+      // popupWin.document.write(`
+      //     <html>
+      //       <head>
+      //         <title>Print tab</title>
+      //         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+      //         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+      //         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+      //         </head>
+      //   <body onload="window.print();window.close()">${printContents}</body>
+      //     </html>`
+      // );
+      // popupWin.window.print();
+      // popupWin.document.close();
 
-    this.checkoutProductsArray = [];
-    this.total = 0;
-    this.handleCancel()
+      this.checkoutProductsArray = [];
+      this.total = 0;
+      this.handleCancel()
 
-    if(action=="ROD")
-    {
-      this.message.success(`Request Sent to  ${reqUser}`, {
-        nzDuration:3000});
-        this.isVisible1=false;
+      if (action == "ROD") {
+        this.message.success(`Request Sent to  ${reqUser}`, {
+          nzDuration: 3000
+        });
+        this.isVisible1 = false;
+      }
+      this.amountReceived = 0;
+      this.returnedAmount = 0;
     }
-    this.amountReceived=0;
-    this.returnedAmount=0;
-  }
-  else this.message.error("Checkout Failed")
+    else this.message.error("Checkout Failed")
   }
 
   populateCols() {
@@ -493,36 +497,38 @@ export class CheckoutComponent implements OnInit {
 
 
 
-//////Second Modal
+  //////Second Modal
 
-user=[
+  user = [
 
-]
+  ]
 
-buttonDisable=false;
-func(username){
-  this.buttonDisable=true;
-  this.saveTransaction(username,"ROD");
-  this.message.success('Request Sent', {
-  nzDuration:3000});
-  this.isVisible1=false;
+  buttonDisable = false;
+  func(username) {
+    this.buttonDisable = true;
+    this.saveTransaction(username, "ROD");
+    this.message.success('Request Sent', {
+      nzDuration: 3000
+    });
+    this.isVisible1 = false;
 
 
 
-}
+  }
 
-isVisible1 = false;
+  isVisible1 = false;
 
 
 
   showModal1(): void {
-    this.interactionServ.getUsers().subscribe(d=>{
-      if(d){
-         console.log("Helllo",d);
-        this.user=d.result;
-      this.user=  this.user.filter(user=> user.userType==="DESK");
-      this.isVisible1 = true;
-      this.isVisible = false;}
+    this.interactionServ.getUsers().subscribe(d => {
+      if (d) {
+        console.log("Helllo", d);
+        this.user = d.result;
+        this.user = this.user.filter(user => user.userType === "DESK");
+        this.isVisible1 = true;
+        this.isVisible = false;
+      }
     })
 
   }
@@ -539,7 +545,7 @@ isVisible1 = false;
 
 
 
-  postTransaction(request){
+  postTransaction(request) {
 
   }
 
@@ -553,120 +559,133 @@ isVisible1 = false;
     this.visible = false;
   }
 
-  handleOkk(){
-    this.isVisiblee=false;
+  handleOkk() {
+    this.isVisiblee = false;
   }
-  handleCancell(){
-    this.isVisiblee=false;
+  handleCancell() {
+    this.isVisiblee = false;
   }
 
-  gettingRecentTransactions(){
-    this.interactionServ.recentTransactions().subscribe(response=>{
+  gettingRecentTransactions() {
+    this.interactionServ.recentTransactions().subscribe(response => {
 
       console.log(response);
-      this.data=response;
+      this.data = response;
     })
   }
 
-  showproducts(productTransaction:any[]){
-    this.productsarray=productTransaction;
-    this.isVisiblee=true;
+  showproducts(productTransaction: any[]) {
+    this.productsarray = productTransaction;
+    this.isVisiblee = true;
 
-}
-
-checkingg(){
-  if(this.data.length>0&&this.data)
-  {
-    return true;
   }
-  return false;
-}
 
-tranByUser=[];
-totalTrans:any;
-getRecentTransactionByUser(){
-this.usernamee= sessionStorage.getItem('username');
-this.interactionServ.getRecentTransactionByUser(this.usernamee).subscribe(r=>{
-  this.totalTrans = r.length;
-  r.map(item=>{
-         item.productTransactions.map(opt=>{
-           this.transObj = opt;
-           this.transObj.amount = item.amount
-           this.tranByUser.push(this.transObj);
+  checkingg() {
+    if (this.data.length > 0 && this.data) {
+      return true;
+    }
+    return false;
+  }
+
+  tranByUser = [];
+  totalTrans: any;
+  getRecentTransactionByUser() {
+    this.usernamee = sessionStorage.getItem('username');
+    this.interactionServ.getRecentTransactionByUser(this.usernamee).subscribe(r => {
+      this.totalTrans = r.length;
+      r.map(item => {
+        item.productTransactions.map(opt => {
+          this.transObj = opt;
+          this.transObj.amount = item.amount
+          this.tranByUser.push(this.transObj);
         })
       })
- })
-}
-
-
-
-totalamount:any;
-getTotalTransactionByUser(){
-this.usernamee= sessionStorage.getItem('username');
-this.interactionServ.getTotalTransactionByUser(this.usernamee).subscribe(r=>{
-   if(r.result ==null){
-
-    this.totalamount=0;
-
-   }
-   else
-   {
-   this.totalamount = r.result;
-   console.log(this.totalamount);
-   }
-
-
-})
-}
-
-
-dayclose(){
-let name =sessionStorage.getItem('username').toLowerCase();
-this.interactionServ.dayClose(name).subscribe(d=>{
-console.log(d);
-})
-
-
-}
-
-date:any;
-time:any;
-getLoginTime(){
-let name = sessionStorage.getItem('username').toLowerCase();
-this.interactionServ.getLoginTime(name).subscribe(d=>{
-
-  this.date =  d.result[0].date;
-  this.time = d.result[0].time;
-
-})
-
-
-}
-amountReceived
-returnedAmount
-invalidAmount=false
-change(event){
- this.invalidAmount=false
-
-  this.returnedAmount=0;
-  if(this.amountReceived>=this.total)
-  this.returnedAmount=this.amountReceived- this.total
-  else
-  {
-    this.returnedAmount=-1
-    this.invalidAmount=true
+    })
   }
 
 
+
+  totalamount: any;
+  getTotalTransactionByUser() {
+    this.usernamee = sessionStorage.getItem('username');
+    this.interactionServ.getTotalTransactionByUser(this.usernamee).subscribe(r => {
+      if (r.result == null) {
+
+        this.totalamount = 0;
+
+      }
+      else {
+        this.totalamount = r.result;
+        console.log(this.totalamount);
+      }
+
+
+    })
+  }
+
+
+  dayclose() {
+    let name = sessionStorage.getItem('username').toLowerCase();
+    this.interactionServ.dayClose(name).subscribe(d => {
+      console.log(d);
+    })
+
+
+  }
+
+  date: any;
+  time: any;
+  getLoginTime() {
+    let name = sessionStorage.getItem('username').toLowerCase();
+    this.interactionServ.getLoginTime(name).subscribe(d => {
+
+      this.date = d.result[0].date;
+      this.time = d.result[0].time;
+
+    })
+
+
+  }
+  amountReceived
+  returnedAmount
+  invalidAmount = false
+  change(event) {
+    this.invalidAmount = false
+    debugger
+    this.returnedAmount = 0;
+    if (this.amountReceived+(this.discount|0) >= this.total)
+      this.returnedAmount = this.amountReceived - this.total + (this.discount|0)
+    else {
+      this.returnedAmount = -1
+      this.invalidAmount = true
+    }
+
+
+  }
+  backupTotalAmount;
+  invalidDiscountAmount = false
+  changeDiscount() {
+    this.invalidDiscountAmount = false;
+    this.backupTotalAmount = this.total;
+    // this.total = this.total - this.discount;
+    this.returnedAmount = this.amountReceived - this.total + this.discount;
+    if (this.discount > this.backupTotalAmount) {
+      this.invalidDiscountAmount = true
+    }
+    debugger
+    if ((this.amountReceived+this.discount == this.total)) {this.invalidAmount= false;}
+    else this.invalidAmount= true;
+  }
+  fafaicon() {
+
+    this.usernamee = sessionStorage.getItem('username').toUpperCase();
+    this.usernamee = "<div class='row'> <i class='fa fa-user user'></i><h6>" + this.usernamee + "</h6></div>";
+
+  }
+isDisabled(){
+  return !this.invalidAmount
+  // (this.checkoutProductsArray.length==0 || (this.invalidAmount||this.invalidDiscountAmount))
 }
-
-fafaicon(){
-
-  this.usernamee= sessionStorage.getItem('username').toUpperCase();
-  this.usernamee = "<div class='row'> <i class='fa fa-user user'></i><h6>"+this.usernamee+"</h6></div>";
-
-}
-
 
 }
 

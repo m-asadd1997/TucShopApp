@@ -269,6 +269,7 @@
             (nzOnCancel)="handleCancel()"
             nzOkText="Checkout"
             (nzOnOk)="print('','SC')"
+            nzOkDisabled = "isDisbled()"
           >
 
             <!-- <h4>Please select how you want to checkout</h4> -->
@@ -289,6 +290,15 @@
                 <input type="number" [(ngModel)]="amountReceived" (ngModelChange)="change($event)"  class="inputStyle"/>
               </div>
             </div>
+
+            <div nz-row >
+              <div nz-col nzSpan="10">
+                <label  class="label" >Discount:</label>
+              </div>
+              <div nz-col nzSpan="6" nzOffset="1">
+                <input type="number" [(ngModel)]="discount" (ngModelChange)="changeDiscount($event)"  class="inputStyle"/>
+              </div>
+            </div>
             <div nz-row >
               <div nz-col nzSpan="10" >
                 <label  class="label" >Returned Amount:</label>
@@ -301,6 +311,9 @@
           <div *ngIf="invalidAmount" class="alert alert-danger" role="alert">
           Invalid Received Amount
           </div>
+          <div *ngIf="invalidDiscountAmount" class="alert alert-danger" role="alert">
+            Invalid Discount Amount, cannot be greater than total amount
+            </div>
             <!-- <div nz-row style="margin-top:22px"> -->
 
 
