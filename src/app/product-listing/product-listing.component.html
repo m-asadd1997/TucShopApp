@@ -1,30 +1,72 @@
-<div style="width: 25%; float:right;"> 
-<div class="example-input">
-  <nz-input-group nzSize="large" [nzSuffix]="suffixIcon" > 
-  <input
-      placeholder="Search Products"
-      nz-input
-      [(ngModel)]="inputValue"
-      (ngModelChange)="onChange($event)"
-      [nzAutocomplete]="auto"
-    />
-  </nz-input-group>
-  <ng-template #suffixIcon>
-    <i nz-icon nzType="search"></i>
-  </ng-template>
-  <nz-autocomplete #auto>
-    <nz-auto-option  *ngFor="let option of searchProduct" [nzValue]="option.name">
-     <span ><b>Category: {{option.category.name}}</b></span>
-      <br>
-       <div>
-        Item:{{ option.name}}<img style="width: 40px; height: 40px; margin-left: 40px;" [src]="option.image" >
+<div class="row">
+  <div class="col-md-5 col-lg-7">
+    <h4 style="text-transform:capitalize;">{{categoryHeader}}</h4>
+    </div>
+    <div class="col-md-3 col-lg-2">
+       <button type="button" class="btn btn-danger" (click)="showModal()" style="margin-top:1px;background-color:#ff4d4f;font-weight: 400;font-family:Arial, Helvetica, sans-serif">Delete Order</button>
+    
       </div>
-     </nz-auto-option>
-  </nz-autocomplete>
-</div>
-<br>
-</div>
-<h4 style="text-transform:capitalize;">{{categoryHeader}}</h4>
+      <nz-modal [(nzVisible)]="isVisible1" nzTitle="Orders" (nzOnCancel)="handleCancel1()" (nzOnOk)="handleOk1()">
+          <nz-table  [nzData]="transactions"    [nzPageSize]="50" [nzScroll]="{ y: '240px' }">
+              <thead>
+                <tr>
+                  <th >Id</th>
+                  <th >Name</th>
+                  <th  >Date</th>
+                  <th  >Amount</th>
+                  <th  >Products</th>
+                  <th>Actions </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr  *ngFor="let d of transactions">
+                  <td >{{ d.id }}</td>
+                  <td style="padding-left:5%">{{ d.createdBy }}</td>
+                  <td style="padding-left:7%">{{ d.date }}</td>
+                  <td style="padding-left:5%">{{ d.amount }}</td>
+
+               <!-- <td><a (click)="showproducts(d.productTransactions)">Show</a></td> -->
+             <td style="padding-left:3%">  <button nz-tooltip nzTooltipTitle="Click to view products" (click)="showproducts(d.productTransactions)"  nzGhost="true" style="color:#0062cc;border-color:#0062cc" nzSize="small" nz-button nzType="primary"><i nz-icon nzType="eye"></i>show</button> </td>
+             <td> <button nz-tooltip nzTooltipTitle="Delete Product" (click)="deleteTransaction(d.id)"   nzGhost="true" style="color:#0062cc;border-color:#0062cc" nzSize="small" nz-button nzType="primary"><i nz-icon nzType="eye"></i>Delete</button> </td>
+                </tr>
+              </tbody>
+            </nz-table>
+          
+          </nz-modal>
+       
+      <div class="col-md-4 col-lg-3">
+          <div class="example-input">
+              <nz-input-group nzSize="large" [nzSuffix]="suffixIcon" > 
+              <input
+                  placeholder="Search Products"
+                  nz-input
+                  [(ngModel)]="inputValue"
+                  (ngModelChange)="onChange($event)"
+                  [nzAutocomplete]="auto"
+                />
+              </nz-input-group>
+              <ng-template #suffixIcon>
+                <i nz-icon nzType="search"></i>
+              </ng-template>
+              <nz-autocomplete #auto>
+                <nz-auto-option  *ngFor="let option of searchProduct" [nzValue]="option.name">
+                 <span ><b>Category: {{option.category.name}}</b></span>
+                  <br>
+                   <div>
+                    Item:{{ option.name}}<img style="width: 40px; height: 40px; margin-left: 40px;" [src]="option.image" >
+                  </div>
+                 </nz-auto-option>
+              </nz-autocomplete>
+            </div>
+            
+
+        </div>
+  </div>
+
+   
+
+
+
 <nz-card style="width: 100%; overflow-y: scroll; overflow-x: none; height:500px;">
   <div nz-row>
     <div nz-col nzXs="24" nzSm="24" nzMd="5" nzLg="5" nzXl="5" nzSpan="5" nzOffset="1" *ngFor="let p of productsArray">
@@ -63,3 +105,35 @@
     </div>
   </div>
 </nz-card>
+<nz-modal [(nzVisible)]="visibility" nzTitle="Products" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+    <!-- <nz-card nzHoverable style="width:100px" [nzCover]="coverTemplate">
+      <nz-card-meta style="font-size:100px" nzTitle="" nzDescription=""></nz-card-meta>
+    </nz-card>
+    <ng-template #coverTemplate>
+      <img alt="example" [src]=productimage />
+      <h2 style="text-align:center;font-family:Arial, Helvetica, sans-serif;text-decoration:none">{{showproductName}} </h2>
+      
+      <h3 style="font-family:Arial, Helvetica, sans-serif;padding-left:5px;font-size:20px">Qty:</h3>
+    </ng-template> -->
+    <div nz-row>
+    <div nz-col nzXs="24" nzSm="24" nzMd="5" nzLg="7" nzXl="7" nzSpan="7" nzOffset="1" *ngFor="let p of products">
+    <nz-card   class="cardShadow" style="background-color:black" nzHoverable style="width:150px;margin-top:15px">
+   <img [src]=p.product.image style="width:75px;height:75px">
+      <hr>
+      <b style="font-size:12px;padding:0px"> {{p.product.name | uppercase}}</b><br>
+      <b style="font-size:10px;padding:0px" >{{p.product.variants}} </b><br>
+      <b style="font-size:12px;padding:0px" >Quantity: {{p.quantity}} </b><br>
+      <!-- <b style="font-size:12px;padding:0px" >Price: {{p.product.price}} </b> -->
+      <nz-tag style="margin-top:2px" [nzColor]="'#f50a0a'" > &#8360; {{p.product.price}}</nz-tag>
+
+   
+    
+    <!-- <div style="text-align:center; margin-left: 0px;"><b>Product:{{p.product.name}}</b></div>
+    <div style="text-align:center; margin-left: 0px;"><b>Quantity:{{p.quantity}}</b></div>
+     <div><nz-tag [nzColor]="'#f50a0a'" style="margin-left: 20px;"> &#8360; {{p.product.price}}</nz-tag></div>   -->
+
+   
+    </nz-card>
+    </div>
+    </div>
+  </nz-modal>
