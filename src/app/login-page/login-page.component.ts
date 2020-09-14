@@ -33,13 +33,11 @@ export class LoginPageComponent implements OnInit {
 
   gotoLogin() {
     this.register = 0;
-
     this.login = 1;
   }
 
   gotoRegister() {
     this.login = 0;
-
     this.register = 1
   }
 
