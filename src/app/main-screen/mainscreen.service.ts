@@ -45,10 +45,15 @@ export class MainscreenService {
   private registeruserURL=environment.baseUrl+"token/user";
   private loginUserURL=environment.baseUrl+"token/generate-token";
   private searchProductByKeywordURL=environment.baseUrl+"api/products/search/";
+  private deleteTransactionURL=environment.baseUrl+"api/transaction/deleteTransaction/";
 
   public sendMessage(obj: Object) {
     this.productSource.next(obj);
   }
+   public deleteTransaction(id:any): Observable<any>{
+     return this.http.get(this.deleteTransactionURL+id);
+
+   }
 
 
   public sendQuantityUpdateToProductListing(obj) {

@@ -3,6 +3,7 @@ import { MainscreenService } from '../main-screen/mainscreen.service';
 import { ActivatedRoute } from '@angular/router';
 import { NzMessageComponent } from 'ng-zorro-antd';
 import { debug } from 'util';
+import { AdminServiceService } from '../admins/admin-service.service';
 
 
 @Component({
@@ -12,6 +13,11 @@ import { debug } from 'util';
 })
 export class ProductListingComponent implements OnInit {
 
+  visibility:boolean=false;
+  products: any[]=[];
+  transactions:any[]=[];
+  abc: any;
+  isVisible1:boolean=false;
   productsArray = [] = [];
   params: any;
 
@@ -20,10 +26,11 @@ export class ProductListingComponent implements OnInit {
   searchProduct:any;
   options: any;
 
-  constructor(private prodService: MainscreenService, private activeRoute: ActivatedRoute) { }
+  constructor(private prodService: MainscreenService, private activeRoute: ActivatedRoute,private service:AdminServiceService) { }
 
 
   ngOnInit() {
+    
 
     // this.prodService.productQuantityUpdateToProductListing$.subscribe(d => {
 
@@ -155,5 +162,54 @@ onChange(value: string): void {
   
      }
     }
+    showModal(){
+      this.isVisible1=true;
+      this.prodService.recentTransactions().subscribe(data=>{
+        console.log(data);
+        this.transactions=data;
+        
+      })
+    
+      
+
+
+      
+    }
+    showproducts(productTransactions:any[]){
+      this.products=productTransactions;
+      this.visibility=true;
+      
+
+    }
+    handleCancel1(){
+      this.isVisible1=false;
+    
+    }
+    handleOk1(){
+      this.isVisible1=false;
+      
+    }
+    
+    handleCancel(){
+      this.visibility=false;
+    
+    }
+    handleOk(){
+      this.visibility=false;
+    
+    
+
+    } 
+    deleteTransaction(id:any){
+      console.log(id);
+      this.prodService.deleteTransaction(id).subscribe(d=>{
+        console.log(d);
+        this.showModal();
+      })
+      
+
+    }
+    
+
 
   }
