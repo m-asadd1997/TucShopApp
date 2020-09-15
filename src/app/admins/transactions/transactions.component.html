@@ -17,7 +17,7 @@
   <div nz-row>
     <div nz-col nzSpan="8" nzOffset="">
      
-  <nz-range-picker [(ngModel)]="datevariable" ></nz-range-picker>
+  <nz-range-picker [(ngModel)]="datevariable" (ngModelChange)="onChange($event)" ></nz-range-picker>
     </div>
     <div nz-col nzSpan="3" nzOffset="">
       <button nz-button (click)="scearchTransactions()" nzType="primary" [nzSize]="size" nzShape="round">
@@ -37,25 +37,27 @@
     <tr>
       <th>Date</th>
       <th>User</th>
-      <th>Amount</th>
+      <th>Total Amount</th>
       <th>Created by</th>
       <th>Updated by</th>
       <th>Action</th>
     </tr>
   </thead>
-  <tbody>
+  <tbody >
     <!-- <nz-spin *ngIf="display" style="margin-left:500px; margin-top:10px" nzSize="large" nzSimple></nz-spin> -->
     <tr *ngFor="let data of basicTable.data">
-      <td>{{ data.date }}</td>
-      <td>{{ data.createdBy }}</td>
-      <td>{{ data.amount }}</td>
-      <td>{{ data.createdBy }}</td>
-      <td>{{ data.updatedBy }}</td>
-      <td>
+      
+      <td *ngIf="data.date">{{ data.date }}</td>
+      <td *ngIf="data.createdBy">{{ data.createdBy | uppercase }}</td>
+      <td *ngIf="data.totalAmount">{{ data.totalAmount }}</td> 
+      <td *ngIf="data.createdBy">{{ data.createdBy }}</td>
+      <td *ngIf="data.updatedBy">{{ data.updatedBy }}</td>
+      <td *ngIf="data.createdBy" >
         <!-- <a (click)="deleteTransactions(data.id)">Delete</a>
           <nz-divider nzType="vertical"></nz-divider> -->
-        <a (click)="detailsTransactions(data.createdBy)">Details</a>
+        <a (click)="detailsTransactions(data.createdBy)" >Details</a>
       </td>
+      
     </tr>
 
   </tbody>

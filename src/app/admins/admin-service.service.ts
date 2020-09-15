@@ -112,8 +112,8 @@ export class AdminServiceService {
     return this.http.get(this.getProductURL+id);
   }
 
-  public getTransaction():Observable<any>{
-    return this.http.get(this.getTransactionsURL);
+  public getTransaction(startDate:any, endDate:any):Observable<any>{
+    return this.http.get(this.getTransactionsURL+startDate+"/"+endDate);
   }
   
   public deleteTransactions(id:any) {
