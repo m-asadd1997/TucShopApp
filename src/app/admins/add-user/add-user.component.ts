@@ -36,7 +36,7 @@ id
     this.service.getUserById(this.id).subscribe(d=>{
       d=d.result;
       console.log("+++++++++",d,"==========");
-      debugger
+
       this.registerModel.name=d.name;
       this.registerModel.email=d.email
       this.registerModel.password="";

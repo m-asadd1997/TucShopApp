@@ -30,7 +30,7 @@ export class ProductListingComponent implements OnInit {
 
 
   ngOnInit() {
-    
+
 
     // this.prodService.productQuantityUpdateToProductListing$.subscribe(d => {
 
@@ -45,36 +45,36 @@ export class ProductListingComponent implements OnInit {
 
     this.activeRoute.paramMap.subscribe(
       params => {
-          
-          
+
+
         this.getProducts(params['params'].category)
         this.categoryHeader = params['params'].category;
 
       }
     );
     this.getAllProducts();
-    
+
   }
-  
+
   getProducts(str: any) {
 
     if (str === "products") {
       this.getAllProducts();
-      
-      
+
+
     }
     else {
 
       this.prodService.getProducts(str).subscribe(d => {
-        
+
         if (d) {
-          d.result = d.result.filter(e => (e.qty > 0))
+          d.result = d.result.filter(e => (e.qty > 0 || e.infiniteQuantity))
           this.productsArray = d.result;
           console.log(this.productsArray);
-          
+
         }
-        
-       
+
+
       })
     }
   }
@@ -83,7 +83,7 @@ export class ProductListingComponent implements OnInit {
   sendProducttoCheckout(prod, card) {
 
     this.prodService.getProductsById(prod.id).subscribe(d => {
-      
+
       if (d) {
         prod.qty = d.qty
         console.log("==============Send Product To Checkout===============", d.qty)
@@ -131,7 +131,7 @@ export class ProductListingComponent implements OnInit {
   getAllProducts() {
     this.prodService.getAllProducts().subscribe(d => {
       if (d) {
-        d = d.filter(e => (e.qty > 0))
+        d = d.filter(e => (e.qty > 0 || e.infiniteQuantity))
         this.productsArray = d;
       }
 
@@ -145,8 +145,8 @@ this.prodService.searchProductByKeyword(value).subscribe(d=>{
 
   this.searchProduct = d.result;
   this.productsArray = this.searchProduct;
- } 
- 
+ }
+
 });
 }
 onChange(value: string): void {
@@ -158,8 +158,8 @@ onChange(value: string): void {
 
     }
      else {
-     this.getAllProducts();  
-  
+     this.getAllProducts();
+
      }
     }
     showModal(){
@@ -167,49 +167,49 @@ onChange(value: string): void {
       this.prodService.recentTransactions().subscribe(data=>{
         console.log(data);
         this.transactions=data;
-        
+
       })
-    
-      
 
 
-      
+
+
+
     }
     showproducts(productTransactions:any[]){
       this.products=productTransactions;
       this.visibility=true;
-      
+
 
     }
     handleCancel1(){
       this.isVisible1=false;
-    
+
     }
     handleOk1(){
       this.isVisible1=false;
-      
+
     }
-    
+
     handleCancel(){
       this.visibility=false;
-    
+
     }
     handleOk(){
       this.visibility=false;
-    
-    
 
-    } 
+
+
+    }
     deleteTransaction(id:any){
       console.log(id);
       this.prodService.deleteTransaction(id).subscribe(d=>{
         console.log(d);
         this.showModal();
       })
-      
+
 
     }
-    
+
 
 
   }
