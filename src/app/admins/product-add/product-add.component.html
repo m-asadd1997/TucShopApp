@@ -105,13 +105,13 @@
 
       <!-- 3rd  Row -->
       <div nz-row>
-        <div nz-col nzSpan="9" class="nz-group">
+        <div nz-col nzSpan="5" class="nz-group">
           <nz-form-label nzFor="email">Product Quantity</nz-form-label>
           <br>
           <nz-form-item>
             <nz-form-control nzErrorTip="Please input your Product Quantity!">
               <nz-input-group nzPrefixIcon="account-book">
-                <input type="number" minlength="1" maxlength="4" required #productQuantity="ngModel"
+                <input  [disabled]="switchValue" style="width: 300px;" type="number" minlength="1" maxlength="4"  #productQuantity="ngModel"
                   name="productQuantity" [(ngModel)]="addProducts.productQuantity" nz-input
                   placeholder="Product Quantity" />
               </nz-input-group>
@@ -120,6 +120,18 @@
           </nz-form-item>
 
         </div>
+        <div nz-col nzOffset="2" nzSpan="4" class="nz-group">
+          <nz-form-label nzFor="email">Infinite</nz-form-label>
+          <br>
+          <nz-form-item>
+            <nz-form-control nzErrorTip="Please input your Product Quantity!">
+              <nz-switch name="switchValue" (ngModelChange)="switchChanged()" [(ngModel)]="switchValue"></nz-switch>
+
+            </nz-form-control>
+          </nz-form-item>
+
+        </div>
+
 
 
 

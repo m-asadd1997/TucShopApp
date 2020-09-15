@@ -28,18 +28,20 @@ import { FusionChartsModule } from 'angular-fusioncharts';
 import * as FusionCharts from 'fusioncharts';
 import * as Charts from 'fusioncharts/fusioncharts.charts';
 import * as FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
+import { NzSwitchModule } from 'ng-zorro-antd/switch';
+
 FusionChartsModule.fcRoot(FusionCharts, Charts, FusionTheme)
 import { AdminUserComponent } from './admin-user/admin-user.component';
 import { AddUserComponent } from './add-user/add-user.component';
 
 @NgModule({
 
-  declarations: [LoginPageComponent, 
-                 AdminLayoutComponent, 
-                 ListProductsComponent, 
+  declarations: [LoginPageComponent,
+                 AdminLayoutComponent,
+                 ListProductsComponent,
                  ProductAddComponent,
-                 AdminDashboardComponent, 
-                 CategoryListingComponent, 
+                 AdminDashboardComponent,
+                 CategoryListingComponent,
                  AddCategoryComponent,
                  TransactionsComponent,
                  UserComponent,
@@ -53,7 +55,7 @@ import { AddUserComponent } from './add-user/add-user.component';
 
                  ],
 
-                 
+
 
 
   imports: [
@@ -75,6 +77,7 @@ import { AddUserComponent } from './add-user/add-user.component';
     NzFormModule,
     NzLayoutModule,
     ExportAsModule,
+    NzSwitchModule,
     FusionChartsModule
   ]
   ,providers:[AuthGuardService]
