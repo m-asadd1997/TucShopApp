@@ -11,6 +11,6 @@ export class AppComponent implements OnInit {
   title = 'AntDesign';
   constructor(private router :Router){}
   ngOnInit(){
-   
+   // this.fullScreen();
   }
 }

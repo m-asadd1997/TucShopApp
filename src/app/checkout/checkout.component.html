@@ -1,147 +1,161 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+    integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+    crossorigin="anonymous"></script>
 </head>
+
 <body>
   <nz-content>
     <nz-breadcrumb> </nz-breadcrumb>
-    <div class="inner-content" style="margin-top: 10px;">
+    <div class="inner-content" style="margin-top: 15px;">
 
       <div nz-row style="margin-left: -25px;">
         <!-- <div nz-col nzSpan="3">
           <h4><b>Cart: </b></h4>
         </div> -->
-        <div nz-col nzSpan="2">
-         <img src="assets/cartCheckout.png" />
+        <div nz-col nzSpan="6">
+          <b>Cart</b><img src="assets/cartCheckout.png" />
         </div>
 
         <div nz-col nzSpan="4" nzOffset="9">
-        <button nz-button nzType="danger" (click)="showModal2()" style="margin-left: -10px;">
+          <!-- <button nz-button nzType="danger" (click)="showModal2()" style="margin-left: -10px;">
           <span>Request For Product</span>
-        </button>
+        </button> -->
 
-        <nz-modal [(nzVisible)]="isVisible1" nzTitle="User Selection" (nzOnCancel)="handleCancel1()" (nzOnOk)="handleOk1()">
-          <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
-          <hr>
-          <div class="container bootstrap snippet">
+          <nz-modal [(nzVisible)]="isVisible1" nzTitle="User Selection" (nzOnCancel)="handleCancel1()"
+            (nzOnOk)="handleOk1()">
+            <link rel="stylesheet" type="text/css"
+              href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+            <hr>
+            <div class="container bootstrap snippet">
               <div class="row">
-                  <div class="col-lg-12">
-                      <div class="main-box no-header clearfix">
-                          <div class="main-box-body clearfix">
-                              <div class="table-responsive">
-                                  <table class="table user-list">
-                                      <thead>
-                                          <tr>
-                                          <th><span>User</span></th>
-                                          <!-- <th><span>Created</span></th> -->
-                                          <th class="text-center"><span>Status</span></th>
-                                          <th><span>Email</span></th>
-                                          <th>&nbsp;</th>
-                                          </tr>
-                                      </thead>
-                                      <tbody>
-                                          <tr *ngFor="let item of user">
-                                              <td>
-                                                  <img src="./../../assets/user.png" alt="">
-                                                  <a href="#" class="user-link">{{item.name}}</a>
-                                                  <span class="user-subhead">Office Boy</span>
-                                              </td>
-                                              <!-- <td>2013/08/12</td> -->
-                                              <td class="text-center">
-                                                  <span class="label label-default">{{item.active}}</span>
-                                              </td>
-                                              <td>
-                                                  <a href="#">{{item.email}}</a>
-                                              </td>
-                                              <td style="width: 20%;">
-                                                  <button [disabled]="buttonDisable" (click)="print(item.name,'ROD')" nz-button nzType="primary">Request</button>
-                                              </td>
-                                          </tr>
+                <div class="col-lg-12">
+                  <div class="main-box no-header clearfix">
+                    <div class="main-box-body clearfix">
+                      <div class="table-responsive">
+                        <table class="table user-list">
+                          <thead>
+                            <tr>
+                              <th><span>User</span></th>
+                              <!-- <th><span>Created</span></th> -->
+                              <th class="text-center"><span>Status</span></th>
+                              <th><span>Email</span></th>
+                              <th>&nbsp;</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let item of user">
+                              <td>
+                                <img src="./../../assets/user.png" alt="">
+                                <a href="#" class="user-link">{{item.name}}</a>
+                                <span class="user-subhead">Office Boy</span>
+                              </td>
+                              <!-- <td>2013/08/12</td> -->
+                              <td class="text-center">
+                                <span class="label label-default">{{item.active}}</span>
+                              </td>
+                              <td>
+                                <a href="#">{{item.email}}</a>
+                              </td>
+                              <td style="width: 20%;">
+                                <button [disabled]="buttonDisable" (click)="print(item.name,'ROD')" nz-button
+                                  nzType="primary">Request</button>
+                              </td>
+                            </tr>
 
-                                      </tbody>
-                                  </table>
-                              </div>
-                          </div>
+                          </tbody>
+                        </table>
                       </div>
+                    </div>
                   </div>
+                </div>
               </div>
-          </div>
+            </div>
           </nz-modal>
 
 
 
-        <nz-modal
+          <nz-modal [(nzVisible)]="isVisible2" nzTitle="Request For Product" (nzOnCancel)="handleCancel()"
+            (nzOnOk)="postProduct()" [nzOkDisabled]="disableButton()" [nzOkLoading]="isOkLoading" nzOkText="Submit">
+            <!-- <input nz-input placeholder="Request For Product" name="requestedProductName" [(ngModel)]="checkOutObj.name" /> -->
+            <div class="example-input">
+              <nz-input-group nzSearch nzSize="large" [nzAddOnAfter]="suffixIconButton">
+                <input placeholder="Request For Product" nz-input [(ngModel)]="checkOutObj.name"
+                  (input)="onChange($event)" [nzAutocomplete]="auto" />
+              </nz-input-group>
+              <ng-template #suffixIconButton>
+                <button nz-button nzType="primary" nzSize="large" nzSearch>
+                  <i nz-icon nzType="search" nzTheme="outline"></i>
+                </button>
+              </ng-template>
+              <nz-autocomplete #auto>
+                <nz-auto-option class="global-search-item" *ngFor="let option of options" [nzValue]="option.name">
+                  Found &nbsp; <b>{{ option.name | uppercase }}</b> &nbsp; on &nbsp;
 
-          [(nzVisible)]="isVisible2"
-          nzTitle="Request For Product"
-          (nzOnCancel)="handleCancel()"
-          (nzOnOk)="postProduct()"
-          [nzOkDisabled]="disableButton()"
-          [nzOkLoading]="isOkLoading"
-          nzOkText="Submit"
-        >
-        <!-- <input nz-input placeholder="Request For Product" name="requestedProductName" [(ngModel)]="checkOutObj.name" /> -->
-        <div class="example-input">
-          <nz-input-group nzSearch nzSize="large" [nzAddOnAfter]="suffixIconButton">
-            <input
-              placeholder="Request For Product"
-              nz-input
-              [(ngModel)]="checkOutObj.name"
-              (input)="onChange($event)"
-              [nzAutocomplete]="auto"
-            />
-          </nz-input-group>
-          <ng-template #suffixIconButton>
-            <button nz-button nzType="primary" nzSize="large" nzSearch>
-              <i nz-icon nzType="search" nzTheme="outline"></i>
-            </button>
-          </ng-template>
-          <nz-autocomplete #auto>
-            <nz-auto-option class="global-search-item" *ngFor="let option of options" [nzValue]="option.name">
-              Found &nbsp; <b>{{ option.name | uppercase }}</b> &nbsp; on &nbsp;
-
-              <span class="global-search-item-count"><b>{{ option.count }}</b> &nbsp; results</span>
-            </nz-auto-option>
-          </nz-autocomplete>
+                  <span class="global-search-item-count"><b>{{ option.count }}</b> &nbsp; results</span>
+                </nz-auto-option>
+              </nz-autocomplete>
+            </div>
+          </nz-modal>
         </div>
-      </nz-modal>
       </div>
-       </div>
-      <button nz-button nzType="primary" (click)="open()">Open</button>
-      <nz-drawer   [nzClosable]="false" [nzVisible]="visible" [nzPlacement]="placement"  [nzTitle]="usernamee" (nzOnClose)="close()">
-      <!-- <p> <img src="assets/cart.png"> <button nz-tooltip nzTooltipTitle="Click to view products" (click)="showproducts()"  nzGhost="true" style="color:#0062cc;border-color:#0062cc" nzSize="small" nz-button nzType="primary"><i nz-icon nzType="eye"></i>show</button></p> -->
-      <div style="text-align: center;">
-      <nz-card style="width:200px;" nzTitle="Total Amount" [nzExtra]="extraTemplate">
 
-      <h5><p> <img src="assets/total-sales.png"> {{totalamount}}</p></h5>
-      </nz-card>
+      <!-- Drawerr -->
+      <!-- <button nz-button nzType="primary" (click)="open()">Open</button> -->
+
+      <div class="sticky-container">
+        <ul class="sticky">
+          <li> <img width="32" height="32" title="User" alt="User" (click)="open()" src="assets/userImage.png" />
+            <p (click)="open()">Cashier</p>
+          </li>
+        </ul>
       </div>
-      <br>
-      <div style="text-align: center;">
-      <nz-card style="width:200px;" nzTitle="Total Transaction" [nzExtra]="extraTemplate">
-      <!-- <nz-progress [nzPercent]="totalTrans" nzType="dashboard"></nz-progress> -->
-      <h5><p> <img src="assets/ledger.png"> {{totalTrans}}</p></h5>
-      </nz-card>
-      </div>
-      <br>
-      <div style="text-align: center;">
-        <nz-card style="width:200px;" nzTitle="Last Login" [nzExtra]="extraTemplate">
-        <!-- <nz-progress [nzPercent]="totalTrans" nzType="dashboard"></nz-progress> -->
-        <!-- <h5><p> <img src="assets/ledger.png"> {{totalTrans}}</p></h5> -->
-        <h5>{{time}}</h5>
-        <h5>{{date}}</h5>
-        </nz-card>
+      <nz-drawer [nzClosable]="false" [nzWidth]="300" [nzVisible]="visible" [nzPlacement]="placement" [nzTitle]="usernamee"
+        (nzOnClose)="close()">
+        <!-- <p> <img src="assets/cart.png"> <button nz-tooltip nzTooltipTitle="Click to view products" (click)="showproducts()"  nzGhost="true" style="color:#0062cc;border-color:#0062cc" nzSize="small" nz-button nzType="primary"><i nz-icon nzType="eye"></i>show</button></p> -->
+        <div style="text-align: center;">
+          <nz-card style="width:200px;" nzTitle="Total Amount" [nzExtra]="extraTemplate">
+
+            <h5>
+              <p> <img src="assets/total-sales.png"> {{totalamount}}</p>
+            </h5>
+          </nz-card>
         </div>
-      <div style="text-align:center; position:absolute; bottom:5px;">
-      <button nz-button nzType="primary" nzDanger (click)="dayclose()">Close</button>
-      </div>
+        <br>
+        <div style="text-align: center;">
+          <nz-card style="width:200px;" nzTitle="Total Transaction" [nzExtra]="extraTemplate">
+            <!-- <nz-progress [nzPercent]="totalTrans" nzType="dashboard"></nz-progress> -->
+            <h5>
+              <p> <img src="assets/ledger.png"> {{totalTrans}}</p>
+            </h5>
+          </nz-card>
+        </div>
+        <br>
+        <div style="text-align: center;">
+          <nz-card style="width:200px;" nzTitle="Last Login" [nzExtra]="extraTemplate">
+            <!-- <nz-progress [nzPercent]="totalTrans" nzType="dashboard"></nz-progress> -->
+            <!-- <h5><p> <img src="assets/ledger.png"> {{totalTrans}}</p></h5> -->
+            <h5>{{time}}</h5>
+            <h5>{{date}}</h5>
+          </nz-card>
+        </div>
+        <div style="text-align:center; position:absolute; bottom:5px;">
+          <button nz-button nzType="primary" nzDanger (click)="dayclose()">Close</button>
+        </div>
       </nz-drawer>
       <nz-modal [(nzVisible)]="isVisiblee" nzTitle="Products" (nzOnCancel)="handleCancell()" (nzOnOk)="handleOkk()">
         <!-- <nz-card nzHoverable style="width:100px" [nzCover]="coverTemplate">
@@ -154,100 +168,91 @@
           <h3 style="font-family:Arial, Helvetica, sans-serif;padding-left:5px;font-size:20px">Qty:</h3>
         </ng-template> -->
         <div nz-row>
-        <div nz-col nzXs="24" nzSm="24" nzMd="5" nzLg="7" nzXl="7" nzSpan="7" nzOffset="1" *ngFor="let p of tranByUser" >
-        <nz-card   class="cardShadow" style="background-color:black" nzHoverable style="width:150px;margin-top:15px">
-       <img [src]=p.product.image style="width:75px;height:75px">
-          <hr>
-          <b style="font-size:12px;padding:0px"> {{p.product.name | uppercase}}</b><br>
-          <b style="font-size:10px;padding:0px" >{{p.product.variants}} </b><br>
-          <b style="font-size:12px;padding:0px" >Quantity: {{p.quantity}} </b><br>
-          <!-- <b style="font-size:12px;padding:0px" >Price: {{p.product.price}} </b> -->
-          <!-- <nz-tag style="margin-top:2px" [nzColor]="'#f50a0a'" > &#8360; {{p.product.price}} </nz-tag> -->
-          <nz-tag style="margin-top:2px" [nzColor]="'#f50a0a'" > &#8360; {{p.amount}} </nz-tag>
+          <div nz-col nzXs="24" nzSm="24" nzMd="5" nzLg="7" nzXl="7" nzSpan="7" nzOffset="1"
+            *ngFor="let p of tranByUser">
+            <nz-card class="cardShadow" style="background-color:black" nzHoverable style="width:150px;margin-top:15px">
+              <img [src]=p.product.image style="width:75px;height:75px">
+              <hr>
+              <b style="font-size:12px;padding:0px"> {{p.product.name | uppercase}}</b><br>
+              <b style="font-size:10px;padding:0px">{{p.product.variants}} </b><br>
+              <b style="font-size:12px;padding:0px">Quantity: {{p.quantity}} </b><br>
+              <!-- <b style="font-size:12px;padding:0px" >Price: {{p.product.price}} </b> -->
+              <!-- <nz-tag style="margin-top:2px" [nzColor]="'#f50a0a'" > &#8360; {{p.product.price}} </nz-tag> -->
+              <nz-tag style="margin-top:2px" [nzColor]="'#f50a0a'"> &#8360; {{p.amount}} </nz-tag>
 
 
 
 
-        <!-- <div style="text-align:center; margin-left: 0px;"><b>Product:{{p.product.name}}</b></div>
+              <!-- <div style="text-align:center; margin-left: 0px;"><b>Product:{{p.product.name}}</b></div>
         <div style="text-align:center; margin-left: 0px;"><b>Quantity:{{p.quantity}}</b></div>
          <div><nz-tag [nzColor]="'#f50a0a'" style="margin-left: 20px;"> &#8360; {{p.product.price}}</nz-tag></div>   -->
 
 
-        </nz-card>
-      </div>
+            </nz-card>
+          </div>
         </div>
       </nz-modal>
 
       <hr style="color: black; margin-left: -10px; margin-right: 25px; margin-top: 20px;" />
 
-      <div style="height: 420px; overflow-y: scroll;">
+      <div style="height: 390px; overflow-y: scroll;">
 
-          <div *ngFor="let data of checkoutProductsArray">
-            <nz-card id ="cardShadow" nzHoverable style="width:100%; margin-bottom: 6px;">
+        <div *ngFor="let data of checkoutProductsArray">
+          <nz-card id="cardShadow" nzHoverable style="width:100%; margin-bottom: 6px;">
 
-              <div nz-row>
-                <div nz-col nzSpan="4">
-                  <nz-badge [nzCount]="data.productQuantity">
-                  <nz-avatar
-                    [nzShape]="'square'"
-                    [nzSize]="64"
-                    [nzSrc]="data.productImage"
-                    [nzIcon]="'user'"
-                  ></nz-avatar>
+            <div nz-row>
+              <div nz-col nzSpan="3">
+                <nz-badge [nzCount]="data.productQuantity">
+                  <nz-avatar [nzShape]="'circle'" [nzSize]="40" [nzSrc]="data.productImage" [nzIcon]="'user'">
+                  </nz-avatar>
                 </nz-badge>
-                </div>
+              </div>
 
-                <div nz-col nzSpan="6" nzOffset="3">
-                  <h4 nz-title style="font-size: 15px;"><b>
+              <div nz-col nzSpan="6" nzOffset="3">
+                <h5 nz-title style="font-size: 12px;"><b>
                     {{ data.productTitle }}</b>
-                    <br>
-                    <b style="font-size: 11px;">{{data.productVariant}}  </b><br>
-                    <!-- Price: {{ data.productPrice }} -->
-                    <nz-tag [nzColor]="'#f50a0a'">Price {{data.productPrice}}</nz-tag>
-                  </h4>
+                  <br>
+                  <nz-tag  [nzColor]="'#f50'" > {{data.productVariant}}</nz-tag>
 
-                </div>
+                  <!-- <b style="font-size: 11px;">{{data.productVariant}} </b> -->
+                  <br>
+                </h5>
+              </div>
 
-                <!-- <div nz-col nzSpan="2" nzOffset="1">
+              <!-- <div nz-col nzSpan="2" nzOffset="1">
                   <h4 nz-title style="font-size: 15px;">
                     Price: {{ data.productPrice }}
                   </h4>
                 </div> -->
 
-                <div nz-col nzSpan="6" nzOffset="2" style="font-size: 15px;">
-                  <h4>
-                    <!-- Quantity: {{ data.productQuantity }} -->
-                    <nz-button-group>
-                      <!-- Add Buttons -->
-                      <button #btn nz-button  *ngIf="checkingQunatity(data)" (click)="addProduct(data)">
-                        <i nz-icon nzType="plus"></i>
-                      </button>
+              <div nz-col nzSpan="6" nzOffset="2" style="font-size: 12px;">
+                <h4>
+                  <nz-button-group>
+                    <!-- Add Buttons -->
+                    <button #btn nz-button *ngIf="checkingQunatity(data)" (click)="addProduct(data)">
+                      <i nz-icon nzType="plus"></i>
+                    </button>
 
-                      <button #btn1 nz-button  disabled *ngIf="!checkingQunatity(data)" >
-                        <i nz-icon nzType="plus"></i>
-                      </button>
-                      <!--End of Add Buttons  -->
+                    <button #btn1 nz-button disabled *ngIf="!checkingQunatity(data)">
+                      <i nz-icon nzType="plus"></i>
+                    </button>
+                    <!--End of Add Buttons  -->
 
-                      <!-- Minus Buttons -->
-                      <button     nz-button (click)="removeProduct(data)">
-                        <i nz-icon nzType="minus"></i>
-                      </button>
-                      <!-- End of Minus Buttons -->
-                    </nz-button-group>
-                  </h4>
-                </div>
-
-                <div
-                  nz-col
-                  nzSpan="2"
-                  nzOffset="1"
-                  (click)="removeProductFromCheckout(data)"
-                >
-                  <img src="assets/icons8-delete-bin-24.png" />
-                </div>
-             </div>
-            </nz-card>
-          </div>
+                    <!-- Minus Buttons -->
+                    <button nz-button (click)="removeProduct(data)">
+                      <i nz-icon nzType="minus"></i>
+                    </button>
+                    <!-- End of Minus Buttons -->
+                  </nz-button-group>
+                  <nz-tag [nzColor]="'#f50a0a'">Price :{{data.productPrice}}</nz-tag>
+                </h4>
+              </div>
+              <div nz-col nzSpan="2" nzOffset="2" (click)="removeProductFromCheckout(data)">
+                <img src="assets/icons8-delete-bin-24.png" />
+              </div>
+            </div>
+          </nz-card>
+        </div>
       </div>
       <hr style="color: black;" />
       <div nz-row>
@@ -260,66 +265,59 @@
           <button [disabled]="checkoutProductsArray.length==0" nz-button nzType="danger" (click)="showModal()">
             Checkout
           </button>
-          <nz-modal
-            [(nzVisible)]="isVisible"
-            nzTitle="Checkout"
-
-            nzCancelText="Continue Shopping "
-
-            (nzOnCancel)="handleCancel()"
-            nzOkText="Checkout"
-            (nzOnOk)="print('','SC')"
-            nzOkDisabled = "isDisbled()"
-          >
+          <nz-modal [(nzVisible)]="isVisible" nzTitle="Checkout" nzCancelText="Continue Shopping "
+            (nzOnCancel)="handleCancel()" nzOkText="Checkout" (nzOnOk)="print('','SC')" nzOkDisabled="isDisbled()">
 
             <!-- <h4>Please select how you want to checkout</h4> -->
             <div style="margin-left: 15%;">
-            <div nz-row >
-              <div nz-col nzSpan="10">
-                <label class="label" >Current Amount:</label>
+              <div nz-row>
+                <div nz-col nzSpan="10">
+                  <label class="label">Current Amount:</label>
+                </div>
+                <div nz-col nzSpan="6" nzOffset="1">
+                  <input type="number" disabled="true" [(ngModel)]="total" class="inputStyle" />
+                </div>
               </div>
-              <div nz-col nzSpan="6" nzOffset="1">
-                <input type="number" disabled="true" [(ngModel)]="total" class="inputStyle"/>
+              <div nz-row>
+                <div nz-col nzSpan="10">
+                  <label class="label">Amount Received:</label>
+                </div>
+                <div nz-col nzSpan="6" nzOffset="1">
+                  <input type="number" [(ngModel)]="amountReceived" (ngModelChange)="change($event)"
+                    class="inputStyle" />
+                </div>
               </div>
-            </div>
-            <div nz-row >
-              <div nz-col nzSpan="10">
-                <label  class="label" >Amount Received:</label>
-              </div>
-              <div nz-col nzSpan="6" nzOffset="1">
-                <input type="number" [(ngModel)]="amountReceived" (ngModelChange)="change($event)"  class="inputStyle"/>
-              </div>
-            </div>
 
-            <div nz-row >
-              <div nz-col nzSpan="10">
-                <label  class="label" >Discount:</label>
+              <div nz-row>
+                <div nz-col nzSpan="10">
+                  <label class="label">Discount:</label>
+                </div>
+                <div nz-col nzSpan="6" nzOffset="1">
+                  <input type="number" [(ngModel)]="discount" (ngModelChange)="changeDiscount($event)"
+                    class="inputStyle" />
+                </div>
               </div>
-              <div nz-col nzSpan="6" nzOffset="1">
-                <input type="number" [(ngModel)]="discount" (ngModelChange)="changeDiscount($event)"  class="inputStyle"/>
+              <div nz-row>
+                <div nz-col nzSpan="10">
+                  <label class="label">Returned Amount:</label>
+                </div>
+                <div nz-col nzSpan="6" nzOffset="1">
+                  <input disabled="true" type="number" [(ngModel)]="returnedAmount" class="inputStyle" />
+                </div>
               </div>
             </div>
-            <div nz-row >
-              <div nz-col nzSpan="10" >
-                <label  class="label" >Returned Amount:</label>
-              </div>
-              <div nz-col nzSpan="6" nzOffset="1">
-                <input disabled="true" type="number" [(ngModel)]="returnedAmount" class="inputStyle"/>
-              </div>
+            <div *ngIf="invalidAmount" class="alert alert-danger" role="alert">
+              Invalid Received Amount
             </div>
-          </div>
-          <div *ngIf="invalidAmount" class="alert alert-danger" role="alert">
-          Invalid Received Amount
-          </div>
-          <div *ngIf="invalidDiscountAmount" class="alert alert-danger" role="alert">
-            Invalid Discount Amount, cannot be greater than total amount
+            <div *ngIf="invalidDiscountAmount" class="alert alert-danger" role="alert">
+              Invalid Discount Amount, cannot be greater than total amount
             </div>
             <!-- <div nz-row style="margin-top:22px"> -->
 
 
-             <!-- <div nz-col nzSpan="9" nzOffset="3"> <button (click)="print('','SC')" nz-button nzType="primary">Self Checkout</button></div> -->
+            <!-- <div nz-col nzSpan="9" nzOffset="3"> <button (click)="print('','SC')" nz-button nzType="primary">Self Checkout</button></div> -->
 
-             <!-- <div nz-col nzSpan="9" nzOffset="2">  <button nz-button nzType="primary"(click)="showModal1()" [disabled]="true" >Delievery on Desk</button></div> -->
+            <!-- <div nz-col nzSpan="9" nzOffset="2">  <button nz-button nzType="primary"(click)="showModal1()" [disabled]="true" >Delievery on Desk</button></div> -->
             <!-- </div> -->
 
 
@@ -330,14 +328,16 @@
   </nz-content>
 
   <div id="print-section" [hidden]="true">
-  <div style="text-align: center;"   >
-    <img   *ngIf="(chekingSetting && settingHeader   && settingHeader.logo != 'undefined'  )" [src]="settingHeader.logo" style="height: 100px; width: 100px;" alt="Hello">
-  </div>
-  <br>
-  <div  *ngIf="(chekingSetting && settingHeader  && settingHeader.header  != 'undefined')" style="text-align: center; margin-bottom: 50px;" >
-    <!-- <p class="bd-highlight font-weight-bold">{{settingHeader.header}}</px > -->
+    <div style="text-align: center;">
+      <img *ngIf="(chekingSetting && settingHeader   && settingHeader.logo != 'undefined'  )" [src]="settingHeader.logo"
+        style="height: 100px; width: 100px;" alt="Hello">
+    </div>
+    <br>
+    <div *ngIf="(chekingSetting && settingHeader  && settingHeader.header  != 'undefined')"
+      style="text-align: center; margin-bottom: 50px;">
+      <!-- <p class="bd-highlight font-weight-bold">{{settingHeader.header}}</px > -->
       <h2 nz-title>{{settingHeader.header}}</h2>
-  </div>
+    </div>
 
     <div class="container">
       <!-- <h2 style="text-align: center; margin-bottom: 15px;">Order Slip</h2> -->
@@ -359,22 +359,19 @@
       </table>
       <div>
         <hr style="border:1px solid black;width:100%;" />
-        <span
-          ><b> Total: </b> <span style="margin-left:83%;">{{ total }}</span></span
-        >
+        <span><b> Total: </b> <span style="margin-left:83%;">{{ total }}</span></span>
         <hr style="border:1px solid black;width:100%;" />
       </div>
     </div>
 
 
-      <div *ngIf=" (chekingSetting && settingHeader  && settingHeader.footer  != 'undefined')" style="text-align: center; margin-top: 70px;" >
-        <!-- <p class="bd-highlight font-weight-bold">{{settingHeader.header}}</px > -->
-          <h2 nz-title>{{settingHeader.footer}}</h2>
+    <div *ngIf=" (chekingSetting && settingHeader  && settingHeader.footer  != 'undefined')"
+      style="text-align: center; margin-top: 70px;">
+      <!-- <p class="bd-highlight font-weight-bold">{{settingHeader.header}}</px > -->
+      <h2 nz-title>{{settingHeader.footer}}</h2>
 
     </div>
   </div>
 </body>
+
 </html>
-
-
-
