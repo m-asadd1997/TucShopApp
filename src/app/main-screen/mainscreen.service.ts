@@ -174,11 +174,14 @@ public getTotalTransactionByUser(id:any): Observable<any> {
 }
 
 public dayClose(id:any):Observable<any>{
-return this.http.get(this.dayCloseURL+id);
+return this.http.get(this.dayCloseURL+id,{ responseType: 'blob' });
 }
 
 public getLoginTime (id:any):Observable <any>{
 return this.http.get (this.getLoginTimeURL+id);
 }
+
+
+
 
 }
