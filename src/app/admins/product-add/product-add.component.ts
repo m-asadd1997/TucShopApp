@@ -13,6 +13,7 @@ import { NzMessageComponent, NzMessageService } from 'ng-zorro-antd';
 })
 export class ProductAddComponent implements OnInit {
   id: any;
+  switchValue=false;
   categories = []
   addProducts: addProduct;
   formData = new FormData();
@@ -73,7 +74,8 @@ export class ProductAddComponent implements OnInit {
     }
     this.formData.append('costprice', this.addProducts.costPrice);
     this.formData.append('price', this.addProducts.salePrice);   //sale price
-    this.formData.append('quantity', this.addProducts.productQuantity);
+   (this.switchValue)? this.formData.append('quantity', "0") : this.formData.append('quantity', this.addProducts.productQuantity)
+
     this.formData.append('variants', this.addProducts.variants.toUpperCase());
     console.log(this.addProducts.variants);
 
@@ -89,7 +91,7 @@ export class ProductAddComponent implements OnInit {
 
       else {
         console.log(this.formData)
-        // debugger
+        //
         this.service.updateProduct(this.id, this.formData).subscribe(d => {
 
           this.message.success("Updated Successfully", { nzDuration: 3000 });
@@ -239,6 +241,10 @@ export class ProductAddComponent implements OnInit {
     this.formData.delete("quantity");
     this.formData.delete("variants");
   }
-
+  switchChanged(){
+    console.log(this.switchValue);
+    this.switchValue=!this.switchValue;
+    this.addProducts.productQuantity=null
+  }
 
 }

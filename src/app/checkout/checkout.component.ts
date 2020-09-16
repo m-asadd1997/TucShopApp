@@ -150,7 +150,7 @@ export class CheckoutComponent implements OnInit {
 
             // =======
             //     this.interactionServ.productMessage$.subscribe(d => {
-            //       //  debugger
+            //       //
             //       if (d) {
             //         let found = this.checkoutProductsArray.findIndex(
             //           p => p.productTitle == d["name"]
@@ -226,7 +226,7 @@ export class CheckoutComponent implements OnInit {
 
 
   saveTransaction(reqUser, action) {
-    debugger
+
     this.objToPushForTransaction = []
     console.log(this.checkoutProductsArray);
 
@@ -692,7 +692,7 @@ export class CheckoutComponent implements OnInit {
     if (this.discount > this.backupTotalAmount) {
       this.invalidDiscountAmount = true
     }
-    debugger
+
     if ((this.amountReceived+this.discount == this.total)) {this.invalidAmount= false;}
     else this.invalidAmount= true;
   }

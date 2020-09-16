@@ -58,7 +58,7 @@ export class AddCategoryComponent implements OnInit {
     if(this.id!=null){
 
       this.formData.append("name",this.add_categories.name);
-          debugger
+
         if(this.add_categories.icons)
       this.formData.append("image", this.add_categories.icons,this.add_categories.name+".png");
 
@@ -105,7 +105,7 @@ export class AddCategoryComponent implements OnInit {
   this.add_categories.name = d.name
 
   this.service.getImage(d.image).subscribe(e=>{
-    debugger
+
     if(e){
     console.log((e.name));
     this.add_categories.icons= this.blobToFile(e,"abc.png");
