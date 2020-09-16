@@ -71,6 +71,7 @@ export class CheckoutComponent implements OnInit {
     quantity: null,
     amount: null
   }
+  isDisbled = true;
   ngOnInit() {
     // this.gettingRecentTransactions();
     this.getLoginTime();
@@ -210,6 +211,8 @@ export class CheckoutComponent implements OnInit {
   }
 
   showModal(): void {
+    this.totalAmount = 0;
+    this.discountInRs = 0;
     this.isVisible = true;
   }
 
@@ -240,7 +243,8 @@ export class CheckoutComponent implements OnInit {
       "requestedUser": reqUser,
       "action": action,
       "productTransactions": this.objToPushForTransaction,
-      "discount": this.discount
+      "discount": this.discountInRs
+
     }
     console.log(request)
 
@@ -623,11 +627,21 @@ export class CheckoutComponent implements OnInit {
     })
   }
 
-
+  
   dayclose() {
+    
     let name = sessionStorage.getItem('username').toLowerCase();
     this.interactionServ.dayClose(name).subscribe(d => {
-      console.log(d);
+        console.log(d);
+        let url = window.URL.createObjectURL(d);
+        let a = document.createElement('a');
+        document.body.appendChild(a);
+        a.setAttribute('style', 'display: none');
+        a.href = url;
+        a.download = "Today Closing Report";
+        a.click();
+        window.URL.revokeObjectURL(url);
+        a.remove();
     })
 
 
@@ -646,22 +660,28 @@ export class CheckoutComponent implements OnInit {
 
 
   }
-  amountReceived
-  returnedAmount
+  amountReceived = 0;
+  returnedAmount = 0;
+  totalAmount = 0;
   invalidAmount = false
-  change(event) {
-    this.invalidAmount = false
-    debugger
-    this.returnedAmount = 0;
-    if (this.amountReceived+(this.discount|0) >= this.total)
-      this.returnedAmount = this.amountReceived - this.total + (this.discount|0)
-    else {
-      this.returnedAmount = -1
-      this.invalidAmount = true
+
+  
+
+
+
+  discountedAmount = this.total;
+  discountInRs = 0;
+  showError = false;
+  onDiscountChange() {
+    this.discountedAmount = this.total;
+    if(this.discountInRs > this.total || this.discountInRs < 0)
+      this.showError = true;
+    else{
+      this.discountedAmount = this.total - this.discountInRs;
+      this.showError = false;
     }
-
-
   }
+
   backupTotalAmount;
   invalidDiscountAmount = false
   changeDiscount() {
