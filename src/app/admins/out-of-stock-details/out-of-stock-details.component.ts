@@ -59,15 +59,15 @@ dateRange=[]
     this.endValue=this.dateRange[1];
     this.getProductsDetails(this.startValue,this.endValue);
 
-  
-  
+
+
     console.log(this.dateRange);}
     else{
       this.message.warning("Please Select A range first");
     }
   }
 
-  
+
 
   getProductsDetails(startValue,endValue) {
     if (startValue && endValue) {
@@ -77,10 +77,10 @@ dateRange=[]
 
     this.adminService.getFilteredOutOfStock(startValue,endValue).subscribe(d => {
      console.log(d.result);
-      
+
      this.detailedOutOfStockProducts =d.result;
-     
-     
+
+
 
 
 
@@ -90,10 +90,10 @@ dateRange=[]
 
 
   onChange(result: Date): void {
-   debugger 
+
     if(this.dateRange.length===0)
    {
-     
+
      this.detailedOutOfStockProducts=this.backupProducts;
    }
   }

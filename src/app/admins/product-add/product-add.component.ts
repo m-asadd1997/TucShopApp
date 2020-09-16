@@ -6,7 +6,6 @@ import { FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NzMessageComponent, NzMessageService } from 'ng-zorro-antd';
 
-
 @Component({
   selector: 'app-product-add',
   templateUrl: './product-add.component.html',
@@ -14,6 +13,7 @@ import { NzMessageComponent, NzMessageService } from 'ng-zorro-antd';
 })
 export class ProductAddComponent implements OnInit {
   id: any;
+  switchValue=false;
   categories = []
   addProducts: addProduct;
   formData = new FormData();
@@ -63,10 +63,19 @@ export class ProductAddComponent implements OnInit {
     this.formData.append('name', this.addProducts.productTitle)
     let idObj = this.categories.find(v => v.name == this.addProducts.category);
     this.formData.append('category', idObj.id);
-    this.formData.append('image', this.addProducts.image, this.addProducts.productTitle + ".png");
+
+    if (this.addProducts.image) {
+      console.log("HELLLLLLOOOOO")
+      this.formData.append('image', this.addProducts.image, this.addProducts.productTitle + ".png");
+    }
+    else {
+      // this.formData.append('image', null)
+      console.log("ELSEEEE")
+    }
     this.formData.append('costprice', this.addProducts.costPrice);
     this.formData.append('price', this.addProducts.salePrice);   //sale price
-    this.formData.append('quantity', this.addProducts.productQuantity);
+   (this.switchValue)? this.formData.append('quantity', "0") : this.formData.append('quantity', this.addProducts.productQuantity)
+
     this.formData.append('variants', this.addProducts.variants.toUpperCase());
     console.log(this.addProducts.variants);
 
@@ -78,11 +87,11 @@ export class ProductAddComponent implements OnInit {
         this.message.warning("Sale Price Must be Greater than Cost Price ");
         this.erasingFormData();
       }
-      else if (this.addProducts.image == null) { this.message.warning("Set Image First") ;this.erasingFormData();}
+      // else if (this.addProducts.image == null) { this.message.warning("Set Image First") ;this.erasingFormData();}
 
       else {
         console.log(this.formData)
-        // debugger
+        //
         this.service.updateProduct(this.id, this.formData).subscribe(d => {
 
           this.message.success("Updated Successfully", { nzDuration: 3000 });
@@ -103,12 +112,12 @@ export class ProductAddComponent implements OnInit {
     else {
 
       if (Number(this.addProducts.salePrice) < Number(this.addProducts.costPrice)) { this.message.warning("Sale Price Must be Greater than Cost Price "); this.erasingFormData(); }
-      else if (this.addProducts.image == null) { this.message.warning("Set Image First"); this.erasingFormData(); }
+      // else if (this.addProducts.image == null) { this.message.warning("Set Image First"); this.erasingFormData(); }
       else {
         this.service.postProduct(this.formData).subscribe(d => {
           console.log(d);
-          if(d.status!=200)  this.message.error("Duplicate Product", { nzDuration: 3000 });
-          else   this.message.success("Added Successfully", { nzDuration: 3000 });
+          if (d.status != 200) this.message.error("Duplicate Product", { nzDuration: 3000 });
+          else this.message.success("Added Successfully", { nzDuration: 3000 });
 
         });
         this.addProducts.image = null;
@@ -136,7 +145,6 @@ export class ProductAddComponent implements OnInit {
 
   ngOnInit(): void {
 
-
     this.id = this.activateRoute.snapshot.params['id'];
     if (this.id) {
       this.checker = true;
@@ -159,7 +167,7 @@ export class ProductAddComponent implements OnInit {
   }
 
   getProducts() {
-     this.service.getProductsById(this.id).subscribe(d => {
+    this.service.getProductsById(this.id).subscribe(d => {
       this.addProducts.productTitle = d.name
       this.addProducts.costPrice = d.costprice
       this.addProducts.productQuantity = d.qty
@@ -195,7 +203,7 @@ export class ProductAddComponent implements OnInit {
 
 
   isInputValid(form) {
-    if ((form.valid && this.addProducts.image && (this.addProducts.variants != "" || this.addProducts.variants)) || (form.valid && this.checker)) {
+    if ((form.valid && (this.addProducts.variants != "" || this.addProducts.variants)) || (form.valid && this.checker)) {
       return false;
     }
     else {
@@ -233,6 +241,10 @@ export class ProductAddComponent implements OnInit {
     this.formData.delete("quantity");
     this.formData.delete("variants");
   }
-
+  switchChanged(){
+    console.log(this.switchValue);
+    this.switchValue=!this.switchValue;
+    this.addProducts.productQuantity=null
+  }
 
 }

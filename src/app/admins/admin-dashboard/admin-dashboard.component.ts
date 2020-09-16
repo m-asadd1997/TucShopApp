@@ -50,7 +50,7 @@ export class AdminDashboardComponent implements OnInit {
       theme: "fusion"
     },
     data: [
-      
+
     ]
   };
   width = 500;
@@ -70,7 +70,7 @@ export class AdminDashboardComponent implements OnInit {
       theme: "fusion"
     },
     data: [
-  
+
     ]
   };
   width1 = 500;
@@ -124,7 +124,7 @@ export class AdminDashboardComponent implements OnInit {
     this.getTotalInventory();
     this.getPieChartDataForCategoryBasedTransaction();
     this.getPieChartDataForTransactionMethod();
-    
+
  }
 
 
@@ -142,7 +142,7 @@ export class AdminDashboardComponent implements OnInit {
   totalOutOfStockProducts
   chartResult
   charttResult
-  
+
 
   array = []
   getChartData() {
@@ -155,11 +155,11 @@ export class AdminDashboardComponent implements OnInit {
         this.data.series = [];
         this.data.series.push(this.chartResult.amounts);
         console.log(this.data.series);
-       
+
 
         var length = this.data.labels.length
         let i = 0;
-        debugger
+
         for (let index = 0; index < length; index++) {
 
           var datee = new Date(this.data.labels[index]);
@@ -196,19 +196,19 @@ export class AdminDashboardComponent implements OnInit {
     this.adminService.getFrequencyByCategory().subscribe(d=>{
     console.log("PieChart",d.result)
     if(d){
-      this.data1.data= d.result; 
+      this.data1.data= d.result;
       this.showChartt = true;
     }
-   
+
   })
-  } 
+  }
 
   getFilteredPieChartDataForCategoryBasedTransaction(startValue,endValue){
     this.showChartt = false;
     if(startValue && endValue){
       startValue=startValue.getFullYear()+"-"+ (startValue.getMonth()+1)+"-"+(startValue.getDate())
       endValue=endValue.getFullYear()+"-"+ (endValue.getMonth()+1)+"-"+(endValue.getDate())
-    } 
+    }
     this.adminService.getFilteredFrequencyBycategory(startValue,endValue).subscribe(d=>{
       console.log("Filtered",d.result)
       if(d.result===null){
@@ -229,16 +229,16 @@ export class AdminDashboardComponent implements OnInit {
       if(d){
         this.data2.data = d.result;
         this.showCharttt = true;
-  
+
       }
     })
-  } 
+  }
   getFilteredTransactionMethod(startValue,endValue){
     this.showCharttt = false;
     if(startValue && endValue){
       startValue=startValue.getFullYear()+"-"+ (startValue.getMonth()+1)+"-"+(startValue.getDate())
       endValue=endValue.getFullYear()+"-"+ (endValue.getMonth()+1)+"-"+(endValue.getDate())
-    } 
+    }
     this.adminService.getFilteredTransactionMethod(startValue,endValue).subscribe(d=>{
       console.log("FilteredDATA",d.result);
       if(d.result===null){
@@ -256,7 +256,7 @@ export class AdminDashboardComponent implements OnInit {
   getTotalOutOfStockProducts() {
 
     this.adminService.getTotalOutOfStock().subscribe(d => {
-      
+
 
       this.totalOutOfStockProducts=d.result;
       this.backupTotalOutOfStock=d.result;
@@ -292,7 +292,7 @@ export class AdminDashboardComponent implements OnInit {
     if(startValue && endValue){
     startValue=startValue.getFullYear()+"-"+ (startValue.getMonth()+1)+"-"+(startValue.getDate())
     endValue=endValue.getFullYear()+"-"+ (endValue.getMonth()+1)+"-"+(endValue.getDate())
-  } 
+  }
     this.adminService.getFilteredTotalInventory(startValue, endValue).subscribe(d=>{
     if(d.result==null){
       this.totalInventory=0;
@@ -311,7 +311,7 @@ export class AdminDashboardComponent implements OnInit {
     if (startValue && endValue) {
       startValue = startValue.getFullYear() + "-" + (startValue.getMonth() + 1) + "-" + (startValue.getDate())
       endValue = endValue.getFullYear() + "-" + (endValue.getMonth() + 1) + "-" + (endValue.getDate())
-    } 
+    }
 
     this.adminService.getFilteredQuantity(startValue,endValue).subscribe(d=>{this.totalProducts=d.result});
   }
@@ -319,7 +319,7 @@ export class AdminDashboardComponent implements OnInit {
 
 
   getTotalProductQuantity() {
-    //  
+    //
     this.adminService.getTotalProductQuantity().subscribe(d => {
 
       if (d) {
@@ -328,7 +328,7 @@ export class AdminDashboardComponent implements OnInit {
         this.backupTotalProducts=d.result;
       }
     })
-   
+
   }
 
 
@@ -341,9 +341,9 @@ export class AdminDashboardComponent implements OnInit {
     this.adminService.getTotalTransaction().subscribe(d => {
       if (d&&d.result) {
         this.totalAmount = d.result;
-        
+
         this.backupTotalTransaction=d.result;
-       
+
 
       }
     })
@@ -400,7 +400,7 @@ export class AdminDashboardComponent implements OnInit {
 
 
 
-    
+
 
 
     getFilteredOutOfStockProducts(startValue,endValue){
@@ -427,7 +427,7 @@ export class AdminDashboardComponent implements OnInit {
       this.getFilteredTotalInventory(this.startValue,this.endValue);
       this.getFilteredPieChartDataForCategoryBasedTransaction(this.startValue,this.endValue);
       this.getFilteredTransactionMethod(this.startValue,this.endValue);
-      
+
 
 
       console.log(this.dateRange);
@@ -436,8 +436,8 @@ export class AdminDashboardComponent implements OnInit {
       this.message.warning("Please Select A range first");
     }
   }
- 
- 
+
+
   getFilteredTotalTransaction(startValue, endValue) {
 
     if (startValue && endValue) {
@@ -448,7 +448,7 @@ export class AdminDashboardComponent implements OnInit {
       this.totalAmount=d.result;
     });
   }
-  
+
 
 
 

@@ -27,19 +27,17 @@ export class LoginPageComponent implements OnInit {
 
     localStorage.clear();
     sessionStorage.clear();
-    
-    
+
+
   }
 
   gotoLogin() {
     this.register = 0;
-
     this.login = 1;
   }
 
   gotoRegister() {
     this.login = 0;
-
     this.register = 1
   }
 
@@ -67,7 +65,7 @@ export class LoginPageComponent implements OnInit {
             this.isRegSpinning = false;
           }
         }
-        
+
     )
 
   }
@@ -75,8 +73,8 @@ export class LoginPageComponent implements OnInit {
   loginSubmit(loginForm : NgForm){
     this.isLogSpinning = true;
     console.log(this.loginModel);
-    this.loginModel.password = '123';
-    this.loginModel.Role = 'USER';
+    // this.loginModel.password = '123';
+    // this.loginModel.Role = 'USER';
     this.service.loginUser(this.loginModel)
     .subscribe(
         res => {
@@ -86,18 +84,22 @@ export class LoginPageComponent implements OnInit {
               sessionStorage.setItem('token',res.result.token);
               sessionStorage.setItem('username',res.result.username);
               sessionStorage.setItem('role',res.result.userType);
-              
+
+              if(res.result.userType==="USER")
               this.route.navigate(['categories/products']);
+
+              else if(res.result.userType==="ADMIN")
+              this.route.navigate(['admin/layout'])
               this.isLogSpinning = false;
               this.message.success('Login Successful',{ nzDuration: 3000 });
-              
 
-              
+
+
 
             }
-            
+
           }
-          
+
         },
         error =>{
           if(error){
@@ -109,11 +111,11 @@ export class LoginPageComponent implements OnInit {
 
       )
 
-     
 
-      
+
+
      }
-     
+
      validate(){
         if(this.registerModel.name && this.registerModel.email){
           return false;
@@ -132,6 +134,6 @@ export class LoginPageComponent implements OnInit {
       }
   }
 
-  
+
 
 }

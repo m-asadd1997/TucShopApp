@@ -19,7 +19,7 @@ export class SettingComponent implements OnInit {
 id
   ngOnInit() {
     this.adminService.getSetting().subscribe(d => {
-      debugger
+
       this.Checker=true;
       if (d && d.length != 0) {
         this.id=d[0].id
@@ -39,7 +39,7 @@ id
   }
 
 
- 
+
   submitSetting(myForm: NgForm) {
     this.Checker=false;
     this.formData.append('header', this.settingObj.header)
@@ -78,7 +78,7 @@ id
       return;
 
     var mimeType = files[0].type;
-    
+
 
     var reader = new FileReader();
     this.imagePath = files;
