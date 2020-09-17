@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
   <script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script>
     var global = global || window;
     // var Buffer = Buffer || [];
@@ -17,6 +18,29 @@
       version: []
     };
   </script>
+  <script type="text/javascript">
+    //window.onload = maxWindow;
+    $(document).ready(function() {
+      
+      setTimeout(function(){ maxWindow(); }, 3000);
+ 
+      
+    });
+    function maxWindow() {
+         // Supports most browsers and their versions.
+         var elem = document.body;
+    var requestMethod = elem.requestFullScreen || elem.webkitRequestFullScreen || elem.mozRequestFullScreen || elem.msRequestFullScreen;
+
+          if (requestMethod) { // Native full screen.
+              requestMethod.call(elem);
+          } else if (typeof window.ActiveXObject !== "undefined") { // Older IE.
+              var wscript = new ActiveXObject("WScript.Shell");
+              if (wscript !== null) {
+                  wscript.SendKeys("{F11}");
+              }
+          }
+    }
+</script> 
 
 </head>
 <body>

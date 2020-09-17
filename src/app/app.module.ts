@@ -35,6 +35,8 @@ import { AuthGuard } from './auth.guard';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NoopInterceptor } from './request.intercepts';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+
 
 
 
@@ -77,7 +79,8 @@ registerLocaleData(en);
     NzAutocompleteModule,
     NzBadgeModule,
     NzDividerModule,
-    NzAvatarModule
+    NzAvatarModule,
+    NzToolTipModule
     
   ],
   providers: [{ provide: NZ_I18N , useValue: en_US }, AuthGuard,{

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { User } from './User';
 import { NgForm } from '@angular/forms';
 import { MainscreenService } from  '../main-screen/mainscreen.service';
@@ -11,7 +11,7 @@ import { login } from './login';
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.css']
 })
-export class LoginPageComponent implements OnInit {
+export class LoginPageComponent implements OnInit,AfterViewInit {
 
   isRegSpinning = false;
   isLogSpinning = false;
@@ -22,14 +22,27 @@ export class LoginPageComponent implements OnInit {
 
 
   constructor( private service: MainscreenService , private route :Router, private message: NzMessageService) { }
+  ngAfterViewInit(): void {
+   //this.fullScreen();
+  }
 
   ngOnInit() {
-
+   //this.fullScreen();
     localStorage.clear();
     sessionStorage.clear();
 
 
   }
+
+//   fullScreen() {
+//     let elem = document.documentElement;
+//     let methodToBeInvoked = elem.requestFullscreen ||
+//       elem['webkitRequestFullScreen'] || elem['mozRequestFullscreen']
+//       ||
+//       elem['msRequestFullscreen'];
+//     if (methodToBeInvoked) methodToBeInvoked.call(elem);
+// }
+ 
 
   gotoLogin() {
     this.register = 0;
