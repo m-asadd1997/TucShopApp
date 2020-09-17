@@ -3,7 +3,7 @@
   <div class="col-8 ">
     <h4 style="text-transform:capitalize;">{{categoryHeader}}</h4>
   </div>
-  
+
   <div class="col-3">
     <div class="example-input">
       <nz-input-group nzSize="large" [nzSuffix]="suffixIcon">
@@ -26,10 +26,11 @@
   </div>
 
   <div class="col-1">
-      <span nz-tooltip nzTooltipPlacement="bottom" nzTooltipTitle="Cancel Order"><img (click)="showModal()" src="assets/delete.png" height="35px" width="35px">
-      </span>
+    <span nz-tooltip nzTooltipPlacement="bottom" nzTooltipTitle="Cancel Order"><img (click)="showModal()"
+        src="assets/delete.png" height="35px" width="35px">
+    </span>
   </div>
-  
+
 
   <nz-modal [(nzVisible)]="isVisible1" nzTitle="Orders" (nzOnCancel)="handleCancel1()" (nzOnOk)="handleOk1()">
     <nz-table [nzData]="transactions" [nzPageSize]="50" [nzScroll]="{ y: '240px' }">
@@ -74,28 +75,28 @@
         (click)="sendProducttoCheckout(p,CARD)" id="cardShadow">
         <nz-card-meta [nzTitle]="" [nzDescription]="" style="text-align: center;"></nz-card-meta>
         <div class="row">
-          <small ><b>{{p.name | uppercase}}</b></small>
+          <small><b>{{p.name | uppercase}}</b></small>
         </div>
-       
+
         <div class="row">
           <div class="col-lg-12 ">
             <div style="margin-left: -16px; ">
-              <nz-tag  [nzColor]="'#f50'" > {{p.variants}}</nz-tag>
+              <nz-tag [nzColor]="'#f50'"> {{p.variants}}</nz-tag>
             </div>
           </div>
         </div>
-          <br>
-          <div class="row">
-            <div class="col-lg-12">
-              <div>
-                <nz-tag [nzColor]="'#f50a0a'" style="margin-left: 70%;"> &#8360; {{p.price}}</nz-tag>
-                
-              </div>
-            </div>
+        <br>
+        <div class="row">
+          <div class="col-lg-12">
+            <div>
+              <nz-tag [nzColor]="'#f50a0a'" style="margin-left: 70%;"> &#8360; {{p.price}}</nz-tag>
 
+            </div>
           </div>
-       
-        
+
+        </div>
+
+
         <!-- <div style="text-align:center; margin-left: 0px;"><b>{{p.name | uppercase}}</b></div>
           <div style="text-align:center; margin-left: 0px;"><b>{{p.variants}}</b></div>
            <div><nz-tag [nzColor]="'#f50a0a'" style="margin-left: 20px;"> &#8360; {{p.price}}</nz-tag></div>   -->
