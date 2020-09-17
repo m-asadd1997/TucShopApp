@@ -4,6 +4,7 @@ import { MainscreenService } from './../../main-screen/mainscreen.service';
 import { Router } from '@angular/router';
 import { transactions } from './transactions';
 import { ExportAsService, ExportAsConfig } from 'ngx-export-as';
+import { start } from 'repl';
 
 // import * as XLSX from 'xlsx'; 
 
@@ -39,6 +40,7 @@ transactionobj:transactions=new transactions();
   };
 
   disabledEndDate = (endValue: Date): boolean => {
+
     if (!endValue || !this.startValue) {
       return false;
     }
@@ -54,6 +56,7 @@ transactionobj:transactions=new transactions();
     
     this.endValue = date;
     this.endDate=this.changedatetostring(this.endValue)
+    this.showTransactions();
   }
 
   handleStartOpenChange(open: boolean): void {
@@ -65,6 +68,7 @@ transactionobj:transactions=new transactions();
   handleEndOpenChange(open: boolean): void {
     console.log(open);
     this.endOpen = open;
+
   }
 datee1:Date;
   ngOnInit() {
@@ -72,22 +76,25 @@ datee1:Date;
    this.checkdate= this.changedatetostring(this.date);
    console.log(this.checkdate);
   //  this.datee1= new Date();
-  //  this.startDate="01-"+this.date.getFullYear()+"-"+ (this.date.getMonth()+1)
-  //  this.endDate="31-"+this.date.getFullYear()+"-"+(this.date.getMonth()+1);    
+   this.startDate=this.date.getFullYear()+"-"+ (this.date.getMonth()+1)+"-1";
+   this.endDate=this.date.getFullYear()+"-"+(this.date.getMonth()+1)+"-"+this.date.getDate();    
    this.showTransactions();
     
   }
-
+  backupTransaction
   showTransactions(){
-    this.service.getTransaction().subscribe(d=>{
-      console.log(d);
     
-        this.Transactions = d;
-            this.allTransactions = this.Transactions;
-            this.startDate="1"+" " +this.date.toLocaleString("en", { month: "long"  })+" "+this.date.getFullYear() ;
-            this.endDate=this.date.getUTCDate()+" "+this.date.toLocaleString("en", { month: "long"  })+" "+this.date.getFullYear() ;
+    this.service.getTransaction(this.startDate,this.endDate).subscribe(d=>{
+      console.log(d);
+      this.backupTransaction=d;
+      this.Transactions=d;
+    
+        // this.Transactions = d;
+        //     this.allTransactions = this.Transactions;
+        //     this.startDate="1"+" " +this.date.toLocaleString("en", { month: "long"  })+" "+this.date.getFullYear() ;
+        //     this.endDate=this.date.getUTCDate()+" "+this.date.toLocaleString("en", { month: "long"  })+" "+this.date.getFullYear() ;
 
-            console.log(d);
+        //     console.log(d);
       
       },error=>{
         this.display=true;
@@ -124,28 +131,28 @@ datee1:Date;
     if(this.datevariable[0]==null|| this.datevariable[1]==null){
       this.transactionobj.dateFrom=this.changedatetostring(new Date());
       this.transactionobj.dateTill=this.changedatetostring(new Date());
+          
       this.showdate(this.date);
 
     }
     else{
 
-    this.transactionobj.dateFrom=this.changedatetostring(this.datevariable[0]);
+    // this.transactionobj.dateFrom=this.changedatetostring(this.datevariable[0]);
     
-    this.transactionobj.dateTill=this.changedatetostring(this.datevariable[1]);
-    this.startDate=this.datevariable[0].getUTCDate()+" "+this.datevariable[0].toLocaleString("en", { month: "long"  })+" "+this.datevariable[0].getFullYear() ;
-   this.endDate= this.datevariable[1].getUTCDate()+" "+this.datevariable[1].toLocaleString("en", { month: "long"  })+" "+this.datevariable[1].getFullYear() ;
-
-    console.log(this.transactionobj);
-  
-    }
-    this.service.scearchAllTransaction(this.transactionobj).subscribe(data=>{
+    // this.transactionobj.dateTill=this.changedatetostring(this.datevariable[1]);
+    // this.startDate=this.datevariable[0].getUTCDate()+" "+this.datevariable[0].toLocaleString("en", { month: "long"  })+" "+this.datevariable[0].getFullYear() ;
+    // this.endDate= this.datevariable[1].getUTCDate()+" "+this.datevariable[1].toLocaleString("en", { month: "long"  })+" "+this.datevariable[1].getFullYear() ;
+    
+   this.startDate=this.datevariable[0].getFullYear()+"-"+ (this.datevariable[0].getMonth()+1)+"-"+this.datevariable[0].getDate();
+   this.endDate=this.datevariable[1].getFullYear()+"-"+(this.datevariable[1].getMonth()+1)+"-"+this.datevariable[1].getDate();
+    
+}
+    this.service.getTransaction(this.startDate, this.endDate).subscribe(data=>{
     console.log(data);
-  
     this.Transactions=data;
 
-    
 
-    },error=>{
+},error=>{
       this.display=true;
     }
   )
@@ -160,6 +167,8 @@ datee1:Date;
   showdate(date:Date){
     this.startDate=this.date.getUTCDate()+" "+this.date.toLocaleString("en", { month: "long"  })+" "+this.date.getFullYear() ;
     this.endDate=this.date.getUTCDate()+" "+this.date.toLocaleString("en", { month: "long"  })+" "+this.date.getFullYear() ;
+    //  this.startDate=this.date.getFullYear()+"-"+ (this.date.getMonth()+1)+"-1";
+    //  this.endDate=this.date.getFullYear()+"-"+(this.date.getMonth()+1)+"-"+this.date.getDate();
 
   }
 
@@ -197,6 +206,17 @@ download()
      
       
     }
+    onChange(){
+ 
+      if(this.datevariable.length==0){
+
+        this.Transactions = this.backupTransaction;     
+      
+      }
+
+    }
+
+    
 
 
 }

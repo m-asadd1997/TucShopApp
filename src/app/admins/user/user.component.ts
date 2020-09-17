@@ -122,6 +122,7 @@ console.log("response",data)
   handleOk(){
     this.isVisible=false;
   }
+  backupTransaction
 
   scearchUsertransactions(){
     if(this.datevariable[0]==null|| this.datevariable[1]==null){
@@ -139,7 +140,8 @@ console.log("response",data)
     }
     this.service.scearchtransactionofUser(this.transactionOBJ).subscribe(data=>{
       console.log(data);
-     
+      this.backupTransaction=data;
+      
       this.allTransactions=data;
       
     })
@@ -166,6 +168,16 @@ console.log("response",data)
       });
      
       
+    }
+
+    onChange(){
+
+      if(this.datevariable.length==0){
+
+        this.allTransactions = this.backupTransaction;
+        console.log(this.allTransactions);
+
+      }
     }
 
 }

@@ -265,52 +265,48 @@
           <button [disabled]="checkoutProductsArray.length==0" nz-button nzType="danger" (click)="showModal()">
             Checkout
           </button>
-          <nz-modal [(nzVisible)]="isVisible" nzTitle="Checkout" nzCancelText="Continue Shopping "
-            (nzOnCancel)="handleCancel()" nzOkText="Checkout" (nzOnOk)="print('','SC')" nzOkDisabled="isDisbled()">
+          <nz-modal
+            [(nzVisible)]="isVisible"
+            nzTitle="Checkout"
+
+            nzCancelText="Continue Shopping "
+
+            (nzOnCancel)="handleCancel()"
+            nzOkText="Checkout"
+            (nzOnOk)="print('','SC')"
+            [nzOkDisabled] = "showError"
+          >
 
             <!-- <h4>Please select how you want to checkout</h4> -->
             <div style="margin-left: 15%;">
-              <div nz-row>
-                <div nz-col nzSpan="10">
-                  <label class="label">Current Amount:</label>
-                </div>
-                <div nz-col nzSpan="6" nzOffset="1">
-                  <input type="number" disabled="true" [(ngModel)]="total" class="inputStyle" />
-                </div>
+            <div nz-row >
+              <div nz-col nzSpan="10">
+                <label class="label" >Billing Amount:</label>
               </div>
-              <div nz-row>
-                <div nz-col nzSpan="10">
-                  <label class="label">Amount Received:</label>
-                </div>
-                <div nz-col nzSpan="6" nzOffset="1">
-                  <input type="number" [(ngModel)]="amountReceived" (ngModelChange)="change($event)"
-                    class="inputStyle" />
-                </div>
-              </div>
-
-              <div nz-row>
-                <div nz-col nzSpan="10">
-                  <label class="label">Discount:</label>
-                </div>
-                <div nz-col nzSpan="6" nzOffset="1">
-                  <input type="number" [(ngModel)]="discount" (ngModelChange)="changeDiscount($event)"
-                    class="inputStyle" />
-                </div>
-              </div>
-              <div nz-row>
-                <div nz-col nzSpan="10">
-                  <label class="label">Returned Amount:</label>
-                </div>
-                <div nz-col nzSpan="6" nzOffset="1">
-                  <input disabled="true" type="number" [(ngModel)]="returnedAmount" class="inputStyle" />
-                </div>
+              <div nz-col nzSpan="6" nzOffset="1">
+                <input type="number" disabled="true" [(ngModel)]="total" class="inputStyle"/>
               </div>
             </div>
-            <div *ngIf="invalidAmount" class="alert alert-danger" role="alert">
-              Invalid Received Amount
+            <div nz-row >
+              <div nz-col nzSpan="10">
+                <label  class="label" >Discount :</label>
+              </div>
+              <div nz-col nzSpan="6" nzOffset="1">
+                <input type="number" [(ngModel)]="discountInRs" (input)="onDiscountChange()"  class="inputStyle"/>
+              </div>
             </div>
-            <div *ngIf="invalidDiscountAmount" class="alert alert-danger" role="alert">
-              Invalid Discount Amount, cannot be greater than total amount
+            <div nz-row >
+              <div nz-col nzSpan="10">
+                <label  class="label" >Total Amount:</label>
+              </div>
+              <div nz-col nzSpan="6" nzOffset="1">
+                <input type="number" [(ngModel)]="discountedAmount" disabled="true" class="inputStyle"/>
+              </div>
+            </div>
+          
+          <div *ngIf="showError" class="alert alert-danger" role="alert">
+            Discount can't be greater than billing amount!
+          </div>
             </div>
             <!-- <div nz-row style="margin-top:22px"> -->
 
