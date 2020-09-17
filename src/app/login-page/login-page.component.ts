@@ -81,6 +81,12 @@ export class LoginPageComponent implements OnInit {
           if(res){
             if(res.status == 200){
               console.log(res);
+              if(res.result == null){
+               
+              this.message.error('Your 1 Month Trial Version Has Expired. Contact Shahzad: 03322078369',{ nzDuration: 10000 });
+              this.isLogSpinning = false;               
+              }
+              else {
               sessionStorage.setItem('token',res.result.token);
               sessionStorage.setItem('username',res.result.username);
               sessionStorage.setItem('role',res.result.userType);
@@ -97,6 +103,7 @@ export class LoginPageComponent implements OnInit {
 
 
             }
+          }
 
           }
 
