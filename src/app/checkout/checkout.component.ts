@@ -75,8 +75,7 @@ export class CheckoutComponent implements OnInit {
   ngOnInit() {
     // this.gettingRecentTransactions();
     this.getLoginTime();
-    this.getTotalTransactionByUser();
-    this.getRecentTransactionByUser();
+  
     // this.usernamee= sessionStorage.getItem('username').toUpperCase();
     // this.usernamee = "<div class='row'> <i class='fa fa-user user'></i><h6>"+this.usernamee+"</h6></div>";
     this.fafaicon();
@@ -213,6 +212,7 @@ export class CheckoutComponent implements OnInit {
   showModal(): void {
     this.totalAmount = 0;
     this.discountInRs = 0;
+    this.discountedAmount = this.total;
     this.isVisible = true;
   }
 
@@ -556,6 +556,8 @@ export class CheckoutComponent implements OnInit {
   visible = false;
   placement: NzDrawerPlacement = 'right';
   open(): void {
+    this.getTotalTransactionByUser();
+    this.getRecentTransactionByUser();
     this.visible = true;
   }
 
