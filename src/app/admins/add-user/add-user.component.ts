@@ -19,8 +19,7 @@ id
   isLogSpinning = false;
   registerModel = new User();
   formData = new FormData();
-
-
+  
   constructor(private service: AdminServiceService , private route :Router, private message: NzMessageService,private activateRoute:ActivatedRoute,private mainservice:MainscreenService) { }
 
   ngOnInit() {
@@ -48,20 +47,15 @@ id
 
     });
   }
-
+  
+  accountAccessKeyy
   submit(registerForm : NgForm){
-
-
-
-
-
-
     this.isRegSpinning = true;
 
 
     if(this.id)
     {
-      this.service.updateUser(this.id,this.registerModel).subscribe(d=>{
+      this.service.updateUser(this.id,this.registerModel).subscribe(d=>{ //this
         this.message.success("Updated Successfully",{nzDuration:3000});
       });
 
@@ -70,6 +64,8 @@ id
     else{
     console.log(this.registerModel);
     this.registerModel.userType = this.registerModel.userType;
+    this.accountAccessKeyy = sessionStorage.getItem('key');
+    this.registerModel.accountAccessKey=this.accountAccessKeyy;
     this.registerModel.active = true;
     if(this.registerModel.userType==="USER")
     {this.registerModel.clientId = 1;}
@@ -77,7 +73,7 @@ id
 
     this.mainservice.registerUser(this.registerModel)
     .subscribe(
-        data => {
+        data => {         
           if(data.result.status == 200){
             console.log(data.result);
             this.registerModel.name=""
