@@ -4,7 +4,6 @@ export class User {
   password: string
   active: boolean
   userType: string
-  clientId: any
-  accountAccessKey = "trial"
-  
+  clientId: any 
+  accountAccessKey: String 
 }

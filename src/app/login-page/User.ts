@@ -5,5 +5,6 @@ export class User {
   active: boolean
   userType: string
   clientId: any
-  
+  accountAccessKey:String
+
 }

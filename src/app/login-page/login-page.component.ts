@@ -103,6 +103,8 @@ export class LoginPageComponent implements OnInit,AfterViewInit {
               sessionStorage.setItem('token',res.result.token);
               sessionStorage.setItem('username',res.result.username);
               sessionStorage.setItem('role',res.result.userType);
+              sessionStorage.setItem('key',res.result.accountAccessKey);
+
 
               if(res.result.userType==="USER")
               this.route.navigate(['categories/products']);
