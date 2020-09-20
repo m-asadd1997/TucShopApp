@@ -1,3 +1,5 @@
+import { transactions } from './../admins/transactions/transactions';
+import { productlisting } from './productlisting';
 import { Component, OnInit } from '@angular/core';
 import { MainscreenService } from '../main-screen/mainscreen.service';
 import { ActivatedRoute } from '@angular/router';
@@ -13,21 +15,23 @@ import { AdminServiceService } from '../admins/admin-service.service';
 })
 export class ProductListingComponent implements OnInit {
 
-  visibility:boolean=false;
-  products: any[]=[];
-  transactions:any[]=[];
+  visibility: boolean = false;
+  products: any[] = [];
+  transactions: any[] = [];
   abc: any;
-  isVisible1:boolean=false;
+  isVisible1: boolean = false;
   productsArray = [] = [];
+  reacentTransactions = []
   params: any;
 
   categoryHeader: any;
   count = 0;
-  searchProduct:any;
+  searchProduct: any;
   options: any;
 
-  constructor(private prodService: MainscreenService, private activeRoute: ActivatedRoute,private service:AdminServiceService) { }
+  constructor(private prodService: MainscreenService, private activeRoute: ActivatedRoute, private service: AdminServiceService) { }
 
+  transactionIDObj = new productlisting();
 
   ngOnInit() {
 
@@ -42,7 +46,6 @@ export class ProductListingComponent implements OnInit {
     // })
 
 
-
     this.activeRoute.paramMap.subscribe(
       params => {
 
@@ -53,6 +56,8 @@ export class ProductListingComponent implements OnInit {
       }
     );
     this.getAllProducts();
+
+
 
   }
 
@@ -139,77 +144,99 @@ export class ProductListingComponent implements OnInit {
     })
   }
 
-searchProductByKeyword(value:any){
-this.prodService.searchProductByKeyword(value).subscribe(d=>{
- if (d){
 
-  this.searchProduct = d.result;
-  this.productsArray = this.searchProduct;
- }
+  searchProductByKeyword(value: any) {
+    this.prodService.searchProductByKeyword(value).subscribe(d => {
+      if (d) {
 
-});
-}
-onChange(value: string): void {
-  //const value = (e.target as HTMLInputElement).value;
+        this.searchProduct = d.result;
+        this.productsArray = this.searchProduct;
+      }
+
+    });
+  }
+  onChange(value: string): void {
+    //const value = (e.target as HTMLInputElement).value;
     if (value != null && value != "") {
       this.searchProductByKeyword(value);
       //this.productsArray = this.searchProduct;
-     //console.log(this.productsArray)
+      //console.log(this.productsArray)
 
     }
-     else {
-     this.getAllProducts();
-
-     }
-    }
-    showModal(){
-      this.isVisible1=true;
-      this.prodService.recentTransactions().subscribe(data=>{
-        console.log(data);
-        this.transactions=data;
-
-      })
-
-
-
-
+    else {
+      this.getAllProducts();
 
     }
-    showproducts(productTransactions:any[]){
-      this.products=productTransactions;
-      this.visibility=true;
+  }
+
+  showModal() {
+    this.isVisible1 = true;
+    this.prodService.recentTransactions().subscribe(data => {
+      console.log("Dattaaa", data);
+      this.transactions = data;
+
+      this.reacentTransactions = this.transactions;
 
 
+    })
+  }
+
+
+
+  getTransactionOnSearch() {
+
+    if (this.transactionIDObj.transactionID == "" || this.transactionIDObj.transactionID == null) {
+      this.transactions = this.reacentTransactions;
     }
-    handleCancel1(){
-      this.isVisible1=false;
-
-    }
-    handleOk1(){
-      this.isVisible1=false;
-
+    else {
+      this.transactions = this.transactions.filter(obj => obj.id == parseInt(this.transactionIDObj.transactionID))
+      console.log("Filter", this.transactions)
     }
 
-    handleCancel(){
-      this.visibility=false;
 
+  }
+
+  search(value) {
+    if (value.data == "" || value.data == null || value.data == undefined) {
+      this.transactions = this.reacentTransactions;
     }
-    handleOk(){
-      this.visibility=false;
+  }
+
+  showproducts(productTransactions: any[]) {
+    this.products = productTransactions;
+    this.visibility = true;
 
 
+  }
+  handleCancel1() {
+    this.isVisible1 = false;
 
-    }
-    deleteTransaction(id:any){
-      console.log(id);
-      this.prodService.deleteTransaction(id).subscribe(d=>{
-        console.log(d);
-        this.showModal();
-      })
+  }
+  handleOk1() {
+    this.isVisible1 = false;
 
+  }
 
-    }
+  handleCancel() {
+    this.visibility = false;
+
+  }
+  handleOk() {
+    this.visibility = false;
 
 
 
   }
+  deleteTransaction(id: any) {
+    console.log(id);
+    this.prodService.deleteTransaction(id).subscribe(d => {
+      console.log(d);
+      this.showModal();
+    })
+
+
+  }
+
+
+
+}

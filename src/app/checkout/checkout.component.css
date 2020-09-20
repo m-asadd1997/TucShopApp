@@ -162,3 +162,7 @@ background-color: #009688;
     text-transform: uppercase;
     line-height: 43px;
     }
+
+    button {
+        margin-right: 8px;
+      }

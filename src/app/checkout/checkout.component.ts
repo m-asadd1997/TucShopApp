@@ -60,7 +60,8 @@ export class CheckoutComponent implements OnInit {
     private interactionServ: MainscreenService,
     private message: NzMessageService,
     private router: Router,
-    private activeRoute: ActivatedRoute
+    private activeRoute: ActivatedRoute,
+    private modal: NzModalService
   ) { }
   chekingSetting = false;
   discount
@@ -596,6 +597,7 @@ export class CheckoutComponent implements OnInit {
   getRecentTransactionByUser() {
     this.usernamee = sessionStorage.getItem('username');
     this.interactionServ.getRecentTransactionByUser(this.usernamee).subscribe(r => {
+      console.log("ResponsRecent",r)
       this.totalTrans = r.length;
       r.map(item => {
         item.productTransactions.map(opt => {
@@ -613,6 +615,7 @@ export class CheckoutComponent implements OnInit {
   getTotalTransactionByUser() {
     this.usernamee = sessionStorage.getItem('username');
     this.interactionServ.getTotalTransactionByUser(this.usernamee).subscribe(r => {
+      console.log("Response",r)
       if (r.result == null) {
 
         this.totalamount = 0;
@@ -632,7 +635,7 @@ export class CheckoutComponent implements OnInit {
     
     let name = sessionStorage.getItem('username').toLowerCase();
     this.interactionServ.dayClose(name).subscribe(d => {
-        console.log(d);
+        console.log("Blob",d);
         let url = window.URL.createObjectURL(d);
         let a = document.createElement('a');
         document.body.appendChild(a);
@@ -706,6 +709,19 @@ isDisabled(){
   return !this.invalidAmount
   // (this.checkoutProductsArray.length==0 || (this.invalidAmount||this.invalidDiscountAmount))
 }
+
+showConfirm(): void {
+  this.modal.confirm({
+    nzTitle: '<i>Do you Want to generate reports?</i>',
+    // nzContent: '<b>Some descriptions</b>',
+    nzOnOk: () => this.dayclose()
+  });
+}
+
+
+
+
+
 
 }
 

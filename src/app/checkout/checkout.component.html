@@ -154,7 +154,7 @@
           </nz-card>
         </div>
         <div style="text-align:center; position:absolute; bottom:5px;">
-          <button nz-button nzType="primary" nzDanger (click)="dayclose()">Close</button>
+          <button nz-button nzType="primary" nzDanger (click)="showConfirm()" >Generate Reports</button>
         </div>
       </nz-drawer>
       <nz-modal [(nzVisible)]="isVisiblee" nzTitle="Products" (nzOnCancel)="handleCancell()" (nzOnOk)="handleOkk()">
@@ -167,6 +167,8 @@
 
           <h3 style="font-family:Arial, Helvetica, sans-serif;padding-left:5px;font-size:20px">Qty:</h3>
         </ng-template> -->
+
+       
         <div nz-row>
           <div nz-col nzXs="24" nzSm="24" nzMd="5" nzLg="7" nzXl="7" nzSpan="7" nzOffset="1"
             *ngFor="let p of tranByUser">

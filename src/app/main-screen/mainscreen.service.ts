@@ -53,6 +53,7 @@ export class MainscreenService {
   private dayCloseURL = environment.baseUrl+"api/transaction/closing/";
   private getLoginTimeURL=environment.baseUrl+"api/user/getUserTimeDate/";
 
+
   public sendMessage(obj: Object) {
     this.productSource.next(obj);
   }
@@ -161,7 +162,7 @@ export class MainscreenService {
     return this.http.get(this.searchProductByKeywordURL+keyword);
   }
 
-  
+
   public getUsers(): Observable<any> {
     return this.http.get(this.getUsersURL);
   }

@@ -32,7 +32,21 @@
   </div>
 
 
-  <nz-modal [(nzVisible)]="isVisible1" nzTitle="Orders" (nzOnCancel)="handleCancel1()" (nzOnOk)="handleOk1()">
+  <nz-modal [(nzVisible)]="isVisible1" nzWidth="1000" nzTitle="Orders" (nzOnCancel)="handleCancel1()" (nzOnOk)="handleOk1()">
+
+    <div class="col-3" style="float: right;">
+      <div class="example-input">
+        <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton" >
+          <input type="text" (input)= "search($event)" [(ngModel)]="transactionIDObj.transactionID"  nz-input placeholder="input transaction id" />
+        </nz-input-group>
+        <ng-template #suffixIconButton>
+          <button nz-button nzType="primary"(click)="getTransactionOnSearch()" nzSearch><i nz-icon nzType="search" ></i></button>
+        </ng-template>
+      </div>
+    </div>
+    <br>
+    <br>
+    
     <nz-table [nzData]="transactions" [nzPageSize]="50" [nzScroll]="{ y: '240px' }">
       <thead>
         <tr>
@@ -47,17 +61,17 @@
       <tbody>
         <tr *ngFor="let d of transactions">
           <td>{{ d.id }}</td>
-          <td style="padding-left:5%">{{ d.createdBy }}</td>
-          <td style="padding-left:7%">{{ d.date }}</td>
-          <td style="padding-left:5%">{{ d.amount }}</td>
+          <td>{{ d.createdBy }}</td>
+          <td>{{ d.date }}</td>
+          <td>{{ d.amount }}</td>
 
           <!-- <td><a (click)="showproducts(d.productTransactions)">Show</a></td> -->
-          <td style="padding-left:3%"> <button nz-tooltip nzTooltipTitle="Click to view products"
+          <td style="text-align: center;"> <button nz-tooltip nzTooltipTitle="Click to view products"
               (click)="showproducts(d.productTransactions)" nzGhost="true" style="color:#0062cc;border-color:#0062cc"
-              nzSize="small" nz-button nzType="primary"><i nz-icon nzType="eye"></i>show</button> </td>
-          <td> <button nz-tooltip nzTooltipTitle="Delete Product" (click)="deleteTransaction(d.id)" nzGhost="true"
+              nzSize="small" nz-button nzType="primary"><i nz-icon nzType="eye"></i>Show</button> </td>
+          <td style="text-align: center;"> <button nz-tooltip nzTooltipTitle="Delete Product" (click)="deleteTransaction(d.id)" nzGhost="true"
               style="color:#0062cc;border-color:#0062cc" nzSize="small" nz-button nzType="primary"><i nz-icon
-                nzType="eye"></i>Delete</button> </td>
+                nzType="delete"></i>Delete</button> </td>
         </tr>
       </tbody>
     </nz-table>
