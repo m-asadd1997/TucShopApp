@@ -244,7 +244,9 @@ export class CheckoutComponent implements OnInit {
       "requestedUser": reqUser,
       "action": action,
       "productTransactions": this.objToPushForTransaction,
-      "discount": this.discountInRs
+      "discount": this.discountInRs,
+      "waiterName": this.waiterName,
+      "tableNumber": this.tableNumber
 
     }
     console.log(request)
@@ -669,6 +671,8 @@ export class CheckoutComponent implements OnInit {
   returnedAmount = 0;
   totalAmount = 0;
   invalidAmount = false
+  waiterName;
+  tableNumber;
 
   
 

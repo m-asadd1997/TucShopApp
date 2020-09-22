@@ -210,7 +210,7 @@
                 </nz-badge>
               </div>
 
-              <div nz-col nzSpan="6" nzOffset="3">
+              <div nz-col nzSpan="6" nzOffset="2">
                 <h5 nz-title style="font-size: 12px;"><b>
                     {{ data.productTitle }}</b>
                   <br>
@@ -227,7 +227,7 @@
                   </h4>
                 </div> -->
 
-              <div nz-col nzSpan="6" nzOffset="2" style="font-size: 12px;">
+              <div nz-col nzSpan="7" nzOffset="2" style="font-size: 12px;">
                 <h4>
                   <nz-button-group>
                     <!-- Add Buttons -->
@@ -303,6 +303,34 @@
               </div>
               <div nz-col nzSpan="6" nzOffset="1">
                 <input type="number" [(ngModel)]="discountedAmount" disabled="true" class="inputStyle"/>
+              </div>
+            </div>
+            <div nz-row >
+              <div nz-col nzSpan="10">
+                <label  class="label" >Waiter Name:</label>
+              </div>
+              <div nz-col nzSpan="12" nzOffset="1">
+                <nz-select [(ngModel)]="waiterName" nzPlaceHolder="Select a Waiter" style="width: 100%;">
+                  <nz-option nzDisabled nzValue="disabled" nzLabel="Select your option" Selected></nz-option>
+                  <nz-option nzValue="Asad" nzLabel="Asad"></nz-option>
+                  <nz-option nzValue="Amir" nzLabel="Amir"></nz-option>
+                  <nz-option nzValue="Huzaifa" nzLabel="Huzaifa"></nz-option>
+                  <nz-option nzValue="Ibrahim" nzLabel="Ibrahim"></nz-option>
+                </nz-select>
+              </div>
+            </div>
+            <div nz-row >
+              <div nz-col nzSpan="10">
+                <label  class="label" >Table Number:</label>
+              </div>
+              <div nz-col nzSpan="12" nzOffset="1">
+                <nz-select [(ngModel)]="tableNumber" nzPlaceHolder="Select a Table Number" style="width: 100%;">
+                  <nz-option nzValue="disabled" nzDisabled  selected nzLabel="Select your option"></nz-option>
+                  <nz-option nzValue="1" nzLabel="Table 1"></nz-option>
+                  <nz-option nzValue="2" nzLabel="Table 2"></nz-option>
+                  <nz-option nzValue="3" nzLabel="Table 3"></nz-option>
+                  <nz-option nzValue="4" nzLabel="Table 4"></nz-option>
+                </nz-select>
               </div>
             </div>
           
