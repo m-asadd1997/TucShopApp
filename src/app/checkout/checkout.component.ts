@@ -7,7 +7,8 @@ import { error } from '@angular/compiler/src/util';
 import { debug } from 'util';
 import { Router, ActivatedRoute } from '@angular/router';
 import { count } from 'console';
-
+import { PrintService, UsbDriver, WebPrintDriver } from 'ng-thermal-print';
+import { PrintDriver } from 'ng-thermal-print/lib/drivers/PrintDriver';
 @Component({
   selector: "app-checkout",
   templateUrl: "./checkout.component.html",
@@ -36,6 +37,7 @@ export class CheckoutComponent implements OnInit {
 
 
   }
+  
   checkoutProductsArray = [];
   productsarray: any[] = [];
   productsarrayy: any[] = [];
@@ -53,7 +55,8 @@ export class CheckoutComponent implements OnInit {
   options: Array<{ name: string; countName: number }> = [];
   checkOutObj: Checkout = new Checkout();
   checking: boolean = false;
-
+  status: boolean = false;
+ 
   cols: { header: string; }[];
   requestProduct: any;
   constructor(
@@ -62,7 +65,11 @@ export class CheckoutComponent implements OnInit {
     private router: Router,
     private activeRoute: ActivatedRoute,
     private modal: NzModalService
-  ) { }
+  ) {
+
+ 
+
+   }
   chekingSetting = false;
   discount
   userName: any;
@@ -192,6 +199,11 @@ export class CheckoutComponent implements OnInit {
     })
   }
 
+ 
+
+
+
+
   removeProductFromCheckout(data) {
     let obj1 = {
       "quantity": 0
@@ -227,7 +239,7 @@ export class CheckoutComponent implements OnInit {
 
 
   saveTransaction(reqUser, action) {
-
+        
     this.objToPushForTransaction = []
     console.log(this.checkoutProductsArray);
 
@@ -421,29 +433,14 @@ export class CheckoutComponent implements OnInit {
 
 
   settingHeader
-  print(reqUser, action): void {
+  saveData(reqUser, action): void {
 
     if (!this.invalidAmount) {
+      document.getElementById("print-slip-btn").click();
+    
       this.saveTransaction(reqUser, action);
 
-      // let printContents, popupWin;
-      // printContents = document.getElementById('print-section').innerHTML;
-      // popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
-      // popupWin.document.open();
-      // popupWin.document.write(`
-      //     <html>
-      //       <head>
-      //         <title>Print tab</title>
-      //         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-      //         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-      //         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-      //         </head>
-      //   <body onload="window.print();window.close()">${printContents}</body>
-      //     </html>`
-      // );
-      // popupWin.window.print();
-      // popupWin.document.close();
-
+     
       this.checkoutProductsArray = [];
       this.total = 0;
       this.handleCancel()
@@ -462,10 +459,10 @@ export class CheckoutComponent implements OnInit {
 
   populateCols() {
     this.cols = [
-      { header: "Product Name" },
-      { header: "Product Price" },
-      { header: "Product Quantity" },
+      { header: "Name" },
       { header: "Price" },
+      { header: "Qty" },
+      { header: "Amount" },
 
     ];
   }

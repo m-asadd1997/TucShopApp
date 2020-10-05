@@ -77,7 +77,9 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "AntDesign:build"
+            "browserTarget": "AntDesign:build",
+            "sslKey":"./server.key",
+            "sslCert":"./server.crt"
           },
           "configurations": {
             "production": {

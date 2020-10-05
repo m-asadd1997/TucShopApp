@@ -72,7 +72,7 @@
                                 <a href="#">{{item.email}}</a>
                               </td>
                               <td style="width: 20%;">
-                                <button [disabled]="buttonDisable" (click)="print(item.name,'ROD')" nz-button
+                                <button [disabled]="buttonDisable" (click)="saveData(item.name,'ROD')" nz-button
                                   nzType="primary">Request</button>
                               </td>
                             </tr>
@@ -275,7 +275,7 @@
 
             (nzOnCancel)="handleCancel()"
             nzOkText="Checkout"
-            (nzOnOk)="print('','SC')"
+            (nzOnOk)="saveData('','SC')"
             [nzOkDisabled] = "showError"
           >
 
@@ -370,7 +370,7 @@
 
       <table class="table table-striped">
         <thead>
-          <th *ngFor="let col of cols" style="text-align: center; ">
+          <th *ngFor="let col of cols" style="text-align: center;">
             {{ col.header }}
           </th>
         </thead>
@@ -398,6 +398,9 @@
 
     </div>
   </div>
+  <button id="print-slip-btn" hidden="true" printSectionId="print-section" ngxPrint>print</button> 
+
+ 
 </body>
 
 </html>
