@@ -168,7 +168,7 @@
           <h3 style="font-family:Arial, Helvetica, sans-serif;padding-left:5px;font-size:20px">Qty:</h3>
         </ng-template> -->
 
-       
+
         <div nz-row>
           <div nz-col nzXs="24" nzSm="24" nzMd="5" nzLg="7" nzXl="7" nzSpan="7" nzOffset="1"
             *ngFor="let p of tranByUser">
@@ -232,7 +232,8 @@
                   <nz-button-group>
                     <!-- Add Buttons -->
                     <button #btn nz-button *ngIf="checkingQunatity(data)" (click)="addProduct(data)">
-                      <i nz-icon nzType="plus"></i>
+                      <!-- <i nz-icon nzType="plus"></i> -->
+                      <img src="../../assets/plus.png" alt="">
                     </button>
 
                     <button #btn1 nz-button disabled *ngIf="!checkingQunatity(data)">
@@ -305,7 +306,7 @@
                 <input type="number" [(ngModel)]="discountedAmount" disabled="true" class="inputStyle"/>
               </div>
             </div>
-            <div nz-row >
+            <!-- <div nz-row >
               <div nz-col nzSpan="10">
                 <label  class="label" >Waiter Name:</label>
               </div>
@@ -332,8 +333,8 @@
                   <nz-option nzValue="4" nzLabel="Table 4"></nz-option>
                 </nz-select>
               </div>
-            </div>
-          
+            </div> -->
+
           <div *ngIf="showError" class="alert alert-danger" role="alert">
             Discount can't be greater than billing amount!
           </div>

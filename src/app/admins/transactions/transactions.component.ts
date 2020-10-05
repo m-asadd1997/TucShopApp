@@ -6,7 +6,7 @@ import { transactions } from './transactions';
 import { ExportAsService, ExportAsConfig } from 'ngx-export-as';
 import { start } from 'repl';
 
-// import * as XLSX from 'xlsx'; 
+// import * as XLSX from 'xlsx';
 
 
 @Component({
@@ -24,12 +24,13 @@ transactionobj:transactions=new transactions();
   checkdate:string;
   display:boolean=false;
   date:Date=new Date();
+  size
   allTransactions = [];
   startValue: Date | null = null;
   endValue: Date | null = null;
   startDate
   endDate;
-  
+
   endOpen = false;
 
   disabledStartDate = (startValue: Date): boolean => {
@@ -53,7 +54,7 @@ transactionobj:transactions=new transactions();
   }
 
   onEndChange(date: Date): void {
-    
+
     this.endValue = date;
     this.endDate=this.changedatetostring(this.endValue)
     this.showTransactions();
@@ -77,32 +78,32 @@ datee1:Date;
    console.log(this.checkdate);
   //  this.datee1= new Date();
    this.startDate=this.date.getFullYear()+"-"+ (this.date.getMonth()+1)+"-1";
-   this.endDate=this.date.getFullYear()+"-"+(this.date.getMonth()+1)+"-"+this.date.getDate();    
+   this.endDate=this.date.getFullYear()+"-"+(this.date.getMonth()+1)+"-"+this.date.getDate();
    this.showTransactions();
-    
+
   }
   backupTransaction
   showTransactions(){
-    
+
     this.service.getTransaction(this.startDate,this.endDate).subscribe(d=>{
       console.log(d);
       this.backupTransaction=d;
       this.Transactions=d;
-    
+
         // this.Transactions = d;
         //     this.allTransactions = this.Transactions;
         //     this.startDate="1"+" " +this.date.toLocaleString("en", { month: "long"  })+" "+this.date.getFullYear() ;
         //     this.endDate=this.date.getUTCDate()+" "+this.date.toLocaleString("en", { month: "long"  })+" "+this.date.getFullYear() ;
 
         //     console.log(d);
-      
+
       },error=>{
         this.display=true;
       }
 
       )
 
-    
+
   }
   deleteTransactions(data){
     console.log("huadu",data);
@@ -131,21 +132,21 @@ datee1:Date;
     if(this.datevariable[0]==null|| this.datevariable[1]==null){
       this.transactionobj.dateFrom=this.changedatetostring(new Date());
       this.transactionobj.dateTill=this.changedatetostring(new Date());
-          
+
       this.showdate(this.date);
 
     }
     else{
 
     // this.transactionobj.dateFrom=this.changedatetostring(this.datevariable[0]);
-    
+
     // this.transactionobj.dateTill=this.changedatetostring(this.datevariable[1]);
     // this.startDate=this.datevariable[0].getUTCDate()+" "+this.datevariable[0].toLocaleString("en", { month: "long"  })+" "+this.datevariable[0].getFullYear() ;
     // this.endDate= this.datevariable[1].getUTCDate()+" "+this.datevariable[1].toLocaleString("en", { month: "long"  })+" "+this.datevariable[1].getFullYear() ;
-    
+
    this.startDate=this.datevariable[0].getFullYear()+"-"+ (this.datevariable[0].getMonth()+1)+"-"+this.datevariable[0].getDate();
    this.endDate=this.datevariable[1].getFullYear()+"-"+(this.datevariable[1].getMonth()+1)+"-"+this.datevariable[1].getDate();
-    
+
 }
     this.service.getTransaction(this.startDate, this.endDate).subscribe(data=>{
     console.log(data);
@@ -159,8 +160,8 @@ datee1:Date;
 
 
 
-    
-    
+
+
 
   }
 
@@ -181,7 +182,7 @@ datee1:Date;
 
   }
 
-  
+
 
 
 
@@ -203,20 +204,20 @@ download()
       this.exportAsService.get(this.exportAsConfig).subscribe(content => {
         console.log(content);
       });
-     
-      
+
+
     }
     onChange(){
- 
+
       if(this.datevariable.length==0){
 
-        this.Transactions = this.backupTransaction;     
-      
+        this.Transactions = this.backupTransaction;
+
       }
 
     }
 
-    
+
 
 
 }

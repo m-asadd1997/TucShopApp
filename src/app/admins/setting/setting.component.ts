@@ -16,7 +16,8 @@ export class SettingComponent implements OnInit {
   settingObj: setting = new setting();
   formData = new FormData();
   Checker=false;
-id
+  id
+  extraTemplate
   ngOnInit() {
     this.adminService.getSetting().subscribe(d => {
 

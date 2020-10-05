@@ -19,7 +19,8 @@ id
   isLogSpinning = false;
   registerModel = new User();
   formData = new FormData();
-  
+  large
+  extraTemplate
   constructor(private service: AdminServiceService , private route :Router, private message: NzMessageService,private activateRoute:ActivatedRoute,private mainservice:MainscreenService) { }
 
   ngOnInit() {
@@ -47,9 +48,9 @@ id
 
     });
   }
-  
+
   accountAccessKeyy
-  submit(registerForm : NgForm){
+  submit(){
     this.isRegSpinning = true;
 
 
@@ -73,7 +74,7 @@ id
 
     this.mainservice.registerUser(this.registerModel)
     .subscribe(
-        data => {         
+        data => {
           if(data.result.status == 200){
             console.log(data.result);
             this.registerModel.name=""

@@ -21,6 +21,7 @@ export class UserComponent implements OnInit {
   user:any;
   showproductName:any;
   productimage:String;
+  size
   productname:any[]=[];
   allTransactions = [];
   userTransactions = [];
@@ -65,7 +66,7 @@ export class UserComponent implements OnInit {
   ngOnInit() {
     this.user=this.activatedroute.snapshot.params['user'];
     console.log(this.user);
-    
+
     this.showTransactions();
   }
   showTransactions(){
@@ -75,7 +76,7 @@ export class UserComponent implements OnInit {
     //   this.userTransactions=this.allTransactions;
     // })
     this.service.getTransactionsByUser(this.user).subscribe(data=>{
-      
+
 console.log("response",data)
 // console.log(data.productTransactions.product['name']);
 // data.map(d=>{
@@ -89,17 +90,17 @@ console.log("response",data)
       // console.log(data);
       // this.allTransactions=data;
       // this.allTransactions=data;
-    
+
     },error=>{
       this.display=true;
     })
 
 
-    
+
 
   }
   detailsTransactions(data){
-    
+
     // this.showproductName=products
     // this.productimage=image;
     this.productDetails=data;
@@ -107,14 +108,14 @@ console.log("response",data)
 
 
 
-    
+
 
   }
   exportAsConfig: ExportAsConfig = {
     type: 'xlsx', // the type you want to download
     elementId: 'table1', // the id of html/table element
   }
-  
+
 
   handleCancel(){
     this.isVisible=false;
@@ -132,21 +133,21 @@ console.log("response",data)
     else{
 
     this.transactionOBJ.dateFrom=this.changedatetostring(this.datevariable[0]);
-    
+
     this.transactionOBJ.dateTill=this.changedatetostring(this.datevariable[1]);
     this.transactionOBJ.user=this.user;
     console.log(this.transactionOBJ);
-    
+
     }
     this.service.scearchtransactionofUser(this.transactionOBJ).subscribe(data=>{
       console.log(data);
       this.backupTransaction=data;
-      
+
       this.allTransactions=data;
-      
+
     })
 
-    
+
 
   }
   changedatetostring(date:Date){
@@ -166,8 +167,8 @@ console.log("response",data)
       this.exportAsService.get(this.exportAsConfig).subscribe(content => {
         console.log(content);
       });
-     
-      
+
+
     }
 
     onChange(){

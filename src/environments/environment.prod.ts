@@ -1,5 +1,6 @@
 export const environment = {
   production: true,
-  baseUrl: 'https://tuckshop-app.herokuapp.com/'
+  baseUrl: 'http://localhost:8080/'
+
   //base  //https://tuckshop-app.herokuapp.com/
 };

@@ -49,7 +49,7 @@
               </ng-template>
               <nz-autocomplete #auto>
                 <nz-auto-option class="global-search-item" *ngFor="let option of options" [nzValue]="option.variants">
-                  {{ option.variants || uppercase }}
+                  {{ option.variants }}
 
                   <span class="global-search-item-count"></span>
                 </nz-auto-option>

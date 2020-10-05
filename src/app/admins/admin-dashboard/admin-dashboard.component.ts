@@ -15,7 +15,6 @@ import { NzMessageService } from 'ng-zorro-antd';
 // import { element } from 'protractor';
 
 
-
 @Component({
   selector: 'app-admin-dashboard',
   templateUrl: './admin-dashboard.component.html',
@@ -25,6 +24,7 @@ export class AdminDashboardComponent implements OnInit {
   isTotalProductsVisibleModal = false;
   isOutOfStockVisibleModal = false;
   isTotalTransactionModalVisible = false;
+  extraTemplate
 
   dateRange = [];
 

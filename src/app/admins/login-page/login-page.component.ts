@@ -21,14 +21,14 @@ export class LoginPageComponent implements OnInit {
 
 
 
-  
+
 
 
   constructor(private route: Router,private message: NzMessageService,private service: MainscreenService ) { }
-  
-  
-  
-  
+
+
+
+
   ngOnInit() {
     localStorage.clear();
     sessionStorage.clear();
@@ -44,9 +44,9 @@ export class LoginPageComponent implements OnInit {
     }
 
   }
+size
 
-
-  loginSubmit(loginForm : NgForm){
+  loginSubmit(){
     this.isLogSpinning = true;
     console.log(this.loginModel);
     this.loginModel.Role = 'ADMIN';
@@ -63,7 +63,7 @@ export class LoginPageComponent implements OnInit {
               if(res.result.userType==='DESK')
               {
                 this.route.navigate(['/admin/deskrequest']);
-              
+
               }
               else if(res.result.userType="ADMIN"){
               this.route.navigate(['/admin/layout']);
@@ -71,13 +71,13 @@ export class LoginPageComponent implements OnInit {
 
               this.isLogSpinning = false;
               this.message.success('Login Successful',{ nzDuration: 3000 });
-              
+
             }
             // this.router.navigate(['/superheroes', { id: heroId, foo: 'foo' }]);
 
-            
+
           }
-          
+
         },
         error =>{
           if(error){
@@ -89,10 +89,10 @@ export class LoginPageComponent implements OnInit {
         }
 
       )
-      
-     }
-  
 
-  
+     }
+
+
+
 
 }
