@@ -305,7 +305,7 @@
                 <input type="number" [(ngModel)]="discountedAmount" disabled="true" class="inputStyle"/>
               </div>
             </div>
-            <div nz-row >
+            <!-- <div nz-row >
               <div nz-col nzSpan="10">
                 <label  class="label" >Waiter Name:</label>
               </div>
@@ -333,7 +333,7 @@
                 </nz-select>
               </div>
             </div>
-          
+           -->
           <div *ngIf="showError" class="alert alert-danger" role="alert">
             Discount can't be greater than billing amount!
           </div>
@@ -385,9 +385,11 @@
       </table>
       <div>
         <hr style="border:1px solid black;width:100%;" />
-        <span><b> Total: </b> <span style="margin-left:83%;">{{ total }}</span></span>
+        <span><b> Billing Amount: </b> <span style="margin-left:83%;margin-top: -10%">{{ total }}</span></span>
+        <span><b> Discount: </b> <span style="margin-left:83%;">{{ discountInRs }}</span></span>
+        <span><b> Total: </b> <span style="margin-left:83%;">{{ discountedAmount }}</span></span>
         <hr style="border:1px solid black;width:100%;" />
-      </div>
+      </div>  
     </div>
 
 
@@ -397,6 +399,9 @@
       <h2 nz-title>{{settingHeader.footer}}</h2>
 
     </div>
+    <small style="margin-left: 25%">Powered by Stepway</small>
+    <br>
+    <small style="margin-left: 25%">contact 0332 2078369</small>
   </div>
   <button id="print-slip-btn" hidden="true" printSectionId="print-section" ngxPrint>print</button> 
 
