@@ -72,7 +72,7 @@
                                 <a href="#">{{item.email}}</a>
                               </td>
                               <td style="width: 20%;">
-                                <button [disabled]="buttonDisable" (click)="print(item.name,'ROD')" nz-button
+                                <button [disabled]="buttonDisable" (click)="saveData(item.name,'ROD')" nz-button
                                   nzType="primary">Request</button>
                               </td>
                             </tr>
@@ -276,7 +276,7 @@
 
             (nzOnCancel)="handleCancel()"
             nzOkText="Checkout"
-            (nzOnOk)="print('','SC')"
+            (nzOnOk)="saveData('','SC')"
             [nzOkDisabled] = "showError"
           >
 
@@ -333,7 +333,8 @@
                   <nz-option nzValue="4" nzLabel="Table 4"></nz-option>
                 </nz-select>
               </div>
-            </div> -->
+
+            </div>
 
           <div *ngIf="showError" class="alert alert-danger" role="alert">
             Discount can't be greater than billing amount!
@@ -371,7 +372,7 @@
 
       <table class="table table-striped">
         <thead>
-          <th *ngFor="let col of cols" style="text-align: center; ">
+          <th *ngFor="let col of cols" style="text-align: center;">
             {{ col.header }}
           </th>
         </thead>
@@ -386,9 +387,11 @@
       </table>
       <div>
         <hr style="border:1px solid black;width:100%;" />
-        <span><b> Total: </b> <span style="margin-left:83%;">{{ total }}</span></span>
+        <span><b> Billing Amount: </b> <span style="margin-left:83%;margin-top: -10%">{{ total }}</span></span>
+        <span><b> Discount: </b> <span style="margin-left:83%;">{{ discountInRs }}</span></span>
+        <span><b> Total: </b> <span style="margin-left:83%;">{{ discountedAmount }}</span></span>
         <hr style="border:1px solid black;width:100%;" />
-      </div>
+      </div>  
     </div>
 
 
@@ -398,7 +401,13 @@
       <h2 nz-title>{{settingHeader.footer}}</h2>
 
     </div>
+    <small style="margin-left: 25%">Powered by Stepway</small>
+    <br>
+    <small style="margin-left: 25%">contact 0332 2078369</small>
   </div>
+  <button id="print-slip-btn" hidden="true" printSectionId="print-section" ngxPrint>print</button> 
+
+ 
 </body>
 
 </html>

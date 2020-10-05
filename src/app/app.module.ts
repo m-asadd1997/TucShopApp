@@ -36,8 +36,7 @@ import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NoopInterceptor } from './request.intercepts';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
-
-
+import {NgxPrintModule} from 'ngx-print';
 
 
  
@@ -80,10 +79,12 @@ registerLocaleData(en);
     NzBadgeModule,
     NzDividerModule,
     NzAvatarModule,
-    NzToolTipModule
+    NzToolTipModule,
+    NgxPrintModule
     
   ],
-  providers: [{ provide: NZ_I18N , useValue: en_US }, AuthGuard,{
+  providers: [
+    { provide: NZ_I18N , useValue: en_US }, AuthGuard,{
     provide: HTTP_INTERCEPTORS,
     useClass: NoopInterceptor,
     multi: true
