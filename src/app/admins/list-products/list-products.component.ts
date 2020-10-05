@@ -14,18 +14,18 @@ export class ListProductsComponent implements OnInit {
 
   constructor(private service:AdminServiceService, private router:Router,private message: NzMessageService) { }
 
-  
+
   Products = []
   index=0;
   allProducts=[];
   disbaleAddQuantity=false;
   checkingForNgOnIt=false;
-  
+
 
   ngOnInit() {
-   
+
      this.showProducts(this.index);
-     
+
  }
   showProducts(index) {
 
@@ -34,19 +34,19 @@ export class ListProductsComponent implements OnInit {
 
         if(item.content.length==0&&this.checkingForNgOnIt){
           this.message.warning("No More Products");
-          
-          this.index--; 
+
+          this.index--;
 
         }
         else{
           this.Products = item.content
-    
+
           this.filteredProducts= item.content;
           this.allProducts=this.Products;
         }
-        
+
    }
-    
+
     })
   }
   deleteProduct(data){
@@ -71,7 +71,7 @@ export class ListProductsComponent implements OnInit {
     this.index-=1;
     this.showProducts(this.index);
   }
-  
+  value
 
 
   filteredProducts=[]
@@ -86,8 +86,8 @@ export class ListProductsComponent implements OnInit {
    const value = (e.target as HTMLInputElement).value;
    if (value != null && value != "") {
      this.getProducts(value);
-     
-    
+
+
    }
    else{
      this.Products=this.filteredProducts;

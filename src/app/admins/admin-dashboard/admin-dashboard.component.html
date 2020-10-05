@@ -13,7 +13,7 @@
       <h3><strong>Dashboard</strong></h3>
     </div>
    <div nz-col [nzSpan]="12" style="text-align:right ; margin-bottom: 15px;">
-  <nz-range-picker [(ngModel)]="dateRange" (ngModelChange)="onChange($event)"></nz-range-picker>
+  <nz-range-picker [(ngModel)]="dateRange" (ngModelChange)="onChange()"></nz-range-picker>
   <button nz-button nzType="primary" style="margin-left: 30px;" (click)="print()">Filter</button>
 </div>
 </div>
@@ -33,9 +33,9 @@
 
     <!-- <div nz-col [nzSpan]="6">
         <nz-card nzTitle="Total Products" nzHoverable (click)="showModalTotalProducts()">
-        
-          <h1 style="text-align: center;">{{totalProducts}}</h1>  
-          
+
+          <h1 style="text-align: center;">{{totalProducts}}</h1>
+
 
         </nz-card>
       </div>
@@ -82,7 +82,7 @@
       >
      </fusioncharts>
 
-        
+
       </nz-card>
     </div>
     <div nz-col [nzSpan]="12">
@@ -97,14 +97,14 @@
          [dataSource]="dataSource1"
         >
        </fusioncharts>
-       
-        
-      </nz-card> 
+
+
+      </nz-card>
     </div>
 
   </div>
 
-    
+
 
   <div nz-row [nzGutter]="8" style="margin-top: 10px;">
 
@@ -150,24 +150,24 @@
 
 
 
-  <!-- <nz-modal 
+  <!-- <nz-modal
   [(nzVisible)]="isTotalProductsVisibleModal"
-   nzTitle="Details Of Products" 
+   nzTitle="Details Of Products"
    (nzOnCancel)="handleCancelTotalProducts()"
     (nzOnOk)="handleOkTotalProducts()">
-  
 
-    
+
+
   </nz-modal> -->
 
 
-  <!-- <nz-modal 
+  <!-- <nz-modal
 
-      [(nzVisible)]="isOutOfStockVisibleModal" 
-      nzTitle="Out Of Stock Products" 
-      (nzOnCancel)="handleCancelOutOfStock()" 
+      [(nzVisible)]="isOutOfStockVisibleModal"
+      nzTitle="Out Of Stock Products"
+      (nzOnCancel)="handleCancelOutOfStock()"
       (nzOnOk)="handleOkOutOfStock()">
-  
+
 
 
 
@@ -177,16 +177,16 @@
           <tr>
             <th>Product Name</th>
             <th>Quantity</th>
-           
-            
+
+
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let data1 of basicTable1.data">
             <td>{{data1.name}}</td>
             <td>{{data1.qty}}</td>
-            
-            
+
+
           </tr>
         </tbody>
       </nz-table>
@@ -197,11 +197,11 @@
 
 
 
-  <!-- <nz-modal 
+  <!-- <nz-modal
 
-  [(nzVisible)]="isTotalTransactionModalVisible" 
-  nzTitle="TotalTransactions" 
-  (nzOnCancel)="handleCancelTotalTransaction()" 
+  [(nzVisible)]="isTotalTransactionModalVisible"
+  nzTitle="TotalTransactions"
+  (nzOnCancel)="handleCancelTotalTransaction()"
   (nzOnOk)="handleOkTotalTransaction()">
 
 </nz-modal> -->

@@ -23,7 +23,8 @@ export class ProductListingComponent implements OnInit {
   productsArray = [] = [];
   reacentTransactions = []
   params: any;
-
+  small
+  inputValue
   categoryHeader: any;
   count = 0;
   searchProduct: any;

@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 export class AdminLayoutComponent implements OnInit {
 
   constructor( private router:Router) { }
-
+  isCollapsed
 
 adminName
 

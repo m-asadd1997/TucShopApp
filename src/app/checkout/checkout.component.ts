@@ -52,7 +52,8 @@ export class CheckoutComponent implements OnInit {
   isVisible2 = false;
   imageVisible = false;
   inputValue: string;
-  options: Array<{ name: string; countName: number }> = [];
+  extraTemplate
+  options: Array<{ name: string; countName: number;count}> = [];
   checkOutObj: Checkout = new Checkout();
   checking: boolean = false;
   status: boolean = false;
@@ -83,7 +84,7 @@ export class CheckoutComponent implements OnInit {
   ngOnInit() {
     // this.gettingRecentTransactions();
     this.getLoginTime();
-  
+
     // this.usernamee= sessionStorage.getItem('username').toUpperCase();
     // this.usernamee = "<div class='row'> <i class='fa fa-user user'></i><h6>"+this.usernamee+"</h6></div>";
     this.fafaicon();
@@ -631,9 +632,9 @@ export class CheckoutComponent implements OnInit {
     })
   }
 
-  
+
   dayclose() {
-    
+
     let name = sessionStorage.getItem('username').toLowerCase();
     this.interactionServ.dayClose(name).subscribe(d => {
         console.log("Blob",d);
@@ -671,7 +672,7 @@ export class CheckoutComponent implements OnInit {
   waiterName;
   tableNumber;
 
-  
+
 
 
 

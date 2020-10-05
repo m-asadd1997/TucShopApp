@@ -42,7 +42,7 @@ export class LoginPageComponent implements OnInit,AfterViewInit {
 //       elem['msRequestFullscreen'];
 //     if (methodToBeInvoked) methodToBeInvoked.call(elem);
 // }
- 
+
 
   gotoLogin() {
     this.register = 0;
@@ -54,7 +54,7 @@ export class LoginPageComponent implements OnInit,AfterViewInit {
     this.register = 1
   }
 
-  submit(registerForm : NgForm){
+  submit(){
     this.isRegSpinning = true;
 
     console.log(this.registerModel);
@@ -83,7 +83,7 @@ export class LoginPageComponent implements OnInit,AfterViewInit {
 
   }
 
-  loginSubmit(loginForm : NgForm){
+  loginSubmit(){
     this.isLogSpinning = true;
     console.log(this.loginModel);
     // this.loginModel.password = '123';
@@ -95,9 +95,9 @@ export class LoginPageComponent implements OnInit,AfterViewInit {
             if(res.status == 200){
               console.log(res);
               if(res.result == null){
-               
+
               this.message.error('Your 1 Month Trial Version Has Expired. Contact Shahzad: 03322078369',{ nzDuration: 10000 });
-              this.isLogSpinning = false;               
+              this.isLogSpinning = false;
               }
               else {
               sessionStorage.setItem('token',res.result.token);

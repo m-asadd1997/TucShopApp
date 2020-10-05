@@ -9,7 +9,7 @@ import { NzMessageService } from 'ng-zorro-antd';
   styleUrls: ['./total-products-details.component.css']
 })
 export class TotalProductsDetailsComponent implements OnInit {
-
+  value
   constructor(private adminService: AdminServiceService, private router: Router,private message :NzMessageService) { }
 
   ngOnInit() {
@@ -32,12 +32,12 @@ export class TotalProductsDetailsComponent implements OnInit {
     }
 
     this.adminService.getTotalProductQuantityDetails(startValue,endValue).subscribe(d => {
-     
-      
+
+
      this.Products=d.result;
      this.backupProducts=d.result;
-     
-     
+
+
 
 
 
@@ -64,12 +64,12 @@ dateRange=[]
     this.startValue=this.dateRange[0];
     this.endValue=this.dateRange[1];
     this.getProductsDetails(this.startValue,this.endValue);
-  
-  
+
+
     }
   }
-  
-  
+
+
 filteredProducts=[]
   getVariants(value:any){
     this.adminService.getSearchedProducts(value).subscribe(d=>{
@@ -82,8 +82,8 @@ filteredProducts=[]
    const value = (e.target as HTMLInputElement).value;
    if (value != null && value != "") {
      this.getVariants(value);
-     
-    
+
+
    }
    else{
      this.Products=this.filteredProducts;

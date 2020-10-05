@@ -15,6 +15,7 @@ export class AddCategoryComponent implements OnInit {
 
   imagePath;
   imgURL: any;
+  large
   message2: string;
   add_categories:add_category= new add_category();
   form: any;

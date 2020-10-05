@@ -14,7 +14,9 @@ import { NzMessageComponent, NzMessageService } from 'ng-zorro-antd';
 export class ProductAddComponent implements OnInit {
   id: any;
   switchValue=false;
+  extraTemplate
   categories = []
+  large
   addProducts: addProduct;
   formData = new FormData();
   checker: boolean = false;
