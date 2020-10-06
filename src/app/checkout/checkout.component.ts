@@ -7,8 +7,6 @@ import { error } from '@angular/compiler/src/util';
 import { debug } from 'util';
 import { Router, ActivatedRoute } from '@angular/router';
 import { count } from 'console';
-import { PrintService, UsbDriver, WebPrintDriver } from 'ng-thermal-print';
-import { PrintDriver } from 'ng-thermal-print/lib/drivers/PrintDriver';
 @Component({
   selector: "app-checkout",
   templateUrl: "./checkout.component.html",

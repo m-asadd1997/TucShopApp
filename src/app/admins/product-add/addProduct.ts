@@ -8,4 +8,5 @@ export class addProduct {
     productQuantity: string
     image1:String
     variants: string
+    sku:string;
   }

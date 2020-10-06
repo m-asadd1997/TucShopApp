@@ -75,6 +75,7 @@ export class ProductAddComponent implements OnInit {
       console.log("ELSEEEE")
     }
     this.formData.append('costprice', this.addProducts.costPrice);
+    this.formData.append('sku',this.addProducts.sku);
     this.formData.append('price', this.addProducts.salePrice);   //sale price
    (this.switchValue)? this.formData.append('quantity', "0") : this.formData.append('quantity', this.addProducts.productQuantity)
 
@@ -175,6 +176,7 @@ export class ProductAddComponent implements OnInit {
       this.addProducts.productQuantity = d.qty
       this.addProducts.salePrice = d.price
       this.addProducts.category = d.category.name
+      this.addProducts.sku=d.sku;
 
       this.service.getImage(d.image).subscribe(e => {
         if (e) {

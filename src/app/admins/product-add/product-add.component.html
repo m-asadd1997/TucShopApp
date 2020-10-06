@@ -86,6 +86,20 @@
         </nz-form-item>
 
         <nz-form-item class="nz-group">
+          <nz-form-label nzFor="email"> Bar code</nz-form-label>
+          <br>
+          <nz-form-control nzErrorTip="Please input your Product bar code!">
+            <nz-input-group >
+              <input  type="text" required #sku="ngModel" name="sku"
+                [(ngModel)]="addProducts.sku" nz-input placeholder="Sku Code" required />
+            </nz-input-group>
+
+
+          </nz-form-control>
+        </nz-form-item>
+
+
+        <nz-form-item class="nz-group">
           <nz-form-label nzFor="email">Product Price</nz-form-label>
           <br>
           <nz-form-control nzErrorTip="Please input your Product Price!">
