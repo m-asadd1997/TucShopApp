@@ -1,3 +1,4 @@
+import { transactions } from './../admins/transactions/transactions';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
@@ -10,19 +11,6 @@ import { login } from '../login-page/login';
 })
 export class MainscreenService {
  
-
-  private productSource = new Subject<Object>();
-  productMessage$ = this.productSource.asObservable();
-
-
-  private productQuantityUpdateToProductListing = new Subject<any>();
-  productQuantityUpdateToProductListing$ = this.productQuantityUpdateToProductListing.asObservable();
-
-
-
-  // private productQuantityUpdateToCheckout = new Subject<any>();
-  // productQuantityUpdateToCheckout$= this.productQuantityUpdateToCheckout.asObservable();
-
 
   constructor(private http: HttpClient) { }
 
@@ -52,10 +40,35 @@ export class MainscreenService {
   private getTotalTransactionByUserURL = environment.baseUrl+"api/transaction/getTotalTransactionByUser/";
   private dayCloseURL = environment.baseUrl+"api/transaction/closing/";
   private getLoginTimeURL=environment.baseUrl+"api/user/getUserTimeDate/";
+  private updateTransactionURL = environment.baseUrl+"api/transaction/"
+
+
+  private productSource = new Subject<Object>();
+  productMessage$ = this.productSource.asObservable();
+
+
+  private productQuantityUpdateToProductListing = new Subject<any>();
+  productQuantityUpdateToProductListing$ = this.productQuantityUpdateToProductListing.asObservable();
+
+
+
+  // private productQuantityUpdateToCheckout = new Subject<any>();
+  // productQuantityUpdateToCheckout$= this.productQuantityUpdateToCheckout.asObservable();
 
 
   public sendMessage(obj: Object) {
     this.productSource.next(obj);
+  }
+
+  private transactionSource = new Subject<Object>();
+  transactionObject$ = this.transactionSource.asObservable();
+
+  public sendTransactionObjectToCheckout(object:Object){
+    this.transactionSource.next(object);
+  }
+  
+  public updateTransaction(id:any,transaction:Object):Observable<any>{
+    return this.http.put(this.updateTransactionURL+id,transaction);
   }
    public deleteTransaction(id:any): Observable<any>{
      return this.http.get(this.deleteTransactionURL+id);

@@ -204,17 +204,17 @@
 
             <div nz-row>
               <div nz-col nzSpan="3">
-                <nz-badge [nzCount]="data.productQuantity">
-                  <nz-avatar [nzShape]="'circle'" [nzSize]="40" [nzSrc]="data.productImage" [nzIcon]="'user'">
+                <nz-badge [nzCount]="data.productQuantity || data.quantity ">
+                  <nz-avatar [nzShape]="'circle'" [nzSize]="40" [nzSrc]="data.productImage || data.product.image" [nzIcon]="'user'">
                   </nz-avatar>
                 </nz-badge>
               </div>
 
               <div nz-col nzSpan="6" nzOffset="2">
                 <h5 nz-title style="font-size: 12px;"><b>
-                    {{ data.productTitle }}</b>
+                    {{ data.productTitle || data.product.name }}</b>
                   <br>
-                  <nz-tag  [nzColor]="'#f50'" > {{data.productVariant}}</nz-tag>
+                  <nz-tag  [nzColor]="'#f50'" > {{data.productVariant || data.product.variants}}</nz-tag>
 
                   <!-- <b style="font-size: 11px;">{{data.productVariant}} </b> -->
                   <br>
@@ -246,7 +246,7 @@
                     </button>
                     <!-- End of Minus Buttons -->
                   </nz-button-group>
-                  <nz-tag [nzColor]="'#f50a0a'">Price :{{data.productPrice}}</nz-tag>
+                  <nz-tag [nzColor]="'#f50a0a'">Price :{{data.productPrice || data.product.price}}</nz-tag>
                 </h4>
               </div>
               <div nz-col nzSpan="2" nzOffset="2" (click)="removeProductFromCheckout(data)">

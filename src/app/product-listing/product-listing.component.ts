@@ -2,7 +2,7 @@ import { transactions } from './../admins/transactions/transactions';
 import { productlisting } from './productlisting';
 import { Component, OnInit } from '@angular/core';
 import { MainscreenService } from '../main-screen/mainscreen.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NzMessageComponent } from 'ng-zorro-antd';
 import { debug } from 'util';
 import { AdminServiceService } from '../admins/admin-service.service';
@@ -29,7 +29,7 @@ export class ProductListingComponent implements OnInit {
   searchProduct: any;
   options: any;
 
-  constructor(private prodService: MainscreenService, private activeRoute: ActivatedRoute, private service: AdminServiceService) { }
+  constructor(private prodService: MainscreenService, private activeRoute: ActivatedRoute, private service: AdminServiceService,private router:Router) { }
 
   transactionIDObj = new productlisting();
 
@@ -174,7 +174,7 @@ export class ProductListingComponent implements OnInit {
     this.prodService.recentTransactions().subscribe(data => {
       console.log("Dattaaa", data);
       this.transactions = data;
-
+    
       this.reacentTransactions = this.transactions;
 
 
@@ -235,6 +235,12 @@ export class ProductListingComponent implements OnInit {
     })
 
 
+  }
+
+  editTransaction(obj){
+    this.prodService.sendTransactionObjectToCheckout(obj);
+    // this.prodService.sendMessage(obj);
+   
   }
 
 

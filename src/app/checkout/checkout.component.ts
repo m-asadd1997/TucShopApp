@@ -7,6 +7,8 @@ import { error } from '@angular/compiler/src/util';
 import { debug } from 'util';
 import { Router, ActivatedRoute } from '@angular/router';
 import { count } from 'console';
+import { quantity } from 'chartist';
+import { request } from 'http';
 
 @Component({
   selector: "app-checkout",
@@ -16,8 +18,6 @@ import { count } from 'console';
 export class CheckoutComponent implements OnInit {
 
   @HostListener("window:beforeunload", ["$event"]) unloadHandler(event: Event) {
-
-
     this.checkoutProductsArray.forEach(data => {
       let obj = {
         "quantity": 0,
@@ -31,10 +31,7 @@ export class CheckoutComponent implements OnInit {
           this.checkoutProductsArray.splice(index, 1);
         }
       })
-
     })
-
-
   }
   checkoutProductsArray = [];
   productsarray: any[] = [];
@@ -46,23 +43,14 @@ export class CheckoutComponent implements OnInit {
   isVisible = false;
   addButtonDisbale = false;
   isOkLoading: boolean;
-  // minusButtonDisbale = false;
   isVisible2 = false;
   imageVisible = false;
   inputValue: string;
   options: Array<{ name: string; countName: number }> = [];
   checkOutObj: Checkout = new Checkout();
   checking: boolean = false;
-
   cols: { header: string; }[];
   requestProduct: any;
-  constructor(
-    private interactionServ: MainscreenService,
-    private message: NzMessageService,
-    private router: Router,
-    private activeRoute: ActivatedRoute,
-    private modal: NzModalService
-  ) { }
   chekingSetting = false;
   discount
   userName: any;
@@ -73,71 +61,68 @@ export class CheckoutComponent implements OnInit {
     amount: null
   }
   isDisbled = true;
-  ngOnInit() {
-    // this.gettingRecentTransactions();
-    this.getLoginTime();
+  sampleArray=[];
+  transactionID:any
+  requestObj:any
+  amountReceived = 0;
+  returnedAmount = 0;
+  totalAmount = 0;
+  invalidAmount = false
+  waiterName;
+  tableNumber;
+  discountedAmount = this.total;
+  discountInRs = 0;
+  showError = false;
+
+  constructor(
+    private interactionServ: MainscreenService,
+    private message: NzMessageService,
+    private router: Router,
+    private activeRoute: ActivatedRoute,
+    private modal: NzModalService
+  ) { }
   
-    // this.usernamee= sessionStorage.getItem('username').toUpperCase();
-    // this.usernamee = "<div class='row'> <i class='fa fa-user user'></i><h6>"+this.usernamee+"</h6></div>";
+ 
+  ngOnInit() {
+
+    this.getLoginTime();
     this.fafaicon();
     console.log(this.usernamee);
     this.interactionServ.getSetting().subscribe(d => {
       this.activeRoute.paramMap.subscribe(
         params => {
-
           this.userName = params['params'].user;
           console.log(this.userName);
-
         }
       );
-
       if (d) {
         this.settingHeader = d[0];
         this.chekingSetting = true;
       }
-
-      // if (!this.settingHeader) {
-      //   this.settingHeader = {
-      //     header: "",
-      //     logo: '',
-      //     footer: "",
-      //     headerName: ""
-      //   }
-
-      // }
-      // else if (this.settingHeader.headerName == undefined) {
-      //   this.settingHeader.headerName = ""
-      // }
-      // else if (this.settingHeader.header == undefined) { this.settingHeader.header = "" }
-      // else if (this.settingHeader.footer == undefined) { this.settingHeader.footer = "" }
-      // else if (this.settingHeader.logo == undefined) { this.settingHeader.logo = "" }
-      // else { this.imageVisible = true }
     });
 
     this.populateCols();
 
     // <<<<<<< variants-work
     this.interactionServ.productMessage$.subscribe(d => {
-      console.log("dsfsdgsdg", d);
+      console.log("Recieve Product From ProductListing", d);
       if (d) {
         let found = this.checkoutProductsArray.findIndex(
           p => p.productTitle == d["name"] && p.productVariant == d["variants"]
         );
 
-
         if (d['qty'] <= 0) {
           this.addButtonDisbale = true;
-
         }
-
-
         if (found > -1) {
           this.checkoutProductsArray[found].productPrice += d["price"];
           // this.total = this.total + d["price"];
           this.checkoutProductsArray[found]["productQuantity"] += 1;
           this.checkoutProductsArray[found].productqty = d["qty"];
 
-        } else {
+        } 
+        else
+        {
           this.checkoutProductsArray.push({
             id: d["id"],
             productTitle: d["name"],
@@ -147,55 +132,99 @@ export class CheckoutComponent implements OnInit {
             productqty: d['qty'],
             printProductPrice: d["price"],
             productVariant: d["variants"],
-
-            // =======
-            //     this.interactionServ.productMessage$.subscribe(d => {
-            //       //
-            //       if (d) {
-            //         let found = this.checkoutProductsArray.findIndex(
-            //           p => p.productTitle == d["name"]
-            //         );
-
-
-            //         if (d['qty'] <= 0) {
-            //           this.addButtonDisbale = true;
-            // >>>>>>> master
-
-          }
-
-
-            // if (found > -1) {
-            //   this.checkoutProductsArray[found].productPrice += d["price"];
-            //   this.total = this.total + d["price"];
-            //   this.checkoutProductsArray[found]["productQuantity"] += 1;
-            //   this.checkoutProductsArray[found].productqty = d["qty"];
-
-            // } else {
-            //   this.checkoutProductsArray.push({
-            //     id: d["id"],
-            //     productTitle: d["name"],
-            //     productPrice: d["price"],
-            //     productImage: d["image"],
-            //     productQuantity: this.productQuantity = 1,
-            //     productqty: d['qty'],
-            //     printProductPrice: d["price"]
-
-            //   }
-            //   );
-            //
-
-          )
+          })
         }
         this.total += d["price"];
-
       };
+    
+    })
+    
+    this.receiveTransactionFromDeleteOrders();
+    
+  }
+  
+
+  //Recieve Transaction Object From Delete Orders
+  receiveTransactionFromDeleteOrders(){
+    this.interactionServ.transactionObject$.subscribe(d=>{
+      console.log("TRANSACTION",d)
+
+      console.log("Edit",d['productTransactions'])
+       
+      this.checkoutProductsArray = [];
+      this.total=0;
+
+      for(let product of d['productTransactions']){
+
+        let object={
+          id : product.product.id,
+          productTitle:product.product.name,
+          productPrice:product.product.price*product.quantity,
+          productImage:product.product.image,
+          productVariant:product.product.variants,
+          productqty:product.product.qty,
+          productQuantity:product.quantity,
+          printProductPrice:product.product.price,
+        }
+        this.checkoutProductsArray.push(object);
+        this.total+= product.product.price*product.quantity;
+      }
+      console.log("products",this.checkoutProductsArray)
+
+      this.transactionID = d['id'];
+      console.log("ID",this.transactionID);
+
+      this.objToPushForTransaction=[];
+     
+     this.checkoutProductsArray.forEach(prod=>{
+         let transactionObject={
+          "product": prod,
+          "quantity": prod.productQuantity
+        }
+        this.objToPushForTransaction.push(transactionObject);
+      })
+      console.log("PushObject",this.objToPushForTransaction)
+      
+      this.requestObj = {
+        "amount": this.total,
+        "requestedUser": d['requestedUser'],
+        "action": d['action'],
+        "productTransactions": this.objToPushForTransaction,
+        "discount": this.discountInRs,
+        "waiterName": d['waiterName'],
+        "tableNumber": d['tableNumber']
+  
+      }
+
+      console.log("Request",this.requestObj);
     })
   }
 
+  //Update Transaction Call
+  updateTransaction(){
+  
+    console.log("RequestOBJ",this.requestObj)
+    console.log("ID", this.transactionID)
+    this.requestObj.waiterName=this.waiterName;
+    this.requestObj.tableNumber=this.tableNumber;
+    this.interactionServ.updateTransaction(this.transactionID,this.requestObj).subscribe(res=>{
+
+    console.log(res)
+  })
+  
+  this.checkoutProductsArray=[];
+  this.objToPushForTransaction=[];
+  this.transactionID=null;
+  }
+
+ 
+
+  
+//Delete Products From Cart Call
   removeProductFromCheckout(data) {
     let obj1 = {
-      "quantity": 0
-      , "count": data.productQuantity
+      "quantity": 0, 
+      "count": data.productQuantity
     }
     console.log("===========================", data)
     this.interactionServ.updateMinusAllQuantity(data.id, obj1).subscribe(d => {
@@ -204,10 +233,10 @@ export class CheckoutComponent implements OnInit {
         let index = this.checkoutProductsArray.findIndex(p => p.id == data.id);
         this.total = this.total - this.checkoutProductsArray[index].productPrice;
         this.checkoutProductsArray.splice(index, 1);
-
+        this.objToPushForTransaction.splice(index,1);
+        this.requestObj['amount']=this.total;
       }
     })
-
   }
 
   showModal(): void {
@@ -221,11 +250,9 @@ export class CheckoutComponent implements OnInit {
     this.isVisible = false;
   }
 
+
+//Save Transaction Call
   objToPushForTransaction = [];
-
-
-
-
   saveTransaction(reqUser, action) {
 
     this.objToPushForTransaction = []
@@ -249,8 +276,15 @@ export class CheckoutComponent implements OnInit {
       "tableNumber": this.tableNumber
 
     }
-    console.log(request)
+    console.log("Save Transaction Object",request)
 
+    
+
+    this.saveTransactionCall(request, action);
+
+  }
+
+  private saveTransactionCall(request: { amount: number; requestedUser: any; action: any; productTransactions: any[]; discount: number; waiterName: any; tableNumber: any; }, action: any) {
     this.interactionServ.saveTransaction(request).subscribe(
       data => {
         this.getRecentTransactionByUser();
@@ -262,23 +296,14 @@ export class CheckoutComponent implements OnInit {
             nzDuration: 3000
           });
         }
-      },
-
-
-    )
-
-
-
+      }
+    );
     if (action === "ROD") {
       this.checkoutProductsArray = [];
       this.total = 0;
-      this.handleCancel()
+      this.handleCancel();
     }
   }
-
-
-
-
 
   handleCancel(): void {
     this.isVisible = false;
@@ -290,35 +315,31 @@ export class CheckoutComponent implements OnInit {
     this.isVisible2 = true;
   }
 
-
+   //Update Quantity Call
   addProduct(obj) {
+    let id = obj.id?obj.id:obj.product.id;
+    obj=obj?obj:obj.product;
+
+    console.log("ID",id)
     // this.checking=true
     console.log(obj)
-    this.interactionServ.getProductsById(obj["id"]).subscribe(d => {
+    this.interactionServ.getProductsById(id).subscribe(d => {
       if (d) {
-        obj.productqty = d.qty;
+        obj.productqty== undefined? obj.qty=obj.qty:obj.productqty=obj.productqty=d.qty;
+        // obj.productqty = d.qty;
         console.log("==============Add Product===============", d.qty)
-        console.log("==============Checking===============")
-
+        console.log("==============Checking==================")
 
         this.checking = true;
-        let index = this.checkoutProductsArray.findIndex(p => p.id == obj["id"]);
-
-        var obj1 = {
-          "qty": 0
-        }
-
-
-
-
-
+        let index = this.checkoutProductsArray.findIndex(p => p.id == id);
 
         if (obj.productqty != 0 && this.checking) {
           this.checking = false;
 
           console.log("==============IF===============")
-
-          this.interactionServ.updateAddQuantity(obj["id"], obj).subscribe(d => {
+         //Update Quantity Call
+          this.interactionServ.updateAddQuantity(id, obj).subscribe(d => {
+            console.log("Update",obj);
             if (d)
               obj.productqty = d.result.qty;
           })
@@ -329,15 +350,31 @@ export class CheckoutComponent implements OnInit {
 
           this.checkoutProductsArray[index]["productQuantity"] += 1;
 
+      
+           this.checkoutProductsArray.forEach(prod=>{
+            let found= this.objToPushForTransaction.findIndex(d=>d.product.id==prod.id)
+            if(found!=-1){
+              //obj milgya uski quantity brhao bus
+              this.objToPushForTransaction[found].product = prod;
+               this.objToPushForTransaction[found].quantity =prod.productQuantity 
+               this.requestObj.amount = this.total;
+            }
+            else{
+             let transactionObject={
+               "product": prod,
+               "quantity": prod.productQuantity
+             }
+             this.objToPushForTransaction.push(transactionObject);
+            }
+           })
         }
       }
-
     })
 
     console.log(this.userName);
-
-
   }
+
+  //Minus quantity Call
   checkingMinusCall = false;
   removeProduct(obj) {
 
@@ -365,11 +402,35 @@ export class CheckoutComponent implements OnInit {
 
 
           if (this.checkoutProductsArray[index]['productQuantity'] <= 1) {
+            let j = this.checkoutProductsArray[index]
+            let i = this.objToPushForTransaction.findIndex(d=>d.product.id==j.id)
+            this.objToPushForTransaction.splice(i,1);
             this.checkoutProductsArray.splice(index, 1);
+            
+
 
           } else {
             this.checkoutProductsArray[index]["productQuantity"] -= 1;
           }
+           
+           this.checkoutProductsArray.forEach(prod=>{
+            let found= this.objToPushForTransaction.findIndex(d=>d.product.id==prod.id)
+            if(found!=-1){
+              //obj milgya uski quantity brhao bus
+              this.objToPushForTransaction[found].product = prod;
+               this.objToPushForTransaction[found].quantity -= 1;
+            }
+            else{
+             let transactionObject={
+               "product": prod,
+               "quantity": prod.productQuantity
+             }
+             this.objToPushForTransaction.push(transactionObject);
+            }
+           
+           
+             
+           })
         }
 
       }
@@ -382,7 +443,7 @@ export class CheckoutComponent implements OnInit {
 
 
   checkingQunatity(data) {
-    if (data.productqty > 0) {
+    if (data.productqty > 0 || data.product.qty > 0) {
 
       return true;
     }
@@ -415,16 +476,20 @@ export class CheckoutComponent implements OnInit {
   //   )
   // }
 
-
-
-
-
-
   settingHeader
   print(reqUser, action): void {
 
     if (!this.invalidAmount) {
-      this.saveTransaction(reqUser, action);
+
+      if(this.transactionID){
+        this.updateTransaction();
+      }
+      else{
+         this.saveTransaction(reqUser,action);
+      }
+      
+     
+
 
       // let printContents, popupWin;
       // printContents = document.getElementById('print-section').innerHTML;
@@ -498,18 +563,10 @@ export class CheckoutComponent implements OnInit {
 
   navigateToUserSelection() {
     this.router.navigate(['admin/userselection']);
-
   }
 
-
-
-
   //////Second Modal
-
-  user = [
-
-  ]
-
+  user = []
   buttonDisable = false;
   func(username) {
     this.buttonDisable = true;
@@ -518,14 +575,9 @@ export class CheckoutComponent implements OnInit {
       nzDuration: 3000
     });
     this.isVisible1 = false;
-
-
-
   }
 
   isVisible1 = false;
-
-
 
   showModal1(): void {
     this.interactionServ.getUsers().subscribe(d => {
@@ -537,7 +589,6 @@ export class CheckoutComponent implements OnInit {
         this.isVisible = false;
       }
     })
-
   }
 
   handleOk1(): void {
@@ -548,12 +599,6 @@ export class CheckoutComponent implements OnInit {
   handleCancel1(): void {
     console.log('Button cancel clicked!');
     this.isVisible1 = false;
-  }
-
-
-
-  postTransaction(request) {
-
   }
 
   visible = false;
@@ -667,20 +712,8 @@ export class CheckoutComponent implements OnInit {
 
 
   }
-  amountReceived = 0;
-  returnedAmount = 0;
-  totalAmount = 0;
-  invalidAmount = false
-  waiterName;
-  tableNumber;
-
-  
 
 
-
-  discountedAmount = this.total;
-  discountInRs = 0;
-  showError = false;
   onDiscountChange() {
     this.discountedAmount = this.total;
     if(this.discountInRs > this.total || this.discountInRs < 0)
@@ -706,11 +739,10 @@ export class CheckoutComponent implements OnInit {
     else this.invalidAmount= true;
   }
   fafaicon() {
-
     this.usernamee = sessionStorage.getItem('username').toUpperCase();
     this.usernamee = "<div class='row'> <i class='fa fa-user user'></i><h6>" + this.usernamee + "</h6></div>";
-
   }
+
 isDisabled(){
   return !this.invalidAmount
   // (this.checkoutProductsArray.length==0 || (this.invalidAmount||this.invalidDiscountAmount))
@@ -723,11 +755,6 @@ showConfirm(): void {
     nzOnOk: () => this.dayclose()
   });
 }
-
-
-
-
-
 
 }
 
