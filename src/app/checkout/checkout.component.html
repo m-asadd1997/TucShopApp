@@ -233,17 +233,19 @@
                     <!-- Add Buttons -->
                     <button #btn nz-button *ngIf="checkingQunatity(data)" (click)="addProduct(data)">
                       <!-- <i nz-icon nzType="plus"></i> -->
-                      <img src="../../assets/plus.png" alt="">
+                      <!-- <img src="../../assets/plus.png" alt=""> -->
+                     <small>+</small>
                     </button>
 
                     <button #btn1 nz-button disabled *ngIf="!checkingQunatity(data)">
-                      <i nz-icon nzType="plus"></i>
+                    <small>-</small>
                     </button>
                     <!--End of Add Buttons  -->
 
                     <!-- Minus Buttons -->
                     <button nz-button (click)="removeProduct(data)">
-                      <i nz-icon nzType="minus"></i>
+                      <!-- <i nz-icon nzType="minus"></i> -->
+                      <small>-</small>
                     </button>
                     <!-- End of Minus Buttons -->
                   </nz-button-group>
@@ -319,8 +321,8 @@
                   <nz-option nzValue="Ibrahim" nzLabel="Ibrahim"></nz-option>
                 </nz-select>
               </div>
-            </div>
-            <div nz-row >
+            </div> -->
+            <!-- <div nz-row >
               <div nz-col nzSpan="10">
                 <label  class="label" >Table Number:</label>
               </div>
@@ -333,8 +335,7 @@
                   <nz-option nzValue="4" nzLabel="Table 4"></nz-option>
                 </nz-select>
               </div>
-
-            </div>
+            </div> -->
 
           <div *ngIf="showError" class="alert alert-danger" role="alert">
             Discount can't be greater than billing amount!
@@ -391,7 +392,7 @@
         <span><b> Discount: </b> <span style="margin-left:83%;">{{ discountInRs }}</span></span>
         <span><b> Total: </b> <span style="margin-left:83%;">{{ discountedAmount }}</span></span>
         <hr style="border:1px solid black;width:100%;" />
-      </div>  
+      </div>
     </div>
 
 
@@ -405,9 +406,7 @@
     <br>
     <small style="margin-left: 25%">contact 0332 2078369</small>
   </div>
-  <button id="print-slip-btn" hidden="true" printSectionId="print-section" ngxPrint>print</button> 
-
- 
+  <button id="print-slip-btn" hidden="true" printSectionId="print-section" ngxPrint>print</button>
 </body>
 
 </html>
