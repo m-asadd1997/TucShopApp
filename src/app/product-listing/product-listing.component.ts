@@ -238,6 +238,11 @@ export class ProductListingComponent implements OnInit {
 
   }
 
+  editTransaction(transactionObject) {
+    console.log(transactionObject)
+    this.prodService.sendTransactionObject(transactionObject);
+  }
+
 
 
 }

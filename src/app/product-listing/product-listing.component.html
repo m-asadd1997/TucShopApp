@@ -46,7 +46,7 @@
     </div>
     <br>
     <br>
-    
+
     <nz-table [nzData]="transactions" [nzPageSize]="50" [nzScroll]="{ y: '240px' }">
       <thead>
         <tr>
@@ -71,7 +71,11 @@
               nzSize="small" nz-button nzType="primary"><i nz-icon nzType="eye"></i>Show</button> </td>
           <td style="text-align: center;"> <button nz-tooltip nzTooltipTitle="Delete Product" (click)="deleteTransaction(d.id)" nzGhost="true"
               style="color:#0062cc;border-color:#0062cc" nzSize="small" nz-button nzType="primary"><i nz-icon
-                nzType="delete"></i>Delete</button> </td>
+                nzType="delete"></i>Delete</button>
+                <button nz-tooltip nzTooltipTitle="Delete Product" (click)="editTransaction(d)" nzGhost="true"
+                style="color:#0062cc;border-color:#0062cc" nzSize="small" nz-button nzType="primary"><i nz-icon
+                  nzType="delete"></i>Edit</button>
+              </td>
         </tr>
       </tbody>
     </nz-table>
@@ -132,7 +136,7 @@
     <ng-template #coverTemplate>
       <img alt="example" [src]=productimage />
       <h2 style="text-align:center;font-family:Arial, Helvetica, sans-serif;text-decoration:none">{{showproductName}} </h2>
-      
+
       <h3 style="font-family:Arial, Helvetica, sans-serif;padding-left:5px;font-size:20px">Qty:</h3>
     </ng-template> -->
   <div nz-row>

@@ -9,7 +9,7 @@ import { login } from '../login-page/login';
   providedIn: 'root'
 })
 export class MainscreenService {
- 
+
 
   private productSource = new Subject<Object>();
   productMessage$ = this.productSource.asObservable();
@@ -18,7 +18,8 @@ export class MainscreenService {
   private productQuantityUpdateToProductListing = new Subject<any>();
   productQuantityUpdateToProductListing$ = this.productQuantityUpdateToProductListing.asObservable();
 
-
+  private transactionObject = new Subject();
+  transactionObject$ = this.transactionObject.asObservable();
 
   // private productQuantityUpdateToCheckout = new Subject<any>();
   // productQuantityUpdateToCheckout$= this.productQuantityUpdateToCheckout.asObservable();
@@ -53,10 +54,15 @@ export class MainscreenService {
   private dayCloseURL = environment.baseUrl+"api/transaction/closing/";
   private getLoginTimeURL=environment.baseUrl+"api/user/getUserTimeDate/";
   private getProductBarCodeURL = environment.baseUrl+"api/products/getbybarcode/"
-
+  private updateTransactionURL = environment.baseUrl+"api/transaction/update/"
 
   public sendMessage(obj: Object) {
     this.productSource.next(obj);
+  }
+
+
+  public sendTransactionObject(obj) {
+    this.transactionObject.next(obj);
   }
    public deleteTransaction(id:any): Observable<any>{
      return this.http.get(this.deleteTransactionURL+id);
@@ -97,7 +103,7 @@ export class MainscreenService {
   // public getAllProducts(): Observable<any> {
   //   return this.http.get(this.getAllProductURL);
 
-  
+
 
    public getAllProducts():Observable<any>{
    return this.http.get(this.getAllProductURL);
@@ -184,6 +190,8 @@ return this.http.get (this.getLoginTimeURL+id);
 }
 
 
-
+public updateTransaction(id,obj): Observable<any>{
+  return this.http.put(this.updateTransactionURL+id,obj);
+}
 
 }

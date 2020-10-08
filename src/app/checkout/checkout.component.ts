@@ -39,8 +39,7 @@ export class CheckoutComponent implements OnInit {
 
 
   }
-  
-  
+
   productsarray: any[] = [];
   productsarrayy: any[] = [];
   productQuantity = 0;
@@ -55,11 +54,11 @@ export class CheckoutComponent implements OnInit {
   imageVisible = false;
   inputValue: string;
   extraTemplate
-  options: Array<{ name: string; countName: number;count}> = [];
+  options: Array<{ name: string; countName: number; count }> = [];
   checkOutObj: Checkout = new Checkout();
   checking: boolean = false;
   status: boolean = false;
- 
+
   cols: { header: string; }[];
   requestProduct: any;
   chekingSetting = false;
@@ -122,6 +121,8 @@ export class CheckoutComponent implements OnInit {
         this.settingHeader = d[0];
         this.chekingSetting = true;
       }
+
+
     });
 
     this.populateCols();
@@ -130,6 +131,39 @@ export class CheckoutComponent implements OnInit {
     this.interactionServ.productMessage$.subscribe(d => {
       console.log("Product", d);
       this.addingProductIntoCart(d);
+    })
+
+
+
+    this.getTransactionObject()
+
+
+  }
+  transactionObjectFromEdit
+  transactionId;
+  getTransactionObject() {
+
+
+    this.interactionServ.transactionObject$.subscribe((d: any) => {
+      this.transactionId = d.id
+      debugger
+      console.log(d);
+      this.transactionObjectFromEdit = d;
+      d = d.productTransactions.map(item => {
+        this.checkoutProductsArray.push({
+          id: item.product["id"],
+          productTitle: item.product["name"],
+          productPrice: item.product["price"],
+          productImage: item.product["image"],
+          productQuantity: item["quantity"],
+          productqty: item.product['qty'],
+          printProductPrice: item.product["price"],
+          productVariant: item.product["variants"],
+
+
+        });
+        this.total += item.product["price"]*item["quantity"]
+      })
     })
   }
 
@@ -204,7 +238,8 @@ export class CheckoutComponent implements OnInit {
   objToPushForTransaction = [];
 
   saveTransaction(reqUser, action) {
-        
+
+
     this.objToPushForTransaction = []
     console.log(this.checkoutProductsArray);
 
@@ -228,6 +263,8 @@ export class CheckoutComponent implements OnInit {
     }
     console.log(request)
 
+    if(!this.transactionId)
+    {
     this.interactionServ.saveTransaction(request).subscribe(
       data => {
         this.getRecentTransactionByUser();
@@ -243,11 +280,22 @@ export class CheckoutComponent implements OnInit {
 
 
     )
+    }
+    else{
+      debugger
+      console.log("Update");
+
+      this.interactionServ.updateTransaction(this.transactionId,request).subscribe(d=>{
+        this.transactionId=null;
+      });
+    }
+
 
     if (action === "ROD") {
       this.checkoutProductsArray = [];
       this.total = 0;
       this.handleCancel()
+
     }
   }
 
@@ -300,13 +348,14 @@ export class CheckoutComponent implements OnInit {
 
   checkingMinusCall = false;
   removeProduct(obj) {
-
+    debugger
     let obj1 = {
       "quantity": 0
       , "count": obj.productQuantity
     }
   
     this.interactionServ.updateMinusQuantity(obj["id"], obj1).subscribe(d => {
+
       if (d) {
         this.checkingMinusCall = true;
         obj.productqty = d.result.qty;
@@ -357,10 +406,10 @@ export class CheckoutComponent implements OnInit {
 
     if (!this.invalidAmount) {
       document.getElementById("print-slip-btn").click();
-    
+
       this.saveTransaction(reqUser, action);
 
-     
+
       this.checkoutProductsArray = [];
       this.total = 0;
       this.handleCancel()
@@ -499,7 +548,7 @@ export class CheckoutComponent implements OnInit {
   getRecentTransactionByUser() {
     this.usernamee = sessionStorage.getItem('username');
     this.interactionServ.getRecentTransactionByUser(this.usernamee).subscribe(r => {
-      console.log("ResponsRecent",r)
+      console.log("ResponsRecent", r)
       this.totalTrans = r.length;
       r.map(item => {
         item.productTransactions.map(opt => {
@@ -517,7 +566,7 @@ export class CheckoutComponent implements OnInit {
   getTotalTransactionByUser() {
     this.usernamee = sessionStorage.getItem('username');
     this.interactionServ.getTotalTransactionByUser(this.usernamee).subscribe(r => {
-      console.log("Response",r)
+      console.log("Response", r)
       if (r.result == null) {
 
         this.totalamount = 0;
@@ -533,16 +582,16 @@ export class CheckoutComponent implements OnInit {
   dayclose() {
     let name = sessionStorage.getItem('username').toLowerCase();
     this.interactionServ.dayClose(name).subscribe(d => {
-        console.log("Blob",d);
-        let url = window.URL.createObjectURL(d);
-        let a = document.createElement('a');
-        document.body.appendChild(a);
-        a.setAttribute('style', 'display: none');
-        a.href = url;
-        a.download = "Today Closing Report";
-        a.click();
-        window.URL.revokeObjectURL(url);
-        a.remove();
+      console.log("Blob", d);
+      let url = window.URL.createObjectURL(d);
+      let a = document.createElement('a');
+      document.body.appendChild(a);
+      a.setAttribute('style', 'display: none');
+      a.href = url;
+      a.download = "Today Closing Report";
+      a.click();
+      window.URL.revokeObjectURL(url);
+      a.remove();
     })
   }
 
@@ -568,9 +617,9 @@ export class CheckoutComponent implements OnInit {
   showError = false;
   onDiscountChange() {
     this.discountedAmount = this.total;
-    if(this.discountInRs > this.total || this.discountInRs < 0)
+    if (this.discountInRs > this.total || this.discountInRs < 0)
       this.showError = true;
-    else{
+    else {
       this.discountedAmount = this.total - this.discountInRs;
       this.showError = false;
     }
@@ -587,8 +636,8 @@ export class CheckoutComponent implements OnInit {
       this.invalidDiscountAmount = true
     }
 
-    if ((this.amountReceived+this.discount == this.total)) {this.invalidAmount= false;}
-    else this.invalidAmount= true;
+    if ((this.amountReceived + this.discount == this.total)) { this.invalidAmount = false; }
+    else this.invalidAmount = true;
   }
   fafaicon() {
 
@@ -596,18 +645,18 @@ export class CheckoutComponent implements OnInit {
     this.usernamee = "<div class='row'> <i class='fa fa-user user'></i><h6>" + this.usernamee + "</h6></div>";
 
   }
-isDisabled(){
-  return !this.invalidAmount
-  // (this.checkoutProductsArray.length==0 || (this.invalidAmount||this.invalidDiscountAmount))
-}
+  isDisabled() {
+    return !this.invalidAmount
+    // (this.checkoutProductsArray.length==0 || (this.invalidAmount||this.invalidDiscountAmount))
+  }
 
-showConfirm(): void {
-  this.modal.confirm({
-    nzTitle: '<i>Do you Want to generate reports?</i>',
-    // nzContent: '<b>Some descriptions</b>',
-    nzOnOk: () => this.dayclose()
-  });
-}
+  showConfirm(): void {
+    this.modal.confirm({
+      nzTitle: '<i>Do you Want to generate reports?</i>',
+      // nzContent: '<b>Some descriptions</b>',
+      nzOnOk: () => this.dayclose()
+    });
+  }
 
 }
 
