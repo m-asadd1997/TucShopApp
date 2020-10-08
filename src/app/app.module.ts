@@ -37,6 +37,8 @@ import { NoopInterceptor } from './request.intercepts';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import {NgxPrintModule} from 'ngx-print';
+import { NgxUiLoaderModule,NgxUiLoaderHttpModule  } from 'ngx-ui-loader';
+
 
 
  
@@ -80,7 +82,9 @@ registerLocaleData(en);
     NzDividerModule,
     NzAvatarModule,
     NzToolTipModule,
-    NgxPrintModule
+    NgxPrintModule,
+    NgxUiLoaderHttpModule.forRoot({ showForeground: true }),
+    NgxUiLoaderModule
     
   ],
   providers: [
