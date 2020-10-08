@@ -652,10 +652,8 @@ export class CheckoutComponent implements OnInit {
     })
   }
 
-
   dayclose() {
-
-    let name = sessionStorage.getItem('username').toLowerCase();
+  let name = sessionStorage.getItem('username').toLowerCase();
     this.interactionServ.dayClose(name).subscribe(d => {
       console.log("Blob", d);
       let url = window.URL.createObjectURL(d);
@@ -663,7 +661,7 @@ export class CheckoutComponent implements OnInit {
       document.body.appendChild(a);
       a.setAttribute('style', 'display: none');
       a.href = url;
-      a.download = "Today Closing Report";
+      a.download = new Date().toDateString();
       a.click();
       window.URL.revokeObjectURL(url);
       a.remove();
