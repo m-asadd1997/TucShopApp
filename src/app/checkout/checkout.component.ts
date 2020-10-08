@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, Input, HostListener } from "@angular/core";
+import { Component, OnInit, ViewEncapsulation,ViewChild, Input, HostListener, AfterViewInit, AfterViewChecked, OnChanges, SimpleChanges } from "@angular/core";
 import { MainscreenService } from "../main-screen/mainscreen.service";
 import { NzModalService, ButtonConfig, NzButtonComponent, NzDrawerPlacement } from "ng-zorro-antd";
 import { Checkout } from './Checkout';
@@ -7,6 +7,9 @@ import { error } from '@angular/compiler/src/util';
 import { debug } from 'util';
 import { Router, ActivatedRoute } from '@angular/router';
 import { count } from 'console';
+declare const scanCode :any;
+
+
 @Component({
   selector: "app-checkout",
   templateUrl: "./checkout.component.html",
@@ -14,9 +17,10 @@ import { count } from 'console';
 })
 export class CheckoutComponent implements OnInit {
 
+  productComingOnBasisOfBarcode;
+  checkoutProductsArray = [];
+
   @HostListener("window:beforeunload", ["$event"]) unloadHandler(event: Event) {
-
-
     this.checkoutProductsArray.forEach(data => {
       let obj = {
         "quantity": 0,
@@ -36,7 +40,7 @@ export class CheckoutComponent implements OnInit {
 
   }
   
-  checkoutProductsArray = [];
+  
   productsarray: any[] = [];
   productsarrayy: any[] = [];
   productQuantity = 0;
@@ -58,17 +62,6 @@ export class CheckoutComponent implements OnInit {
  
   cols: { header: string; }[];
   requestProduct: any;
-  constructor(
-    private interactionServ: MainscreenService,
-    private message: NzMessageService,
-    private router: Router,
-    private activeRoute: ActivatedRoute,
-    private modal: NzModalService
-  ) {
-
- 
-
-   }
   chekingSetting = false;
   discount
   userName: any;
@@ -79,12 +72,40 @@ export class CheckoutComponent implements OnInit {
     amount: null
   }
   isDisbled = true;
-  ngOnInit() {
-    // this.gettingRecentTransactions();
-    this.getLoginTime();
+  
+ 
+  barcodeValue;
+  constructor(
+    private interactionServ: MainscreenService,
+    private message: NzMessageService,
+    private router: Router,
+    private activeRoute: ActivatedRoute,
+    private modal: NzModalService,
+    
+  ) {
 
-    // this.usernamee= sessionStorage.getItem('username').toUpperCase();
-    // this.usernamee = "<div class='row'> <i class='fa fa-user user'></i><h6>"+this.usernamee+"</h6></div>";
+            document.addEventListener("scan", function(event) {
+              //do something
+              console.log(event['detail']);
+              this.barcodeValue = event['detail'].scanCode;
+              console.log(this.barcodeValue);
+              interactionServ.getProductByBarCode(this.barcodeValue)
+              .subscribe((res)=>{
+                if(res.result != undefined){
+                  this.addingProductIntoCart(res.result);
+                }
+                else{
+                  this.message.error("Product Not in the Database",{nzDuration:3000});
+                }
+                console.log("========================",res)
+              })
+              
+          }.bind(this),false);
+  }
+ 
+  ngOnInit() {
+   
+    this.getLoginTime();
     this.fafaicon();
     console.log(this.usernamee);
     this.interactionServ.getSetting().subscribe(d => {
@@ -101,107 +122,55 @@ export class CheckoutComponent implements OnInit {
         this.settingHeader = d[0];
         this.chekingSetting = true;
       }
-
-      // if (!this.settingHeader) {
-      //   this.settingHeader = {
-      //     header: "",
-      //     logo: '',
-      //     footer: "",
-      //     headerName: ""
-      //   }
-
-      // }
-      // else if (this.settingHeader.headerName == undefined) {
-      //   this.settingHeader.headerName = ""
-      // }
-      // else if (this.settingHeader.header == undefined) { this.settingHeader.header = "" }
-      // else if (this.settingHeader.footer == undefined) { this.settingHeader.footer = "" }
-      // else if (this.settingHeader.logo == undefined) { this.settingHeader.logo = "" }
-      // else { this.imageVisible = true }
     });
 
     this.populateCols();
 
     // <<<<<<< variants-work
     this.interactionServ.productMessage$.subscribe(d => {
-      console.log("dsfsdgsdg", d);
-      if (d) {
-        let found = this.checkoutProductsArray.findIndex(
-          p => p.productTitle == d["name"] && p.productVariant == d["variants"]
-        );
-
-
-        if (d['qty'] <= 0) {
-          this.addButtonDisbale = true;
-
-        }
-
-
-        if (found > -1) {
-          this.checkoutProductsArray[found].productPrice += d["price"];
-          // this.total = this.total + d["price"];
-          this.checkoutProductsArray[found]["productQuantity"] += 1;
-          this.checkoutProductsArray[found].productqty = d["qty"];
-
-        } else {
-          this.checkoutProductsArray.push({
-            id: d["id"],
-            productTitle: d["name"],
-            productPrice: d["price"],
-            productImage: d["image"],
-            productQuantity: this.productQuantity = 1,
-            productqty: d['qty'],
-            printProductPrice: d["price"],
-            productVariant: d["variants"],
-
-            // =======
-            //     this.interactionServ.productMessage$.subscribe(d => {
-            //       //
-            //       if (d) {
-            //         let found = this.checkoutProductsArray.findIndex(
-            //           p => p.productTitle == d["name"]
-            //         );
-
-
-            //         if (d['qty'] <= 0) {
-            //           this.addButtonDisbale = true;
-            // >>>>>>> master
-
-          }
-
-
-            // if (found > -1) {
-            //   this.checkoutProductsArray[found].productPrice += d["price"];
-            //   this.total = this.total + d["price"];
-            //   this.checkoutProductsArray[found]["productQuantity"] += 1;
-            //   this.checkoutProductsArray[found].productqty = d["qty"];
-
-            // } else {
-            //   this.checkoutProductsArray.push({
-            //     id: d["id"],
-            //     productTitle: d["name"],
-            //     productPrice: d["price"],
-            //     productImage: d["image"],
-            //     productQuantity: this.productQuantity = 1,
-            //     productqty: d['qty'],
-            //     printProductPrice: d["price"]
-
-            //   }
-            //   );
-            //
-
-          )
-        }
-        this.total += d["price"];
-
-      };
+      console.log("Product", d);
+      this.addingProductIntoCart(d);
     })
   }
 
- 
+  private addingProductIntoCart(d: Object) {
+    if (d) {
+      let found = this.checkoutProductsArray.findIndex(
+        p => p.productTitle == d["name"] && p.productVariant == d["variants"]
+      );
+      if (d['qty'] <= 0) {
+        this.addButtonDisbale = true;
+      }
+      if (found > -1) {
+        this.checkoutProductsArray[found].productPrice += d["price"];
+        // this.total = this.total + d["price"];
+        this.checkoutProductsArray[found]["productQuantity"] += 1;
+        this.checkoutProductsArray[found].productqty = d["qty"];
 
+      } else {
+        this.checkoutProductsArray.push({
+          id: d["id"],
+          productTitle: d["name"],
+          productPrice: d["price"],
+          productImage: d["image"],
+          productQuantity: this.productQuantity = 1,
+          productqty: d['qty'],
+          printProductPrice: d["price"],
+          productVariant: d["variants"],
+        }
+        );
+      }
+      this.total += d["price"];
+    };
+  }
 
+  ngAfterViewInit(): void {
+    this.scanBarCode();
+   }
 
+  scanBarCode(){
+   let code = scanCode();
+   }
 
   removeProductFromCheckout(data) {
     let obj1 = {
@@ -233,9 +202,6 @@ export class CheckoutComponent implements OnInit {
   }
 
   objToPushForTransaction = [];
-
-
-
 
   saveTransaction(reqUser, action) {
         
@@ -278,18 +244,12 @@ export class CheckoutComponent implements OnInit {
 
     )
 
-
-
     if (action === "ROD") {
       this.checkoutProductsArray = [];
       this.total = 0;
       this.handleCancel()
     }
   }
-
-
-
-
 
   handleCancel(): void {
     this.isVisible = false;
@@ -301,7 +261,6 @@ export class CheckoutComponent implements OnInit {
     this.isVisible2 = true;
   }
 
-
   addProduct(obj) {
     // this.checking=true
     console.log(obj)
@@ -310,20 +269,11 @@ export class CheckoutComponent implements OnInit {
         obj.productqty = d.qty;
         console.log("==============Add Product===============", d.qty)
         console.log("==============Checking===============")
-
-
         this.checking = true;
         let index = this.checkoutProductsArray.findIndex(p => p.id == obj["id"]);
-
         var obj1 = {
           "qty": 0
         }
-
-
-
-
-
-
         if (obj.productqty != 0 && this.checking) {
           this.checking = false;
 
@@ -346,9 +296,8 @@ export class CheckoutComponent implements OnInit {
     })
 
     console.log(this.userName);
-
-
   }
+
   checkingMinusCall = false;
   removeProduct(obj) {
 
@@ -356,8 +305,7 @@ export class CheckoutComponent implements OnInit {
       "quantity": 0
       , "count": obj.productQuantity
     }
-    // this.checkingMinusCall=true;
-
+  
     this.interactionServ.updateMinusQuantity(obj["id"], obj1).subscribe(d => {
       if (d) {
         this.checkingMinusCall = true;
@@ -373,8 +321,6 @@ export class CheckoutComponent implements OnInit {
           this.total = this.total - productPrice;
           this.checkoutProductsArray[index].productPrice = this.checkoutProductsArray[index].productPrice - productPrice;
 
-
-
           if (this.checkoutProductsArray[index]['productQuantity'] <= 1) {
             this.checkoutProductsArray.splice(index, 1);
 
@@ -385,12 +331,7 @@ export class CheckoutComponent implements OnInit {
 
       }
     });
-
-
-
   }
-
-
 
   checkingQunatity(data) {
     if (data.productqty > 0) {
@@ -409,26 +350,6 @@ export class CheckoutComponent implements OnInit {
       return false;
     }
   }
-
-  // saveTransaction() {
-
-  //   let request = {
-  //     amount: this.total,
-  //     products: this.checkoutProductsArray
-  //   }
-  //   this.interactionServ.saveTransaction(request).subscribe(
-  //     data => {
-  //       //console.log(data);
-  //       this.message.success('amount added successfully', {
-  //         nzDuration: 3000
-  //       });
-  //     },
-  //   )
-  // }
-
-
-
-
 
 
   settingHeader
@@ -497,15 +418,8 @@ export class CheckoutComponent implements OnInit {
 
   }
 
-
-
-
   //////Second Modal
-
-  user = [
-
-  ]
-
+  user = []
   buttonDisable = false;
   func(username) {
     this.buttonDisable = true;
@@ -514,14 +428,8 @@ export class CheckoutComponent implements OnInit {
       nzDuration: 3000
     });
     this.isVisible1 = false;
-
-
-
   }
-
   isVisible1 = false;
-
-
 
   showModal1(): void {
     this.interactionServ.getUsers().subscribe(d => {
@@ -544,12 +452,6 @@ export class CheckoutComponent implements OnInit {
   handleCancel1(): void {
     console.log('Button cancel clicked!');
     this.isVisible1 = false;
-  }
-
-
-
-  postTransaction(request) {
-
   }
 
   visible = false;
@@ -625,14 +527,10 @@ export class CheckoutComponent implements OnInit {
         this.totalamount = r.result;
         console.log(this.totalamount);
       }
-
-
     })
   }
 
-
   dayclose() {
-
     let name = sessionStorage.getItem('username').toLowerCase();
     this.interactionServ.dayClose(name).subscribe(d => {
         console.log("Blob",d);
@@ -646,8 +544,6 @@ export class CheckoutComponent implements OnInit {
         window.URL.revokeObjectURL(url);
         a.remove();
     })
-
-
   }
 
   date: any;
@@ -660,8 +556,6 @@ export class CheckoutComponent implements OnInit {
       this.time = d.result[0].time;
 
     })
-
-
   }
   amountReceived = 0;
   returnedAmount = 0;
@@ -669,11 +563,6 @@ export class CheckoutComponent implements OnInit {
   invalidAmount = false
   waiterName;
   tableNumber;
-
-
-
-
-
   discountedAmount = this.total;
   discountInRs = 0;
   showError = false;
@@ -719,11 +608,6 @@ showConfirm(): void {
     nzOnOk: () => this.dayclose()
   });
 }
-
-
-
-
-
 
 }
 

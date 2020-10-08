@@ -1,24 +1,14 @@
 <div style="margin-left: 2%; margin-top: 7px;">
   <nz-card style="width:90px;" nzTitle="Category Add" style="box-shadow: 5px 5px 5px 5px">
-
     <form nz-form [nzLayout]="'inline'" #myForm="ngForm">
-
-
-
-
-
-
       <div nz-row>
-
         <div nz-col nzSpan="8">
-
           <nz-form-item>
             <nz-form-label nzFor="email">Category Name</nz-form-label>
             <nz-form-control>
               <nz-input-group nzPrefixIcon="user" class="nz-group">
                 <input required ngform #category="ngModel" name="productTitle" [(ngModel)]="add_categories.name"
                   nz-input placeholder="Category Name" />
-
               </nz-input-group>
               <div *ngIf="category.touched && category.invalid">
                 Category is Required
@@ -29,30 +19,17 @@
       </div>
 
 
-
-
       <!-- Next Row -->
-
       <!-- <div nz-row>
-       
-
-
-
-
-
         <div nz-col style="margin-top: 20px;">
         <input #files type="file" value="Select File" (change)="handleCategoryBanner($event.target.files); preview($event.target.files)"
           accept=".jpeg,.png,.jpg,.PNG" >
         </div>
-        
-      
-        
       <nz-avatar style="margin-left: 2%;" [nzShape]="'square'" [nzSrc]="imgURL" [nzSize]="38" nzText="Category">
       </nz-avatar>
-    
         </div> -->
 
-        <nz-form-label nzFor="email">Image</nz-form-label>
+      <nz-form-label nzFor="email">Image</nz-form-label>
 
       <div nz-row class="nz-group">
         <!-- <br> -->
@@ -91,13 +68,6 @@
           <!-- </div> -->
         </div>
       </div>
-
-
-
-
-
-
-
     </form>
   </nz-card>
 </div>

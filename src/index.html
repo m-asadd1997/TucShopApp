@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
   <script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <!-- <script src="node_modules/onscan.js/onscan.min.js"></script> -->
   <script>
     var global = global || window;
     // var Buffer = Buffer || [];
@@ -41,6 +42,13 @@
           }
     }
 </script> 
+<!-- <script>
+  onScan.attachTo(document);
+// Register event listener
+document.addEventListener('scan', function(sScancode, iQuantity) {
+    alert(iQuantity + 'x ' + sScancode); 
+});
+</script> -->
 
 </head>
 <body>

@@ -52,6 +52,7 @@ export class MainscreenService {
   private getTotalTransactionByUserURL = environment.baseUrl+"api/transaction/getTotalTransactionByUser/";
   private dayCloseURL = environment.baseUrl+"api/transaction/closing/";
   private getLoginTimeURL=environment.baseUrl+"api/user/getUserTimeDate/";
+  private getProductBarCodeURL = environment.baseUrl+"api/products/getbybarcode/"
 
 
   public sendMessage(obj: Object) {
@@ -59,15 +60,15 @@ export class MainscreenService {
   }
    public deleteTransaction(id:any): Observable<any>{
      return this.http.get(this.deleteTransactionURL+id);
-
    }
 
+   public getProductByBarCode(code:any):Observable<any>{
+     return this.http.get(this.getProductBarCodeURL+code);
+   }
 
   public sendQuantityUpdateToProductListing(obj) {
     this.productQuantityUpdateToProductListing.next(obj);
   }
-
-
 
   // public sendQuantityUpdateToCheckout(obj){
   //   this.productQuantityUpdateToCheckout.next(obj);

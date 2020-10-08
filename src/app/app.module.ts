@@ -80,7 +80,8 @@ registerLocaleData(en);
     NzDividerModule,
     NzAvatarModule,
     NzToolTipModule,
-    NgxPrintModule
+    NgxPrintModule,
+    
     
   ],
   providers: [
