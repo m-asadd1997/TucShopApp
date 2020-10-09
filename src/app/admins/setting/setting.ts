@@ -1,6 +1,6 @@
 export class setting {
    header:string
-   logo:File
+   logo
    footer:string
-   
+
 }
