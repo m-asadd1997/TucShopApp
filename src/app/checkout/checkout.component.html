@@ -128,7 +128,7 @@
         (nzOnClose)="close()">
         <!-- <p> <img src="assets/cart.png"> <button nz-tooltip nzTooltipTitle="Click to view products" (click)="showproducts()"  nzGhost="true" style="color:#0062cc;border-color:#0062cc" nzSize="small" nz-button nzType="primary"><i nz-icon nzType="eye"></i>show</button></p> -->
         <div style="text-align: center;">
-          <nz-card style="width:200px;" nzTitle="Total Amount" [nzExtra]="extraTemplate">
+          <nz-card style="width:200px;" nzTitle="Cash in hand" [nzExtra]="extraTemplate">
 
             <h5>
               <p> <img src="assets/total-sales.png"> {{totalamount}}</p>
@@ -228,32 +228,32 @@
                   </h4>
                 </div> -->
 
-              <div nz-col nzSpan="7" nzOffset="2" style="font-size: 12px;">
+              <div nz-col nzSpan="8" nzOffset="2" style="font-size: 12px;">
                 <h4>
                   <nz-button-group>
                     <!-- Add Buttons -->
                     <button #btn nz-button *ngIf="checkingQunatity(data)" (click)="addProduct(data)">
                       <!-- <i nz-icon nzType="plus"></i> -->
                       <!-- <img src="../../assets/plus.png" alt=""> -->
-                     <small>+</small>
+                     <b>+</b>
                     </button>
 
                     <button #btn1 nz-button disabled *ngIf="!checkingQunatity(data)">
-                    <small>-</small>
+                    <b>-</b>
                     </button>
                     <!--End of Add Buttons  -->
 
                     <!-- Minus Buttons -->
                     <button nz-button (click)="removeProduct(data)">
                       <!-- <i nz-icon nzType="minus"></i> -->
-                      <small>-</small>
+                      <b>-</b>
                     </button>
                     <!-- End of Minus Buttons -->
                   </nz-button-group>
                   <nz-tag [nzColor]="'#f50a0a'">Price :{{data.productPrice}}</nz-tag>
                 </h4>
               </div>
-              <div nz-col nzSpan="2" nzOffset="2" (click)="removeProductFromCheckout(data)">
+              <div nz-col nzSpan="2" nzOffset="1" (click)="removeProductFromCheckout(data)">
                 <img src="assets/icons8-delete-bin-24.png" />
               </div>
             </div>
@@ -369,6 +369,7 @@
         <thead>
           <th *ngFor="let col of cols" style="text-align: center;">
             {{ col.header }}
+            <hr style="border:1px solid black;width:100%;" />
           </th>
         </thead>
         <tbody>

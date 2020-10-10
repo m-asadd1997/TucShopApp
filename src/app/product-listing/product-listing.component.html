@@ -69,12 +69,19 @@
           <td style="text-align: center;"> <button nz-tooltip nzTooltipTitle="Click to view products"
               (click)="showproducts(d.productTransactions)" nzGhost="true" style="color:#0062cc;border-color:#0062cc"
               nzSize="small" nz-button nzType="primary"><i nz-icon nzType="eye"></i>Show</button> </td>
-          <td style="text-align: center;"> <button nz-tooltip nzTooltipTitle="Delete Product" (click)="deleteTransaction(d.id)" nzGhost="true"
+          <!-- <td style="text-align: center;"> <button nz-tooltip nzTooltipTitle="Delete Product" (click)="deleteTransaction(d.id)" nzGhost="true"
               style="color:#0062cc;border-color:#0062cc" nzSize="small" nz-button nzType="primary"><i nz-icon
                 nzType="delete"></i>Delete</button>
                 <button nz-tooltip nzTooltipTitle="Delete Product" (click)="editTransaction(d)" nzGhost="true"
                 style="color:#0062cc;border-color:#0062cc" nzSize="small" nz-button nzType="primary"><i nz-icon
                   nzType="delete"></i>Edit</button>
+              </td> -->
+              <td>
+                <img src ="assets/edit.png" nz-tooltip nzTooltipTitle="Edit Transaction" 
+                (click)="editTransaction(d)" height="20px" width="20px">
+                &nbsp;
+                <img src ="assets/delete.png" nz-tooltip nzTooltipTitle="Delete Transaction"
+                 (click)="deleteTransaction(d.id)" height="20px" width="20px">
               </td>
         </tr>
       </tbody>
@@ -89,7 +96,7 @@
 <nz-card style="width: 100%; overflow-y: scroll; overflow-x: none; height:500px;">
   <div nz-row>
     <div nz-col nzSpan="5" nzOffset="1" *ngFor="let p of productsArray">
-      <nz-card #CARD nzHoverable style="width:180px; height: 260px;" [nzCover]="coverTemplate" [nzSize]="small"
+      <nz-card #CARD nzHoverable style="width:180px; height: 260px; margin-left: -30px;" [nzCover]="coverTemplate" [nzSize]="small"
         (click)="sendProducttoCheckout(p,CARD)" id="cardShadow">
         <nz-card-meta [nzTitle]="" [nzDescription]="" style="text-align: center;"></nz-card-meta>
         <div class="row">

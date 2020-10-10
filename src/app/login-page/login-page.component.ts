@@ -93,10 +93,10 @@ export class LoginPageComponent implements OnInit,AfterViewInit {
         res => {
           if(res){
             if(res.status == 200){
-              console.log(res);
+              console.log("",res);
               if(res.result == null){
 
-              this.message.error('Your 1 Month Trial Version Has Expired. Contact Shahzad: 03322078369',{ nzDuration: 10000 });
+              this.message.error(res.message,{ nzDuration: 10000 });
               this.isLogSpinning = false;
               }
               else {

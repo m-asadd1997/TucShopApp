@@ -21,7 +21,7 @@ export class MainScreenComponent implements OnInit {
   constructor(private mainScreenServ: MainscreenService,private activeRoute:ActivatedRoute, private router: Router) { }
 category
   ngOnInit() {
-    this.fullScreen();
+    // this.fullScreen();
     this.innerWidth = window.innerWidth;
     // this.setupMobileView();
     this.userName= sessionStorage.getItem('username');
@@ -42,14 +42,14 @@ category
 
   
 
-  fullScreen() {
-    let elem = document.documentElement;
-    let methodToBeInvoked = elem.requestFullscreen ||
-      elem['webkitRequestFullScreen'] || elem['mozRequestFullscreen']
-      ||
-      elem['msRequestFullscreen'];
-    if (methodToBeInvoked) methodToBeInvoked.call(elem);
-}
+//   fullScreen() {
+//     let elem = document.documentElement;
+//     let methodToBeInvoked = elem.requestFullscreen ||
+//       elem['webkitRequestFullScreen'] || elem['mozRequestFullscreen']
+//       ||
+//       elem['msRequestFullscreen'];
+//     if (methodToBeInvoked) methodToBeInvoked.call(elem);
+// }
 
   getCat(){
     this.mainScreenServ.getCategories().subscribe(d=>{

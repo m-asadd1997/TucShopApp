@@ -268,11 +268,12 @@ export class CheckoutComponent implements OnInit {
     {
     this.interactionServ.saveTransaction(request).subscribe(
       data => {
-        document.getElementById("print-slip-btn").click();
+       
         this.getRecentTransactionByUser();
-        this.getTotalTransactionByUser();
+        // this.getTotalTransactionByUser();
         this.fafaicon();
         this.getLoginTime();
+        document.getElementById("print-slip-btn").click();
         this.checkoutProductsArray = [];
         this.total = 0;
         if (action === "SC") {
@@ -291,6 +292,9 @@ export class CheckoutComponent implements OnInit {
 
       this.interactionServ.updateTransaction(this.transactionId,request).subscribe(d=>{
         this.transactionId=null;
+        document.getElementById("print-slip-btn").click();
+        this.checkoutProductsArray = [];
+        this.total = 0;
       });
     }
 
@@ -508,7 +512,7 @@ export class CheckoutComponent implements OnInit {
   visible = false;
   placement: NzDrawerPlacement = 'right';
   open(): void {
-    this.getTotalTransactionByUser();
+    // this.getTotalTransactionByUser();
     this.getRecentTransactionByUser();
     this.visible = true;
   }
@@ -548,12 +552,17 @@ export class CheckoutComponent implements OnInit {
   tranByUser = [];
   totalTrans: any;
   getRecentTransactionByUser() {
+    this.totalamount=0
     this.usernamee = sessionStorage.getItem('username');
     this.interactionServ.getRecentTransactionByUser(this.usernamee).subscribe(r => {
       console.log("ResponsRecent", r)
       this.totalTrans = r.length;
+      debugger
+      
       r.map(item => {
+        this.totalamount+=( item.amount-item.discount)
         item.productTransactions.map(opt => {
+         
           this.transObj = opt;
           this.transObj.amount = item.amount
           this.tranByUser.push(this.transObj);
@@ -565,21 +574,22 @@ export class CheckoutComponent implements OnInit {
 
 
   totalamount: any;
-  getTotalTransactionByUser() {
-    this.usernamee = sessionStorage.getItem('username');
-    this.interactionServ.getTotalTransactionByUser(this.usernamee).subscribe(r => {
-      console.log("Response", r)
-      if (r.result == null) {
+  // getTotalTransactionByUser() {
+  //   this.usernamee = sessionStorage.getItem('username');
+  //   this.interactionServ.getTotalTransactionByUser(this.usernamee).subscribe(r => {
+  //     console.log("Response", r)
+  //     if (r.result == null) {
 
-        this.totalamount = 0;
+  //       this.totalamount = 0;
 
-      }
-      else {
-        this.totalamount = r.result;
-        console.log(this.totalamount);
-      }
-    })
-  }
+  //     }
+  //     else {
+  //       console.log(r);
+  //       this.totalamount = r.result;
+  //       console.log(this.totalamount);
+  //     }
+  //   })
+  // }
 
   dayclose() {
     let name = sessionStorage.getItem('username').toLowerCase();
