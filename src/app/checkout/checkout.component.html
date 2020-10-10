@@ -342,13 +342,6 @@
             Discount can't be greater than billing amount!
           </div>
             </div>
-            <!-- <div nz-row style="margin-top:22px"> -->
-
-
-            <!-- <div nz-col nzSpan="9" nzOffset="3"> <button (click)="print('','SC')" nz-button nzType="primary">Self Checkout</button></div> -->
-
-            <!-- <div nz-col nzSpan="9" nzOffset="2">  <button nz-button nzType="primary"(click)="showModal1()" [disabled]="true" >Delievery on Desk</button></div> -->
-            <!-- </div> -->
 
 
           </nz-modal>
@@ -359,11 +352,11 @@
 
   <div id="print-section" [hidden]="true">
     <div style="text-align: center;">
-      <img *ngIf="(chekingSetting && settingHeader   && settingHeader.logo != 'undefined'  )" [src]="settingHeader.logo"
-        style="height: 100px; width: 100px;" alt="Hello">
+      <img *ngIf="(chekingSetting && settingHeader   && settingHeader.logo  )" [src]="settingHeader.logo"
+        style="height: 100px; width: 100px;" >
     </div>
     <br>
-    <div *ngIf="(chekingSetting && settingHeader  && settingHeader.header  != 'undefined')"
+    <div *ngIf="(chekingSetting && settingHeader  && settingHeader.header)"
       style="text-align: center; margin-bottom: 50px;">
       <!-- <p class="bd-highlight font-weight-bold">{{settingHeader.header}}</px > -->
       <h2 nz-title>{{settingHeader.header}}</h2>

@@ -261,16 +261,20 @@ export class CheckoutComponent implements OnInit {
       "tableNumber": this.tableNumber
 
     }
+
     console.log(request)
 
     if(!this.transactionId)
     {
     this.interactionServ.saveTransaction(request).subscribe(
       data => {
+        document.getElementById("print-slip-btn").click();
         this.getRecentTransactionByUser();
         this.getTotalTransactionByUser();
         this.fafaicon();
         this.getLoginTime();
+        this.checkoutProductsArray = [];
+        this.total = 0;
         if (action === "SC") {
           this.message.success('Transaction Completed', {
             nzDuration: 3000
@@ -405,13 +409,11 @@ export class CheckoutComponent implements OnInit {
   saveData(reqUser, action): void {
 
     if (!this.invalidAmount) {
-      document.getElementById("print-slip-btn").click();
 
       this.saveTransaction(reqUser, action);
 
 
-      this.checkoutProductsArray = [];
-      this.total = 0;
+
       this.handleCancel()
 
       if (action == "ROD") {
@@ -588,7 +590,7 @@ export class CheckoutComponent implements OnInit {
       document.body.appendChild(a);
       a.setAttribute('style', 'display: none');
       a.href = url;
-      a.download = "Today Closing Report";
+      a.download = new Date().toDateString();
       a.click();
       window.URL.revokeObjectURL(url);
       a.remove();
