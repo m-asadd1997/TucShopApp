@@ -1,9 +1,10 @@
+import { ToastrService } from 'ngx-toastr';
 import { AdminServiceService } from './../admin-service.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, NgForm } from '@angular/forms';
 import { addProduct } from './addProduct';
 import { FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NzMessageComponent, NzMessageService } from 'ng-zorro-antd';
 
 @Component({
@@ -32,7 +33,7 @@ export class ProductAddComponent implements OnInit {
   typeBool = false;
 
 
-  constructor(private fb: FormBuilder, private service: AdminServiceService, private activateRoute: ActivatedRoute, private message: NzMessageService) {
+  constructor(private fb: FormBuilder, private service: AdminServiceService, private activateRoute: ActivatedRoute, private message: NzMessageService, private toastr: ToastrService, private router : Router) {
     this.addProducts = new addProduct();
     console.log(this.addProducts)
   }
@@ -88,7 +89,7 @@ export class ProductAddComponent implements OnInit {
 
       if (Number(this.addProducts.salePrice) <= Number(this.addProducts.costPrice)) {
         this.message.warning("Sale Price Must be Greater than Cost Price ");
-        this.erasingFormData();
+        // this.erasingFormData();
       }
       // else if (this.addProducts.image == null) { this.message.warning("Set Image First") ;this.erasingFormData();}
 
@@ -96,13 +97,21 @@ export class ProductAddComponent implements OnInit {
         console.log(this.formData)
         //
         this.service.updateProduct(this.id, this.formData).subscribe(d => {
-
-          this.message.success("Updated Successfully", { nzDuration: 3000 });
+          if(d.status =200){
+            this.toastr.success(d.message);
+            myForm.reset();
+            this.router.navigate(['admin/layout/product'])
+          }
+          else{
+            this.toastr.error(d.message);
+          }
+          
+          
         }
         );
 
 
-        myForm.reset();
+       
 
         console.log(this.addProducts.image)
         this.Checker = true;
@@ -119,8 +128,11 @@ export class ProductAddComponent implements OnInit {
       else {
         this.service.postProduct(this.formData).subscribe(d => {
           console.log(d);
-          if (d.status != 200) this.message.error("Duplicate Product", { nzDuration: 3000 });
-          else this.message.success("Added Successfully", { nzDuration: 3000 });
+          debugger;
+          if (d.status != 200) this.toastr.error("Duplicate Product");
+          else {
+            this.toastr.success(d.message);
+          }
 
         });
         this.addProducts.image = null;

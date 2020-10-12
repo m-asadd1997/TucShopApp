@@ -1,3 +1,4 @@
+import { ToastrModule } from 'ngx-toastr';
 import { AuthGuardService } from './auth-guard.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -78,7 +79,12 @@ import { AddUserComponent } from './add-user/add-user.component';
     NzLayoutModule,
     ExportAsModule,
     NzSwitchModule,
-    FusionChartsModule
+    FusionChartsModule,
+    ToastrModule.forRoot({
+      timeOut: 5000,
+      positionClass: 'toast-top-right',
+    }
+      )
   ]
   ,providers:[AuthGuardService]
 })

@@ -7,6 +7,7 @@ import { error } from '@angular/compiler/src/util';
 import { debug } from 'util';
 import { Router, ActivatedRoute } from '@angular/router';
 import { count } from 'console';
+import { ToastrService } from 'ngx-toastr';
 declare const scanCode :any;
 
 
@@ -80,30 +81,36 @@ export class CheckoutComponent implements OnInit {
     private router: Router,
     private activeRoute: ActivatedRoute,
     private modal: NzModalService,
+    private toastr: ToastrService
     
   ) {
 
-            document.addEventListener("scan", function(event) {
-              //do something
-              console.log(event['detail']);
-              this.barcodeValue = event['detail'].scanCode;
-              console.log(this.barcodeValue);
-              interactionServ.getProductByBarCode(this.barcodeValue)
-              .subscribe((res)=>{
-                if(res.result != undefined){
-                  this.addingProductIntoCart(res.result);
-                }
-                else{
-                  this.message.error("Product Not in the Database",{nzDuration:3000});
-                }
-                console.log("========================",res)
-              })
-              
-          }.bind(this),false);
+            // this.barCodeScanner(interactionServ);
   }
  
+  private barCodeScanner() {
+    document.addEventListener("scan", function (event) {
+      //do something
+      console.log(event['detail']);
+      this.barcodeValue = event['detail'].scanCode;
+      console.log(this.barcodeValue);
+      this.interactionServ.getProductByBarCode(this.barcodeValue)
+        .subscribe((res) => {
+          if (res.result != undefined) {
+            this.addingProductIntoCart(res.result);
+          }
+          else {
+            this.toastr.warning("Product not in the Database");
+          }
+          console.log("========================", res);
+        });
+
+    }.bind(this), false);
+  }
+
   ngOnInit() {
    
+    this.barCodeScanner();
     this.getLoginTime();
     this.fafaicon();
     console.log(this.usernamee);
@@ -277,9 +284,7 @@ export class CheckoutComponent implements OnInit {
         this.checkoutProductsArray = [];
         this.total = 0;
         if (action === "SC") {
-          this.message.success('Transaction Completed', {
-            nzDuration: 3000
-          });
+          this.toastr.success("Transaction Successfully Saved!");
         }
       },
 
@@ -292,6 +297,7 @@ export class CheckoutComponent implements OnInit {
 
       this.interactionServ.updateTransaction(this.transactionId,request).subscribe(d=>{
         this.transactionId=null;
+        this.toastr.success("Transaction Successfully Updated!");
         document.getElementById("print-slip-btn").click();
         this.checkoutProductsArray = [];
         this.total = 0;

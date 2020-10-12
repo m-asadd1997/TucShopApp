@@ -38,6 +38,8 @@ import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import {NgxPrintModule} from 'ngx-print';
 import { NgxUiLoaderModule,NgxUiLoaderHttpModule  } from 'ngx-ui-loader';
+import { ToastrModule } from 'ngx-toastr';
+
 
 
 
@@ -83,8 +85,13 @@ registerLocaleData(en);
     NzAvatarModule,
     NzToolTipModule,
     NgxPrintModule,
-    NgxUiLoaderHttpModule.forRoot({ showForeground: true }),
-    NgxUiLoaderModule
+    NgxUiLoaderHttpModule.forRoot({ showForeground: false }),
+    NgxUiLoaderModule,
+    ToastrModule.forRoot({
+      timeOut: 5000,
+      positionClass: 'toast-top-right',
+    }
+      )
     
   ],
   providers: [
