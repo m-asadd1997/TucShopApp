@@ -77,6 +77,7 @@ export class ProductAddComponent implements OnInit {
     }
     this.formData.append('costprice', this.addProducts.costPrice);
     this.formData.append('sku',this.addProducts.sku);
+    
     this.formData.append('price', this.addProducts.salePrice);   //sale price
    (this.switchValue)? this.formData.append('quantity', "0") : this.formData.append('quantity', this.addProducts.productQuantity)
 
