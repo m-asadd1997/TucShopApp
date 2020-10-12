@@ -1,4 +1,4 @@
-import { ToastrModule } from 'ngx-toastr';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { AuthGuardService } from './auth-guard.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -86,6 +86,6 @@ import { AddUserComponent } from './add-user/add-user.component';
     }
       )
   ]
-  ,providers:[AuthGuardService]
+  ,providers:[AuthGuardService,ToastrService]
 })
 export class AdminsModule { }
