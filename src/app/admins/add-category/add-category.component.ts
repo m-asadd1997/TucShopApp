@@ -2,7 +2,7 @@ import { AdminServiceService } from './../admin-service.service';
 import { Component, OnInit } from '@angular/core';
 import { add_category } from './add_category';
 import { NgForm } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute,Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd';
 import { JsonPipe } from '@angular/common';
 
@@ -25,7 +25,7 @@ export class AddCategoryComponent implements OnInit {
   checker:boolean=false;
   avatarDisplay:Boolean=false;
 
-  constructor(private service:AdminServiceService, private activateRoute: ActivatedRoute,private message:NzMessageService) { }
+  constructor(private service:AdminServiceService, private activateRoute: ActivatedRoute,private message:NzMessageService, private router: Router) { }
 
   formData = new FormData();
 
@@ -86,7 +86,10 @@ export class AddCategoryComponent implements OnInit {
 
       this.service.postCategory(this.formData).subscribe(d=>{
         if(d.status!=200) this.message.error("Duplicate Category",{nzDuration:3000});
-        else this.message.success("Added Successfully",{nzDuration:3000});
+        else{ this.message.success("Added Successfully",{nzDuration:3000});
+        
+        this.router.navigate(['admin/layout/product'])
+      }
 
       });
       myForm.reset();

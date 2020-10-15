@@ -8,6 +8,7 @@ import { debug } from 'util';
 import { Router, ActivatedRoute } from '@angular/router';
 import { count } from 'console';
 import { ToastrService } from 'ngx-toastr';
+import { LoaderUtilService } from '../util-services/loader-util.service';
 declare const scanCode :any;
 
 
@@ -39,6 +40,27 @@ export class CheckoutComponent implements OnInit {
     })
 
 
+  }
+
+  @HostListener('document:scan',['$event'])
+  onScanBarCodeDevice(event){
+    if(sessionStorage.getItem("role").toUpperCase() == "USER"){
+      this.barcodeValue = event['detail'].scanCode;
+      this.interactionServ.getProductByBarCode(this.barcodeValue)
+        .subscribe((res) => {
+          if (res.result != undefined && res.status == 200) {
+
+              this.addingProductIntoCart(res.result);
+          }
+          else {
+            this.toastr.warning(res.message);
+          }         
+        },error=>{
+
+          this.toastr.error("Error...............")
+        });
+
+    }
   }
 
   productsarray: any[] = [];
@@ -81,36 +103,30 @@ export class CheckoutComponent implements OnInit {
     private router: Router,
     private activeRoute: ActivatedRoute,
     private modal: NzModalService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private loaderService:LoaderUtilService
     
   ) {
 
-            // this.barCodeScanner(interactionServ);
+           // this.barCodeScanner();
   }
  
   private barCodeScanner() {
+
     document.addEventListener("scan", function (event) {
       //do something
-      console.log(event['detail']);
-      this.barcodeValue = event['detail'].scanCode;
-      console.log(this.barcodeValue);
-      this.interactionServ.getProductByBarCode(this.barcodeValue)
-        .subscribe((res) => {
-          if (res.result != undefined) {
-            this.addingProductIntoCart(res.result);
-          }
-          else {
-            this.toastr.warning("Product not in the Database");
-          }
-          console.log("========================", res);
-        });
+      debugger;
 
+      
+
+      
+     
     }.bind(this), false);
   }
 
   ngOnInit() {
    
-    this.barCodeScanner();
+    // this.barCodeScanner();
     this.getLoginTime();
     this.fafaicon();
     console.log(this.usernamee);
@@ -136,7 +152,12 @@ export class CheckoutComponent implements OnInit {
 
     // <<<<<<< variants-work
     this.interactionServ.productMessage$.subscribe(d => {
-      console.log("Product", d);
+      // console.log("Product", d);
+      // if(d["isEdit"]){
+      //   this.checkoutProductsArray = [];
+      //   d = d["transactionObject"]
+      // }
+      //this.checkoutProductsArray = [];
       this.addingProductIntoCart(d);
     })
 
@@ -153,14 +174,15 @@ export class CheckoutComponent implements OnInit {
 
     this.interactionServ.transactionObject$.subscribe((d: any) => {
       this.transactionId = d.id
-      debugger
+      this.checkoutProductsArray = [];
+      this.total = 0;
       console.log(d);
       this.transactionObjectFromEdit = d;
       d = d.productTransactions.map(item => {
         this.checkoutProductsArray.push({
           id: item.product["id"],
           productTitle: item.product["name"],
-          productPrice: item.product["price"],
+          productPrice: item.product["price"] * item["quantity"],
           productImage: item.product["image"],
           productQuantity: item["quantity"],
           productqty: item.product['qty'],
@@ -181,6 +203,7 @@ export class CheckoutComponent implements OnInit {
       );
       if (d['qty'] <= 0) {
         this.addButtonDisbale = true;
+
       }
       if (found > -1) {
         this.checkoutProductsArray[found].productPrice += d["price"];
@@ -206,24 +229,30 @@ export class CheckoutComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    this.scanBarCode();
+      scanCode();
    }
 
-  scanBarCode(){
-   let code = scanCode();
-   }
+  // scanBarCode(){
+  //  let code = scanCode();
+  //  }
 
   removeProductFromCheckout(data) {
+    debugger
     let obj1 = {
       "quantity": 0
       , "count": data.productQuantity
     }
+    
+    console.log("eibad",obj1.count);
     console.log("===========================", data)
     this.interactionServ.updateMinusAllQuantity(data.id, obj1).subscribe(d => {
       if (d) {
+        
         data.productqty = d.result.qty
         let index = this.checkoutProductsArray.findIndex(p => p.id == data.id);
+        console.log( this.checkoutProductsArray[index])
         this.total = this.total - this.checkoutProductsArray[index].productPrice;
+      
         this.checkoutProductsArray.splice(index, 1);
 
       }
@@ -330,7 +359,7 @@ export class CheckoutComponent implements OnInit {
       if (d) {
         obj.productqty = d.qty;
         console.log("==============Add Product===============", d.qty)
-        console.log("==============Checking===============")
+        console.log("=============================")
         this.checking = true;
         let index = this.checkoutProductsArray.findIndex(p => p.id == obj["id"]);
         var obj1 = {
@@ -529,6 +558,7 @@ export class CheckoutComponent implements OnInit {
 
   handleOkk() {
     this.isVisiblee = false;
+
   }
   handleCancell() {
     this.isVisiblee = false;
@@ -598,8 +628,10 @@ export class CheckoutComponent implements OnInit {
   // }
 
   dayclose() {
+    this.loaderService.showLoader();
     let name = sessionStorage.getItem('username').toLowerCase();
     this.interactionServ.dayClose(name).subscribe(d => {
+      this.loaderService.hideLoader();
       console.log("Blob", d);
       let url = window.URL.createObjectURL(d);
       let a = document.createElement('a');

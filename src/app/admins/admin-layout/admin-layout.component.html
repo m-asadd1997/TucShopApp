@@ -12,12 +12,13 @@
     <nz-button-group>
       <button nz-button >{{adminName}}</button>
       <button nz-button nz-dropdown [nzDropdownMenu]="menu2" nzPlacement="bottomRight">
-        <i nz-icon nzType="user"></i>
+          <i class="fa fa-user" style="margin-right: 0px;"></i>
+        <!-- <i nz-icon nzType="user"></i> -->
       </button>
     </nz-button-group>
     <nz-dropdown-menu #menu2="nzDropdownMenu">
       <ul nz-menu>
-        <li (click)="navigateBackToLoginPage()" nz-menu-item>Log Out</li>
+        <li (click)="navigateBackToLoginPage()" nz-menu-item><i class="fa fa-power-off"></i>Log Out</li>
        
       </ul>
     </nz-dropdown-menu>
@@ -36,7 +37,9 @@
           <ul nz-menu nzMode="inline" class="sider-menu"[nzInlineCollapsed]="isCollapsed" nzTheme="dark" >
             
             <li nz-menu-item [routerLink]="'dashboard'" style="font-weight: 700;">
-              <i nz-icon nzType="dashboard"></i>
+                <i class="fa fa-tachometer"></i>
+
+              <!-- <i nz-icon nzType="dashboard"></i> -->
               <span>Dashboard</span>
             </li>
 
@@ -44,29 +47,30 @@
               <i nz-icon nzType="user"></i>
               <span><b>Users</b></span>
             </li> -->
-
-            <li nz-submenu nzTitle="User" nzIcon="user" style="font-weight: 700;">
+            
+<!-- 
+            <li nz-submenu nzTitle="User"  style="font-weight: 700;" >
               <ul>
-               <a [routerLink]="'admin-user'"><li nz-menu-item>List</li></a>
+               <a [routerLink]="'admin-user'"><li nz-menu-item>View</li></a>
                <a [routerLink]="'add-user'" ><li nz-menu-item>Add</li></a>
                </ul> 
 
-            </li>
+            </li> -->
 
 
 
             
             <li nz-submenu nzTitle="Products" nzIcon="user" style="font-weight: 700;">
               <ul>
-               <a [routerLink]="'product'"><li nz-menu-item>List</li></a>
-               <a [routerLink]="'add-product'" ><li nz-menu-item>Add</li></a>
+               <a [routerLink]="'product'"><li nz-menu-item>All Products</li></a>
+               <a [routerLink]="'add-product'" ><li nz-menu-item>Add Products</li></a>
                </ul> 
 
             </li>
             <li nz-submenu nzTitle="Category"  nzIcon="laptop" style="font-weight: 700;">
             <ul>
-              <a [routerLink]="'category'"><li nz-menu-item>List</li></a>
-              <a [routerLink]="'add-category'"><li nz-menu-item>Add</li></a>
+              <a [routerLink]="'category'"><li nz-menu-item>All Categories</li></a>
+              <a [routerLink]="'add-category'"><li nz-menu-item>Add Category</li></a>
               </ul>
             </li>
          
@@ -77,7 +81,8 @@
               </ul>
             </li>
             <li nz-menu-item [routerLink]="'setting'">
-              <i nz-icon nzType="setting"></i>
+                <i class="fa fa-cog"></i>
+              <!-- <i nz-icon nzType="setting"></i> -->
               <span><b>Setting</b></span>
             </li>
           </ul>

@@ -14,7 +14,7 @@ import { NzMessageComponent, NzMessageService } from 'ng-zorro-antd';
 })
 export class ProductAddComponent implements OnInit {
   id: any;
-  switchValue=false;
+  switchValue = false;
   extraTemplate
   categories = []
   large
@@ -33,7 +33,7 @@ export class ProductAddComponent implements OnInit {
   typeBool = false;
 
 
-  constructor(private fb: FormBuilder, private service: AdminServiceService, private activateRoute: ActivatedRoute, private message: NzMessageService, private toastr: ToastrService, private router : Router) {
+  constructor(private fb: FormBuilder, private service: AdminServiceService, private activateRoute: ActivatedRoute, private message: NzMessageService, private toastr: ToastrService, private router: Router) {
     this.addProducts = new addProduct();
     console.log(this.addProducts)
   }
@@ -62,63 +62,33 @@ export class ProductAddComponent implements OnInit {
 
 
   submit(myForm: NgForm) {
-
-    this.formData.append('name', this.addProducts.productTitle)
-    let idObj = this.categories.find(v => v.name == this.addProducts.category);
-    this.formData.append('category', idObj.id);
-
-    if (this.addProducts.image) {
-      console.log("HELLLLLLOOOOO")
-      this.formData.append('image', this.addProducts.image, this.addProducts.productTitle + ".png");
+    if (Number(this.addProducts.salePrice) <= Number(this.addProducts.costPrice)) {
+      this.message.warning("Sale Price Must be Greater than Cost Price ");
+      return;
     }
-    else {
-      // this.formData.append('image', null)
-      console.log("ELSEEEE")
-    }
-    this.formData.append('costprice', this.addProducts.costPrice);
-    this.formData.append('sku',this.addProducts.sku);
-    
-    this.formData.append('price', this.addProducts.salePrice);   //sale price
-   (this.switchValue)? this.formData.append('quantity', "0") : this.formData.append('quantity', this.addProducts.productQuantity)
-
-    this.formData.append('variants', this.addProducts.variants.toUpperCase());
-    console.log(this.addProducts.variants);
+    this.processingFormData();
 
 
     if (this.id != null) {
-
-
-      if (Number(this.addProducts.salePrice) <= Number(this.addProducts.costPrice)) {
-        this.message.warning("Sale Price Must be Greater than Cost Price ");
-        // this.erasingFormData();
-      }
-      // else if (this.addProducts.image == null) { this.message.warning("Set Image First") ;this.erasingFormData();}
-
-      else {
+     
         console.log(this.formData)
-        //
+       
         this.service.updateProduct(this.id, this.formData).subscribe(d => {
-          if(d.status =200){
+          if (d.status == 200) {
             this.toastr.success(d.message);
             myForm.reset();
             this.router.navigate(['admin/layout/product'])
           }
-          else{
+          else {
             this.toastr.error(d.message);
-          }
-          
-          
+          } 
         }
         );
-
-
-       
 
         console.log(this.addProducts.image)
         this.Checker = true;
 
-        this.imgURL = null;
-      }
+      
 
     }
 
@@ -130,25 +100,49 @@ export class ProductAddComponent implements OnInit {
         this.service.postProduct(this.formData).subscribe(d => {
           console.log(d);
           debugger;
-          if (d.status != 200) this.toastr.error("Duplicate Product");
+          if (d.status != 200) {
+            this.toastr.error(d.message);
+            this.formData = new FormData();
+          }
           else {
             this.toastr.success(d.message);
+            this.router.navigate(['admin/layout/product'])
           }
 
         });
-        this.addProducts.image = null;
-        myForm.reset();
-        this.erasingFormData();
+        // this.addProducts.image = null;
+
 
         console.log(this.addProducts.image)
 
-        this.imgURL = null;
+        // this.imgURL = null;
         this.Checker = true;
         console.log(this.addProducts.image)
+        myForm.reset();
+        this.erasingFormData();
 
       }
     }
 
+  }
+
+  private processingFormData() {
+    this.formData = new FormData();
+    this.formData.append('name', this.addProducts.productTitle);
+    let idObj = this.categories.find(v => v.name == this.addProducts.category);
+    this.formData.append('category', idObj.id);
+    if (this.addProducts.image) {     
+      this.formData.append('image', this.addProducts.image, this.addProducts.productTitle + ".png");
+    }
+   
+    this.formData.append('costprice', this.addProducts.costPrice);
+    if (this.addProducts.sku != null) {
+      this.formData.append('sku', this.addProducts.sku);
+    }
+    this.formData.append('price', this.addProducts.salePrice); //sale price
+    (this.switchValue) ? this.formData.append('quantity', "0") : this.formData.append('quantity', this.addProducts.productQuantity);
+    this.formData.append('variants', this.addProducts.variants.toUpperCase());
+    console.log(this.addProducts.variants);
   }
 
   handleCategoryBanner(files: FileList) {
@@ -189,7 +183,7 @@ export class ProductAddComponent implements OnInit {
       this.addProducts.productQuantity = d.qty
       this.addProducts.salePrice = d.price
       this.addProducts.category = d.category.name
-      this.addProducts.sku=d.sku;
+      this.addProducts.sku = d.sku;
 
       this.service.getImage(d.image).subscribe(e => {
         if (e) {
@@ -220,7 +214,7 @@ export class ProductAddComponent implements OnInit {
 
 
   isInputValid(form) {
-    if ((form.valid && (this.addProducts.variants != "" || this.addProducts.variants)) || (form.valid && this.checker)) {
+    if ((form.valid && this.addProducts.image != null && (this.addProducts.variants != "" || this.addProducts.variants)) || (form.valid && this.checker)) {
       return false;
     }
     else {
@@ -257,11 +251,12 @@ export class ProductAddComponent implements OnInit {
     this.formData.delete("price");
     this.formData.delete("quantity");
     this.formData.delete("variants");
+    this.Checker = false;
   }
-  switchChanged(){
+  switchChanged() {
     console.log(this.switchValue);
-    this.switchValue=!this.switchValue;
-    this.addProducts.productQuantity=null
+    this.switchValue = !this.switchValue;
+    this.addProducts.productQuantity = null
   }
 
 }

@@ -35,12 +35,14 @@
               <nz-button-group>
                 <button nz-button>{{userName}}</button>
                 <button nz-button nz-dropdown [nzDropdownMenu]="menu2" nzPlacement="bottomRight">
-                  <i nz-icon nzType="user"></i>
+                    <i class="fa fa-user-circle"></i>
+
+                  <!-- <i nz-icon nzType="user"></i> -->
                 </button>
               </nz-button-group>
               <nz-dropdown-menu #menu2="nzDropdownMenu">
                 <ul nz-menu>
-                  <li (click)="navigateBackToLoginPage()" nz-menu-item>Log Out</li>
+                  <li (click)="navigateBackToLoginPage()" nz-menu-item><i class="fa fa-power-off" style="margin-right: 10px;"></i>Logout</li>
 
                 </ul>
               </nz-dropdown-menu>

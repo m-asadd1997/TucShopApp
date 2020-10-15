@@ -99,7 +99,8 @@
               </nz-input-group>
               <ng-template #suffixIconButton>
                 <button nz-button nzType="primary" nzSize="large" nzSearch>
-                  <i nz-icon nzType="search" nzTheme="outline"></i>
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                  <!-- <i nz-icon nzType="search" nzTheme="outline"></i> -->
                 </button>
               </ng-template>
               <nz-autocomplete #auto>
@@ -131,7 +132,9 @@
           <nz-card style="width:200px;" nzTitle="Cash in hand" [nzExtra]="extraTemplate">
 
             <h5>
-              <p> <img src="assets/total-sales.png"> {{totalamount}}</p>
+                <!-- <img src="assets/total-sales.png"> -->
+              <p> <i class="fa fa-money" aria-hidden="true"></i>
+                {{totalamount}}</p>
             </h5>
           </nz-card>
         </div>
@@ -140,7 +143,9 @@
           <nz-card style="width:200px;" nzTitle="Total Transaction" [nzExtra]="extraTemplate">
             <!-- <nz-progress [nzPercent]="totalTrans" nzType="dashboard"></nz-progress> -->
             <h5>
-              <p> <img src="assets/ledger.png"> {{totalTrans}}</p>
+                <!-- <img src="assets/ledger.png"> -->
+
+              <p><i class="fa fa-line-chart" aria-hidden="true"></i> {{totalTrans}}</p>
             </h5>
           </nz-card>
         </div>

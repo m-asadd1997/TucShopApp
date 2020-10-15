@@ -46,7 +46,7 @@
    ">Select Image
                 <input #files type="file"
                   (change)="handleCategoryBanner($event.target.files); preview($event.target.files)" name="image"
-                  accept=".jpeg,.png,.jpg,.PNG" style="display: none;cursor: pointer;">
+                  accept=".jpeg,.png,.jpg,.PNG" style="display: none;cursor: pointer;" required>
               </label>
               <nz-avatar *ngIf="avatarDisplay" style="margin-left: 5%;" [nzShape]="'square'" [nzSrc]="imgURL"
                 [nzSize]="90" nzText="Product">

@@ -38,6 +38,7 @@ import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import {NgxPrintModule} from 'ngx-print';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
+import { LoaderUtilService } from './util-services/loader-util.service';
 
 
 
@@ -96,7 +97,7 @@ registerLocaleData(en);
     provide: HTTP_INTERCEPTORS,
     useClass: NoopInterceptor,
     multi: true
-  },ToastrService],
+  },ToastrService,LoaderUtilService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

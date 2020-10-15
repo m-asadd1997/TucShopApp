@@ -5,6 +5,9 @@
     margin: 16px 28px 16px 0;
     float: left;
   } */
+  i {
+    margin-right: 10px;
+  }
 
   .header-menu {
     line-height: 64px;

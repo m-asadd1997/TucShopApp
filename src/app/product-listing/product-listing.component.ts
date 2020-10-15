@@ -2,7 +2,7 @@ import { transactions } from './../admins/transactions/transactions';
 import { productlisting } from './productlisting';
 import { Component, OnInit } from '@angular/core';
 import { MainscreenService } from '../main-screen/mainscreen.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NzMessageComponent } from 'ng-zorro-antd';
 import { debug } from 'util';
 import { AdminServiceService } from '../admins/admin-service.service';
@@ -30,7 +30,7 @@ export class ProductListingComponent implements OnInit {
   searchProduct: any;
   options: any;
 
-  constructor(private prodService: MainscreenService, private activeRoute: ActivatedRoute, private service: AdminServiceService) { }
+  constructor(private prodService: MainscreenService, private activeRoute: ActivatedRoute, private service: AdminServiceService, private router: Router) { }
 
   transactionIDObj = new productlisting();
 
@@ -147,11 +147,14 @@ export class ProductListingComponent implements OnInit {
 
 
   searchProductByKeyword(value: any) {
+    this.router.navigate(["categories/products"]);
     this.prodService.searchProductByKeyword(value).subscribe(d => {
       if (d) {
 
         this.searchProduct = d.result;
         this.productsArray = this.searchProduct;
+        // this.categoryHeader =  category.name
+       
       }
 
     });
@@ -170,7 +173,14 @@ export class ProductListingComponent implements OnInit {
     }
   }
 
+  searchOptionClicked(option){
+    console.log(option)
+    this.categoryHeader = option.category.name;
+    this.inputValue = "";
+  }
+
   showModal() {
+    console.log("s",this.products);
     this.isVisible1 = true;
     this.prodService.recentTransactions().subscribe(data => {
       console.log("Dattaaa", data);
@@ -240,7 +250,14 @@ export class ProductListingComponent implements OnInit {
 
   editTransaction(transactionObject) {
     console.log(transactionObject)
+    // let obj = {
+    //   transactionObject:transactionObject,
+    //   isEdit: true
+    // }
     this.prodService.sendTransactionObject(transactionObject);
+    // this.visibility = false;
+    this.isVisible1 = false;
+    
   }
 
 
