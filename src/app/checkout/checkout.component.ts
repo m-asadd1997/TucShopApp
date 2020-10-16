@@ -273,16 +273,20 @@ export class CheckoutComponent implements OnInit {
       "costprice": this.costPrice
 
     }
+
     console.log(request)
 
     if(!this.transactionId)
     {
     this.interactionServ.saveTransaction(request).subscribe(
       data => {
+        document.getElementById("print-slip-btn").click();
         this.getRecentTransactionByUser();
         this.getTotalTransactionByUser();
         this.fafaicon();
         this.getLoginTime();
+        this.checkoutProductsArray = [];
+        this.total = 0;
         if (action === "SC") {
           this.message.success('Transaction Completed', {
             nzDuration: 3000
@@ -469,6 +473,11 @@ export class CheckoutComponent implements OnInit {
       this.checkoutProductsArray = [];
       this.costPrice = 0;   
       this.total = 0;
+
+      this.saveTransaction(reqUser, action);
+
+
+
       this.handleCancel()
 
       if (action == "ROD") {

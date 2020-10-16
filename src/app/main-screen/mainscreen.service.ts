@@ -64,7 +64,7 @@ export class MainscreenService {
     this.transactionObject.next(obj);
   }
    public deleteTransaction(id:any): Observable<any>{
-     return this.http.get(this.deleteTransactionURL+id);
+     return this.http.delete(this.deleteTransactionURL+id);
 
    }
 
