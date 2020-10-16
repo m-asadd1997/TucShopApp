@@ -1,7 +1,7 @@
 
 
 <div style="margin-left: 3%; margin-top: 7px;">
-  <nz-card style="width:90%;" nzTitle="Add Products" [nzExtra]="extraTemplate" style="box-shadow:5px 5px 5px 5px">
+  <nz-card style="width:90%;" nzTitle="Add Products" [nzExtra]="extraTemplate" style="box-shadow:1px 0px 12px -4px">
 
     <form nz-form [nzLayout]="'inline'" #myForm="ngForm" autocomplete="auto" >
 
@@ -30,7 +30,7 @@
 
 
         <nz-form-item>
-          <nz-form-label nzFor="email">Variant</nz-form-label>
+          <nz-form-label nzFor="email" style="padding-left: 10px">Variant</nz-form-label>
           <br>
           <nz-form-control nzErrorTip="Please input your Product variants!">
 
@@ -186,13 +186,15 @@
         <div nz-col nzSpan="15">
           <nz-form-control>
             <div class="row">
-              <label style="padding: 5px;
-  background: grey;
-  display: table;
-  color: #fff;
-  font-size: smaller;
-  margin-left: 3%;
- ">Select Image
+              <label style="
+              padding-left: 6px;
+              padding-right: 6px;
+              background: #393f5bfc;
+              display: table;
+              color: #fff;
+              font-size: smaller;
+              margin-left: 3%;
+              border-radius: 12px;">Select Image
                 <input #files type="file"
                   (change)="handleCategoryBanner($event.target.files); preview($event.target.files)" name="image"
                   accept=".jpeg,.png,.jpg,.PNG" style="display: none;cursor: pointer;" required>

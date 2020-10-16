@@ -10,7 +10,7 @@
 
 
 <div style="margin-left: 3%; margin-top: 8px;">
-    <nz-card style="width:98%;" nzTitle="Header and Footer" [nzExtra]="extraTemplate" style="box-shadow:5px 5px 5px 5px">
+    <nz-card style="width:98%;" nzTitle="Header and Footer" [nzExtra]="extraTemplate" style="box-shadow:1px 0px 12px -4px">
 
         <form nzForm #myForm="ngForm" style="margin-top: 10px;">
 
@@ -83,12 +83,15 @@
                 <div nz-col nzSpan="15">
                   <nz-form-control>
                     <div class="row">
-                      <label style="padding: 5px;
-          background: grey; 
-          display: table;
-          color: #fff;
-          font-size: smaller;
-          margin-left: 3%;
+                      <label style="
+                      padding-left: 6px;
+                      padding-right: 6px;
+                      background: #393f5bfc;
+                      display: table;
+                      color: #fff;
+                      font-size: smaller;
+                      margin-left: 3%;
+                      border-radius: 12px;
          ">Select Image
                         <input #files type="file"
                           (change)="handleCategoryBanner($event.target.files); preview($event.target.files)" name="image"

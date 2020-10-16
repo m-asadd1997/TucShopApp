@@ -9,7 +9,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
 import { NzButtonModule } from 'ng-zorro-antd/button';
-import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { MainScreenComponent } from './main-screen/main-screen.component';
@@ -40,6 +39,8 @@ import {NgxPrintModule} from 'ngx-print';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { LoaderUtilService } from './util-services/loader-util.service';
 
+import { IconDefinition } from '@ant-design/icons-angular';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 
 
 

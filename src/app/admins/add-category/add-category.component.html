@@ -1,5 +1,5 @@
 <div style="margin-left: 2%; margin-top: 7px;">
-  <nz-card style="width:90px;" nzTitle="Category Add" style="box-shadow: 5px 5px 5px 5px">
+  <nz-card style="width:90px;" nzTitle="Category Add" style="box-shadow: 1px 0px 12px -4px">
     <form nz-form [nzLayout]="'inline'" #myForm="ngForm">
       <div nz-row>
         <div nz-col nzSpan="8">
@@ -37,12 +37,15 @@
         <div nz-col nzSpan="15">
           <nz-form-control>
             <div class="row">
-              <label style="padding: 5px;
-    background: grey; 
-    display: table;
-    color: #fff;
-    font-size: smaller;
-    margin-left: 3%;
+              <label style="
+              padding-left: 6px;
+              padding-right: 6px;
+              background: #393f5bfc;
+              display: table;
+              color: #fff;
+              font-size: smaller;
+              margin-left: 3%;
+              border-radius: 12px;
    ">Select Image
                 <input #files type="file"
                   (change)="handleCategoryBanner($event.target.files); preview($event.target.files)" name="image"

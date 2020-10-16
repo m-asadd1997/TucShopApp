@@ -115,7 +115,7 @@ export class CheckoutComponent implements OnInit {
 
     document.addEventListener("scan", function (event) {
       //do something
-      debugger;
+      // debugger;
 
       
 
@@ -237,7 +237,7 @@ export class CheckoutComponent implements OnInit {
   //  }
 
   removeProductFromCheckout(data) {
-    debugger
+    // debugger
     let obj1 = {
       "quantity": 0
       , "count": data.productQuantity
@@ -321,7 +321,7 @@ export class CheckoutComponent implements OnInit {
     )
     }
     else{
-      debugger
+      // debugger
       console.log("Update");
 
       this.interactionServ.updateTransaction(this.transactionId,request).subscribe(d=>{
@@ -391,7 +391,7 @@ export class CheckoutComponent implements OnInit {
 
   checkingMinusCall = false;
   removeProduct(obj) {
-    debugger
+    // debugger
     let obj1 = {
       "quantity": 0
       , "count": obj.productQuantity
@@ -593,7 +593,7 @@ export class CheckoutComponent implements OnInit {
     this.interactionServ.getRecentTransactionByUser(this.usernamee).subscribe(r => {
       console.log("ResponsRecent", r)
       this.totalTrans = r.length;
-      debugger
+      // debugger
       
       r.map(item => {
         this.totalamount+=( item.amount-item.discount)
@@ -650,12 +650,16 @@ export class CheckoutComponent implements OnInit {
   getLoginTime() {
     let name = sessionStorage.getItem('username').toLowerCase();
     this.interactionServ.getLoginTime(name).subscribe(d => {
-
-      this.date = d.result[0].date;
-      this.time = d.result[0].time;
+      //  debugger; 
+       let dateString = d.result[0].date+" "+d.result[0].time+" GMT+0500"; 
+       let lastLoginDateTime = new Date(dateString)
+      
+       this.date = lastLoginDateTime.toDateString();
+      this.time =   lastLoginDateTime.toLocaleTimeString();
 
     })
   }
+
   amountReceived = 0;
   returnedAmount = 0;
   totalAmount = 0;
