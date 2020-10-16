@@ -9,6 +9,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { count } from 'console';
 import { PrintService, UsbDriver, WebPrintDriver } from 'ng-thermal-print';
 import { PrintDriver } from 'ng-thermal-print/lib/drivers/PrintDriver';
+import { analyzeAndValidateNgModules } from '@angular/compiler';
+
+
 @Component({
   selector: "app-checkout",
   templateUrl: "./checkout.component.html",
@@ -57,6 +60,8 @@ export class CheckoutComponent implements OnInit {
   checkOutObj: Checkout = new Checkout();
   checking: boolean = false;
   status: boolean = false;
+  costPrice;
+
 
   cols: { header: string; }[];
   requestProduct: any;
@@ -108,11 +113,13 @@ export class CheckoutComponent implements OnInit {
     });
 
     this.populateCols();
-
+    this.costPrice = 0;
     // <<<<<<< variants-work
     this.interactionServ.productMessage$.subscribe(d => {
       console.log("dsfsdgsdg", d);
       if (d) {
+        this.costPrice += d['costprice'];
+        console.log(this.costPrice, "total Cost Price");
         let found = this.checkoutProductsArray.findIndex(
           p => p.productTitle == d["name"] && p.productVariant == d["variants"]
         );
@@ -185,7 +192,6 @@ export class CheckoutComponent implements OnInit {
 
     this.interactionServ.transactionObject$.subscribe((d: any) => {
       this.transactionId = d.id
-      debugger
       console.log(d);
       this.transactionObjectFromEdit = d;
       d = d.productTransactions.map(item => {
@@ -208,8 +214,6 @@ export class CheckoutComponent implements OnInit {
 
 
 
-
-
   removeProductFromCheckout(data) {
     let obj1 = {
       "quantity": 0
@@ -218,6 +222,7 @@ export class CheckoutComponent implements OnInit {
     console.log("===========================", data)
     this.interactionServ.updateMinusAllQuantity(data.id, obj1).subscribe(d => {
       if (d) {
+        this.costPrice = this.costPrice - d.result.costprice*data.productQuantity;
         data.productqty = d.result.qty
         let index = this.checkoutProductsArray.findIndex(p => p.id == data.id);
         this.total = this.total - this.checkoutProductsArray[index].productPrice;
@@ -227,7 +232,6 @@ export class CheckoutComponent implements OnInit {
     })
 
   }
-
   showModal(): void {
     this.totalAmount = 0;
     this.discountInRs = 0;
@@ -253,7 +257,7 @@ export class CheckoutComponent implements OnInit {
     this.checkoutProductsArray.forEach(prod => {
       let obj = {
         "product": prod,
-        "quantity": prod.productQuantity
+        "quantity": prod.productQuantity,
       }
       this.objToPushForTransaction.push(obj)
     });
@@ -265,7 +269,8 @@ export class CheckoutComponent implements OnInit {
       "productTransactions": this.objToPushForTransaction,
       "discount": this.discountInRs,
       "waiterName": this.waiterName,
-      "tableNumber": this.tableNumber
+      "tableNumber": this.tableNumber,
+      "costprice": this.costPrice
 
     }
 
@@ -356,6 +361,7 @@ export class CheckoutComponent implements OnInit {
 
           this.interactionServ.updateAddQuantity(obj["id"], obj).subscribe(d => {
             if (d)
+            this.costPrice += d.result.costprice;
               obj.productqty = d.result.qty;
           })
 
@@ -376,7 +382,7 @@ export class CheckoutComponent implements OnInit {
   }
   checkingMinusCall = false;
   removeProduct(obj) {
-    debugger
+    //debugger
     let obj1 = {
       "quantity": 0
       , "count": obj.productQuantity
@@ -386,6 +392,8 @@ export class CheckoutComponent implements OnInit {
     this.interactionServ.updateMinusQuantity(obj["id"], obj1).subscribe(d => {
 
       if (d) {
+        this.costPrice = this.costPrice - d.result.costprice;
+        console.log(this.costPrice, "minus cost price");
         this.checkingMinusCall = true;
         obj.productqty = d.result.qty;
 
@@ -459,8 +467,12 @@ export class CheckoutComponent implements OnInit {
 
   settingHeader
   saveData(reqUser, action): void {
-
     if (!this.invalidAmount) {
+      document.getElementById("print-slip-btn").click();
+      this.saveTransaction(reqUser, action);
+      this.checkoutProductsArray = [];
+      this.costPrice = 0;   
+      this.total = 0;
 
       this.saveTransaction(reqUser, action);
 
@@ -741,8 +753,6 @@ export class CheckoutComponent implements OnInit {
       nzOnOk: () => this.dayclose()
     });
   }
-
-
 
 
 

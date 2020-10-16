@@ -16,6 +16,7 @@ import { TransactionsDetailsComponent } from './transactions-details/transaction
 import { SettingComponent } from './setting/setting.component';
 import { AdminUserComponent } from './admin-user/admin-user.component';
 import { AddUserComponent } from './add-user/add-user.component';
+import { GenerateReportComponent } from './generate-report/generate-report.component';
 
 
 const routes: Routes = [
@@ -33,6 +34,7 @@ const routes: Routes = [
       { path: 'add-category', component: AddCategoryComponent },
       { path: 'add-category/:id', component: AddCategoryComponent },
       { path: 'transactions', component: TransactionsComponent },
+      { path: 'generate-report', component: GenerateReportComponent },
       { path: 'user', component: UserComponent },
       { path: 'add-user', component: AddUserComponent },
       {path:'add-user/:id',component:AddUserComponent},

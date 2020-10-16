@@ -160,16 +160,29 @@ console.log("response",data)
   }
   download()
     {
-      this.exportAsService.save(this.exportAsConfig, 'My File Name').subscribe(() => {
-        // save started
-      });
-      // get the data as base64 or json object for json type - this will be helpful in ionic or SSR
-      this.exportAsService.get(this.exportAsConfig).subscribe(content => {
-        console.log(content);
-      });
+      // this.exportAsService.save(this.exportAsConfig, 'My File Name').subscribe(() => {
+      //   // save started
+      // });
+      // // get the data as base64 or json object for json type - this will be helpful in ionic or SSR
+      // this.exportAsService.get(this.exportAsConfig).subscribe(content => {
+      //   console.log(content);
+      // });
 
-
-    }
+          // this.service.downloadAllTransactionPDF().subscribe(d => {
+          //   console.log("Blob", d);
+          //   let url = window.URL.createObjectURL(d);
+          //   let a = document.createElement('a');
+          //   document.body.appendChild(a);
+          //   a.setAttribute('style', 'display: none');
+          //   a.href = url;
+          //   a.download = new Date().toDateString();
+          //   a.click();
+          //   window.URL.revokeObjectURL(url);
+          //   a.remove();
+          // })
+      
+      
+        }
 
     onChange(){
 
