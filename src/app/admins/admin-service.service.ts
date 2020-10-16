@@ -52,7 +52,7 @@ export class AdminServiceService {
   private getFilteredFrequencyByCategoryURL= environment.baseUrl+"api/dashboard/frequencybycategory/";
   private getFilteredTransactionMethodURL= environment.baseUrl+"api/dashboard/gettransactionmethod/";
   private deleteUserById= environment.baseUrl+"api/user/";
-
+  private downloadAllTransactionURL = environment.baseUrl+"api/transaction/downloadtransaction/";
 
   
 
@@ -283,7 +283,11 @@ public scearchtransactionofUser(transaction:any):Observable<any>{
     return this.http.get(this.getFilteredDetailedTransaction+startValue+"/"+endValue);
   }
 
-  
+  //download All Transaction PDF
+
+  downloadAllTransactionPDF(startDate:any, endDate:any):Observable<any>{
+  return this.http.get (this.downloadAllTransactionURL+startDate+"/"+endDate ,{ responseType: 'blob' });
+  }
 
 
 
