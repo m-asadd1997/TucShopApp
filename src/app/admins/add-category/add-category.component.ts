@@ -88,7 +88,7 @@ export class AddCategoryComponent implements OnInit {
         if(d.status!=200) this.message.error("Duplicate Category",{nzDuration:3000});
         else{ this.message.success("Added Successfully",{nzDuration:3000});
         
-        this.router.navigate(['admin/layout/product'])
+        this.router.navigate(['admin/layout/category'])
       }
 
       });

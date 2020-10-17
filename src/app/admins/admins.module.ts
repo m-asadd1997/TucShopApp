@@ -34,6 +34,7 @@ import { NzSwitchModule } from 'ng-zorro-antd/switch';
 FusionChartsModule.fcRoot(FusionCharts, Charts, FusionTheme)
 import { AdminUserComponent } from './admin-user/admin-user.component';
 import { AddUserComponent } from './add-user/add-user.component';
+import { GenerateReportComponent } from './generate-report/generate-report.component';
 
 @NgModule({
 
@@ -52,6 +53,7 @@ import { AddUserComponent } from './add-user/add-user.component';
                  SettingComponent,
                  AdminUserComponent,
                  AddUserComponent,
+                 GenerateReportComponent,
 
                  ],
 

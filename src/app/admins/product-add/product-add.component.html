@@ -16,10 +16,16 @@
           <nz-form-label nzFor="email">Product Title</nz-form-label>
           <br>
           <nz-form-control nzErrorTip="Please input your Product Title!">
-            <nz-input-group nzPrefixIcon="project">
+            <nz-input-group [nzPrefix]="prefixIcon">
               <input nz-input required name="productTitle" #title="ngModel" [(ngModel)]="addProducts.productTitle"
                 placeholder="Product Title" required />
             </nz-input-group>
+
+            <ng-template #prefixIcon>
+                <i class="fa fa-th" style="opacity: .3;
+                padding-top: 2px;"></i>
+              <!-- <i nz-icon nzType="search"></i> -->
+            </ng-template>
 
 
 
@@ -78,10 +84,16 @@
           <nz-form-label nzFor="email">Cost Price</nz-form-label>
           <br>
           <nz-form-control nzErrorTip="Please input your Cost Price!">
-            <nz-input-group nzPrefixIcon="dollar">
-              <input type="number" minlength="1" maxlength="4" required #costPrice="ngModel" name="costPrice"
+            <nz-input-group [nzPrefix]="costIcon">
+              <input type="number" min="0" minlength="1" maxlength="4" required #costPrice="ngModel" name="costPrice"
                 [(ngModel)]="addProducts.costPrice" nz-input placeholder="Cost Price" required />
             </nz-input-group>
+
+            <ng-template #costIcon>
+                <i class="fa fa-usd" style="opacity: .3;
+                padding-top: 2px;"></i>
+              <!-- <i nz-icon nzType="search"></i> -->
+            </ng-template>
 
 
           </nz-form-control>
@@ -105,10 +117,16 @@
           <nz-form-label nzFor="email">Product Price</nz-form-label>
           <br>
           <nz-form-control nzErrorTip="Please input your Product Price!">
-            <nz-input-group nzPrefixIcon="dollar" style="margin-left:10px">
-              <input type="number" minlength="1" maxlength="4" required #saleprice="ngModel" name="salePrice"
+            <nz-input-group [nzPrefix]="productIcon" style="margin-left:10px">
+              <input type="number" min="0" minlength="1" maxlength="4" required #saleprice="ngModel" name="salePrice"
                 [(ngModel)]="addProducts.salePrice" nz-input placeholder="Sale Price" required />
             </nz-input-group>
+
+            <ng-template #productIcon>
+                <i class="fa fa-usd" style="opacity: .3;
+                padding-top: 2px;"></i>
+              <!-- <i nz-icon nzType="search"></i> -->
+            </ng-template>
 
 
           </nz-form-control>
@@ -117,8 +135,7 @@
 
       <!--  2nd Row -->
 
-
-
+      
       <!-- 3rd  Row -->
       <div nz-row>
         <div nz-col nzSpan="5" class="nz-group">
@@ -126,11 +143,17 @@
           <br>
           <nz-form-item>
             <nz-form-control nzErrorTip="Please input your Product Quantity!">
-              <nz-input-group nzPrefixIcon="account-book">
-                <input  [disabled]="switchValue" style="width: 300px;" type="number" minlength="1" maxlength="4"  #productQuantity="ngModel"
+              <nz-input-group [nzPrefix]="quantityIcon">
+                <input  [disabled]="switchValue" style="width: 300px;" type="number" min="0" minlength="1" maxlength="4"  #productQuantity="ngModel"
                   name="productQuantity" [(ngModel)]="addProducts.productQuantity" nz-input
                   placeholder="Product Quantity" />
               </nz-input-group>
+
+              <ng-template #quantityIcon>
+                  <i class="fa fa-shopping-bag"  style="opacity: .3;
+                  padding-top: 1px;"></i>
+                <!-- <i nz-icon nzType="search"></i> -->
+              </ng-template>
 
             </nz-form-control>
           </nz-form-item>

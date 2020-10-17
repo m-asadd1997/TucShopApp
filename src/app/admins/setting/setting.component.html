@@ -26,7 +26,7 @@
                         <div nz-col nzSpan="12">
                             <nz-form-label  nzFor="email">Header</nz-form-label>
 
-                            <nz-input-group nzPrefixIcon="diff" class="nz-group">
+                            <nz-input-group [nzPrefix]="fileIcon" class="nz-group">
                                 
                                 <textarea style="height: 40px;padding-top: 15px;" nz-input placeholder="header" name="header" [(ngModel)]="settingObj.header"
                                     [nzAutosize]="{ minRows: 1, maxRows: 6 }"></textarea>
@@ -35,11 +35,17 @@
 
                         <div nz-col nzSpan="12">
                             <nz-form-label  nzFor="email">Footer</nz-form-label>
-                            <nz-input-group nzPrefixIcon="diff" class="nz-group">
+                            <nz-input-group  [nzPrefix]="fileIcon" class="nz-group">
                                  
                                 <textarea nz-input placeholder="footer" style="height: 40px;padding-top: 15px;" name="footer" [(ngModel)]="settingObj.footer"
                                     [nzAutosize]="{ minRows: 1, maxRows: 6 }"></textarea>
                             </nz-input-group>
+
+                            <ng-template #fileIcon>
+                                    <i class="fa fa-file-text-o" style="opacity: .3;
+                                    padding-top: 2px;"></i>
+                                  <!-- <i nz-icon nzType="search"></i> -->
+                                </ng-template>
                         </div>
 
 

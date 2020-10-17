@@ -6,12 +6,18 @@
           <nz-form-item>
             <nz-form-label nzFor="email">Category Name</nz-form-label>
             <nz-form-control>
-              <nz-input-group nzPrefixIcon="user" class="nz-group">
+              <nz-input-group [nzPrefix]="prefixIcon" class="nz-group">
                 <input required ngform #category="ngModel" name="productTitle" [(ngModel)]="add_categories.name"
                   nz-input placeholder="Category Name" />
               </nz-input-group>
-              <div *ngIf="category.touched && category.invalid">
-                Category is Required
+              <ng-template #prefixIcon>
+                  <i class="fa fa-list-ul" style="opacity: .3;
+                  padding-top: 1px;"></i>
+                <!-- <i nz-icon nzType="search"></i> -->
+              </ng-template>
+
+              <div *ngIf="category.touched && category.invalid" style="color: red">
+                 *Category is Required
               </div>
             </nz-form-control>
           </nz-form-item>

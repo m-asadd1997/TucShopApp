@@ -63,7 +63,8 @@ export class ProductAddComponent implements OnInit {
 
   submit(myForm: NgForm) {
     if (Number(this.addProducts.salePrice) <= Number(this.addProducts.costPrice)) {
-      this.message.warning("Sale Price Must be Greater than Cost Price ");
+      this.toastr.error("Sale Price Must be Greater than Cost Price")
+      // this.message.warning("Sale Price Must be Greater than Cost Price ");
       return;
     }
     this.processingFormData();
@@ -94,7 +95,11 @@ export class ProductAddComponent implements OnInit {
 
     else {
 
-      if (Number(this.addProducts.salePrice) < Number(this.addProducts.costPrice)) { this.message.warning("Sale Price Must be Greater than Cost Price "); this.erasingFormData(); }
+      if (Number(this.addProducts.salePrice) < Number(this.addProducts.costPrice)) 
+          {
+            this.toastr.error("Sale Price Must be Greater than Cost Price"); 
+            this.erasingFormData();
+           }
       // else if (this.addProducts.image == null) { this.message.warning("Set Image First"); this.erasingFormData(); }
       else {
         this.service.postProduct(this.formData).subscribe(d => {

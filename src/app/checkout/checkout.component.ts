@@ -81,6 +81,8 @@ export class CheckoutComponent implements OnInit {
   checkOutObj: Checkout = new Checkout();
   checking: boolean = false;
   status: boolean = false;
+  costPrice;
+
 
   cols: { header: string; }[];
   requestProduct: any;
@@ -149,7 +151,7 @@ export class CheckoutComponent implements OnInit {
     });
 
     this.populateCols();
-
+    this.costPrice = 0;
     // <<<<<<< variants-work
     this.interactionServ.productMessage$.subscribe(d => {
       // console.log("Product", d);
@@ -198,6 +200,7 @@ export class CheckoutComponent implements OnInit {
 
   private addingProductIntoCart(d: Object) {
     if (d) {
+      this.costPrice += d['costprice'];
       let found = this.checkoutProductsArray.findIndex(
         p => p.productTitle == d["name"] && p.productVariant == d["variants"]
       );
@@ -247,7 +250,7 @@ export class CheckoutComponent implements OnInit {
     console.log("===========================", data)
     this.interactionServ.updateMinusAllQuantity(data.id, obj1).subscribe(d => {
       if (d) {
-        
+        this.costPrice = this.costPrice - d.result.costprice*data.productQuantity;
         data.productqty = d.result.qty
         let index = this.checkoutProductsArray.findIndex(p => p.id == data.id);
         console.log( this.checkoutProductsArray[index])
@@ -259,7 +262,6 @@ export class CheckoutComponent implements OnInit {
     })
 
   }
-
   showModal(): void {
     this.totalAmount = 0;
     this.discountInRs = 0;
@@ -282,7 +284,7 @@ export class CheckoutComponent implements OnInit {
     this.checkoutProductsArray.forEach(prod => {
       let obj = {
         "product": prod,
-        "quantity": prod.productQuantity
+        "quantity": prod.productQuantity,
       }
       this.objToPushForTransaction.push(obj)
     });
@@ -294,7 +296,8 @@ export class CheckoutComponent implements OnInit {
       "productTransactions": this.objToPushForTransaction,
       "discount": this.discountInRs,
       "waiterName": this.waiterName,
-      "tableNumber": this.tableNumber
+      "tableNumber": this.tableNumber,
+      "costprice": this.costPrice
 
     }
 
@@ -372,6 +375,7 @@ export class CheckoutComponent implements OnInit {
 
           this.interactionServ.updateAddQuantity(obj["id"], obj).subscribe(d => {
             if (d)
+            this.costPrice += d.result.costprice;
               obj.productqty = d.result.qty;
           })
 
@@ -391,7 +395,7 @@ export class CheckoutComponent implements OnInit {
 
   checkingMinusCall = false;
   removeProduct(obj) {
-    // debugger
+    
     let obj1 = {
       "quantity": 0
       , "count": obj.productQuantity
@@ -400,6 +404,8 @@ export class CheckoutComponent implements OnInit {
     this.interactionServ.updateMinusQuantity(obj["id"], obj1).subscribe(d => {
 
       if (d) {
+        this.costPrice = this.costPrice - d.result.costprice;
+        console.log(this.costPrice, "minus cost price");
         this.checkingMinusCall = true;
         obj.productqty = d.result.qty;
 
@@ -446,23 +452,15 @@ export class CheckoutComponent implements OnInit {
 
   settingHeader
   saveData(reqUser, action): void {
-
     if (!this.invalidAmount) {
-
+      document.getElementById("print-slip-btn").click();
       this.saveTransaction(reqUser, action);
-
-
-
-      this.handleCancel()
-
-      if (action == "ROD") {
-        this.message.success(`Request Sent to  ${reqUser}`, {
-          nzDuration: 3000
-        });
-        this.isVisible1 = false;
-      }
+      this.checkoutProductsArray = [];
+      this.costPrice = 0;   
+      this.total = 0;  
       this.amountReceived = 0;
       this.returnedAmount = 0;
+      this.handleCancel();
     }
     else this.message.error("Checkout Failed")
   }

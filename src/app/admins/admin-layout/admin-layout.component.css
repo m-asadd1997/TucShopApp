@@ -27,7 +27,7 @@
   }
 
   .sider-menu {
-    height: 102%;
+    height: 105%;
   }
 
   .inner-content {
@@ -37,6 +37,8 @@
 
   nz-footer {
     text-align: center;
+    height: 69.5px;
+
   }
   .logo {
     width: 120px;
