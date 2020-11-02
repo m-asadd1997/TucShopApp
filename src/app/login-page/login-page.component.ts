@@ -5,6 +5,7 @@ import { MainscreenService } from  '../main-screen/mainscreen.service';
 import {  NzMessageService } from 'ng-zorro-antd';
 import { Router } from '@angular/router';
 import { login } from './login';
+import { Token } from '@angular/compiler/src/ml_parser/lexer';
 
 @Component({
   selector: 'app-login-page',
@@ -17,6 +18,7 @@ export class LoginPageComponent implements OnInit,AfterViewInit {
   isLogSpinning = false;
   login = 1;
   register = 0;
+  token:any;
   registerModel = new User();
   loginModel = new login();
 
@@ -92,7 +94,11 @@ export class LoginPageComponent implements OnInit,AfterViewInit {
     .subscribe(
         res => {
           if(res){
-            if(res.status == 200){
+            if(res.status == 200 ){
+              if(res.result.active==false){
+                this.isLogSpinning = false;
+                this.message.error('Buy Subscription',{ nzDuration: 3000 });
+              }
               console.log("",res);
               if(res.result == null){
 
@@ -113,15 +119,9 @@ export class LoginPageComponent implements OnInit,AfterViewInit {
               this.route.navigate(['admin/layout'])
               this.isLogSpinning = false;
               this.message.success('Login Successful',{ nzDuration: 3000 });
-
-
-
-
-            }
+           }            
+           }
           }
-
-          }
-
         },
         error =>{
           if(error){
@@ -157,5 +157,39 @@ export class LoginPageComponent implements OnInit,AfterViewInit {
   }
 
 
+  isVisible = false;
+  isOkLoading = false;
 
+  showModal(): void {
+    this.isVisible = true;
+  }
+
+  handleOk(): void {
+    this.isOkLoading = true;
+    this.subscriptionToken(this.token);
+
+  
+    setTimeout(() => {
+      this.isVisible = false;
+      this.isOkLoading = false;
+    }, 3000);
+  }
+
+  handleCancel(): void {
+    this.isVisible = false;
+  }
+
+
+  subscriptionToken(token){
+    this.service.subscriptionToken(token).subscribe(d=>{ 
+     if(this.token==d.result && d.status==200 ){
+      this.token = d;
+      this.token=null;
+      this.message.info('Trial Extended', {nzDuration:3000})
+    } else{
+      this.message.error('Invalid Subscription Token',{ nzDuration: 3000 })
+    }      
+    })
+ 
+}
 }
