@@ -36,14 +36,7 @@ export class LoginPageComponent implements OnInit,AfterViewInit {
 
   }
 
-//   fullScreen() {
-//     let elem = document.documentElement;
-//     let methodToBeInvoked = elem.requestFullscreen ||
-//       elem['webkitRequestFullScreen'] || elem['mozRequestFullscreen']
-//       ||
-//       elem['msRequestFullscreen'];
-//     if (methodToBeInvoked) methodToBeInvoked.call(elem);
-// }
+
 
 
   gotoLogin() {
@@ -94,32 +87,31 @@ export class LoginPageComponent implements OnInit,AfterViewInit {
     .subscribe(
         res => {
           if(res){
-            if(res.status == 200 ){
-              if(res.result.active==false){
+              if(res.status == 200 ){
+                console.log("",res);
+                if(res.result == null){
+
+                this.message.error(res.message,{ nzDuration: 10000 });
                 this.isLogSpinning = false;
-                this.message.error('Buy Subscription',{ nzDuration: 3000 });
-              }
-              console.log("",res);
-              if(res.result == null){
-
-              this.message.error(res.message,{ nzDuration: 10000 });
-              this.isLogSpinning = false;
-              }
-              else {
-              sessionStorage.setItem('token',res.result.token);
-              sessionStorage.setItem('username',res.result.username);
-              sessionStorage.setItem('role',res.result.userType);
-              sessionStorage.setItem('key',res.result.accountAccessKey);
+                }
+                else {
+                sessionStorage.setItem('token',res.result.token);
+                sessionStorage.setItem('username',res.result.username);
+                sessionStorage.setItem('role',res.result.userType);
+                sessionStorage.setItem('key',res.result.accountAccessKey);
 
 
-              if(res.result.userType==="USER")
-              this.route.navigate(['categories/products']);
+                if(res.result.userType==="USER")
+                this.route.navigate(['categories/products']);
 
-              else if(res.result.userType==="ADMIN")
-              this.route.navigate(['admin/layout'])
-              this.isLogSpinning = false;
-              this.message.success('Login Successful',{ nzDuration: 3000 });
-           }            
+                else if(res.result.userType==="ADMIN")
+                this.route.navigate(['admin/layout'])
+                this.isLogSpinning = false;
+                this.message.success('Login Successful',{ nzDuration: 3000 });
+            }            
+           }else{
+                 this.isLogSpinning = false;
+                 this.message.error(res.message,{ nzDuration: 3000 });
            }
           }
         },
