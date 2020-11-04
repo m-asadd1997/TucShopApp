@@ -22,7 +22,7 @@
   <nz-content>
     <nz-breadcrumb> </nz-breadcrumb>
     <div class="inner-content" style="margin-top: 15px;">
-   
+
       <div nz-row style="margin-left: -25px;">
         <!-- <div nz-col nzSpan="3">
           <h4><b>Cart: </b></h4>
@@ -36,12 +36,12 @@
           <span>Request For Product</span>
         </button> -->
 
-         
+
 
 
           <!-- <nz-modal [(nzVisible)]="isVisible2" nzTitle="Request For Product" (nzOnCancel)="handleCancel()"
             (nzOnOk)="postProduct()" [nzOkDisabled]="disableButton()" [nzOkLoading]="isOkLoading" nzOkText="Submit">
-           
+
             <div class="example-input">
               <nz-input-group nzSearch nzSize="large" [nzAddOnAfter]="suffixIconButton">
                 <input placeholder="Request For Product" nz-input [(ngModel)]="checkOutObj.name"
@@ -50,7 +50,7 @@
               <ng-template #suffixIconButton>
                 <button nz-button nzType="primary" nzSize="large" nzSearch>
                     <i class="fa fa-search" aria-hidden="true"></i>
-                 
+
                 </button>
               </ng-template>
               <nz-autocomplete #auto>
@@ -149,8 +149,8 @@
           </div>
         </div>
       </nz-modal>
-      
-    
+
+
       <hr style="color: black; margin-left: -10px; margin-right: 25px; margin-top: 20px;" />
 
       <div style="height: 390px; overflow-y: scroll;">
@@ -217,97 +217,75 @@
       </div>
       <hr style="color: black;" />
       <div nz-row>
-        <div nz-col nzSpan="12" style="margin-top: 6px;">
+        <div nz-col nzSpan="10"  style="margin-top: 6px;">
           <h3>
             <b>Total: {{ total }}</b>
           </h3>
         </div>
-        <div nz-col nzSpan="6" nzOffset="6" style="margin-top: 6px;">
-          <button [disabled]="checkoutProductsArray.length==0" nz-button nzType="danger" (click)="showModal()">
-            Checkout
+        <div nz-col nzSpan="4" nzOffset="2" style="margin-top: 6px;">
+          <button  [disabled]="checkoutProductsArray.length==0" (click)="addToPark()"  nz-button nzType="danger" >
+            Add to Park
           </button>
-          <nz-modal
-            [(nzVisible)]="isVisible"
-            nzTitle="Checkout"
 
-            nzCancelText="Continue Shopping "
-
-            (nzOnCancel)="handleCancel()"
-            nzOkText="Checkout"
-            (nzOnOk)="saveData('','SC')"
-            [nzOkDisabled] = "showError"
-          >
-
-            <!-- <h4>Please select how you want to checkout</h4> -->
-            <div style="margin-left: 10%;">
-            <div style="text-align: right;">
-            <b>Cost Price:</b><span  nz-tooltip [(nzTooltipTitle)]= "costPrice"><img style="height: 25px;" src="assets/suggestion.png"></span>
-            </div>
-            <div nz-row >
-              <div nz-col nzSpan="10">
-                <label class="label" >Billing Amount:</label>
-              </div>
-              <div nz-col nzSpan="6" nzOffset="1">
-                <input type="number" disabled="true" [(ngModel)]="total" class="inputStyle"/>
-              </div>
-            </div>
-            <div nz-row >
-              <div nz-col nzSpan="10">
-                <label  class="label" >Discount :</label>
-              </div>
-              <div nz-col nzSpan="6" nzOffset="1">
-                <input type="number" [(ngModel)]="discountInRs" (input)="onDiscountChange()" min="0" class="inputStyle"/>
-              </div>
-            </div>
-            <div nz-row >
-              <div nz-col nzSpan="10">
-                <label  class="label" >Total Amount:</label>
-              </div>
-              <div nz-col nzSpan="6" nzOffset="1">
-                <input type="number" [(ngModel)]="discountedAmount" disabled="true" class="inputStyle"/>
-              </div>
-            </div>
-            <!-- <div nz-row >
-              <div nz-col nzSpan="10">
-                <label  class="label" >Waiter Name:</label>
-              </div>
-              <div nz-col nzSpan="12" nzOffset="1">
-                <nz-select [(ngModel)]="waiterName" nzPlaceHolder="Select a Waiter" style="width: 100%;">
-                  <nz-option nzDisabled nzValue="disabled" nzLabel="Select your option" Selected></nz-option>
-                  <nz-option nzValue="Asad" nzLabel="Asad"></nz-option>
-                  <nz-option nzValue="Amir" nzLabel="Amir"></nz-option>
-                  <nz-option nzValue="Huzaifa" nzLabel="Huzaifa"></nz-option>
-                  <nz-option nzValue="Ibrahim" nzLabel="Ibrahim"></nz-option>
-                </nz-select>
-              </div>
-            </div> -->
-            <!-- <div nz-row >
-              <div nz-col nzSpan="10">
-                <label  class="label" >Table Number:</label>
-              </div>
-              <div nz-col nzSpan="12" nzOffset="1">
-                <nz-select [(ngModel)]="tableNumber" nzPlaceHolder="Select a Table Number" style="width: 100%;">
-                  <nz-option nzValue="disabled" nzDisabled  selected nzLabel="Select your option"></nz-option>
-                  <nz-option nzValue="1" nzLabel="Table 1"></nz-option>
-                  <nz-option nzValue="2" nzLabel="Table 2"></nz-option>
-                  <nz-option nzValue="3" nzLabel="Table 3"></nz-option>
-                  <nz-option nzValue="4" nzLabel="Table 4"></nz-option>
-                </nz-select>
-              </div>
-            </div> -->
-
-          <div *ngIf="showError" class="alert alert-danger" role="alert">
-            Discount can't be greater than billing amount!
-          </div>         
-            </div>
-
-
-          </nz-modal>
         </div>
+        <div nz-col nzSpan="4" nzOffset="3" style="margin-top: 6px; ">
+          <button  [disabled]="checkoutProductsArray.length==0" nz-button nzType="danger" (click)="showModal()">
+          Checkout
+        </button></div>
+
+
       </div>
     </div>
   </nz-content>
+  <nz-modal
+  [(nzVisible)]="isVisible"
+  nzTitle="Checkout"
 
+  nzCancelText="Continue Shopping "
+
+  (nzOnCancel)="handleCancel()"
+  nzOkText="Checkout"
+  (nzOnOk)="saveData('','SC')"
+  [nzOkDisabled] = "showError"
+>
+
+  <!-- <h4>Please select how you want to checkout</h4> -->
+  <div style="margin-left: 10%;">
+  <div style="text-align: right;">
+  <b>Cost Price:</b><span  nz-tooltip [(nzTooltipTitle)]= "costPrice"><img style="height: 25px;" src="assets/suggestion.png"></span>
+  </div>
+  <div nz-row >
+    <div nz-col nzSpan="10">
+      <label class="label" >Billing Amount:</label>
+    </div>
+    <div nz-col nzSpan="6" nzOffset="1">
+      <input type="number" disabled="true" [(ngModel)]="total" class="inputStyle"/>
+    </div>
+  </div>
+  <div nz-row >
+    <div nz-col nzSpan="10">
+      <label  class="label" >Discount :</label>
+    </div>
+    <div nz-col nzSpan="6" nzOffset="1">
+      <input type="number" [(ngModel)]="discountInRs" (input)="onDiscountChange()" min="0" class="inputStyle"/>
+    </div>
+  </div>
+  <div nz-row >
+    <div nz-col nzSpan="10">
+      <label  class="label" >Total Amount:</label>
+    </div>
+    <div nz-col nzSpan="6" nzOffset="1">
+      <input type="number" [(ngModel)]="discountedAmount" disabled="true" class="inputStyle"/>
+    </div>
+  </div>
+
+<div *ngIf="showError" class="alert alert-danger" role="alert">
+  Discount can't be greater than billing amount!
+</div>
+  </div>
+
+
+</nz-modal>
   <div id="print-section" [hidden]="true">
     <div style="text-align: center;">
       <img *ngIf="(chekingSetting && settingHeader   && settingHeader.logo  )" [src]="settingHeader.logo"

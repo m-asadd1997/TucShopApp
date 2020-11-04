@@ -64,6 +64,12 @@ export class MainscreenService {
   public sendTransactionObject(obj) {
     this.transactionObject.next(obj);
   }
+
+parkTransactionObject = new Subject();
+parkTransactionObject$=this.parkTransactionObject.asObservable();
+  public sendParkTransactionObject(obj) {
+    this.parkTransactionObject.next(obj);
+  }
    public deleteTransaction(id:any): Observable<any>{
      return this.http.delete(this.deleteTransactionURL+id);
 

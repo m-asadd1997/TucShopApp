@@ -54,7 +54,7 @@ export class CheckoutComponent implements OnInit {
           }
           else {
             this.toastr.warning(res.message);
-          }         
+          }
         },error=>{
 
           this.toastr.error("Error...............")
@@ -96,8 +96,8 @@ export class CheckoutComponent implements OnInit {
     amount: null
   }
   isDisbled = true;
-  
- 
+
+
   barcodeValue;
   constructor(
     private interactionServ: MainscreenService,
@@ -107,27 +107,27 @@ export class CheckoutComponent implements OnInit {
     private modal: NzModalService,
     private toastr: ToastrService,
     private loaderService:LoaderUtilService
-    
+
   ) {
 
            // this.barCodeScanner();
   }
- 
+
   private barCodeScanner() {
 
     document.addEventListener("scan", function (event) {
       //do something
       // debugger;
 
-      
 
-      
-     
+
+
+
     }.bind(this), false);
   }
 
   ngOnInit() {
-   
+
     // this.barCodeScanner();
     this.getLoginTime();
     this.fafaicon();
@@ -161,13 +161,41 @@ export class CheckoutComponent implements OnInit {
       // }
       //this.checkoutProductsArray = [];
       this.addingProductIntoCart(d);
+
     })
 
 
 
     this.getTransactionObject()
 
+    this.setParkObjectToCheckout();
+  }
+  setParkObjectToCheckout() {
 
+    this.interactionServ.parkTransactionObject$.subscribe((d: any) => {
+      console.log("ABCDEFG"+d);
+
+      this.transactionId = d.id
+      this.checkoutProductsArray = [];
+      this.total = 0;
+      console.log(d);
+      this.transactionObjectFromEdit = d;
+      d = d.productTransactions.map(item => {
+        this.checkoutProductsArray.push({
+          id: item.product["id"],
+          productTitle: item.product["productTitle"],
+          productPrice: item.product["productPrice"] * item["quantity"],
+          productImage: item.product["productImage"],
+          productQuantity: item["quantity"],
+          productqty: item.product['productqty'],
+          printProductPrice: item.product["productPrice"],
+          productVariant: item.product["productVariant"],
+
+
+        });
+        this.total += item.product["productPrice"]*item["quantity"]
+      })
+    })
   }
   transactionObjectFromEdit
   transactionId;
@@ -245,7 +273,7 @@ export class CheckoutComponent implements OnInit {
       "quantity": 0
       , "count": data.productQuantity
     }
-    
+
     console.log("eibad",obj1.count);
     console.log("===========================", data)
     this.interactionServ.updateMinusAllQuantity(data.id, obj1).subscribe(d => {
@@ -255,7 +283,7 @@ export class CheckoutComponent implements OnInit {
         let index = this.checkoutProductsArray.findIndex(p => p.id == data.id);
         console.log( this.checkoutProductsArray[index])
         this.total = this.total - this.checkoutProductsArray[index].productPrice;
-      
+
         this.checkoutProductsArray.splice(index, 1);
 
       }
@@ -307,7 +335,7 @@ export class CheckoutComponent implements OnInit {
     {
     this.interactionServ.saveTransaction(request).subscribe(
       data => {
-       
+
         this.getRecentTransactionByUser();
         // this.getTotalTransactionByUser();
         this.fafaicon();
@@ -395,12 +423,12 @@ export class CheckoutComponent implements OnInit {
 
   checkingMinusCall = false;
   removeProduct(obj) {
-    
+
     let obj1 = {
       "quantity": 0
       , "count": obj.productQuantity
     }
-  
+
     this.interactionServ.updateMinusQuantity(obj["id"], obj1).subscribe(d => {
 
       if (d) {
@@ -456,8 +484,8 @@ export class CheckoutComponent implements OnInit {
       document.getElementById("print-slip-btn").click();
       this.saveTransaction(reqUser, action);
       this.checkoutProductsArray = [];
-      this.costPrice = 0;   
-      this.total = 0;  
+      this.costPrice = 0;
+      this.total = 0;
       this.amountReceived = 0;
       this.returnedAmount = 0;
       this.handleCancel();
@@ -592,11 +620,11 @@ export class CheckoutComponent implements OnInit {
       console.log("ResponsRecent", r)
       this.totalTrans = r.length;
       // debugger
-      
+
       r.map(item => {
         this.totalamount+=( item.amount-item.discount)
         item.productTransactions.map(opt => {
-         
+
           this.transObj = opt;
           this.transObj.amount = item.amount
           this.tranByUser.push(this.transObj);
@@ -608,22 +636,7 @@ export class CheckoutComponent implements OnInit {
 
 
   totalamount: any;
-  // getTotalTransactionByUser() {
-  //   this.usernamee = sessionStorage.getItem('username');
-  //   this.interactionServ.getTotalTransactionByUser(this.usernamee).subscribe(r => {
-  //     console.log("Response", r)
-  //     if (r.result == null) {
 
-  //       this.totalamount = 0;
-
-  //     }
-  //     else {
-  //       console.log(r);
-  //       this.totalamount = r.result;
-  //       console.log(this.totalamount);
-  //     }
-  //   })
-  // }
 
   dayclose() {
     this.loaderService.showLoader();
@@ -648,10 +661,10 @@ export class CheckoutComponent implements OnInit {
   getLoginTime() {
     let name = sessionStorage.getItem('username').toLowerCase();
     this.interactionServ.getLoginTime(name).subscribe(d => {
-      //  debugger; 
-       let dateString = d.result[0].date+" "+d.result[0].time+" GMT+0500"; 
+      //  debugger;
+       let dateString = d.result[0].date+" "+d.result[0].time+" GMT+0500";
        let lastLoginDateTime = new Date(dateString)
-      
+
        this.date = lastLoginDateTime.toDateString();
       this.time =   lastLoginDateTime.toLocaleTimeString();
 
@@ -710,6 +723,35 @@ export class CheckoutComponent implements OnInit {
     });
   }
 
+
+  addToPark(reqUser, action){
+
+    this.objToPushForTransaction = []
+    console.log(this.checkoutProductsArray);
+
+    this.checkoutProductsArray.forEach(prod => {
+      let obj = {
+        "product": prod,
+        "quantity": prod.productQuantity,
+      }
+      this.objToPushForTransaction.push(obj)
+    });
+
+    let request = {
+      "amount": this.total,
+      "requestedUser": reqUser,
+      "action": action,
+      "productTransactions": this.objToPushForTransaction,
+      "discount": this.discountInRs,
+      "waiterName": this.waiterName,
+      "tableNumber": this.tableNumber,
+      "costprice": this.costPrice
+
+    }
+    localStorage.setItem('parkOrder'+new Date(),JSON.stringify(request))
+    this.checkoutProductsArray=[];
+    this.total=0;
+  }
 }
 
 
