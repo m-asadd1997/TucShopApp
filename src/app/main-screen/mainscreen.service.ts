@@ -55,6 +55,7 @@ export class MainscreenService {
   private getLoginTimeURL=environment.baseUrl+"api/user/getUserTimeDate/";
   private getProductBarCodeURL = environment.baseUrl+"api/products/getbybarcode/"
   private updateTransactionURL = environment.baseUrl+"api/transaction/update/"
+  private subscriptionTokenURL = environment.baseUrl+"api/subscription/";
 
   public sendMessage(obj: Object) {
     this.productSource.next(obj);
@@ -199,6 +200,10 @@ return this.http.get (this.getLoginTimeURL+id);
 
 public updateTransaction(id,obj): Observable<any>{
   return this.http.put(this.updateTransactionURL+id,obj);
+
 }
 
+public subscriptionToken(token):Observable<any>{
+ return this.http.post(this.subscriptionTokenURL+token,null); 
+}
 }
