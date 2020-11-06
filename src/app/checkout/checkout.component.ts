@@ -171,34 +171,43 @@ export class CheckoutComponent implements OnInit {
 
     this.setParkObjectToCheckout();
   }
+
+
   setParkObjectToCheckout() {
 
     this.interactionServ.parkTransactionObject$.subscribe((d: any) => {
       debugger
       console.log("ABCDEFG"+d);
-
+      
       this.transactionId = d.id
       this.checkoutProductsArray = [];
       this.total = 0;
       console.log(d);
       this.transactionObjectFromEdit = d;
       d = d.productTransactions.map(item => {
+        // let perPrice = item.product["productPrice"]/item["quantity"];
+        // console.log(perPrice);
+        console.log("ITEMSSSS",item)
         this.checkoutProductsArray.push({
           id: item.product["id"],
           productTitle: item.product["productTitle"],
-          productPrice: item.product["productPrice"],
+          productPrice: item.product["printProductPrice"],
           productImage: item.product["productImage"],
           productQuantity: item["quantity"],
           productqty: item.product['productqty'],
-          printProductPrice: item.product["productPrice"],
+          printProductPrice: item.product["printProductPrice"],
           productVariant: item.product["productVariant"],
 
 
         });
+        console.log("Checout Product",this.checkoutProductsArray);
+        
         this.total += item.product["productPrice"]
       })
     })
   }
+
+
   transactionObjectFromEdit
   transactionId;
   getTransactionObject() {
@@ -423,6 +432,7 @@ export class CheckoutComponent implements OnInit {
           this.checkoutProductsArray[index].productPrice += productPrice;
 
           this.checkoutProductsArray[index]["productQuantity"] += 1;
+          console.log("this.checkoutProductsArray",this.checkoutProductsArray);
 
         }
       }
@@ -434,7 +444,7 @@ export class CheckoutComponent implements OnInit {
 
   checkingMinusCall = false;
   removeProduct(obj) {
-
+    console.log(obj)
     let obj1 = {
       "quantity": 0
       , "count": obj.productQuantity
@@ -747,7 +757,7 @@ export class CheckoutComponent implements OnInit {
       }
       this.objToPushForTransaction.push(obj)
     });
-
+debugger
     let request = {
       "amount": this.total,
       "requestedUser": reqUser,
