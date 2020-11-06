@@ -9,6 +9,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { count } from 'console';
 import { ToastrService } from 'ngx-toastr';
 import { LoaderUtilService } from '../util-services/loader-util.service';
+// import { debugger } from 'fusioncharts';
 declare const scanCode :any;
 
 
@@ -334,8 +335,10 @@ export class CheckoutComponent implements OnInit {
     if(!this.transactionId)
     {
     this.interactionServ.saveTransaction(request).subscribe(
-      data => {
 
+      data => {
+        debugger
+      console.log(data);
         this.getRecentTransactionByUser();
         // this.getTotalTransactionByUser();
         this.fafaicon();
@@ -346,7 +349,14 @@ export class CheckoutComponent implements OnInit {
         if (action === "SC") {
           this.toastr.success("Transaction Successfully Saved!");
         }
-      },
+      },(err)=>{
+        this.toastr.error("Session Expired You need to Login Again");
+        setTimeout(() => {
+          sessionStorage.clear()
+          this.router.navigate(['']);
+
+        }, 1000);
+      }
 
 
     )
@@ -481,7 +491,7 @@ export class CheckoutComponent implements OnInit {
   settingHeader
   saveData(reqUser, action): void {
     if (!this.invalidAmount) {
-      document.getElementById("print-slip-btn").click();
+      // document.getElementById("print-slip-btn").click();
       this.saveTransaction(reqUser, action);
       this.checkoutProductsArray = [];
       this.costPrice = 0;

@@ -37,8 +37,8 @@
   </div>
 
   <div class="col-1">
-    <span nz-tooltip nzTooltipPlacement="bottom" nzTooltipTitle="Cancel Order"><img (click)="showParkingModal()"
-        src="assets/p.png" height="35px" width="35px">
+    <span nz-tooltip nzTooltipPlacement="bottom" nzTooltipTitle="Parking Order"><img (click)="showParkingModal()"
+        src="assets/pIcon.png" height="40px" width="40px">
     </span>
   </div>
 
@@ -127,20 +127,28 @@
 
           <th>Amount</th>
           <th>Products</th>
-          <!-- <th>Actions </th> -->
+
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let d of results"  (click)="editParkTransaction(d)" >
+        <tr  *ngFor="let d of results"  (click)="editParkTransaction(d)" >
 
           <td>{{ d.amount }}</td>
-
+<!--
           <td style="text-align: center;"> <button nz-tooltip nzTooltipTitle="Click to view products"
               (click)="showParkproducts(d.productTransactions);$event.stopPropagation()" nzGhost="true" style="color:#0062cc;border-color:#0062cc"
               nzSize="small" nz-button nzType="primary">
                   <i class="fa fa-eye">
 
-              </i>Show</button> </td>
+              </i>Show</button> </td> -->
+              <td>
+                <div  style="text-align: center;">
+               <span *ngFor="let item of d.productTransactions;let i = index;">
+                 {{item.product.productTitle}} <span *ngIf="i+1!=d.productTransactions.length">,</span>
+
+               </span>
+               </div>
+              </td>
 
               <!-- <td>
                 <img src ="assets/edit.png" nz-tooltip nzTooltipTitle="Edit Transaction"
