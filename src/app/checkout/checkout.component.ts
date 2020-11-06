@@ -9,7 +9,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { count } from 'console';
 import { ToastrService } from 'ngx-toastr';
 import { LoaderUtilService } from '../util-services/loader-util.service';
-// import { debugger } from 'fusioncharts';
+
 declare const scanCode :any;
 
 
@@ -174,6 +174,7 @@ export class CheckoutComponent implements OnInit {
   setParkObjectToCheckout() {
 
     this.interactionServ.parkTransactionObject$.subscribe((d: any) => {
+      debugger
       console.log("ABCDEFG"+d);
 
       this.transactionId = d.id
@@ -185,7 +186,7 @@ export class CheckoutComponent implements OnInit {
         this.checkoutProductsArray.push({
           id: item.product["id"],
           productTitle: item.product["productTitle"],
-          productPrice: item.product["productPrice"] * item["quantity"],
+          productPrice: item.product["productPrice"],
           productImage: item.product["productImage"],
           productQuantity: item["quantity"],
           productqty: item.product['productqty'],
@@ -194,7 +195,7 @@ export class CheckoutComponent implements OnInit {
 
 
         });
-        this.total += item.product["productPrice"]*item["quantity"]
+        this.total += item.product["productPrice"]
       })
     })
   }
