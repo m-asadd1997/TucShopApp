@@ -118,7 +118,6 @@ export class CheckoutComponent implements OnInit {
 
     document.addEventListener("scan", function (event) {
       //do something
-      // debugger;
 
 
 
@@ -176,7 +175,6 @@ export class CheckoutComponent implements OnInit {
   setParkObjectToCheckout() {
 
     this.interactionServ.parkTransactionObject$.subscribe((d: any) => {
-      debugger
       console.log("ABCDEFG"+d);
       
       this.transactionId = d.id
@@ -279,7 +277,6 @@ export class CheckoutComponent implements OnInit {
   //  }
 
   removeProductFromCheckout(data) {
-    // debugger
     let obj1 = {
       "quantity": 0
       , "count": data.productQuantity
@@ -347,7 +344,6 @@ export class CheckoutComponent implements OnInit {
     this.interactionServ.saveTransaction(request).subscribe(
 
       data => {
-        debugger
       console.log(data);
         this.getRecentTransactionByUser();
         // this.getTotalTransactionByUser();
@@ -372,7 +368,6 @@ export class CheckoutComponent implements OnInit {
     )
     }
     else{
-      // debugger
       console.log("Update");
 
       this.interactionServ.updateTransaction(this.transactionId,request).subscribe(d=>{
@@ -640,7 +635,6 @@ export class CheckoutComponent implements OnInit {
     this.interactionServ.getRecentTransactionByUser(this.usernamee).subscribe(r => {
       console.log("ResponsRecent", r)
       this.totalTrans = r.length;
-      // debugger
 
       r.map(item => {
         this.totalamount+=( item.amount-item.discount)
@@ -682,7 +676,6 @@ export class CheckoutComponent implements OnInit {
   getLoginTime() {
     let name = sessionStorage.getItem('username').toLowerCase();
     this.interactionServ.getLoginTime(name).subscribe(d => {
-      //  debugger;
        let dateString = d.result[0].date+" "+d.result[0].time+" GMT+0500";
        let lastLoginDateTime = new Date(dateString)
 
@@ -757,7 +750,6 @@ export class CheckoutComponent implements OnInit {
       }
       this.objToPushForTransaction.push(obj)
     });
-debugger
     let request = {
       "amount": this.total,
       "requestedUser": reqUser,
