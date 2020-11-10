@@ -16,18 +16,30 @@
 <div style="text-align: center;">
   <div nz-row>
     <div nz-col nzSpan="8" nzOffset="">
-
   <nz-range-picker [(ngModel)]="datevariable"  ></nz-range-picker>
     </div>
-    <!-- <div nz-col nzSpan="3" nzOffset="">
-      <button nz-button (click)="scearchTransactions()" nzType="primary" [nzSize]="size" nzShape="round">
-        <i nz-icon nzType="search"></i>Search</button>
-    </div> -->
     <div nz-col nzSpan="4" nzOffset="">
       <button nz-button nzType="primary"  nzShape="round" (click)="download()">
         <i class="fa fa-sign-out" style="padding-right: 4px"></i>Generate Report</button>
         </div>
   </div>
 </div>
+<br>
+<br>
+<div nz-row>
+  <div nz-col nzSpan="24" nzOffset="">
+    <h1 style="display: inline;">Balance Sheet </h1 ><span *ngIf="startRange"style="font-size: 29px;">({{startRange}} &nbsp; - &nbsp; {{endRange}})</span>
+  </div>
+</div>
+<div style="text-align: center;">
+  <div nz-row>
+    <div nz-col nzSpan="8" nzOffset="">
+  <nz-range-picker [(ngModel)]="range"></nz-range-picker>
+    </div>
+    <div nz-col nzSpan="4" nzOffset="">
+      <button nz-button nzType="primary"  nzShape="round" (click)="downloadBalanceSheet()">
+        <i class="fa fa-sign-out" style="padding-right: 4px"></i>Generate Report</button>
+        </div>
+  </div>
+</div>
 
-<!-- <nz-spin *ngIf="display" style="margin-left:540px; margin-top:10px" nzSize="large" nzSimple></nz-spin> -->

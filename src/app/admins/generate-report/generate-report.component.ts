@@ -18,9 +18,13 @@ export class GenerateReportComponent implements OnInit {
   }
 
   datevariable = [];
+  range=[];
 
   startValue;
   endValue;
+
+  startRange;
+  endRange;
   
 
   download()
@@ -55,5 +59,38 @@ export class GenerateReportComponent implements OnInit {
     
       }
 
+
+
+  downloadBalanceSheet()
+  {
+    if (this.range.length > 0) {
+      this.startRange=this.range[0].getFullYear()+"-"+ (this.range[0].getMonth()+1)+"-"+this.range[0].getDate();
+      this.endRange=this.range[1].getFullYear()+"-"+(this.range[1].getMonth()+1)+"-"+this.range[1].getDate();
+        this.service.downloadBalanceSheetPDF(this.startRange, this.endRange).subscribe(d => {
+          if(d.size!=0){
+          console.log("Blob", d);
+          let url = window.URL.createObjectURL(d);
+          let a = document.createElement('a');
+          document.body.appendChild(a);
+          a.setAttribute('style', 'display: none');
+          a.href = url;
+          a.download = new Date().toDateString();
+          a.click();
+          window.URL.revokeObjectURL(url);
+          a.remove();
+          }
+          else{
+          this.message.error("Can't find Balance Sheet to this date");
+
+          }
+        })
+      
+      }
+    
+      else {
+        this.message.warning("Please Select A range first");
+      }
+    
+      }
 
 }
