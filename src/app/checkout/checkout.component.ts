@@ -401,7 +401,9 @@ export class CheckoutComponent implements OnInit {
   addProduct(obj) {
     // this.checking=true
     console.log(obj)
+    
     this.interactionServ.getProductsById(obj["id"]).subscribe(d => {
+      debugger
       if (d) {
         obj.productqty = d.qty;
         console.log("==============Add Product===============", d.qty)
