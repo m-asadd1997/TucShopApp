@@ -30,11 +30,13 @@ import * as FusionCharts from 'fusioncharts';
 import * as Charts from 'fusioncharts/fusioncharts.charts';
 import * as FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 
 FusionChartsModule.fcRoot(FusionCharts, Charts, FusionTheme)
 import { AdminUserComponent } from './admin-user/admin-user.component';
 import { AddUserComponent } from './add-user/add-user.component';
 import { GenerateReportComponent } from './generate-report/generate-report.component';
+import { ExpenseBalanceSheetComponent } from './expense-balance-sheet/expense-balance-sheet.component';
 
 @NgModule({
 
@@ -54,6 +56,7 @@ import { GenerateReportComponent } from './generate-report/generate-report.compo
                  AdminUserComponent,
                  AddUserComponent,
                  GenerateReportComponent,
+                 ExpenseBalanceSheetComponent,
 
                  ],
 
@@ -80,6 +83,7 @@ import { GenerateReportComponent } from './generate-report/generate-report.compo
     NzLayoutModule,
     ExportAsModule,
     NzSwitchModule,
+    NzDatePickerModule,
     FusionChartsModule,
     ToastrModule.forRoot({
       timeOut: 5000,

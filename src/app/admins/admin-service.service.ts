@@ -53,9 +53,22 @@ export class AdminServiceService {
   private getFilteredTransactionMethodURL= environment.baseUrl+"api/dashboard/gettransactionmethod/";
   private deleteUserById= environment.baseUrl+"api/user/";
   private downloadAllTransactionURL = environment.baseUrl+"api/transaction/downloadtransaction/";
-
+  private postExpenseURL = environment.baseUrl+"api/expense/post";
+  private getExpenseByDateURL = environment.baseUrl+"api/expense/";
+  private updateExpenseURL = environment.baseUrl+"api/expense/update/"
   
 
+  public postExpense(object:any):Observable<any>{
+    return this.http.post(this.postExpenseURL,object);
+  }
+
+  public updateExpense(id:any, object:any):Observable<any>{
+    return this.http.put(this.updateExpenseURL+id,object);
+  }
+
+  public getExpenseByDate(date:any):Observable<any>{
+    return this.http.get(this.getExpenseByDateURL+date)
+  }
   public getFilteredFrequencyBycategory(startDate:any, endDate:any):Observable<any>{
    return this.http.get(this.getFilteredFrequencyByCategoryURL+startDate+"/"+endDate);
   }

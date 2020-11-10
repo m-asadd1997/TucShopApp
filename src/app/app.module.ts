@@ -54,7 +54,8 @@ registerLocaleData(en);
     ProductListingComponent,
     CheckoutComponent,
     LoginPageComponent,
-    RecentTransactionsComponent     
+    RecentTransactionsComponent
+  
    
   ],
   imports: [
