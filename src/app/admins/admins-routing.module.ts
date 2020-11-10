@@ -1,3 +1,4 @@
+import { ExpenseBalanceSheetComponent } from './expense-balance-sheet/expense-balance-sheet.component';
 import { AuthGuardService } from './auth-guard.service';
 import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
 import { LoginPageComponent } from './login-page/login-page.component';
@@ -35,11 +36,12 @@ const routes: Routes = [
       { path: 'add-category/:id', component: AddCategoryComponent },
       { path: 'transactions', component: TransactionsComponent },
       { path: 'generate-report', component: GenerateReportComponent },
+      { path: 'expensebalancesheet',component:ExpenseBalanceSheetComponent},
       { path: 'user', component: UserComponent },
       { path: 'add-user', component: AddUserComponent },
-      {path:'add-user/:id',component:AddUserComponent},
-      {path:'admin-user',component:AdminUserComponent},
-      {path:'userlist/:user',component:UserComponent},
+      { path:'add-user/:id',component:AddUserComponent},
+      { path:'admin-user',component:AdminUserComponent},
+      { path:'userlist/:user',component:UserComponent},
       {
         path: 'dashboard', component: AdminDashboardComponent
 
