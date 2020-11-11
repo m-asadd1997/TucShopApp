@@ -80,48 +80,49 @@ export class ProductListingComponent implements OnInit {
   checking1: boolean = true;
   sendProducttoCheckout(prod, card) {
 
-    this.prodService.getProductsById(prod.id).subscribe(d => {
+    console.log(prod);
+    // this.prodService.getProductsById(prod.id).subscribe(d => {
 
-      if (d) {
-        prod.qty = d.qty
-        console.log("==============Send Product To Checkout===============", d.qty)
-        this.checking1 = true;
+    //   if (d) {
+    //     prod.qty = d.qty
+    //     console.log("==============Send Product To Checkout===============", d.qty)
+    //     this.checking1 = true;
 
-        if (prod.qty == 0 && this.checking1) {
-          this.checking1 = false
-          console.log("==============IF===============")
+    //     if (prod.qty == 0 && this.checking1) {
+    //       this.checking1 = false
+    //       console.log("==============IF===============")
 
-        }
-        else if (this.checking1) {
-          console.log("==============ELSE===============")
-          this.checking1 = false
-          var obj = {
-            "qty": prod.qty
-          }
+    //     }
+    //     else if (this.checking1) {
+    //       console.log("==============ELSE===============")
+    //       this.checking1 = false
+    //       var obj = {
+    //         "qty": prod.qty
+    //       }
 
-          this.prodService.updateAddQuantity(prod.id, obj).subscribe(d => {
-            // //console.log(d);
-            if (d) {
-              prod.qty = d.result.qty
-              this.checking = true;
-            }
-            console.log(prod);
-            if (this.checking) {
+    //       this.prodService.updateAddQuantity(prod.id, obj).subscribe(d => {
+    //         // //console.log(d);
+    //         if (d) {
+    //           prod.qty = d.result.qty
+    //           this.checking = true;
+    //         }
+    //         console.log(prod);
+    //         if (this.checking) {
               this.prodService.sendMessage(prod);
-              this.checking = false;
+    //           this.checking = false;
 
-            }
+    //         }
 
-          });
-
-
+    //       });
 
 
-        }
 
 
-      }
-    });
+    //     }
+
+
+    //   }
+    // });
 
 
   }

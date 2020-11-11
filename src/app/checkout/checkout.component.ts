@@ -23,25 +23,25 @@ export class CheckoutComponent implements OnInit {
   productComingOnBasisOfBarcode;
   checkoutProductsArray = [];
 
-  @HostListener("window:beforeunload", ["$event"]) unloadHandler(event: Event) {
-    this.checkoutProductsArray.forEach(data => {
-      let obj = {
-        "quantity": 0,
-        "count": data.productQuantity
-      }
-      this.interactionServ.updateMinusAllQuantity(data.id, obj).subscribe(d => {
-        if (d) {
-          data.productqty = d.result.qty
-          let index = this.checkoutProductsArray.findIndex(p => p.id == data.id);
-          this.total = this.total - this.checkoutProductsArray[index].productPrice;
-          this.checkoutProductsArray.splice(index, 1);
-        }
-      })
+  // @HostListener("window:beforeunload", ["$event"]) unloadHandler(event: Event) {
+  //   this.checkoutProductsArray.forEach(data => {
+  //     let obj = {
+  //       "quantity": 0,
+  //       "count": data.productQuantity
+  //     }
+  //     this.interactionServ.updateMinusAllQuantity(data.id, obj).subscribe(d => {
+  //       if (d) {
+  //         data.productqty = d.result.qty
+  //         let index = this.checkoutProductsArray.findIndex(p => p.id == data.id);
+  //         this.total = this.total - this.checkoutProductsArray[index].productPrice;
+  //         this.checkoutProductsArray.splice(index, 1);
+  //       }
+  //     })
 
-    })
+  //   })
 
 
-  }
+  // }
 
   @HostListener('document:scan',['$event'])
   onScanBarCodeDevice(event){
@@ -281,18 +281,18 @@ export class CheckoutComponent implements OnInit {
 
     console.log("eibad",obj1.count);
     console.log("===========================", data)
-    this.interactionServ.updateMinusAllQuantity(data.id, obj1).subscribe(d => {
-      if (d) {
-        this.costPrice = this.costPrice - d.result.costprice*data.productQuantity;
-        data.productqty = d.result.qty
+    // this.interactionServ.updateMinusAllQuantity(data.id, obj1).subscribe(d => {
+      // if (d) {
+        // this.costPrice = this.costPrice - d.result.costprice*data.productQuantity;
+        // data.productqty = d.result.qty
         let index = this.checkoutProductsArray.findIndex(p => p.id == data.id);
         console.log( this.checkoutProductsArray[index])
         this.total = this.total - this.checkoutProductsArray[index].productPrice;
 
         this.checkoutProductsArray.splice(index, 1);
 
-      }
-    })
+      // }
+    // })
 
   }
   showModal(): void {
@@ -398,28 +398,24 @@ export class CheckoutComponent implements OnInit {
   addProduct(obj) {
     // this.checking=true
     console.log(obj)
-    
-    this.interactionServ.getProductsById(obj["id"]).subscribe(d => {
-      debugger
-      if (d) {
-        obj.productqty = d.qty;
-        console.log("==============Add Product===============", d.qty)
-        console.log("=============================")
-        this.checking = true;
+
+    // this.interactionServ.getProductsById(obj["id"]).subscribe(d => {
+      // if (d) {
+        // obj.productqty = d.qty;
+        // console.log("==============Add Product===============", d.qty)
+        // console.log("=============================")
+        // this.checking = true;
         let index = this.checkoutProductsArray.findIndex(p => p.id == obj["id"]);
-        var obj1 = {
-          "qty": 0
-        }
-        if (obj.productqty != 0 && this.checking) {
-          this.checking = false;
+
+
 
           console.log("==============IF===============")
 
-          this.interactionServ.updateAddQuantity(obj["id"], obj).subscribe(d => {
-            if (d)
-            this.costPrice += d.result.costprice;
-              obj.productqty = d.result.qty;
-          })
+          // this.interactionServ.updateAddQuantity(obj["id"], obj).subscribe(d => {
+          //   if (d)
+          //   this.costPrice += d.result.costprice;
+          //     obj.productqty = d.result.qty;
+          // })
 
           let productPrice = obj.printProductPrice
           this.total = this.total + productPrice;
@@ -428,10 +424,10 @@ export class CheckoutComponent implements OnInit {
           this.checkoutProductsArray[index]["productQuantity"] += 1;
           console.log("this.checkoutProductsArray",this.checkoutProductsArray);
 
-        }
-      }
 
-    })
+      // }
+
+    // })
 
     console.log(this.userName);
   }
@@ -444,19 +440,14 @@ export class CheckoutComponent implements OnInit {
       , "count": obj.productQuantity
     }
 
-    this.interactionServ.updateMinusQuantity(obj["id"], obj1).subscribe(d => {
+    // this.interactionServ.updateMinusQuantity(obj["id"], obj1).subscribe(d => {
 
-      if (d) {
-        this.costPrice = this.costPrice - d.result.costprice;
-        console.log(this.costPrice, "minus cost price");
-        this.checkingMinusCall = true;
-        obj.productqty = d.result.qty;
+      // if (d) {
+        // this.costPrice = this.costPrice - d.result.costprice;
 
-        console.log("============== d of Minus Call  ===============", d)
-        if (this.checkingMinusCall) {
+
 
           console.log("==============IF Of Minus===============")
-          this.checkingMinusCall = false;
           let index = this.checkoutProductsArray.findIndex(p => p.id == obj["id"]);
           let productPrice = obj.printProductPrice;
           this.total = this.total - productPrice;
@@ -468,11 +459,11 @@ export class CheckoutComponent implements OnInit {
           } else {
             this.checkoutProductsArray[index]["productQuantity"] -= 1;
           }
-        }
+
 
       }
-    });
-  }
+
+
 
   checkingQunatity(data) {
     if (data.productqty > 0) {
