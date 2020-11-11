@@ -26,6 +26,7 @@ export class ExpenseBalanceSheetComponent implements OnInit {
   total = 0;
   disable = false;
   expenseId;
+  dateCheck
   newDate;
   expenseRecord : expenseRecord = new expenseRecord();
 
@@ -142,6 +143,8 @@ export class ExpenseBalanceSheetComponent implements OnInit {
   }
 
   saveSheet() {
+    console.log(this.expenses.date)
+    debugger
     var date = new Date(this.expenses.date);
     let year = date.getFullYear();
     let month = ("0" + (date.getMonth() + 1)).slice(-2)
@@ -155,10 +158,11 @@ export class ExpenseBalanceSheetComponent implements OnInit {
       "expenseDetails": this.expensesArray,
       "date": this.newDate
     }
-    
-    console.log("Object", object);
 
-    if (this.expenseId == null) {
+    console.log("Object", object);
+    debugger;
+
+    if (this.newDate != this.dateCheck) {
 
       this.service.postExpense(object).subscribe(d => {
         console.log(d)
@@ -208,6 +212,7 @@ export class ExpenseBalanceSheetComponent implements OnInit {
 
       if (d.status == 200) {
         this.expenseId = d.result.id;
+        this.dateCheck = d.result.date;
         this.expensesArray = d.result.expenseDetailsList;
         this.total = d.result.total;
         this.disable = false;
