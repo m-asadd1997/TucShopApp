@@ -252,5 +252,47 @@ export class ExpenseBalanceSheetComponent implements OnInit {
     this.expenses.amount = find.amount;
 
   }
+
+  downloadBalanceSheet(value:any){
+    if(value){
+    let date = value
+    let year = date.getFullYear();
+    let month = ("0" + (date.getMonth() + 1)).slice(-2)
+    let day = ("0" + date.getDate()).slice(-2)
+    let newDate = year + "-" + month + "-" + day;
+    if (newDate !=null) {
+        this.service.balanceSheetPDF(newDate).subscribe(d => {
+          if(d.size!=0){
+          console.log("Blob", d);
+          let url = window.URL.createObjectURL(d);
+          let a = document.createElement('a');
+          document.body.appendChild(a);
+          a.setAttribute('style', 'display: none');
+          a.href = url;
+          a.download = new Date().toDateString();
+          a.click();
+          window.URL.revokeObjectURL(url);
+          a.remove();
+          }
+          else{
+          this.message.error("Can't find Balance Sheet to this date");
+
+          }
+        })
+      
+      }
+    
+      // else {
+      //   this.message.warning("Please Select A range first");
+      // }
+    
+      }
+      else{
+       this.message.warning("Please Select A range first")
+
+      }
+    
+    }
+  
 }
 

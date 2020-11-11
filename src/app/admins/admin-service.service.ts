@@ -54,6 +54,7 @@ export class AdminServiceService {
   private deleteUserById= environment.baseUrl+"api/user/";
   private downloadAllTransactionURL = environment.baseUrl+"api/transaction/downloadtransaction/";
   private downloadBalanceSheetURL = environment.baseUrl+"api/transaction/downloadbalancesheet/";
+  private balanceSheetURL = environment.baseUrl+"api/transaction/balancesheet/";
   private postExpenseURL = environment.baseUrl+"api/expense/post";
   private getExpenseByDateURL = environment.baseUrl+"api/expense/";
   private updateExpenseURL = environment.baseUrl+"api/expense/update/"
@@ -305,6 +306,10 @@ public scearchtransactionofUser(transaction:any):Observable<any>{
   
   downloadBalanceSheetPDF(startDate:any, endDate:any):Observable<any>{
   return this.http.get (this.downloadBalanceSheetURL+startDate+"/"+endDate ,{ responseType: 'blob' });
+  }
+
+  balanceSheetPDF(startDate:any):Observable<any>{
+    return this.http.get (this.balanceSheetURL+startDate,{ responseType: 'blob' });
   }
 
 

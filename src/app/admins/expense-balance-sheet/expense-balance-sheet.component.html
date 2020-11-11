@@ -2,6 +2,9 @@
     <div nz-row>
         <div nz-col nzSpan="12">
             <nz-date-picker [nzFormat]="dateFormat" [(ngModel)]="expenses.date" (ngModelChange)="onChange($event)"></nz-date-picker>
+            &nbsp;
+            <button nz-button nzType="primary"  nzShape="round" (click)="downloadBalanceSheet(expenses.date)">
+              <i class="fa fa-sign-out" style="padding-right: 4px"></i>Generate Report</button>
         </div>
         
     </div>
