@@ -231,6 +231,7 @@ export class ExpenseBalanceSheetComponent implements OnInit {
     }
     else {
       this.expensesArray = [];
+      this.total = 0;
       this.disable = true;
     }
   }
