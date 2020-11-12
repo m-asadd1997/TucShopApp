@@ -1,11 +1,4 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body > -->
+
 
   <div nz-row>
 
@@ -25,31 +18,23 @@
 
 <div style="background: #ECECEC;padding:10px;">
   <div nz-row [nzGutter]="6">
-    <div nz-col [nzSpan]="6">
-      <nz-card nzTitle="Total Inventory">
-        <h1 style="text-align: center;">{{totalInventory}}</h1>
+    <div nz-col [nzSpan]="6" >
+      <nz-card nzTitle="Total Inventory" >
+        <h3 style="text-align: center;">{{totalInventory| currency:'PKR '}}</h3>
       </nz-card>
     </div>
 
-    <!-- <div nz-col [nzSpan]="6">
-        <nz-card nzTitle="Total Products" nzHoverable (click)="showModalTotalProducts()">
 
-          <h1 style="text-align: center;">{{totalProducts}}</h1>
-
-
-        </nz-card>
-      </div>
-       -->
 
     <div nz-col [nzSpan]="6">
       <nz-card nzTitle="Out of Stock" nzHoverable (click)="showModalOutOfStock()">
-        <h1 style="text-align: center;">{{totalOutOfStockProducts}}</h1>
+        <h3 style="text-align: center;">{{totalOutOfStockProducts}}</h3>
       </nz-card>
     </div>
 
     <div nz-col [nzSpan]="6">
       <nz-card nzTitle="Total Transacation" (click)="showModalTotalTransactions()">
-        <h1 style="text-align: center;">{{totalAmount }}</h1>
+        <h3 style="text-align: center;">{{totalAmount | currency:'PKR '}}</h3>
       </nz-card>
     </div>
 
@@ -57,10 +42,8 @@
 
     <div nz-col [nzSpan]="6">
       <nz-card nzTitle="Profit" nzHoverable>
-        <h1 style="text-align: center;">{{ profit }}</h1>
-        <!-- <div style="text-align: center;">
-        <nz-progress  [nzPercent]=profit nzType="circle" [nzWidth]="48"></nz-progress>
-      </div> -->
+        <h3 style="text-align: center;">{{ profit | currency:'PKR ' }}</h3>
+
       </nz-card>
     </div>
   </div>
@@ -143,67 +126,4 @@
 </div>
 
 
-<!-- <div id="chart6" class="ct-chart ct-major-tenth" style="height: 100px; width: 100px;"></div> -->
 
-  <!-- </body>
-</html> -->
-
-
-
-  <!-- <nz-modal
-  [(nzVisible)]="isTotalProductsVisibleModal"
-   nzTitle="Details Of Products"
-   (nzOnCancel)="handleCancelTotalProducts()"
-    (nzOnOk)="handleOkTotalProducts()">
-
-
-
-  </nz-modal> -->
-
-
-  <!-- <nz-modal
-
-      [(nzVisible)]="isOutOfStockVisibleModal"
-      nzTitle="Out Of Stock Products"
-      (nzOnCancel)="handleCancelOutOfStock()"
-      (nzOnOk)="handleOkOutOfStock()">
-
-
-
-
-
-      <nz-table #basicTable1 [nzData]="detailedOutOfStockProducts" [nzShowPagination]="false">
-        <thead>
-          <tr>
-            <th>Product Name</th>
-            <th>Quantity</th>
-
-
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let data1 of basicTable1.data">
-            <td>{{data1.name}}</td>
-            <td>{{data1.qty}}</td>
-
-
-          </tr>
-        </tbody>
-      </nz-table>
-
-
-
-  </nz-modal> -->
-
-
-
-  <!-- <nz-modal
-
-  [(nzVisible)]="isTotalTransactionModalVisible"
-  nzTitle="TotalTransactions"
-  (nzOnCancel)="handleCancelTotalTransaction()"
-  (nzOnOk)="handleOkTotalTransaction()">
-
-</nz-modal> -->
-
-  <!-- YE TOP ROW HAI -->
