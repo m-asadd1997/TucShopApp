@@ -20,10 +20,10 @@
             <input type="number" nz-input placeholder="Amount" [(ngModel)]="expenses.amount" nzSize="large" />
         </div>
         <div style="margin-top: 20px; margin-right: -20px;" nz-col nzSpan="5" nzOffset="2">
-            <button  nz-button style="background-color: green; border: green;" nzType="primary" (click)="execute('debit')">Debit</button>
+            <button [disabled]="!expenses.subject||!expenses.amount" nz-button style="background-color: green; border: green;" nzType="primary" (click)="execute('debit')">Debit</button>
             &nbsp;
             &nbsp;
-            <button  [disabled]="disable" nz-button nzType="danger" (click)="execute('credit')">Credit</button>
+            <button  [disabled]="!expenses.subject||!expenses.amount||disable" nz-button nzType="danger" (click)="execute('credit')">Credit</button>
         </div>
     </div>
     <br>
