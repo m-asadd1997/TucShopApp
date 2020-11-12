@@ -6,7 +6,7 @@ p {
 
   nz-card{
     cursor: pointer;
-   
+
   }
   nz-date-picker {
     margin: 0 8px 12px 0;
@@ -15,10 +15,12 @@ p {
     margin-right: 8px;
     margin-bottom: 8px;
     display: inline-block;
-    
+
   }
   [nz-button] {
     margin-right: 8px;
     margin-bottom: 12px;
   }
-  
+  .ant-card-body{
+    min-height: 102px !important;
+  }
