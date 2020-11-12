@@ -144,7 +144,6 @@ export class ExpenseBalanceSheetComponent implements OnInit {
 
   saveSheet() {
     console.log(this.expenses.date)
-    debugger
     var date = new Date(this.expenses.date);
     let year = date.getFullYear();
     let month = ("0" + (date.getMonth() + 1)).slice(-2)
@@ -160,7 +159,6 @@ export class ExpenseBalanceSheetComponent implements OnInit {
     }
 
     console.log("Object", object);
-    debugger;
 
     if (this.newDate != this.dateCheck) {
 
