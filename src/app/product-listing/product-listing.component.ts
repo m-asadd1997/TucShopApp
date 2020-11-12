@@ -33,7 +33,7 @@ export class ProductListingComponent implements OnInit {
 
   constructor(private prodService: MainscreenService, private activeRoute: ActivatedRoute, private service: AdminServiceService, private router: Router) { }
 
-  transactionIDObj = new productlisting();
+ searchObject = new productlisting();
 
   ngOnInit() {
 
@@ -184,26 +184,39 @@ export class ProductListingComponent implements OnInit {
     })
   }
 
+  change(value){
+       if (value.data == "" || value.data == null || value.data == undefined) {
+        this.transactions = this.reacentTransactions;
+      }
+    }
 
+  getTransactionOnSearchByPhoneNumber(){
+     
+      if (this.searchObject.phoneNumber == "" || this.searchObject.phoneNumber == null) {
+        this.transactions = this.reacentTransactions;
+      }
+      else {
+        this.transactions = this.transactions.filter(obj => obj.phoneNumber == parseInt(this.searchObject.phoneNumber))
+        console.log("Filter", this.transactions)
+      }
+    }
 
-  getTransactionOnSearch() {
+  getTransactionOnSearchByTransactionID() {
 
-    if (this.transactionIDObj.transactionID == "" || this.transactionIDObj.transactionID == null) {
+    if (this.searchObject.transactionID == "" || this.searchObject.transactionID == null) {
       this.transactions = this.reacentTransactions;
     }
     else {
-      this.transactions = this.transactions.filter(obj => obj.id == parseInt(this.transactionIDObj.transactionID))
+      this.transactions = this.transactions.filter(obj => obj.id == parseInt(this.searchObject.transactionID))
       console.log("Filter", this.transactions)
     }
-
-
   }
 
-  search(value) {
+   search(value) {
     if (value.data == "" || value.data == null || value.data == undefined) {
       this.transactions = this.reacentTransactions;
     }
-  }
+   }
 
   showproducts(productTransactions: any[]) {
     this.products = productTransactions;

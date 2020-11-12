@@ -330,7 +330,8 @@ export class CheckoutComponent implements OnInit {
       "discount": this.discountInRs,
       "waiterName": this.waiterName,
       "tableNumber": this.tableNumber,
-      "costprice": this.costPrice
+      "costprice": this.costPrice,
+      "phoneNumber": this.phoneNumber
 
     }
 
@@ -503,6 +504,7 @@ export class CheckoutComponent implements OnInit {
       this.total = 0;
       this.amountReceived = 0;
       this.returnedAmount = 0;
+      this.phoneNumber=null;
       this.handleCancel();
     }
     else this.message.error("Checkout Failed")
@@ -690,6 +692,7 @@ export class CheckoutComponent implements OnInit {
   invalidAmount = false
   waiterName;
   tableNumber;
+  phoneNumber;
   discountedAmount = this.total;
   discountInRs = 0;
   showError = false;

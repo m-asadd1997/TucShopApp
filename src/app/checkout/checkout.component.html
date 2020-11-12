@@ -278,6 +278,14 @@
       <input type="number" [(ngModel)]="discountedAmount" disabled="true" class="inputStyle"/>
     </div>
   </div>
+  <div nz-row >
+    <div nz-col nzSpan="10">
+      <label  class="label" >Phone Number :</label>
+    </div>
+    <div nz-col nzSpan="6" nzOffset="1">
+      <input type="number" [(ngModel)]="phoneNumber" class="inputStyle"/>
+    </div>
+  </div>
 
 <div *ngIf="showError" class="alert alert-danger" role="alert">
   Discount can't be greater than billing amount!

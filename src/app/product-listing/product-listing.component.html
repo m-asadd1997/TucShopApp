@@ -52,19 +52,38 @@
 
   <nz-modal [(nzVisible)]="isVisible1" nzWidth="1000" nzTitle="Orders" (nzOnCancel)="handleCancel1()" (nzOnOk)="handleOk1()">
 
-    <div class="col-3" style="float: right;">
-      <div class="example-input">
-        <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton" >
-          <input type="text" (input)= "search($event)" [(ngModel)]="transactionIDObj.transactionID"  nz-input placeholder="input transaction id" />
-        </nz-input-group>
-        <ng-template #suffixIconButton>
-          <button nz-button nzType="primary"(click)="getTransactionOnSearch()" nzSearch>
-              <i class="fa fa-search"></i>
-            <!-- <i nz-icon nzType="search" ></i> -->
-          </button>
-        </ng-template>
+    <div nz-row>
+
+      <div class="col-3" style="float: left;">
+        <div class="example-input">
+          <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton" >
+            <input type="text" (input)= "search($event)" [(ngModel)]="searchObject.transactionID"  nz-input placeholder="Input transaction id" />
+          </nz-input-group>
+          <ng-template #suffixIconButton>
+            <button nz-button nzType="primary"(click)="getTransactionOnSearchByTransactionID()" nzSearch>
+                <i class="fa fa-search"></i>
+              <!-- <i nz-icon nzType="search" ></i> -->
+            </button>
+          </ng-template>
+        </div>
       </div>
+  
+      <div class="col-3" style="float: right;">
+        <div class="example-input">
+          <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton" >
+            <input type="text" (input)= "change($event)" [(ngModel)]="searchObject.phoneNumber"  nz-input placeholder="Input PhoneNumber" />
+          </nz-input-group>
+          <ng-template #suffixIconButton>
+            <button nz-button nzType="primary"(click)="getTransactionOnSearchByPhoneNumber()" nzSearch>
+                <i class="fa fa-search"></i>
+              <!-- <i nz-icon nzType="search" ></i> -->
+            </button>
+          </ng-template>
+        </div>
+      </div>
+
     </div>
+    
     <br>
     <br>
 
