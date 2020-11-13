@@ -66,9 +66,10 @@
     nzTitle="Please Enter Valid Subscription Token"
     (nzOnCancel)="handleCancel()"
     (nzOnOk)="handleOk()"
+    [nzOkDisabled]="disable"
     [nzOkLoading]="isOkLoading"
     >
-    <input type="text" nz-input placeholder="Enter Subscription Token" [(ngModel)]="token" name="token" />
+    <input (input)="checkToken()" type="text" nz-input placeholder="Enter Subscription Token" [(ngModel)]="token" name="token" />
  </nz-modal>
 </body>
 
