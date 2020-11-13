@@ -148,12 +148,25 @@ export class LoginPageComponent implements OnInit,AfterViewInit {
       }
   }
 
+  
+
 
   isVisible = false;
   isOkLoading = false;
+  disable = true;
+
+  
 
   showModal(): void {
     this.isVisible = true;
+  }
+
+  checkToken(){
+  if(this.token) {
+   this.disable = false; 
+  } else {
+    this.disable = true; 
+  }
   }
 
   handleOk(): void {
