@@ -25,6 +25,15 @@ export class GenerateReportComponent implements OnInit {
 
   startRange;
   endRange;
+
+  onChange(result: Date): void {
+  if(result[0]==null){
+  this.startValue ="";
+  this.endValue ="";
+  this.startRange="";
+  this.endRange=""; 
+  }  
+  }
   
 
   download()
@@ -86,11 +95,13 @@ export class GenerateReportComponent implements OnInit {
         })
       
       }
-    
+       
       else {
         this.message.warning("Please Select A range first");
       }
     
       }
+
+      
 
 }
