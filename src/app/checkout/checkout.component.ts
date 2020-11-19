@@ -273,7 +273,10 @@ export class CheckoutComponent implements OnInit {
   //  let code = scanCode();
   //  }
 
-  removeProductFromCheckout(data) {
+  removeProductFromCheckout() {
+    let data = this.currentProduct
+    console.log(data);
+
     let obj1 = {
       "quantity": 0
       , "count": data.productQuantity
@@ -293,7 +296,7 @@ export class CheckoutComponent implements OnInit {
 
       }
     })
-
+this.isCheckoutModalVisible=false;
   }
   showModal(): void {
     this.totalAmount = 0;
@@ -313,6 +316,9 @@ export class CheckoutComponent implements OnInit {
 
     this.objToPushForTransaction = []
     console.log(this.checkoutProductsArray);
+    let backupTotal = this.total;
+
+    backupTotal=(this.isFree || this.isGift)? 0 : this.total;
 
     this.checkoutProductsArray.forEach(prod => {
       let obj = {
@@ -323,7 +329,7 @@ export class CheckoutComponent implements OnInit {
     });
 
     let request = {
-      "amount": this.total,
+      "amount": backupTotal,
       "requestedUser": reqUser,
       "action": action,
       "productTransactions": this.objToPushForTransaction,
@@ -349,6 +355,7 @@ export class CheckoutComponent implements OnInit {
         document.getElementById("print-slip-btn").click();
         this.checkoutProductsArray = [];
         this.total = 0;
+        backupTotal=0;
         if (action === "SC") {
           this.toastr.success("Transaction Successfully Saved!");
         }
@@ -398,7 +405,7 @@ export class CheckoutComponent implements OnInit {
   addProduct(obj) {
     // this.checking=true
     console.log(obj)
-    
+
     this.interactionServ.getProductsById(obj["id"]).subscribe(d => {
       debugger
       if (d) {
@@ -763,6 +770,70 @@ export class CheckoutComponent implements OnInit {
     localStorage.setItem('parkOrder'+new Date(),JSON.stringify(request))
     this.checkoutProductsArray=[];
     this.total=0;
+  }
+currentProduct
+  showQuantityModal(data){
+    let index = this.checkoutProductsArray.indexOf(data);
+
+    this.inputnumber=this.checkoutProductsArray[index]['productQuantity'];
+    console.log(data);
+    this.isCheckoutModalVisible=true;
+    this.currentProduct= data;
+
+
+
+
+  }
+
+  isCheckoutModalVisible=false;
+
+  handleCheckoutModalCancel(){
+    this.isCheckoutModalVisible=false;
+
+  }
+  handleCheckoutModalOk(){
+    this.isCheckoutModalVisible=false;
+
+  }
+  inputnumber ;
+  plus()
+  {
+   this.inputnumber = this.inputnumber+1;
+  }
+  minus()
+  {
+    if(this.inputnumber != 0)
+  {
+   this.inputnumber = this.inputnumber-1;
+  }
+
+  }
+  updateQuantity(){
+    let index=this.checkoutProductsArray.indexOf(this.currentProduct);
+    // this.checkoutProductsArray[index].productQuantity=this.inputnumber;
+    this.checkoutProductsArray[index]["productQuantity"] = parseInt( this.inputnumber);
+    console.log();
+
+
+    this.isCheckoutModalVisible=false;
+    this.calculateTotal();
+  }
+
+  calculateTotal(){
+    this.total=0;
+    this.checkoutProductsArray.map(item=>{
+      item.productPrice=0
+      console.log(item);
+      item.productPrice+= (item.printProductPrice*item.productQuantity)
+      this.total+=(item.printProductPrice*item.productQuantity)
+    })
+  }
+
+
+  isGift;
+  isFree;
+  isFreeFunction(){
+    console.log(this.isFree)
   }
 }
 

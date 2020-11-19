@@ -111,7 +111,7 @@ background-color: #EF4F4C;
 
 .colornzzz{
 
-background-color: #009688;   
+background-color: #009688;
 
 }
 
@@ -168,3 +168,21 @@ background-color: #009688;
     button {
         margin-right: 8px;
       }
+      .checkoutClass{
+        border-top: 2px black solid;
+      }
+      .center{
+        width: 150px;
+          margin: 40px auto;
+
+        }
+
+        .space-around {
+          justify-content: space-around;
+        }
+        .flex-container {
+          padding: 0;
+          margin: 0;
+          list-style: none;
+          display: flex;
+        }
