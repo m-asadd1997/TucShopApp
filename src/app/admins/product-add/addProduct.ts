@@ -9,4 +9,5 @@ export class addProduct {
     image1:String
     variants: string
     sku:string= null;
+    parentID: string
   }

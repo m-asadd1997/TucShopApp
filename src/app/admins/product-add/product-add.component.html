@@ -135,7 +135,7 @@
 
       <!--  2nd Row -->
 
-      
+
       <!-- 3rd  Row -->
       <div nz-row>
         <div nz-col nzSpan="5" class="nz-group">
@@ -189,14 +189,36 @@
               <nz-form-label nzFor="email">Category</nz-form-label>
               <br>
               <nz-select name="category" nzSize="large" [(ngModel)]="addProducts.category" class="phone-select"
-                nzPlaceHolder="Select a Category" required>
-                <nz-option *ngFor="let item of categories" nzLabel={{item.name}} nzValue="{{item.name}}"></nz-option>
+              (ngModelChange)="changeCategory(addProducts.category)"
+                nzPlaceHolder="Select a Category" required >
+                <nz-option *ngFor="let item of categories" nzLabel={{item.name}} nzValue="{{item.name}}" ></nz-option>
               </nz-select>
             </nz-form-control>
           </nz-form-item>
         </div>
 
 
+
+        <div nz-col nzSpan="10" class="nz-group">
+          <nz-form-item>
+
+            <nz-form-control>
+              <nz-form-label nzFor="email">Sub Category</nz-form-label>
+              <br>
+              <nz-select   (ngModelChange)="changeSubCategory(addProducts.parentID)" [nzDropdownRender]="renderTemplate" name="subcategory" nzSize="large" [(ngModel)]="addProducts.parentID" class="phone-select"
+                nzPlaceHolder="Select a Sub Category" required>
+                <nz-option *ngFor="let item of subCategories" nzLabel={{item.name}} nzValue="{{item.id}}"></nz-option>
+                <ng-template #renderTemplate>
+                  <nz-divider></nz-divider>
+                  <div class="container">
+
+                    <a class="add-item" (click)="routeToAddCategory()"><i nz-icon nzType="plus"   ></i> Add Sub Category</a>
+                  </div>
+                </ng-template>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
       </div>
       <!-- 3rd  Row -->
 

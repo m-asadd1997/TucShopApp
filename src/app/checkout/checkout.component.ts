@@ -232,7 +232,7 @@ export class CheckoutComponent implements OnInit {
   }
 
   private addingProductIntoCart(d: Object) {
-    debugger
+
     if (d) {
       this.costPrice += d['costprice'];
       let found = this.checkoutProductsArray.findIndex(
@@ -398,7 +398,7 @@ export class CheckoutComponent implements OnInit {
   addProduct(obj) {
     // this.checking=true
     console.log(obj)
-    
+
     this.interactionServ.getProductsById(obj["id"]).subscribe(d => {
       debugger
       if (d) {

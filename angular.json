@@ -36,15 +36,12 @@
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/ngx-toastr/toastr.css",
               "node_modules/font-awesome/css/font-awesome.css"
-             
-              
-            
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.min.js",
               "node_modules/onscan.js/onscan.min.js",
-              "src/assets/js/scan.js" 
+              "src/assets/js/scan.js"
             ]
           },
           "configurations": {
@@ -83,8 +80,8 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "browserTarget": "AntDesign:build",
-            "sslKey":"./server.key",
-            "sslCert":"./server.crt"
+            "sslKey": "./server.key",
+            "sslCert": "./server.crt"
           },
           "configurations": {
             "production": {
@@ -112,7 +109,6 @@
             "styles": [
               "src/styles.css",
               "node_modules/chartist/dist/chartist.css"
-            
             ],
             "scripts": []
           }
@@ -145,5 +141,8 @@
       }
     }
   },
-  "defaultProject": "AntDesign"
+  "defaultProject": "AntDesign",
+  "cli": {
+    "analytics": false
+  }
 }

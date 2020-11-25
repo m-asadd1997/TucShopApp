@@ -6,6 +6,7 @@ import { addProduct } from './addProduct';
 import { FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NzMessageComponent, NzMessageService } from 'ng-zorro-antd';
+// import { debugger } from 'fusioncharts';
 
 @Component({
   selector: 'app-product-add',
@@ -29,7 +30,7 @@ export class ProductAddComponent implements OnInit {
   imgURL: any;
   message2: string;
   Checker: Boolean = false;
-
+  subCategories = []
   typeBool = false;
 
 
@@ -62,6 +63,7 @@ export class ProductAddComponent implements OnInit {
 
 
   submit(myForm: NgForm) {
+    debugger
     if (Number(this.addProducts.salePrice) <= Number(this.addProducts.costPrice)) {
       this.toastr.error("Sale Price Must be Greater than Cost Price")
       // this.message.warning("Sale Price Must be Greater than Cost Price ");
@@ -71,35 +73,40 @@ export class ProductAddComponent implements OnInit {
 
 
     if (this.id != null) {
-     
-        console.log(this.formData)
-       
-        this.service.updateProduct(this.id, this.formData).subscribe(d => {
-          if (d.status == 200) {
-            this.toastr.success(d.message);
-            myForm.reset();
-            this.router.navigate(['admin/layout/product'])
-          }
-          else {
-            this.toastr.error(d.message);
-          } 
+
+      console.log(this.formData)
+
+      this.service.updateProduct(this.id, this.formData).subscribe(d => {
+        if (d.status == 200) {
+          this.toastr.success(d.message);
+          myForm.reset();
+          this.router.navigate(['admin/layout/product'])
         }
-        );
+        else {
+          this.toastr.error(d.message);
+        }
+      }
+      );
 
-        console.log(this.addProducts.image)
-        this.Checker = true;
+      console.log(this.addProducts.image)
+      this.Checker = true;
 
-      
+
 
     }
 
     else {
+      if(this.addProducts.parentID)
+      {
+        this.addProducts.category = this.addProducts.parentID;
+      }
 
-      if (Number(this.addProducts.salePrice) < Number(this.addProducts.costPrice)) 
-          {
-            this.toastr.error("Sale Price Must be Greater than Cost Price"); 
-            this.erasingFormData();
-           }
+      if (Number(this.addProducts.salePrice) < Number(this.addProducts.costPrice)) {
+        this.toastr.error("Sale Price Must be Greater than Cost Price");
+        this.erasingFormData();
+      }
+
+
       // else if (this.addProducts.image == null) { this.message.warning("Set Image First"); this.erasingFormData(); }
       else {
         this.service.postProduct(this.formData).subscribe(d => {
@@ -134,12 +141,19 @@ export class ProductAddComponent implements OnInit {
   private processingFormData() {
     this.formData = new FormData();
     this.formData.append('name', this.addProducts.productTitle);
-    let idObj = this.categories.find(v => v.name == this.addProducts.category);
+    if(this.addProducts.parentID)
+    {
+      this.formData.append('category',this.addProducts.parentID);
+    }
+    else{
+      let idObj = this.categories.find(v => v.name == this.addProducts.category);
     this.formData.append('category', idObj.id);
-    if (this.addProducts.image) {     
+    }
+
+    if (this.addProducts.image) {
       this.formData.append('image', this.addProducts.image, this.addProducts.productTitle + ".png");
     }
-   
+
     this.formData.append('costprice', this.addProducts.costPrice);
     if (this.addProducts.sku != null) {
       this.formData.append('sku', this.addProducts.sku);
@@ -264,4 +278,35 @@ export class ProductAddComponent implements OnInit {
     this.addProducts.productQuantity = null
   }
 
+  categoryID;
+
+  changeCategory(item) {
+    console.log(this.categories)
+
+    this.categories.map(category => {
+      console.log(category);
+      if (category.name == item) {
+        this.categoryID = category.id;
+      }
+
+
+    })
+
+    this.service.getSubCategories(this.categoryID).subscribe((response:any)=>{
+      console.log("RESPONSE",response);
+      this.subCategories =response.result;
+
+    })
+
+  }
+  routeToAddCategory(){
+    this.router.navigate(['admin/layout/add-category'])
+  }
+  changeSubCategory(obj){
+    setTimeout(() => {
+      console.log(this.addProducts.parentID);
+    }, 1000);
+
+
+  }
 }
