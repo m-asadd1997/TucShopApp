@@ -9,4 +9,6 @@ export class addProduct {
     image1:String
     variants: string
     sku:string= null;
+    onlineProduct: string = "no";
+    productGalleryImages:Array<any> = [];
   }

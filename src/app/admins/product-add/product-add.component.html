@@ -182,7 +182,7 @@
 
 
 
-        <div nz-col nzSpan="10" style="margin-left: 88px;" class="nz-group">
+        <div nz-col nzSpan="7" style="margin-left: 88px;" class="nz-group">
           <nz-form-item>
 
             <nz-form-control>
@@ -197,6 +197,17 @@
         </div>
 
 
+        <div nz-col  nzSpan="3" class="nz-group">
+          <nz-form-label nzFor="email">Online Product</nz-form-label>
+          <br>
+          <nz-form-item>
+            <nz-form-control nzErrorTip="Please input your Product Quantity!">
+              <nz-switch name="onlineProduct" (ngModelChange)="onlineSwitch()" [(ngModel)]="onlineProductSwitch"></nz-switch>
+
+            </nz-form-control>
+          </nz-form-item>
+
+        </div>
       </div>
       <!-- 3rd  Row -->
 
@@ -206,7 +217,7 @@
       <div nz-row class="nz-group">
         <!-- <br> -->
 
-        <div nz-col nzSpan="15">
+        <div nz-col nzSpan="8">
           <nz-form-control>
             <div class="row">
               <label style="
@@ -217,7 +228,7 @@
               color: #fff;
               font-size: smaller;
               margin-left: 3%;
-              border-radius: 12px;">Select Image
+              border-radius: 12px;">Select Default Image
                 <input #files type="file"
                   (change)="handleCategoryBanner($event.target.files); preview($event.target.files)" name="image"
                   accept=".jpeg,.png,.jpg,.PNG" style="display: none;cursor: pointer;" required>
@@ -228,6 +239,32 @@
           </nz-form-control>
 
         </div>
+        <div >
+
+          <div nz-col nzSpan="9" *ngIf="onlineProductSwitch">
+              <span (click)="inp.click()" class="fileUpload">
+                  <i nz-icon nzType="plus" style="position: absolute;
+                  top: 17px;
+                  left: 33px;
+                  font-size: 22px;
+                  color: white;"></i>
+                  <span class="ant-upload-text" style="position: absolute;
+                  top: 34px;
+                  left: 10px;
+                  font-size: smaller;
+                  color: white;">Other Images</span>
+              </span>
+
+              <span *ngFor="let file of fileList;let i=index" class="file">
+
+                  <i nz-icon nzType="close" (click)="deleteImage(i)" nzTheme="outline"
+                      style="font-size: 16px;cursor: pointer;;position: absolute;right: 1px;color: white;font-weight: bold;"></i>
+                  <img style="height: 90px;width: 90px;" [src]="'data:image/jpeg;base64,'+file.base64" alt="" />
+              </span>
+          </div>
+      </div>
+      <input type="file" #inp required style="display: none" (change)="onFileChange($event)">
+
 
 
 
@@ -239,7 +276,11 @@
 
         <!-- Button -->
 
-        <div nz-col nzSpan="4" nzSpan="8" style="margin-left: 950px;">
+      
+        <!-- Button -->
+
+      </div>
+        <div nz-row style="margin-left: 950px;">
           <!-- <div style="text-align: center;"> -->
           <nz-form-item>
             <nz-form-control>
@@ -251,9 +292,6 @@
           </nz-form-item>
           <!-- </div> -->
         </div>
-        <!-- Button -->
-
-      </div>
     </form>
   </nz-card>
 </div>

@@ -91,3 +91,29 @@
   /* border: solid black 1px; */
   /* margin-top: 50px; */
 }
+
+i[nz-icon] {
+  font-size: 32px;
+  color: #999;
+}
+.ant-upload-text {
+  margin-top: 8px;
+  color: #666;
+}
+.fileUpload{
+	height: 90px;
+     width: 90px;
+     display: inline-flex;
+    background-color: #393f5bfc;
+    /* border:1px dashed rgb(179, 176, 176); */
+     cursor: pointer;
+     border-radius: 12px;
+     margin:0px 5px 0px 0px;
+}
+.file {
+	display: inline-flex;
+     background-color: #f3f1f1;
+	border:1px dashed rgb(163, 162, 162);
+    position: relative;
+    margin:0px 5px 0px 0px;
+}
