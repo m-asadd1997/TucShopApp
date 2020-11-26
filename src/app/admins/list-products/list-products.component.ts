@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { EventEmitter } from 'protractor';
 import { NzMessageService } from 'ng-zorro-antd';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-list-products',
@@ -20,7 +21,7 @@ export class ListProductsComponent implements OnInit {
   allProducts=[];
   disbaleAddQuantity=false;
   checkingForNgOnIt=false;
-
+  url= environment.baseUrl
 
   ngOnInit() {
 

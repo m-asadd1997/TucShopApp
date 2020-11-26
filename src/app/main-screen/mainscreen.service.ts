@@ -35,6 +35,7 @@ export class MainscreenService {
 
   private getAutoCompleteRequestURL=environment.baseUrl+"api/dashboard/autocomplete/";
   private getAllProductURL=environment.baseUrl+"api/products/";
+  private getAllProductByPaginatedURL=environment.baseUrl+"api/products/paginatedproduct";
   private getSettingURL= environment.baseUrl+"api/dashboard/settings";
   private postTransactionURL=environment.baseUrl+"api/transaction/post";
   // private getAutoCompleteRequestURL = environment.baseUrl + "api/dashboard/autocomplete/";
@@ -111,7 +112,9 @@ parkTransactionObject$=this.parkTransactionObject.asObservable();
   // public getAllProducts(): Observable<any> {
   //   return this.http.get(this.getAllProductURL);
 
-
+  public getAllProductsByPaginated(page):Observable<any>{
+    return this.http.get(this.getAllProductByPaginatedURL+"?page="+page);
+ }
 
    public getAllProducts():Observable<any>{
    return this.http.get(this.getAllProductURL);

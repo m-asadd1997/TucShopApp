@@ -70,7 +70,7 @@
       <div nz-row>
       <div nz-col nzXs="24" nzSm="24" nzMd="8" nzLg="7" nzXl="7" nzSpan="7" nzOffset="1" *ngFor="let p of productDetails">
       <nz-card   class="cardShadow"  nzHoverable style="width:150px;margin-top: 15px">
-     <img [src]=p.product.image style="width:75px;height:75px;text-align:center">
+     <img [src]=url+p.product.image style="width:75px;height:75px;text-align:center">
         <hr>
         <b style="font-size:12px;padding:0px;text-align:left!important;font-weight:bolder"> {{p.product.name| uppercase}}</b><br>
         <b style="font-size:10px;padding:0px" >{{p.product.variants}} </b><br>

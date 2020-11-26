@@ -6,6 +6,7 @@ import { addProduct } from './addProduct';
 import { FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NzMessageComponent, NzMessageService } from 'ng-zorro-antd';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-product-add',
@@ -31,6 +32,7 @@ export class ProductAddComponent implements OnInit {
   Checker: Boolean = false;
 
   typeBool = false;
+  url=environment.baseUrl
 
 
   constructor(private fb: FormBuilder, private service: AdminServiceService, private activateRoute: ActivatedRoute, private message: NzMessageService, private toastr: ToastrService, private router: Router) {
@@ -182,7 +184,9 @@ export class ProductAddComponent implements OnInit {
   }
 
   getProducts() {
+   
     this.service.getProductsById(this.id).subscribe(d => {
+      debugger
       this.addProducts.productTitle = d.name
       this.addProducts.costPrice = d.costprice
       this.addProducts.productQuantity = d.qty
@@ -190,7 +194,7 @@ export class ProductAddComponent implements OnInit {
       this.addProducts.category = d.category.name
       this.addProducts.sku = d.sku;
 
-      this.service.getImage(d.image).subscribe(e => {
+      this.service.getImage(this.url+d.image).subscribe(e => {
         if (e) {
           this.addProducts.image = this.blobToFile(e, "abc");
         }
@@ -198,7 +202,7 @@ export class ProductAddComponent implements OnInit {
 
 
       this.addProducts.variants = d.variants
-      this.imgURL = d.image
+      this.imgURL = this.url+d.image
       this.Checker = true;
 
       console.log(this.addProducts.category)

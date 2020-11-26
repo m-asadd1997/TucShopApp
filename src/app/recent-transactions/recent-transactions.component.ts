@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { environment } from 'src/environments/environment';
 import { MainscreenService } from '../main-screen/mainscreen.service';
 
 
@@ -18,6 +19,7 @@ export class RecentTransactionsComponent implements OnInit {
   product;
   productsarray:any[]=[];
   isVisible:boolean=false;
+  url=environment.baseUrl
 
 
 

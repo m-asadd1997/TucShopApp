@@ -1,11 +1,12 @@
 import { transactions } from './../admins/transactions/transactions';
 import { productlisting } from './productlisting';
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { MainscreenService } from '../main-screen/mainscreen.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NzMessageComponent } from 'ng-zorro-antd';
-import { debug } from 'util';
 import { AdminServiceService } from '../admins/admin-service.service';
+import { environment } from 'src/environments/environment';
+
 // import { // } from 'fusioncharts';
 
 
@@ -21,7 +22,7 @@ export class ProductListingComponent implements OnInit {
   transactions: any[] = [];
   abc: any;
   isVisible1: boolean = false;
-  productsArray = [] = [];
+  productsArray:any [] = [];
   reacentTransactions = []
   params: any;
   small
@@ -30,6 +31,10 @@ export class ProductListingComponent implements OnInit {
   count = 0;
   searchProduct: any;
   options: any;
+  url=environment.baseUrl;
+  noOfPages=0;
+  totalNoOfPages;
+
 
   constructor(private prodService: MainscreenService, private activeRoute: ActivatedRoute, private service: AdminServiceService, private router: Router) { }
 
@@ -48,18 +53,15 @@ export class ProductListingComponent implements OnInit {
 
       }
     );
-    this.getAllProducts();
-
-
-
-  }
+    // this.getAllProducts();
+}
 
   getProducts(str: any) {
 
     if (str === "products") {
-      this.getAllProducts();
-
-
+    
+    this.getAllProductsByPaginated(this.noOfPages);
+    
     }
     else {
 
@@ -142,7 +144,6 @@ export class ProductListingComponent implements OnInit {
     this.router.navigate(["categories/products"]);
     this.prodService.searchProductByKeyword(value).subscribe(d => {
       if (d) {
-
         this.searchProduct = d.result;
         this.productsArray = this.searchProduct;
         // this.categoryHeader =  category.name
@@ -150,19 +151,19 @@ export class ProductListingComponent implements OnInit {
       }
 
     });
+  
   }
   onChange(value: string): void {
     //const value = (e.target as HTMLInputElement).value;
     if (value != null && value != "") {
       this.searchProductByKeyword(value);
-      //this.productsArray = this.searchProduct;
+      // this.productsArray = this.searchProduct;
       //console.log(this.productsArray)
 
     }
     else {
-      this.getAllProducts();
-
-    }
+     this.getAllProducts();
+  }
   }
 
   searchOptionClicked(option){
@@ -285,7 +286,6 @@ export class ProductListingComponent implements OnInit {
   results=[]
   keys=[]
   showParkingModal(){
-    //
     this.isParkVisible=true;
    this.results = [];
    this.keys=[]
@@ -312,4 +312,25 @@ export class ProductListingComponent implements OnInit {
     this.visibilityProductParkImage=false
   }
 
+
+  @HostListener('scroll', ['$event'])
+  onScroll($event) {
+    if(this.categoryHeader==="products" && !this.searchProduct){
+    if(this.noOfPages!=this.totalNoOfPages){
+    if ($event.target.offsetHeight + $event.target.scrollTop >= $event.target.scrollHeight+2) {
+      console.log("End");
+      this.noOfPages++;
+      this.getAllProductsByPaginated(this.noOfPages);
+    }
+  }
+  }
+  }
+
+getAllProductsByPaginated(noOfPages){
+  this.prodService.getAllProductsByPaginated(noOfPages).subscribe(d => {
+      this.totalNoOfPages = d.totalPages;
+      this.productsArray = [...this.productsArray,...d.content];
+      this.productsArray=this.productsArray.filter(e => (e.qty > 0 || e.infiniteQuantity))
+  })
+}
 }
