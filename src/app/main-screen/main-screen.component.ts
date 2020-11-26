@@ -1,6 +1,7 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { MainscreenService } from './mainscreen.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-main-screen',
@@ -14,9 +15,7 @@ export class MainScreenComponent implements OnInit {
   categoriesArray = [] = [];
   isVisible :Boolean;
   isCollapsed; 
-  
-  
- 
+  url=environment.baseUrl
   userName
   constructor(private mainScreenServ: MainscreenService,private activeRoute:ActivatedRoute, private router: Router) { }
 category

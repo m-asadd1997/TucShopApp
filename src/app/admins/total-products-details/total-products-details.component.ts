@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AdminServiceService } from '../admin-service.service';
 import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-total-products-details',
@@ -9,6 +10,8 @@ import { NzMessageService } from 'ng-zorro-antd';
   styleUrls: ['./total-products-details.component.css']
 })
 export class TotalProductsDetailsComponent implements OnInit {
+  url=environment.baseUrl
+
   value
   constructor(private adminService: AdminServiceService, private router: Router,private message :NzMessageService) { }
 

@@ -5,6 +5,7 @@ import { NgForm } from '@angular/forms';
 import { ActivatedRoute,Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd';
 import { JsonPipe } from '@angular/common';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-add-category',
@@ -24,20 +25,16 @@ export class AddCategoryComponent implements OnInit {
   imageFile = new Map();
   checker:boolean=false;
   avatarDisplay:Boolean=false;
+  url=environment.baseUrl
 
   constructor(private service:AdminServiceService, private activateRoute: ActivatedRoute,private message:NzMessageService, private router: Router) { }
 
   formData = new FormData();
 
   handleCategoryBanner(file:File){
-
+       
     this.add_categories.icons=file[0];
     this.avatarDisplay=true;
-    console.log(typeof(file[0]));
-
-
-
-
   }
 
 
@@ -108,7 +105,7 @@ export class AddCategoryComponent implements OnInit {
 
   this.add_categories.name = d.name
 
-  this.service.getImage(d.image).subscribe(e=>{
+  this.service.getImage(this.url+d.image).subscribe(e=>{
 
     if(e){
     console.log((e.name));
@@ -117,7 +114,7 @@ export class AddCategoryComponent implements OnInit {
   }
   })
   this.avatarDisplay=true;
-  this.imgURL = d.image
+  this.imgURL = this.url+d.image
   console.log();
 
 })

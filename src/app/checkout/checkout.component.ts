@@ -9,6 +9,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { count } from 'console';
 import { ToastrService } from 'ngx-toastr';
 import { LoaderUtilService } from '../util-services/loader-util.service';
+import { environment } from 'src/environments/environment';
 
 declare const scanCode :any;
 
@@ -20,6 +21,7 @@ declare const scanCode :any;
 })
 export class CheckoutComponent implements OnInit {
 
+  url=environment.baseUrl
   productComingOnBasisOfBarcode;
   checkoutProductsArray = [];
 
@@ -171,8 +173,6 @@ export class CheckoutComponent implements OnInit {
 
     this.interactionServ.parkTransactionObject$.subscribe((d: any) => {
       console.log("ABCDEFG"+d);
-      debugger
-
       this.transactionId = d.id
       this.checkoutProductsArray = [];
       this.total = 0;
@@ -232,7 +232,6 @@ export class CheckoutComponent implements OnInit {
   }
 
   private addingProductIntoCart(d: Object) {
-    debugger
     if (d) {
       this.costPrice += d['costprice'];
       let found = this.checkoutProductsArray.findIndex(
@@ -401,7 +400,6 @@ export class CheckoutComponent implements OnInit {
     console.log(obj)
     
     this.interactionServ.getProductsById(obj["id"]).subscribe(d => {
-      debugger
       if (d) {
         obj.productqty = d.qty;
         console.log("==============Add Product===============", d.qty)

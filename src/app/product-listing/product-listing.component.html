@@ -19,7 +19,7 @@
           <span><b>Category: {{option.category.name}}</b></span>
           <br>
           <div>
-            Item:{{ option.name}}<img style="width: 40px; height: 40px; margin-left: 40px; float: right;" [src]="option.image">
+            Item:{{ option.name}}<img style="width: 40px; height: 40px; margin-left: 40px; float: right;" [src]="url+option.image">
           </div>
         </nz-auto-option>
       </nz-autocomplete>
@@ -185,7 +185,7 @@
 <br>
 
 
-<nz-card style="width: 100%; overflow-y: scroll; overflow-x: none; height:500px;">
+<nz-card style="width: 100%; overflow-y: scroll; overflow-x: none; height:500px;" (scroll)="onScroll($event)">
   <div nz-row>
     <div nz-col nzSpan="5" nzOffset="1" *ngFor="let p of productsArray">
       <nz-card #CARD nzHoverable style="width:180px; height: 260px; margin-left: -30px;" [nzCover]="coverTemplate" [nzSize]="small"
@@ -219,7 +219,7 @@
       </nz-card>
       <div>
         <ng-template #coverTemplate>
-          <img #image [src]="p.image" height="120px" width="80px" />
+          <img #image [src]="url+p.image" height="120px" width="80px" />
         </ng-template>
       </div>
       <br />
@@ -231,7 +231,7 @@
   <div nz-row>
     <div nz-col nzXs="24" nzSm="24" nzMd="5" nzLg="7" nzXl="7" nzSpan="7" nzOffset="1" *ngFor="let p of products">
       <nz-card class="cardShadow" style="background-color:black" nzHoverable style="width:150px;margin-top:15px">
-        <img [src]=p.product.image style="width:75px;height:75px">
+        <img [src]=url+p.product.image style="width:75px;height:75px">
         <hr>
         <b style="font-size:12px;padding:0px"> {{p.product.name | uppercase}}</b><br>
         <b style="font-size:10px;padding:0px">{{p.product.variants}} </b><br>
@@ -255,7 +255,7 @@
   <div nz-row>
     <div nz-col nzXs="24" nzSm="24" nzMd="5" nzLg="7" nzXl="7" nzSpan="7" nzOffset="1" *ngFor="let p of products">
       <nz-card class="cardShadow" style="background-color:black" nzHoverable style="width:150px;margin-top:15px">
-        <img [src]=p.product.productImage style="width:75px;height:75px">
+        <img [src]=url+p.product.productImage style="width:75px;height:75px">
         <hr>
         <b style="font-size:12px;padding:0px"> {{p.product.productTitle | uppercase}}</b><br>
         <b style="font-size:10px;padding:0px">{{p.product.productVariant}} </b><br>

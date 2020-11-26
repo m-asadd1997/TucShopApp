@@ -7,7 +7,7 @@
     <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
       <li nz-menu-item *ngFor="let c of categoriesArray" (click)="addCategoryToUrl(c.name)" nz-popover
         [nzPopoverContent]="c.name" nzPopoverPlacement="right">
-        <img [src]="c.image" />
+        <img [src]="url+c.image" />
         <!-- <span>{{c.name}}</span> -->
       </li>
     </ul>

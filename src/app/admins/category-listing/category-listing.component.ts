@@ -2,6 +2,7 @@ import { AdminServiceService } from './../admin-service.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -13,6 +14,7 @@ export class CategoryListingComponent implements OnInit {
 
   categories = []
   filteredProducts = []
+  url=environment.baseUrl
 
 
   constructor(private service: AdminServiceService, private router: Router, private nzMessageService: NzMessageService) { }

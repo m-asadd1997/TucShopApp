@@ -128,7 +128,7 @@
           <div nz-col nzXs="24" nzSm="24" nzMd="5" nzLg="7" nzXl="7" nzSpan="7" nzOffset="1"
             *ngFor="let p of tranByUser">
             <nz-card class="cardShadow" style="background-color:black" nzHoverable style="width:150px;margin-top:15px">
-              <img [src]=p.product.image style="width:75px;height:75px">
+              <img [src]=url+p.product.image style="width:75px;height:75px">
               <hr>
               <b style="font-size:12px;padding:0px"> {{p.product.name | uppercase}}</b><br>
               <b style="font-size:10px;padding:0px">{{p.product.variants}} </b><br>
@@ -161,7 +161,7 @@
             <div nz-row>
               <div nz-col nzSpan="3">
                 <nz-badge [nzCount]="data.productQuantity">
-                  <nz-avatar [nzShape]="'circle'" [nzSize]="40" [nzSrc]="data.productImage" [nzIcon]="'user'">
+                  <nz-avatar [nzShape]="'circle'" [nzSize]="40" [nzSrc]="url+data.productImage" [nzIcon]="'user'">
                   </nz-avatar>
                 </nz-badge>
               </div>
@@ -296,7 +296,7 @@
 </nz-modal>
   <div id="print-section" [hidden]="true">
     <div style="text-align: center;">
-      <img *ngIf="(chekingSetting && settingHeader   && settingHeader.logo  )" [src]="settingHeader.logo"
+      <img *ngIf="(chekingSetting && settingHeader   && settingHeader.logo  )" [src]="url+settingHeader.logo"
         style="height: 100px; width: 100px;" >
     </div>
     <br>
