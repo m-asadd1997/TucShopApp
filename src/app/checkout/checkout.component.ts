@@ -346,10 +346,13 @@ export class CheckoutComponent implements OnInit {
         // this.getTotalTransactionByUser();
         this.fafaicon();
         this.getLoginTime();
+        debugger;
         document.getElementById("print-slip-btn").click();
-        this.checkoutProductsArray = [];
-        this.total = 0;
+        // this.checkoutProductsArray = [];
+        // this.total = 0;
         if (action === "SC") {
+          this.checkoutProductsArray = []; 
+          this.total=0; 
           this.toastr.success("Transaction Successfully Saved!");
         }
       },(err)=>{
@@ -494,12 +497,12 @@ export class CheckoutComponent implements OnInit {
 
   settingHeader
   saveData(reqUser, action): void {
+    debugger;
     if (!this.invalidAmount) {
       // document.getElementById("print-slip-btn").click();
       this.saveTransaction(reqUser, action);
-      this.checkoutProductsArray = [];
+     
       this.costPrice = 0;
-      this.total = 0;
       this.amountReceived = 0;
       this.returnedAmount = 0;
       this.phoneNumber=null;
@@ -679,7 +682,7 @@ export class CheckoutComponent implements OnInit {
        let lastLoginDateTime = new Date(dateString)
 
        this.date = lastLoginDateTime.toDateString();
-      this.time =   lastLoginDateTime.toLocaleTimeString();
+       this.time =   lastLoginDateTime.toLocaleTimeString();
 
     })
   }
@@ -687,7 +690,7 @@ export class CheckoutComponent implements OnInit {
   amountReceived = 0;
   returnedAmount = 0;
   totalAmount = 0;
-  invalidAmount = false
+  invalidAmount = false;
   waiterName;
   tableNumber;
   phoneNumber;
