@@ -20,7 +20,7 @@
   <div nz-row [nzGutter]="6">
     <div nz-col [nzSpan]="6" >
       <nz-card nzTitle="Total Inventory" >
-        <h3 style="text-align: center;">{{totalInventory| currency:'PKR '}}</h3>
+        <h5 style="text-align: center;">{{totalInventory| currency:'PKR '}}</h5>
       </nz-card>
     </div>
 
@@ -28,13 +28,13 @@
 
     <div nz-col [nzSpan]="6">
       <nz-card nzTitle="Out of Stock" nzHoverable (click)="showModalOutOfStock()">
-        <h3 style="text-align: center;">{{totalOutOfStockProducts}}</h3>
+        <h5 style="text-align: center;">{{totalOutOfStockProducts}}</h5>
       </nz-card>
     </div>
 
     <div nz-col [nzSpan]="6">
       <nz-card nzTitle="Total Transacation" (click)="showModalTotalTransactions()">
-        <h3 style="text-align: center;">{{totalAmount | currency:'PKR '}}</h3>
+        <h5 style="text-align: center;">{{totalAmount | currency:'PKR '}}</h5>
       </nz-card>
     </div>
 
@@ -42,7 +42,7 @@
 
     <div nz-col [nzSpan]="6">
       <nz-card nzTitle="Profit" nzHoverable>
-        <h3 style="text-align: center;">{{ profit | currency:'PKR ' }}</h3>
+        <h5 style="text-align: center;">{{ profit | currency:'PKR ' }}</h5>
 
       </nz-card>
     </div>
