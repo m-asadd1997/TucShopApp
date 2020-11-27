@@ -29,7 +29,7 @@ export class ExpenseBalanceSheetComponent implements OnInit {
   dateCheck
   newDate;
   expenseRecord : expenseRecord = new expenseRecord();
-
+  dateFormat = 'yyyy/MM/dd';
   ngOnInit() {
     this.disabled();
     this.getExpensesByDate(this.expenses.date);
