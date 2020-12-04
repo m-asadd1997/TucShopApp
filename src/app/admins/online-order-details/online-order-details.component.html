@@ -1,0 +1,37 @@
+
+  
+  <nz-table #mytable [nzData]="onlineOrderDetails" [nzPageSize]="10" [nzShowPagination]="true">
+    <thead>
+      <tr>
+        <th>Tracking Id </th>
+        <th>Email Address</th>
+        <th>Order Date</th>
+        <th>Order Time </th>
+        <th>Country </th>
+        <th>City </th>
+        <th>Post Code </th>
+        <th>Card Sub Total </th>
+        <th>Shipping </th>
+        <th>Order Total </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of mytable.data">
+        <td>{{data.uuid}}</td>
+        <td>{{data.emailAddress}}</td>
+        <td>{{data.orderDate}}</td>
+        <td>{{data.orderTime}}</td>
+        <td>{{data.stateCountry}}</td>
+        <td>{{data.townCity}}</td>
+        <td>{{data.postCodeZip}}</td>
+        <td>{{data.cartSubTotal}}</td>
+        <td>{{data.shipping}}</td>
+        <td>{{data.orderTotal}}</td>
+      </tr>
+    </tbody>
+  </nz-table>
+
+
+
+  
+

@@ -55,11 +55,30 @@ export class AdminServiceService {
   private downloadAllTransactionURL = environment.baseUrl+"api/transaction/downloadtransaction/";
   private postExpenseURL = environment.baseUrl+"api/expense/post";
   private getExpenseByDateURL = environment.baseUrl+"api/expense/";
-  private updateExpenseURL = environment.baseUrl+"api/expense/update/"
-  
+  private updateExpenseURL = environment.baseUrl+"api/expense/update/";
+  private getOnlineDetailsURL = environment.baseUrl+"api/order/";
+  private getOnlineOrderDetailsByIdURL = environment.baseUrl+"api/order/";
+  private changeOnlineOrderStatusURL = environment.baseUrl+"api/order/";
+  private getOrderStatusOnSelectURL = environment.baseUrl+"api/order/status/";
 
   public postExpense(object:any):Observable<any>{
-    return this.http.post(this.postExpenseURL,object);
+  return this.http.post(this.postExpenseURL,object);
+  }
+
+  public getOrderStatusOnSelect(value:any):Observable <any>{
+  return this.http.get(this.getOrderStatusOnSelectURL+value);  
+  }
+
+  public getOnlineDetails():Observable<any>{
+  return this.http.get(this.getOnlineDetailsURL);
+  }
+
+  public changeOnlineOrderStatus (id:any, obj): Observable <any>{
+  return this.http.patch(this.changeOnlineOrderStatusURL+id,obj);
+  }
+
+  public getOnlineOrderDetailsById(id: any): Observable<any> {
+    return this.http.get(this.getOnlineOrderDetailsByIdURL+id);
   }
 
   public updateExpense(id:any, object:any):Observable<any>{

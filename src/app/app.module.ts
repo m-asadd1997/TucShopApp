@@ -38,7 +38,7 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import {NgxPrintModule} from 'ngx-print';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { LoaderUtilService } from './util-services/loader-util.service';
-
+import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { IconDefinition } from '@ant-design/icons-angular';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 
@@ -54,7 +54,7 @@ registerLocaleData(en);
     ProductListingComponent,
     CheckoutComponent,
     LoginPageComponent,
-    RecentTransactionsComponent
+    RecentTransactionsComponent,
   
    
   ],
@@ -83,6 +83,7 @@ registerLocaleData(en);
     ChartistModule,
     NzAutocompleteModule,
     NzBadgeModule,
+    NzDropDownModule,
     NzDividerModule,
     NzAvatarModule,
     NzToolTipModule,

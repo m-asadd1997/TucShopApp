@@ -18,6 +18,8 @@ import { SettingComponent } from './setting/setting.component';
 import { AdminUserComponent } from './admin-user/admin-user.component';
 import { AddUserComponent } from './add-user/add-user.component';
 import { GenerateReportComponent } from './generate-report/generate-report.component';
+import { OnlineDetailsComponent } from './online-details/online-details.component';
+import { OnlineOrderDetailsComponent } from './online-order-details/online-order-details.component';
 
 
 const routes: Routes = [
@@ -36,6 +38,8 @@ const routes: Routes = [
       { path: 'add-category/:id', component: AddCategoryComponent },
       { path: 'transactions', component: TransactionsComponent },
       { path: 'generate-report', component: GenerateReportComponent },
+      { path: 'online-details', component: OnlineDetailsComponent },
+      { path: 'online-order-details', component: OnlineOrderDetailsComponent},
       { path: 'expensebalancesheet',component:ExpenseBalanceSheetComponent},
       { path: 'user', component: UserComponent },
       { path: 'add-user', component: AddUserComponent },

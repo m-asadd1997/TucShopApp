@@ -1,0 +1,50 @@
+<div style="text-align: right;  margin-bottom: 20px;">
+<nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select a Order Status" [ngModel]="selectedValue" (ngModelChange)="onChange($event)">
+    <nz-option nzLabel="New" nzValue="New"></nz-option>
+    <nz-option nzLabel="Approve" nzValue="Approve"></nz-option>
+    <nz-option nzLabel="Dispatch" nzValue="Dispatch"></nz-option>
+    <nz-option nzLabel="Delivered" nzValue="Delivered"></nz-option>
+    <nz-option nzLabel="Complete" nzValue="Complete"></nz-option>
+</nz-select>
+</div>    
+  <nz-table #basicTable [nzData]="onlineDetails" [nzPageSize]="10" [nzShowPagination]="true" (nzPageIndexChange)="generatingSerialNumber($event)"   >
+    <thead>
+      <tr >
+        <th>SR#</th>  
+        <th>Name</th>
+        <th>Address</th>
+        <th>Phone</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of basicTable.data; let i=index" (click)="onlineOrderDetail(data.id)" >
+        <td>{{(pageValue - 1) * 10 + i + 1}}</td>
+        <td>{{data.firstName}} {{data.lastName}}</td>
+        <td>{{data.address}}</td>
+        <td>{{data.phone}}</td>
+
+        <td><nz-tag [nzColor]="data.statusColor">{{data.orderStatus}}</nz-tag></td>
+        <td>
+            <a nz-dropdown [nzDropdownMenu]="menu">
+                Order Status
+                <i nz-icon nzType="down"></i>
+              </a>
+              <nz-dropdown-menu #menu="nzDropdownMenu">
+                <ul nz-menu nzSelectable>
+                  <li (click)="changeOnlineOrderStatus(data,'Approve')" nz-menu-item>Approve</li>
+                  <li (click)="changeOnlineOrderStatus(data,'Dispatch')"nz-menu-item>Dispatch </li>
+                  <li (click)="changeOnlineOrderStatus(data,'Delivered')"nz-menu-item>Delivered </li>
+                  <li (click)="changeOnlineOrderStatus(data,'Complete')"nz-menu-item>Complete</li>  
+                </ul>
+              </nz-dropdown-menu>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+
+
+
+  
+

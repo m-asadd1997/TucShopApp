@@ -110,6 +110,27 @@
                     </li>
                   </div>
               </div>
+
+              <div class="row">
+                <div class="col-md-1" style="margin-top: -9px; margin-left: 23px;">
+                    <i class="fa fa-credit-card"></i>
+                </div>
+                <div class="col-md-11" style="margin-left: -34px;">
+                    <li nz-submenu nzTitle="Online Order"  style="font-weight: 700;">
+                      <div class="row">
+                          <ul>
+                            <a [routerLink]="'online-details'"><li nz-menu-item style="padding-left: 0px!important;">Order Details</li></a>
+                            <!-- <a [routerLink]="'generate-report'"><li nz-menu-item>Generate Report</li></a>
+                            <a [routerLink]="'expensebalancesheet'"><li nz-menu-item>Balance Sheet</li></a> -->
+                            <!-- <a [routerLink]="'user'"><li nz-menu-item>User Transactions</li></a> -->
+                          </ul>
+                      </div>
+                    </li>
+                  </div>
+              </div> 
+
+
+
             <li nz-menu-item [routerLink]="'setting'">
                 <i class="fa fa-cog"></i>
               <!-- <i nz-icon nzType="setting"></i> -->
