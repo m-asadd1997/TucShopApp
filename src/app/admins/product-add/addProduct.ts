@@ -11,4 +11,6 @@ export class addProduct {
     sku:string= null;
     onlineProduct: string = "no";
     productGalleryImages:Array<any> = [];
+  
+    parentID: string
   }

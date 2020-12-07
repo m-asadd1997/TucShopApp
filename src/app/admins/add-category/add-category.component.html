@@ -1,44 +1,26 @@
 <div style="margin-left: 2%; margin-top: 7px;">
   <nz-card style="width:90px;" nzTitle="Category Add" style="box-shadow: 1px 0px 12px -4px">
     <form nz-form [nzLayout]="'inline'" #myForm="ngForm">
-      <div nz-row>
-        <div nz-col nzSpan="8">
-          <nz-form-item>
-            <nz-form-label nzFor="email">Category Name</nz-form-label>
-            <nz-form-control>
-              <nz-input-group [nzPrefix]="prefixIcon" class="nz-group">
-                <input required ngform #category="ngModel" name="productTitle" [(ngModel)]="add_categories.name"
-                  nz-input placeholder="Category Name" />
-              </nz-input-group>
-              <ng-template #prefixIcon>
-                  <i class="fa fa-list-ul" style="opacity: .3;
-                  padding-top: 1px;"></i>
-                <!-- <i nz-icon nzType="search"></i> -->
-              </ng-template>
 
-              <div *ngIf="category.touched && category.invalid" style="color: red">
-                 *Category is Required
-              </div>
-            </nz-form-control>
-          </nz-form-item>
+      <div nz-row>
+      <div nz-col nzSpan="10">
+        <div nz-row>
+          <nz-form-label nzFor="email">Category Name</nz-form-label>
+        </div>
+        <div nz-row>
+          <input required ngform #category="ngModel" name="productTitle" [(ngModel)]="add_categories.name"
+            nz-input placeholder="Category Name" />
+
         </div>
       </div>
 
+    </div>
 
-      <!-- Next Row -->
-      <!-- <div nz-row>
-        <div nz-col style="margin-top: 20px;">
-        <input #files type="file" value="Select File" (change)="handleCategoryBanner($event.target.files); preview($event.target.files)"
-          accept=".jpeg,.png,.jpg,.PNG" >
-        </div>
-      <nz-avatar style="margin-left: 2%;" [nzShape]="'square'" [nzSrc]="imgURL" [nzSize]="38" nzText="Category">
-      </nz-avatar>
-        </div> -->
 
       <nz-form-label nzFor="email">Image</nz-form-label>
 
       <div nz-row class="nz-group">
-        <!-- <br> -->
+
 
         <div nz-col nzSpan="15">
           <nz-form-control>
@@ -52,7 +34,7 @@
               font-size: smaller;
               margin-left: 3%;
               border-radius: 12px;
-   ">Select Image
+              ">Select Image
                 <input #files type="file"
                   (change)="handleCategoryBanner($event.target.files); preview($event.target.files)" name="image"
                   accept=".jpeg,.png,.jpg,.PNG" style="display: none;cursor: pointer;" required>
@@ -64,19 +46,56 @@
           </nz-form-control>
 
         </div>
-        <div nz-col nzSpan="8" style="margin-left: 950px;">
-          <!-- <div style="text-align: center;"> -->
-          <nz-form-item>
-            <nz-form-control>
 
-              <button style="margin-top: 30px; height: 40px; width: 100px;" nz-button nzType="primary" [nzSize]="large"
-                (click)="submit(myForm)" [disabled]="isInputValid(myForm)">Save</button>
+      </div>
 
-            </nz-form-control>
-          </nz-form-item>
-          <!-- </div> -->
+      <div nz-row style="margin-top: 20px;">
+
+        <div nz-col nzSpan="10">
+          <div nz-row>
+            <div nz-col nzSpan="12">
+              <label (change)="changeSubCategory()" name="parent" nz-checkbox [(ngModel)]="isParent">Is Subcategory?</label>
+              <div nz-col *ngIf="isParent" nzSpan="11" >
+
+            </div>
+          </div>
+
         </div>
+        </div>
+
+      </div>
+      <div nz-row>
+        <div nz-col nzSpan="12" *ngIf="isParent" >
+          <nz-form-control>
+       <nz-form-label nzFor="email">Category</nz-form-label>
+       <br>
+       <nz-select name="category" nzSize="large" [(ngModel)]="selectedCategory" class="phone-select"
+         nzPlaceHolder="Select a Category" required>
+         <nz-option *ngFor="let item of categories" nzLabel={{item.name}} nzValue="{{item.id}}"></nz-option>
+       </nz-select>
+     </nz-form-control>
+       </div>
+      </div>
+
+      <div nz-row>
+
+        <nz-form-item>
+          <nz-form-control>
+
+            <button style="margin-top: 30px; height: 40px; width: 100px;" nz-button nzType="primary" [nzSize]="large"
+              (click)="submit(myForm)" [disabled]="isInputValid(myForm)">Save</button>
+
+          </nz-form-control>
+        </nz-form-item>
       </div>
     </form>
-  </nz-card>
+</nz-card>
 </div>
+
+
+
+
+
+
+
+

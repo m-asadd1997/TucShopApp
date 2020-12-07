@@ -55,7 +55,11 @@ export class MainscreenService {
   private getLoginTimeURL=environment.baseUrl+"api/user/getUserTimeDate/";
   private getProductBarCodeURL = environment.baseUrl+"api/products/getbybarcode/"
   private updateTransactionURL = environment.baseUrl+"api/transaction/update/"
+
   private subscriptionTokenURL = environment.baseUrl+"api/subscription/";
+
+  private getSubCategoryURL = environment.baseUrl+"api/category/subcategory/"
+
 
   public sendMessage(obj: Object) {
     this.productSource.next(obj);
@@ -204,6 +208,12 @@ public updateTransaction(id,obj): Observable<any>{
 }
 
 public subscriptionToken(token):Observable<any>{
- return this.http.post(this.subscriptionTokenURL+token,null); 
+ return this.http.post(this.subscriptionTokenURL+token,null);
 }
+
+getSubCategories(id)
+{
+  return this.http.get(this.getSubCategoryURL+id);
+}
+
 }

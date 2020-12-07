@@ -2,9 +2,10 @@ import { AdminServiceService } from './../admin-service.service';
 import { Component, OnInit } from '@angular/core';
 import { add_category } from './add_category';
 import { NgForm } from '@angular/forms';
-import { ActivatedRoute,Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd';
 import { JsonPipe } from '@angular/common';
+// import { debugger } from 'fusioncharts';
 
 @Component({
   selector: 'app-add-category',
@@ -14,26 +15,27 @@ import { JsonPipe } from '@angular/common';
 export class AddCategoryComponent implements OnInit {
 
   imagePath;
+  isParent;
   imgURL: any;
   large
   message2: string;
-  add_categories:add_category= new add_category();
+  add_categories: add_category = new add_category();
   form: any;
   id: any;
   FileImage;
   imageFile = new Map();
-  checker:boolean=false;
-  avatarDisplay:Boolean=false;
+  checker: boolean = false;
+  avatarDisplay: Boolean = false;
 
-  constructor(private service:AdminServiceService, private activateRoute: ActivatedRoute,private message:NzMessageService, private router: Router) { }
+  constructor(private service: AdminServiceService, private activateRoute: ActivatedRoute, private message: NzMessageService, private router: Router) { }
 
   formData = new FormData();
 
-  handleCategoryBanner(file:File){
+  handleCategoryBanner(file: File) {
 
-    this.add_categories.icons=file[0];
-    this.avatarDisplay=true;
-    console.log(typeof(file[0]));
+    this.add_categories.icons = file[0];
+    this.avatarDisplay = true;
+    console.log(typeof (file[0]));
 
 
 
@@ -43,121 +45,159 @@ export class AddCategoryComponent implements OnInit {
 
   ngOnInit() {
     this.id = this.activateRoute.snapshot.params['id'];
-    if (this.id){
-      this.checker=true;
+    if (this.id) {
+      this.checker = true;
       this.getCategory();
 
     }
 
+    this.getCategories()
   }
 
+  parentID;
+  categories=[]
+  selectedCategory
 
-  submit(myForm:NgForm){
+  getCategories(){
+    this.service.getCategory().subscribe(response=>{
+      console.log(response);
+
+      this.categories=response;
+    })
+  }
+  submit(myForm: NgForm) {
 
 
 
-    if(this.id!=null){
+    if (this.id != null) {
 
-      this.formData.append("name",this.add_categories.name);
+      this.formData.append("name", this.add_categories.name);
 
-        if(this.add_categories.icons)
-      this.formData.append("image", this.add_categories.icons,this.add_categories.name+".png");
+      if (this.add_categories.icons)
+        this.formData.append("image", this.add_categories.icons, this.add_categories.name + ".png");
 
 
 
-      this.service.updateCategory(this.id,this.formData).subscribe(d=>{
-        this.message.success("Updated Successfully",{nzDuration:3000});
+      this.service.updateCategory(this.id, this.formData).subscribe(d => {
+        this.message.success("Updated Successfully", { nzDuration: 3000 });
       });
       myForm.reset();
       this.formData.delete("name");
 
+
       this.formData.delete("image");
-      this.imgURL=""
-      this.avatarDisplay=false;
+      this.imgURL = ""
+      this.avatarDisplay = false;
 
 
     }
 
     else {
-      this.formData.append("name",this.add_categories.name);
+      if(this.isParent)
+      {
+        console.log(this.selectedCategory);
 
-
-    this.formData.append("image", this.add_categories.icons);
-
-      this.service.postCategory(this.formData).subscribe(d=>{
-        if(d.status!=200) this.message.error("Duplicate Category",{nzDuration:3000});
-        else{ this.message.success("Added Successfully",{nzDuration:3000});
-        
-        this.router.navigate(['admin/layout/category'])
+        this.formData.append("parentID",this.selectedCategory );
       }
+      this.formData.append("name", this.add_categories.name);
+
+      if (this.parentID) {
+        this.formData.append('parentID', this.parentID);
+      }
+
+
+      this.formData.append("image", this.add_categories.icons);
+
+      this.service.postCategory(this.formData).subscribe(d => {
+
+        if (d.status != 200) this.message.error("Duplicate Category", { nzDuration: 3000 });
+        else {
+          this.message.success("Added Successfully", { nzDuration: 3000 });
+
+          this.router.navigate(['admin/layout/category']);
+
+        }
 
       });
       myForm.reset();
       this.formData.delete("name");
 
       this.formData.delete("image");
-      this.imgURL="";
-      this.avatarDisplay=false;
+      this.imgURL = "";
+      this.avatarDisplay = false;
+
+    }
+
+  }
+
+  getCategory() {
+    this.service.getCategoryById(this.id).subscribe(d => {
+console.log("BBFBFBFBBFB",d);
+debugger
+      this.add_categories.name = d.name
+      if(!d.parentID)
+      {
+        this.isParent =true
+      }
+      this.service.getImage(d.image).subscribe(e => {
+
+        if (e) {
+          console.log((e.name));
+          this.add_categories.icons = this.blobToFile(e, "abc.png");
 
         }
+      })
+      this.avatarDisplay = true;
+      this.imgURL = d.image
+      console.log();
 
-}
-
-  getCategory(){
-  this.service.getCategoryById(this.id).subscribe(d=>{
-
-  this.add_categories.name = d.name
-
-  this.service.getImage(d.image).subscribe(e=>{
-
-    if(e){
-    console.log((e.name));
-    this.add_categories.icons= this.blobToFile(e,"abc.png");
-
-  }
-  })
-  this.avatarDisplay=true;
-  this.imgURL = d.image
-  console.log();
-
-})
-}
-
-
-isInputValid(form){
-  if((form.valid&&this.add_categories.icons)||(form.valid&&this.checker))
-  {
-    return false;
-  }
-  else{
-    return true;
-  }
-}
-
-preview(files) {
-  if (files.length === 0)
-    return;
-
-  var mimeType = files[0].type;
-  if (mimeType.match(/image\/*/) == null) {
-    this.message2 = "Only images are supported.";
-    return;
+    })
   }
 
-  var reader = new FileReader();
-  this.imagePath = files;
-  reader.readAsDataURL(files[0]);
-  reader.onload = (_event) => {
-    this.imgURL = reader.result;
+
+  isInputValid(form) {
+    if ((form.valid && this.add_categories.icons) || (form.valid && this.checker)) {
+      return false;
+    }
+    else {
+      return true;
+    }
+  }
+
+  preview(files) {
+    if (files.length === 0)
+      return;
+
+    var mimeType = files[0].type;
+    if (mimeType.match(/image\/*/) == null) {
+      this.message2 = "Only images are supported.";
+      return;
+    }
+
+    var reader = new FileReader();
+    this.imagePath = files;
+    reader.readAsDataURL(files[0]);
+    reader.onload = (_event) => {
+      this.imgURL = reader.result;
+
+    }
+  }
+
+  blobToFile(theBlob, fileName) {
+    //A Blob() is almost a File() - it's just missing the two properties below which we will add
+    theBlob.lastModifiedDate = new Date();
+    theBlob.filename = fileName;
+    return theBlob;
+  }
+
+
+  changeSubCategory(){
+    console.log( this.isParent);
+    if(!this.isParent)
+    {
+      // this.selectedCategory=null
+    }
 
   }
-}
-
- blobToFile(theBlob, fileName){
-  //A Blob() is almost a File() - it's just missing the two properties below which we will add
-  theBlob.lastModifiedDate = new Date();
-  theBlob.filename = fileName;
-  return theBlob;
-}
 }
 
