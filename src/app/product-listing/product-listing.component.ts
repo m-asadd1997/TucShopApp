@@ -6,7 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NzMessageComponent } from 'ng-zorro-antd';
 import { debug } from 'util';
 import { AdminServiceService } from '../admins/admin-service.service';
-// import { debugger } from 'fusioncharts';
+// import { // } from 'fusioncharts';
 
 
 @Component({
@@ -272,7 +272,7 @@ export class ProductListingComponent implements OnInit {
   results=[]
   keys=[]
   showParkingModal(){
-    debugger
+    //
     this.isParkVisible=true;
    this.results = [];
    this.keys=[]

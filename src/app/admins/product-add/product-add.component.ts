@@ -31,6 +31,7 @@ export class ProductAddComponent implements OnInit {
   Checker: Boolean = false;
   onlineProductSwitch: Boolean = false;
   i = 0;
+  subCategories = []
   typeBool = false;
 
   constructor(
@@ -137,6 +138,21 @@ export class ProductAddComponent implements OnInit {
     }
 
     this.formData.append("costprice", this.addProducts.costPrice);
+    this.formData.append('name', this.addProducts.productTitle);
+    if(this.addProducts.parentID)
+    {
+      this.formData.append('category',this.addProducts.parentID);
+    }
+    else{
+      let idObj = this.categories.find(v => v.name == this.addProducts.category);
+    this.formData.append('category', idObj.id);
+    }
+
+    if (this.addProducts.image) {
+      this.formData.append('image', this.addProducts.image, this.addProducts.productTitle + ".png");
+    }
+
+    this.formData.append('costprice', this.addProducts.costPrice);
     if (this.addProducts.sku != null) {
       this.formData.append("sku", this.addProducts.sku);
     }
@@ -310,5 +326,36 @@ export class ProductAddComponent implements OnInit {
     } catch (error) {
       console.log(error);
     }
+    }
+  categoryID;
+
+  changeCategory(item) {
+    console.log(this.categories)
+
+    this.categories.map(category => {
+      console.log(category);
+      if (category.name == item) {
+        this.categoryID = category.id;
+      }
+
+
+    })
+
+    this.service.getSubCategories(this.categoryID).subscribe((response:any)=>{
+      console.log("RESPONSE",response);
+      this.subCategories =response.result;
+
+    })
+
+  }
+  routeToAddCategory(){
+    this.router.navigate(['admin/layout/add-category'])
+  }
+  changeSubCategory(obj){
+    setTimeout(() => {
+      console.log(this.addProducts.parentID);
+    }, 1000);
+
+
   }
 }

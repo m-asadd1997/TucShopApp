@@ -7,12 +7,12 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class AdminServiceService {
-  
+
   constructor(private http: HttpClient) { }
 
 
   private getProductURL=environment.baseUrl + "api/products/";
-  private getPaginatedProductsURL = environment.baseUrl+"api/products/paginatedproducts" 
+  private getPaginatedProductsURL = environment.baseUrl+"api/products/paginatedproducts"
   private getSearchedProductsURL= environment.baseUrl+"api/dashboard/searchproducts";
   private deleteProductURL=environment.baseUrl + "api/products/";
   private postProductURL=environment.baseUrl + "api/products/postproduct";
@@ -23,14 +23,14 @@ export class AdminServiceService {
   private postCategoryURL=environment.baseUrl + "api/category/";
   private getTransactionsURL=environment.baseUrl+"api/transaction/";
   private deleteTransactionsURL=environment.baseUrl+"api/transaction/";
-  private getTotalOutofStockURL=environment.baseUrl+"api/dashboard/outofstock"; 
-  private getOutofStockDetailsURL=environment.baseUrl+"api/dashboard/outofstockdetails"; 
-  private getTotalProductQuantityURL=environment.baseUrl+"api/dashboard/totalproducts"; 
-  private getTotalTransactionURL=environment.baseUrl+"api/dashboard/totaltransaction"; 
-  private getTotalTransactionDetailsURL=environment.baseUrl+"api/dashboard/transactiondetails"; 
+  private getTotalOutofStockURL=environment.baseUrl+"api/dashboard/outofstock";
+  private getOutofStockDetailsURL=environment.baseUrl+"api/dashboard/outofstockdetails";
+  private getTotalProductQuantityURL=environment.baseUrl+"api/dashboard/totalproducts";
+  private getTotalTransactionURL=environment.baseUrl+"api/dashboard/totaltransaction";
+  private getTotalTransactionDetailsURL=environment.baseUrl+"api/dashboard/transactiondetails";
   private getTotalProductQuantityDetailsURL=environment.baseUrl+'api/dashboard/totalproductdetails/';
-  private getRequestedProductURL=environment.baseUrl+"api/dashboard/toprequestedproducts"; 
-  private postSettingURL=environment.baseUrl+"api/dashboard/settings"; 
+  private getRequestedProductURL=environment.baseUrl+"api/dashboard/toprequestedproducts";
+  private postSettingURL=environment.baseUrl+"api/dashboard/settings";
   private getChartDataURL=environment.baseUrl+"api/dashboard/salespermonth";
   private getSettingURL= environment.baseUrl+"api/dashboard/settings";
   private getAutoCompleteVariantsURL = environment.baseUrl+"api/products/variants/";
@@ -62,7 +62,7 @@ export class AdminServiceService {
   private getOrderStatusOnSelectURL = environment.baseUrl+"api/order/status/";
   private getPhoneNoURL = environment.baseUrl+"api/order/phoneno/";
   private getTrackingIdURL = environment.baseUrl+"api/order/trackingid/";
-
+  private getSubCategoryURL = environment.baseUrl+"api/category/subcategory/";
 
   public postExpense(object:any):Observable<any>{
   return this.http.post(this.postExpenseURL,object);
@@ -109,7 +109,7 @@ export class AdminServiceService {
   public getTransactionMethod():Observable<any>{
    return this.http.get(this.getTransactionMethodURL);
   }
- 
+
   public getFrequencyByCategory():Observable<any>{
     return this.http.get(this.getFrequencyByCategoryURL);
   }
@@ -122,7 +122,7 @@ export class AdminServiceService {
     return this.http.get(this.getFilteredTotalInventoryURL+startDate+"/"+endDate)
   }
 
-   
+
   public getVariants(keyword:any):Observable<any>{
     return this.http.get(this.getAutoCompleteVariantsURL+keyword);
   }
@@ -158,12 +158,12 @@ export class AdminServiceService {
   public getTransaction(startDate:any, endDate:any):Observable<any>{
     return this.http.get(this.getTransactionsURL+startDate+"/"+endDate);
   }
-  
+
   public deleteTransactions(id:any) {
     return this.http.delete(this.deleteTransactionsURL,id);
   }
 
-  
+
 
   public updateProduct(id: any, products: any): Observable<any> {
     return this.http.put(this.updateProductURL+id,products);
@@ -223,7 +223,7 @@ public scearchtransactionofUser(transaction:any):Observable<any>{
   public getTotalOutOfStock():Observable<any>{
     return this.http.get(this.getTotalOutofStockURL);
   }
-  
+
 
   public getRequestedProducts():Observable<any>{
     return this.http.get(this.getRequestedProductURL);//ye change hoga upar
@@ -231,7 +231,7 @@ public scearchtransactionofUser(transaction:any):Observable<any>{
 
 
   public getTotalTransaction():Observable<any>{
-    return this.http.get(this.getTotalTransactionURL);//ye change hoga upar 
+    return this.http.get(this.getTotalTransactionURL);//ye change hoga upar
   }
 
   // Ye tou Hogaaaaaa
@@ -249,7 +249,7 @@ public scearchtransactionofUser(transaction:any):Observable<any>{
 
 
   public postSetting(obj): Observable<any> {
-    
+
     return this.http.post(this.postSettingURL,obj);
   }
 
@@ -280,7 +280,7 @@ public scearchtransactionofUser(transaction:any):Observable<any>{
       return this.http.get(this.getPaginatedProductsURL);
 
     }
-   
+
   }
 
 
@@ -304,14 +304,14 @@ public scearchtransactionofUser(transaction:any):Observable<any>{
   public getFilteredQuantity(startValue,endValue):Observable<any> {
 
     return this.http.get(this.getFilteredQuantityURL+startValue+"/"+endValue);
-    
+
   }
 
 
   public getFilteredOutOfStock(startValue,endValue):Observable<any> {
 
     return this.http.get(this.getOutOfStockFilteredURL+startValue+"/"+endValue);
-    
+
   }
 
 
@@ -320,7 +320,7 @@ public scearchtransactionofUser(transaction:any):Observable<any>{
   getFilteredTransaction(startValue, endValue):Observable<any> {
     return this.http.get(this.getFilteredTransactionURL+startValue+"/"+endValue);
   }
-  
+
 
   getFilteredDetailedTransactionMethod(startValue, endValue):Observable<any>{
     return this.http.get(this.getFilteredDetailedTransaction+startValue+"/"+endValue);
@@ -341,7 +341,7 @@ public scearchtransactionofUser(transaction:any):Observable<any>{
     return this.http.get(this.getUsersURL);
   }
 
-  
+
   deleteUser(id):Observable<any> {
     return this.http.delete(this.deleteUserById+id);
   }
@@ -351,5 +351,10 @@ public scearchtransactionofUser(transaction:any):Observable<any>{
   }
   updateUser(id,obj):Observable<any>{
     return this.http.put(this.getUsersURL+id,obj);
+  }
+
+  getSubCategories(id)
+  {
+    return this.http.get(this.getSubCategoryURL+id);
   }
 }

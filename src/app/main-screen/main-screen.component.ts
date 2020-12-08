@@ -13,10 +13,10 @@ export class MainScreenComponent implements OnInit {
   CollapsedNav = true;
   categoriesArray = [] = [];
   isVisible :Boolean;
-  isCollapsed; 
-  
-  
- 
+  isCollapsed;
+
+
+
   userName
   constructor(private mainScreenServ: MainscreenService,private activeRoute:ActivatedRoute, private router: Router) { }
 category
@@ -26,51 +26,64 @@ category
     // this.setupMobileView();
     this.userName= sessionStorage.getItem('username');
 
-    
-      
+
+
         this.router.navigate(["categories/products"]);
-      
-     
+
+
 
     this.getCat();
 
-   
-    
-    
-    
+    this.getSubCategories();
+
+
+
+
   }
 
-  
+  filterProductsBySubCategory(id)
+  {
 
-//   fullScreen() {
-//     let elem = document.documentElement;
-//     let methodToBeInvoked = elem.requestFullscreen ||
-//       elem['webkitRequestFullScreen'] || elem['mozRequestFullscreen']
-//       ||
-//       elem['msRequestFullscreen'];
-//     if (methodToBeInvoked) methodToBeInvoked.call(elem);
-// }
+  }
+
+  getSubCategoriesById(id){
+   return( this.subCategories.filter(subCategory=>{
+      return  (subCategory.parentID==id)
+    }))
+
+
+  }
+
+  subCategories=[]
+
+  getSubCategories(){
+    this.mainScreenServ.getSubCategories(0).subscribe((response:any)=>{
+      console.log(response);
+      this.subCategories= response.result;
+
+    });
+  }
 
   getCat(){
     this.mainScreenServ.getCategories().subscribe(d=>{
       this.categoriesArray = d;
-      
-      
 
-     
+
+
+
     })
   }
 
-  
+
 
   addCategoryToUrl(urlFilterWithCatName: String){
 
-      
-    
+
+
     this.router.navigate(["categories/"+urlFilterWithCatName]);
   }
 
-  
+
 
   showModal(): void {
     this.isVisible = true;

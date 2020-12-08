@@ -152,14 +152,9 @@ export class CheckoutComponent implements OnInit {
 
     this.populateCols();
     this.costPrice = 0;
-    // <<<<<<< variants-work
+
     this.interactionServ.productMessage$.subscribe(d => {
-      // console.log("Product", d);
-      // if(d["isEdit"]){
-      //   this.checkoutProductsArray = [];
-      //   d = d["transactionObject"]
-      // }
-      //this.checkoutProductsArray = [];
+
       this.addingProductIntoCart(d);
 
     })
@@ -176,20 +171,21 @@ export class CheckoutComponent implements OnInit {
 
     this.interactionServ.parkTransactionObject$.subscribe((d: any) => {
       console.log("ABCDEFG"+d);
-      
+      debugger
+
       this.transactionId = d.id
       this.checkoutProductsArray = [];
       this.total = 0;
       console.log(d);
       this.transactionObjectFromEdit = d;
       d = d.productTransactions.map(item => {
-        // let perPrice = item.product["productPrice"]/item["quantity"];
-        // console.log(perPrice);
+
         console.log("ITEMSSSS",item)
+        let printproductPrice = item.product['printProductPrice']*item['quantity']
         this.checkoutProductsArray.push({
           id: item.product["id"],
           productTitle: item.product["productTitle"],
-          productPrice: item.product["printProductPrice"],
+          productPrice: printproductPrice,
           productImage: item.product["productImage"],
           productQuantity: item["quantity"],
           productqty: item.product['productqty'],
@@ -199,7 +195,7 @@ export class CheckoutComponent implements OnInit {
 
         });
         console.log("Checout Product",this.checkoutProductsArray);
-        
+
         this.total += item.product["productPrice"]
       })
     })
@@ -236,6 +232,7 @@ export class CheckoutComponent implements OnInit {
   }
 
   private addingProductIntoCart(d: Object) {
+
     if (d) {
       this.costPrice += d['costprice'];
       let found = this.checkoutProductsArray.findIndex(
@@ -401,7 +398,9 @@ export class CheckoutComponent implements OnInit {
   addProduct(obj) {
     // this.checking=true
     console.log(obj)
+
     this.interactionServ.getProductsById(obj["id"]).subscribe(d => {
+      debugger
       if (d) {
         obj.productqty = d.qty;
         console.log("==============Add Product===============", d.qty)
