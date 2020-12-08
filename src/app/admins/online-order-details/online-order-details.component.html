@@ -3,6 +3,7 @@
   <nz-table #mytable [nzData]="onlineOrderDetails" [nzPageSize]="10" [nzShowPagination]="true">
     <thead>
       <tr>
+        <th>SR#</th>
         <th>Tracking Id </th>
         <th>Email Address</th>
         <th>Order Date</th>
@@ -16,7 +17,8 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let data of mytable.data">
+      <tr *ngFor="let data of mytable.data; let i=index">
+        <td>{{i+1}}</td>
         <td>{{data.uuid}}</td>
         <td>{{data.emailAddress}}</td>
         <td>{{data.orderDate}}</td>

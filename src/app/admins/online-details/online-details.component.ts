@@ -11,13 +11,14 @@ import { AdminServiceService } from '../admin-service.service';
   styleUrls: ['./online-details.component.css']
 })
 export class OnlineDetailsComponent implements OnInit {
-
-  onlineDetails=[];
+  
+  onlineDetails:any[]=[];
   orderStatus:String;
   value=1;
   pageValue;
   statusColor;
-  
+  trackid;
+  phoneno;
 
   constructor(private adminService:AdminServiceService, private toastr: ToastrService, private router:Router,private message:NzMessageService, private activateRoute: ActivatedRoute) { }
 
@@ -97,6 +98,7 @@ export class OnlineDetailsComponent implements OnInit {
   if(value!=null && value!="" ){  
   this.adminService.getOrderStatusOnSelect(value).subscribe(d=>{
   if(d.status==200){
+  this.onlineDetails=[];  
   this.onlineDetails = d.result; 
   }
   else{
@@ -111,6 +113,41 @@ export class OnlineDetailsComponent implements OnInit {
   generatingSerialNumber(value){
   this.pageValue = value    
   }
+  
+  trackingIdSearchBox(){
+  if(this.trackid!=null && this.trackid!=""){
+  this.adminService.getTrackingId(this.trackid).subscribe(d=>{
+  if(d.status==200){
+  this.onlineDetails=[];  
+  this.onlineDetails = [...this.onlineDetails,d.result]; 
+  }
+  else{
+  this.toastr.error(d.message);
+  }
+  });  
+  }else{
+  this.toastr.error("Please Input Tracking ID To Search Order")  
+  this.getOnlineDetails();  
+  }
+  }
+
+  phoneNoSearchBox(){
+  if(this.phoneno!=null && this.phoneno!=""){
+  this.adminService.getPhoneNo(this.phoneno).subscribe(d=>{
+  if(d.status==200){
+  this.onlineDetails=[];
+  this.onlineDetails = [...this.onlineDetails,d.result]; 
+  } 
+  else{
+   this.toastr.error(d.message);  
+   }
+  }); 
+  }else{
+  this.toastr.error("Please Input Phone Number To Search Order")
+  this.getOnlineDetails();  
+  }  
+  }
+
   
  
   

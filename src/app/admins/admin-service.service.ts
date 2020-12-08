@@ -60,6 +60,9 @@ export class AdminServiceService {
   private getOnlineOrderDetailsByIdURL = environment.baseUrl+"api/order/";
   private changeOnlineOrderStatusURL = environment.baseUrl+"api/order/";
   private getOrderStatusOnSelectURL = environment.baseUrl+"api/order/status/";
+  private getPhoneNoURL = environment.baseUrl+"api/order/phoneno/";
+  private getTrackingIdURL = environment.baseUrl+"api/order/trackingid/";
+
 
   public postExpense(object:any):Observable<any>{
   return this.http.post(this.postExpenseURL,object);
@@ -67,6 +70,14 @@ export class AdminServiceService {
 
   public getOrderStatusOnSelect(value:any):Observable <any>{
   return this.http.get(this.getOrderStatusOnSelectURL+value);  
+  }
+
+  public getPhoneNo(phone:any):Observable<any>{
+  return this.http.get(this.getPhoneNoURL+"0"+phone);  
+  }
+
+  public getTrackingId(trackingId:any):Observable<any>{
+  return this.http.get(this.getTrackingIdURL+trackingId);  
   }
 
   public getOnlineDetails():Observable<any>{

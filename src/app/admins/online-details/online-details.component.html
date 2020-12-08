@@ -1,4 +1,4 @@
-<div style="text-align: right;  margin-bottom: 20px;">
+<div style="float: right;  margin-bottom: 20px;">
 <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select a Order Status" [ngModel]="selectedValue" (ngModelChange)="onChange($event)">
     <nz-option nzLabel="New" nzValue="New"></nz-option>
     <nz-option nzLabel="Approve" nzValue="Approve"></nz-option>
@@ -6,7 +6,26 @@
     <nz-option nzLabel="Delivered" nzValue="Delivered"></nz-option>
     <nz-option nzLabel="Complete" nzValue="Complete"></nz-option>
 </nz-select>
-</div>    
+</div> 
+
+<div style="float: left; margin-bottom: 20px;">
+    <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton1" style="width:120%">
+      <input type="number" name="trackid" [(ngModel)]="trackid" nz-input placeholder="Search Order By Tracking ID" />
+    </nz-input-group>
+    <ng-template #suffixIconButton1>
+      <button (click)="trackingIdSearchBox()" nz-button nzType="primary"  nzSearch><i  nz-icon nzType="search"></i></button>
+    </ng-template>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 20px;">
+    <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton2" style="width:20%">
+        <input type="number"  name="phoneno" [(ngModel)]="phoneno"  nz-input placeholder="Search Order By Phone No" />
+      </nz-input-group>
+      <ng-template #suffixIconButton2>
+        <button (click)="phoneNoSearchBox()" nz-button nzType="primary" nzSearch><i nz-icon nzType="search"></i></button>
+      </ng-template>   
+  </div>
+
   <nz-table #basicTable [nzData]="onlineDetails" [nzPageSize]="10" [nzShowPagination]="true" (nzPageIndexChange)="generatingSerialNumber($event)"   >
     <thead>
       <tr >

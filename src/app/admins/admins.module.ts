@@ -40,6 +40,8 @@ import { GenerateReportComponent } from './generate-report/generate-report.compo
 import { ExpenseBalanceSheetComponent } from './expense-balance-sheet/expense-balance-sheet.component';
 import { OnlineDetailsComponent } from './online-details/online-details.component';
 import { OnlineOrderDetailsComponent } from './online-order-details/online-order-details.component';
+import { NzInputModule } from 'ng-zorro-antd/input';
+
 
 @NgModule({
 
@@ -90,6 +92,7 @@ import { OnlineOrderDetailsComponent } from './online-order-details/online-order
     NzSwitchModule,
     NzDatePickerModule,
     FusionChartsModule,
+    NzInputModule,
     NzTagModule,
     ToastrModule.forRoot({
       timeOut: 5000,
