@@ -1,5 +1,5 @@
 <div style="float: right;  margin-bottom: 20px;">
-<nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select a Order Status" [ngModel]="selectedValue" (ngModelChange)="onChange($event)">
+<nz-select nzShowSearch nzAllowClear nzPlaceHolder="Filter By Order Status" [ngModel]="selectedValue" (ngModelChange)="onChange($event)">
     <nz-option nzLabel="New" nzValue="New"></nz-option>
     <nz-option nzLabel="Approve" nzValue="Approve"></nz-option>
     <nz-option nzLabel="Dispatch" nzValue="Dispatch"></nz-option>
@@ -55,7 +55,7 @@
                   <li (click)="changeOnlineOrderStatus(data,'Approve')" nz-menu-item>Approve</li>
                   <li (click)="changeOnlineOrderStatus(data,'Dispatch')"nz-menu-item>Dispatch </li>
                   <li (click)="changeOnlineOrderStatus(data,'Delivered')"nz-menu-item>Delivered </li>
-                  <li (click)="changeOnlineOrderStatus(data,'Complete')"nz-menu-item>Complete</li>  
+                  <li (click)="postTransactionByOnlineOrder(data, 'Complete')"nz-menu-item>Complete</li>  
                 </ul>
               </nz-dropdown-menu>
         </td>

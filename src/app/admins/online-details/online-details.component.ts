@@ -149,6 +149,16 @@ export class OnlineDetailsComponent implements OnInit {
   }
 
   
- 
+  
+  
+  postTransactionByOnlineOrder(data,status){
+  this.changeOnlineOrderStatus(data, status);
+  this.adminService.postTransactionByOnlineOrder(data.id).subscribe(d=>{
+  if(d.status ==200){
+  this.toastr.success(d.message);  
+  }
+  });
+  
+  }
   
 }

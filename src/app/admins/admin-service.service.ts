@@ -63,9 +63,14 @@ export class AdminServiceService {
   private getPhoneNoURL = environment.baseUrl+"api/order/phoneno/";
   private getTrackingIdURL = environment.baseUrl+"api/order/trackingid/";
   private getSubCategoryURL = environment.baseUrl+"api/category/subcategory/";
+  private postTransactionByOnlineOrderIdURL = environment.baseUrl+"api/transaction/onlinetransaction/"
 
   public postExpense(object:any):Observable<any>{
   return this.http.post(this.postExpenseURL,object);
+  }
+
+  public postTransactionByOnlineOrder(id:any):Observable<any>{
+  return this.http.post(this.postTransactionByOnlineOrderIdURL+id,null);  
   }
 
   public getOrderStatusOnSelect(value:any):Observable <any>{
