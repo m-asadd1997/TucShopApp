@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<div style="margin-left: 3%; margin-top: 8px;">
+    <nz-card style="width:98%;" nzTitle="Theme Setting" [nzExtra]="extraTemplate" style="box-shadow:1px 0px 12px -4px">
+        <form nzForm #myForm="ngForm" style="margin-top: 10px;">
+            <nz-form-item>
+                <nz-form-control>
+                    <div nz-row>
+                      <div nz-col nzSpan="3" nzOffset="5" >
+                            <nz-input-group >
+                              <nz-form-label>Background Color</nz-form-label>
+                              <input [style.background]="color" [colorPicker]="color" (colorPickerChange)="color=$event"/>
+                              <br>
+                              <nz-form-label>Color</nz-form-label>
+                              <br>
+                              <input [style.background]="color" [colorPicker]="color" (colorPickerChange)="color=$event"/>    
+                              <br>
+                              <nz-form-label>Button Color</nz-form-label>
+                              <br>
+                              <input [style.background]="color" [colorPicker]="color" (colorPickerChange)="color=$event"/>  
+                              <br>
+                              <nz-form-label>Button Hover</nz-form-label>
+                              <br>
+                              <input [style.background]="color" [colorPicker]="color" (colorPickerChange)="color=$event"/> 
+                              <br>
+                              <nz-form-label>Banner Color</nz-form-label>
+                              <br>
+                              <input [style.background]="color" [colorPicker]="color" (colorPickerChange)="color=$event"/> 
+                            </nz-input-group>
+                        </div>
+                        
+                        <div nz-col nzSpan="3" nzOffset="3">
+                          <nz-input-group>
+                            <nz-form-label>Shipping</nz-form-label>
+                            <input nz-input placeholder="Shipping" nzSize="default" name="shipping" [(ngModel)]="themeSettingObject.shipping" />       
+                            <br>
+                            <nz-form-label>Font size</nz-form-label>
+                            <input nz-input placeholder="Font Size" nzSize="default" name="fontSize" [(ngModel)]="themeSettingObject.fontSize" />
+                            <br>
+                            <nz-form-label>Font Family</nz-form-label>
+                            <input nz-input placeholder="Font Family" nzSize="default" name="fontFamily" [(ngModel)]="themeSettingObject.fontFamily" />  
+                          </nz-input-group>
+                      </div>
+
+                      <div nz-col nzSpan="3" nzOffset="3">
+                        <nz-input-group>
+                          <nz-form-label>Upload logo</nz-form-label>
+     <label style=" padding-left: 6px; padding-right: 6px; background: #393f5bfc; display: table; color: #fff; font-size: smaller; margin-left: 3%; border-radius: 12px; ">Select Image
+     <input #files type="file" (change)="handleCategoryBanner($event.target.files); preview($event.target.files)" name="image" accept=".jpeg,.png,.jpg,.PNG" style="display: none;cursor: pointer;"></label>      
+
+                   </nz-input-group>
+                    </div>
+                      
+            </div>
+            </nz-form-control>
+            </nz-form-item>
+            <br>
+            <div nz-row class="nz-group">        
+                <div nz-col nzSpan="8" style="margin-left:950px;">
+                  <nz-form-item>
+                    <nz-form-control>
+                        <button nz-button nzType="primary" (click)="saveThemeSetting()">Submit</button>
+                    </nz-form-control>
+                  </nz-form-item>
+                </div>        
+              </div>
+        </form>
+    </nz-card>
+</div>
+</body>
+</html>

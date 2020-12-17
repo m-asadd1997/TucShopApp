@@ -41,6 +41,9 @@ import { ExpenseBalanceSheetComponent } from './expense-balance-sheet/expense-ba
 import { OnlineDetailsComponent } from './online-details/online-details.component';
 import { OnlineOrderDetailsComponent } from './online-order-details/online-order-details.component';
 import { NzInputModule } from 'ng-zorro-antd/input';
+import { ThemeSettingsComponent } from './theme-settings/theme-settings.component';
+import { ColorPickerModule } from 'ngx-color-picker';
+
 
 
 @NgModule({
@@ -64,6 +67,7 @@ import { NzInputModule } from 'ng-zorro-antd/input';
                  ExpenseBalanceSheetComponent,
                  OnlineDetailsComponent,
                  OnlineOrderDetailsComponent,
+                 ThemeSettingsComponent,
 
                  ],
 
@@ -93,6 +97,7 @@ import { NzInputModule } from 'ng-zorro-antd/input';
     NzDatePickerModule,
     FusionChartsModule,
     NzInputModule,
+    ColorPickerModule,
     NzTagModule,
     ToastrModule.forRoot({
       timeOut: 5000,

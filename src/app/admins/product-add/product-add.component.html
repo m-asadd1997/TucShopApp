@@ -187,7 +187,7 @@
               <nz-form-label nzFor="email">Category</nz-form-label>
               <br>
               <nz-select name="category" nzSize="large" [(ngModel)]="addProducts.category" class="phone-select"
-                nzPlaceHolder="Select a Category" required>
+                nzPlaceHolder="Select a Category" required (ngModelChange)="changeCategory(addProducts.category)">
                 <nz-option *ngFor="let item of categories" nzLabel={{item.name}} nzValue="{{item.name}}"></nz-option>
               </nz-select>
             </nz-form-control>
@@ -247,7 +247,8 @@
               color: #fff;
               font-size: smaller;
               margin-left: 3%;
-              border-radius: 12px;">Select Default Image
+              border-radius: 12px;"
+              >Select Default Image
                 <input #files type="file"
                   (change)="handleCategoryBanner($event.target.files); preview($event.target.files)" name="image"
                   accept=".jpeg,.png,.jpg,.PNG" style="display: none;cursor: pointer;" required>

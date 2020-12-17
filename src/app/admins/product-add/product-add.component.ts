@@ -64,6 +64,8 @@ export class ProductAddComponent implements OnInit {
   submitForm(): void {}
 
   submit(myForm: NgForm) {
+    
+    debugger
     if (
       Number(this.addProducts.salePrice) <= Number(this.addProducts.costPrice)
     ) {
@@ -138,7 +140,7 @@ export class ProductAddComponent implements OnInit {
     }
 
     this.formData.append("costprice", this.addProducts.costPrice);
-    this.formData.append('name', this.addProducts.productTitle);
+   
     if(this.addProducts.parentID)
     {
       this.formData.append('category',this.addProducts.parentID);

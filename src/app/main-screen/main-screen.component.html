@@ -1,12 +1,11 @@
 <nz-layout style=" height: 100%;">
 
   <nz-sider nzCollapsible [(nzCollapsed)]="CollapsedNav" [nzTrigger]="null" style="min-width:200px;max-width:200px  " >
-    <div class="logo" style="height:50px; background-color:#001529; width: 200px; margin-left: 15px;">
+    <div class="logo" style="height:50px; background-color:#001529; width: 20px; margin-left: 15px;">
       <img src="assets/main-cart.png"  />
     </div>
     <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="true">
-      <li nz-submenu [nzTitle]="c.name"   *ngFor="let c of categoriesArray" (click)="addCategoryToUrl(c.name)"
-        >
+      <li nz-submenu  [nzTitle]="c.name"  *ngFor="let c of categoriesArray" (click)="addCategoryToUrl(c.name)" >
         <ul>
           <li *ngFor="let item of getSubCategoriesById(c.id)" (click)="addCategoryToUrl(item.name)" nz-menu-item>{{item.name}}</li>
 

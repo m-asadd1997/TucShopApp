@@ -20,6 +20,7 @@ import { AddUserComponent } from './add-user/add-user.component';
 import { GenerateReportComponent } from './generate-report/generate-report.component';
 import { OnlineDetailsComponent } from './online-details/online-details.component';
 import { OnlineOrderDetailsComponent } from './online-order-details/online-order-details.component';
+import { ThemeSettingsComponent } from './theme-settings/theme-settings.component';
 
 
 const routes: Routes = [
@@ -56,6 +57,7 @@ const routes: Routes = [
 
 
       },
+      {path:'theme-setting', component:ThemeSettingsComponent},
       { path: 'totalproddetails', component: TotalProductsDetailsComponent },
       {path:'outOfstockdetail',component:OutOfStockDetailsComponent},
       {path:'transactiondetail',component:TransactionsDetailsComponent}

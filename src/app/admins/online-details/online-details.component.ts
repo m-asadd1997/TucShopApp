@@ -135,8 +135,7 @@ export class OnlineDetailsComponent implements OnInit {
   if(this.phoneno!=null && this.phoneno!=""){
   this.adminService.getPhoneNo(this.phoneno).subscribe(d=>{
   if(d.status==200){
-  this.onlineDetails=[];
-  this.onlineDetails = [...this.onlineDetails,d.result]; 
+  this.onlineDetails = d.result;
   } 
   else{
    this.toastr.error(d.message);  
