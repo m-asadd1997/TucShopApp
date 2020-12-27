@@ -768,6 +768,14 @@ export class CheckoutComponent implements OnInit {
     this.checkoutProductsArray=[];
     this.total=0;
   }
+
+  removeAllProductFromCheckout(){
+  this.checkoutProductsArray = [];  
+  this.total = 0;
+  this.costPrice = 0;  
+}
+
+
 }
 
 

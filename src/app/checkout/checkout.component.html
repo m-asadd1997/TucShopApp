@@ -30,6 +30,11 @@
         <div nz-col nzSpan="6">
           <b>Cart</b><img src="assets/cartCheckout.png" />
         </div>
+        <div nz-col nzSpan="2">
+          <span nz-tooltip nzTooltipPlacement="bottom" nzTooltipTitle="Remove All Products from Checkout"><img (click)="removeAllProductFromCheckout()"
+              src="assets/clear.png" height="40px" width="40px">
+          </span>
+        </div>
 
         <div nz-col nzSpan="4" nzOffset="9">
           <!-- <button nz-button nzType="danger" (click)="showModal2()" style="margin-left: -10px;">
