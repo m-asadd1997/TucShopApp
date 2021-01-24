@@ -3,6 +3,7 @@ import { setting } from './setting';
 import { AdminServiceService } from '../admin-service.service';
 import { NgForm } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-setting',
@@ -10,6 +11,8 @@ import { NzMessageService } from 'ng-zorro-antd';
   styleUrls: ['./setting.component.css']
 })
 export class SettingComponent implements OnInit {
+  url=environment.baseUrl
+
 
   constructor(private adminService: AdminServiceService, private message: NzMessageService) { }
 
@@ -26,7 +29,7 @@ export class SettingComponent implements OnInit {
         this.id = d[0].id
         this.settingObj.header = d[0].header;
         this.settingObj.footer = d[0].footer;
-        this.imgURL = d[0].logo
+        this.imgURL = this.url+d[0].logo
         this.adminService.getImage(this.imgURL).subscribe(e => {
           if (e) {
             this.settingObj.logo = e;

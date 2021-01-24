@@ -1,29 +1,34 @@
 <div class="row">
   <br>
-  <div class="col-8 ">
+  <div class="col-6 ">
     <h4 style="text-transform:capitalize;">{{categoryHeader}}</h4>
   </div>
 
-  <div class="col-3">
+  <div class="col-4">
     <div class="example-input">
       <nz-input-group nzSize="large" [nzSuffix]="suffixIcon">
         <input placeholder="Search Products" nz-input [(ngModel)]="inputValue" (ngModelChange)="onChange($event)"
-          [nzAutocomplete]="auto" />
+          [nzAutocomplete]="auto"/>
       </nz-input-group>
       <ng-template #suffixIcon>
-        <i nz-icon nzType="search"></i>
+          <i class="fa fa-search"></i>
+        <!-- <i nz-icon nzType="search"></i> -->
       </ng-template>
       <nz-autocomplete #auto>
-        <nz-auto-option *ngFor="let option of searchProduct" [nzValue]="option.name">
+        <nz-auto-option *ngFor="let option of searchProduct" [nzValue]="option.name" (click)="searchOptionClicked(option)" >
           <span><b>Category: {{option.category.name}}</b></span>
           <br>
           <div>
-            Item:{{ option.name}}<img style="width: 40px; height: 40px; margin-left: 40px;" [src]="option.image">
+            Item:{{ option.name}}<img style="width: 40px; height: 40px; margin-left: 40px; float: right;" [src]="url+option.image">
           </div>
         </nz-auto-option>
       </nz-autocomplete>
     </div>
   </div>
+
+
+
+
 
   <div class="col-1">
     <span nz-tooltip nzTooltipPlacement="bottom" nzTooltipTitle="Cancel Order"><img (click)="showModal()"
@@ -31,19 +36,54 @@
     </span>
   </div>
 
+  <div class="col-1">
+    <span nz-tooltip nzTooltipPlacement="bottom" nzTooltipTitle="Parking Order"><img (click)="showParkingModal()"
+        src="assets/pIcon.png" height="40px" width="40px">
+    </span>
+  </div>
+
+
+  <!-- <di class="col-">
+    <input>
+    <input>
+
+
+  </di> -->
 
   <nz-modal [(nzVisible)]="isVisible1" nzWidth="1000" nzTitle="Orders" (nzOnCancel)="handleCancel1()" (nzOnOk)="handleOk1()">
 
-    <div class="col-3" style="float: right;">
-      <div class="example-input">
-        <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton" >
-          <input type="text" (input)= "search($event)" [(ngModel)]="transactionIDObj.transactionID"  nz-input placeholder="input transaction id" />
-        </nz-input-group>
-        <ng-template #suffixIconButton>
-          <button nz-button nzType="primary"(click)="getTransactionOnSearch()" nzSearch><i nz-icon nzType="search" ></i></button>
-        </ng-template>
+    <div nz-row>
+
+      <div class="col-3" style="float: left;">
+        <div class="example-input">
+          <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton" >
+            <input type="text" (input)= "search($event)" [(ngModel)]="searchObject.transactionID"  nz-input placeholder="Input transaction id" />
+          </nz-input-group>
+          <ng-template #suffixIconButton>
+            <button nz-button nzType="primary"(click)="getTransactionOnSearchByTransactionID()" nzSearch>
+                <i class="fa fa-search"></i>
+              <!-- <i nz-icon nzType="search" ></i> -->
+            </button>
+          </ng-template>
+        </div>
       </div>
+  
+      <div class="col-3" style="float: right;">
+        <div class="example-input">
+          <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton" >
+            <input type="number" (input)= "change($event)" [(ngModel)]="searchObject.phoneNumber"  nz-input placeholder="Input PhoneNumber" />
+          </nz-input-group>
+          <ng-template #suffixIconButton>
+            <button nz-button nzType="primary"(click)="getTransactionOnSearchByPhoneNumber()" nzSearch>
+                <i class="fa fa-search"></i>
+              <!-- <i nz-icon nzType="search" ></i> -->
+            </button>
+          </ng-template>
+        </div>
+      </div>
+
     </div>
+    
     <br>
     <br>
 
@@ -68,28 +108,87 @@
           <!-- <td><a (click)="showproducts(d.productTransactions)">Show</a></td> -->
           <td style="text-align: center;"> <button nz-tooltip nzTooltipTitle="Click to view products"
               (click)="showproducts(d.productTransactions)" nzGhost="true" style="color:#0062cc;border-color:#0062cc"
-              nzSize="small" nz-button nzType="primary"><i nz-icon nzType="eye"></i>Show</button> </td>
-          <td style="text-align: center;"> <button nz-tooltip nzTooltipTitle="Delete Product" (click)="deleteTransaction(d.id)" nzGhost="true"
+              nzSize="small" nz-button nzType="primary">
+              <!-- <i nz-icon nzType="eye"> -->
+                  <i class="fa fa-eye">
+              </i>Show</button> </td>
+          <!-- <td style="text-align: center;"> <button nz-tooltip nzTooltipTitle="Delete Product" (click)="deleteTransaction(d.id)" nzGhost="true"
               style="color:#0062cc;border-color:#0062cc" nzSize="small" nz-button nzType="primary"><i nz-icon
                 nzType="delete"></i>Delete</button>
                 <button nz-tooltip nzTooltipTitle="Delete Product" (click)="editTransaction(d)" nzGhost="true"
                 style="color:#0062cc;border-color:#0062cc" nzSize="small" nz-button nzType="primary"><i nz-icon
                   nzType="delete"></i>Edit</button>
+              </td> -->
+              <td>
+                <img src ="assets/edit.png" nz-tooltip nzTooltipTitle="Edit Transaction"
+                (click)="editTransaction(d)" height="20px" width="20px">
+                &nbsp;
+                <img src ="assets/delete.png" nz-tooltip nzTooltipTitle="Delete Transaction"
+                 (click)="deleteTransaction(d.id)" height="20px" width="20px">
               </td>
         </tr>
       </tbody>
     </nz-table>
 
   </nz-modal>
+  <nz-modal
+      [(nzVisible)]="isParkVisible"
+      nzTitle="Parking"
+      (nzOnCancel)="handleParkCancel()"
+      (nzOnOk)="handleParkOk()"
+      [nzOkLoading]="isOkLoading"
+    >
+     <nz-table [nzData]="results" [nzPageSize]="50" [nzScroll]="{ y: '240px' }">
+      <thead>
+        <tr>
+
+
+
+          <th>Amount</th>
+          <th>Products</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr  *ngFor="let d of results"  (click)="editParkTransaction(d)" >
+
+          <td>{{ d.amount }}</td>
+<!--
+          <td style="text-align: center;"> <button nz-tooltip nzTooltipTitle="Click to view products"
+              (click)="showParkproducts(d.productTransactions);$event.stopPropagation()" nzGhost="true" style="color:#0062cc;border-color:#0062cc"
+              nzSize="small" nz-button nzType="primary">
+                  <i class="fa fa-eye">
+
+              </i>Show</button> </td> -->
+              <td>
+                <div  style="text-align: center;">
+               <span *ngFor="let item of d.productTransactions;let i = index;">
+                 {{item.product.productTitle}} <span *ngIf="i+1!=d.productTransactions.length">,</span>
+
+               </span>
+               </div>
+              </td>
+
+              <!-- <td>
+                <img src ="assets/edit.png" nz-tooltip nzTooltipTitle="Edit Transaction"
+                (click)="editParkTransaction(d)" height="20px" width="20px"> -->
+                <!-- &nbsp; -->
+                <!-- <img src ="assets/delete.png" nz-tooltip nzTooltipTitle="Delete Transaction"
+                 (click)="deleteTransaction(d.id)" height="20px" width="20px"> -->
+              <!-- </td> -->
+        </tr>
+      </tbody>
+    </nz-table>
+    </nz-modal>
 </div>
 
 <br>
 
 
-<nz-card style="width: 100%; overflow-y: scroll; overflow-x: none; height:500px;">
+<nz-card style="width: 100%; overflow-y: scroll; overflow-x: none; height:500px;" (scroll)="onScroll($event)">
   <div nz-row>
     <div nz-col nzSpan="5" nzOffset="1" *ngFor="let p of productsArray">
-      <nz-card #CARD nzHoverable style="width:180px; height: 260px;" [nzCover]="coverTemplate" [nzSize]="small"
+      <nz-card #CARD nzHoverable style="width:180px; height: 260px; margin-left: -30px;" [nzCover]="coverTemplate" [nzSize]="small"
         (click)="sendProducttoCheckout(p,CARD)" id="cardShadow">
         <nz-card-meta [nzTitle]="" [nzDescription]="" style="text-align: center;"></nz-card-meta>
         <div class="row">
@@ -115,14 +214,12 @@
         </div>
 
 
-        <!-- <div style="text-align:center; margin-left: 0px;"><b>{{p.name | uppercase}}</b></div>
-          <div style="text-align:center; margin-left: 0px;"><b>{{p.variants}}</b></div>
-           <div><nz-tag [nzColor]="'#f50a0a'" style="margin-left: 20px;"> &#8360; {{p.price}}</nz-tag></div>   -->
+
 
       </nz-card>
       <div>
         <ng-template #coverTemplate>
-          <img #image [src]="p.image" height="120px" width="80px" />
+          <img #image [src]="url+p.image" height="120px" width="80px" />
         </ng-template>
       </div>
       <br />
@@ -130,19 +227,11 @@
   </div>
 </nz-card>
 <nz-modal [(nzVisible)]="visibility" nzTitle="Products" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
-  <!-- <nz-card nzHoverable style="width:100px" [nzCover]="coverTemplate">
-      <nz-card-meta style="font-size:100px" nzTitle="" nzDescription=""></nz-card-meta>
-    </nz-card>
-    <ng-template #coverTemplate>
-      <img alt="example" [src]=productimage />
-      <h2 style="text-align:center;font-family:Arial, Helvetica, sans-serif;text-decoration:none">{{showproductName}} </h2>
 
-      <h3 style="font-family:Arial, Helvetica, sans-serif;padding-left:5px;font-size:20px">Qty:</h3>
-    </ng-template> -->
   <div nz-row>
     <div nz-col nzXs="24" nzSm="24" nzMd="5" nzLg="7" nzXl="7" nzSpan="7" nzOffset="1" *ngFor="let p of products">
       <nz-card class="cardShadow" style="background-color:black" nzHoverable style="width:150px;margin-top:15px">
-        <img [src]=p.product.image style="width:75px;height:75px">
+        <img [src]=url+p.product.image style="width:75px;height:75px">
         <hr>
         <b style="font-size:12px;padding:0px"> {{p.product.name | uppercase}}</b><br>
         <b style="font-size:10px;padding:0px">{{p.product.variants}} </b><br>
@@ -152,9 +241,30 @@
 
 
 
-        <!-- <div style="text-align:center; margin-left: 0px;"><b>Product:{{p.product.name}}</b></div>
-    <div style="text-align:center; margin-left: 0px;"><b>Quantity:{{p.quantity}}</b></div>
-     <div><nz-tag [nzColor]="'#f50a0a'" style="margin-left: 20px;"> &#8360; {{p.product.price}}</nz-tag></div>   -->
+
+
+
+      </nz-card>
+    </div>
+  </div>
+</nz-modal>
+
+
+<nz-modal [(nzVisible)]="visibilityProductParkImage" nzTitle="Products" (nzOnCancel)="handleParkProductCancel()" (nzOnOk)="handleParkProductOk()">
+
+  <div nz-row>
+    <div nz-col nzXs="24" nzSm="24" nzMd="5" nzLg="7" nzXl="7" nzSpan="7" nzOffset="1" *ngFor="let p of products">
+      <nz-card class="cardShadow" style="background-color:black" nzHoverable style="width:150px;margin-top:15px">
+        <img [src]=url+p.product.productImage style="width:75px;height:75px">
+        <hr>
+        <b style="font-size:12px;padding:0px"> {{p.product.productTitle | uppercase}}</b><br>
+        <b style="font-size:10px;padding:0px">{{p.product.productVariant}} </b><br>
+        <b style="font-size:12px;padding:0px">Quantity: {{p.quantity}} </b><br>
+        <!-- <b style="font-size:12px;padding:0px" >Price: {{p.product.price}} </b> -->
+        <nz-tag style="margin-top:2px" [nzColor]="'#f50a0a'"> &#8360; {{p.product.productPrice}}</nz-tag>
+
+
+
 
 
       </nz-card>

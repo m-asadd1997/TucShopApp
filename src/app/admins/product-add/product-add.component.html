@@ -1,7 +1,7 @@
 
 
 <div style="margin-left: 3%; margin-top: 7px;">
-  <nz-card style="width:90%;" nzTitle="Add Products" [nzExtra]="extraTemplate" style="box-shadow:5px 5px 5px 5px">
+  <nz-card style="width:90%;" nzTitle="Add Products" [nzExtra]="extraTemplate" style="box-shadow:1px 0px 12px -4px">
 
     <form nz-form [nzLayout]="'inline'" #myForm="ngForm" autocomplete="auto" >
 
@@ -16,10 +16,16 @@
           <nz-form-label nzFor="email">Product Title</nz-form-label>
           <br>
           <nz-form-control nzErrorTip="Please input your Product Title!">
-            <nz-input-group nzPrefixIcon="project">
+            <nz-input-group [nzPrefix]="prefixIcon">
               <input nz-input required name="productTitle" #title="ngModel" [(ngModel)]="addProducts.productTitle"
                 placeholder="Product Title" required />
             </nz-input-group>
+
+            <ng-template #prefixIcon>
+                <i class="fa fa-th" style="opacity: .3;
+                padding-top: 2px;"></i>
+              <!-- <i nz-icon nzType="search"></i> -->
+            </ng-template>
 
 
 
@@ -30,7 +36,7 @@
 
 
         <nz-form-item>
-          <nz-form-label nzFor="email">Variant</nz-form-label>
+          <nz-form-label nzFor="email" style="padding-left: 10px">Variant</nz-form-label>
           <br>
           <nz-form-control nzErrorTip="Please input your Product variants!">
 
@@ -44,7 +50,9 @@
               </nz-input-group>
               <ng-template #suffixIconButton>
                 <button nz-button nzType="primary" nzSize="large" nzSearch style="height: 40px;">
-                  <i nz-icon nzType="search" nzTheme="outline"></i>
+                    <i class="fa fa-search"></i>
+
+                  <!-- <i nz-icon nzType="search" nzTheme="outline"></i> -->
                 </button>
               </ng-template>
               <nz-autocomplete #auto>
@@ -76,23 +84,49 @@
           <nz-form-label nzFor="email">Cost Price</nz-form-label>
           <br>
           <nz-form-control nzErrorTip="Please input your Cost Price!">
-            <nz-input-group nzPrefixIcon="dollar">
-              <input type="number" minlength="1" maxlength="4" required #costPrice="ngModel" name="costPrice"
+            <nz-input-group [nzPrefix]="costIcon">
+              <input type="number" min="0" minlength="1" maxlength="4" required #costPrice="ngModel" name="costPrice"
                 [(ngModel)]="addProducts.costPrice" nz-input placeholder="Cost Price" required />
             </nz-input-group>
+
+            <ng-template #costIcon>
+                <i class="fa fa-usd" style="opacity: .3;
+                padding-top: 2px;"></i>
+              <!-- <i nz-icon nzType="search"></i> -->
+            </ng-template>
 
 
           </nz-form-control>
         </nz-form-item>
 
         <nz-form-item class="nz-group">
+          <nz-form-label nzFor="email"> Bar code</nz-form-label>
+          <br>
+          <nz-form-control nzErrorTip="Please input your Product bar code!">
+            <nz-input-group >
+              <input  type="text"  #sku="ngModel" name="sku"
+                [(ngModel)]="addProducts.sku" nz-input placeholder="Sku Code"  />
+            </nz-input-group>
+
+
+          </nz-form-control>
+        </nz-form-item>
+
+
+        <nz-form-item class="nz-group">
           <nz-form-label nzFor="email">Product Price</nz-form-label>
           <br>
           <nz-form-control nzErrorTip="Please input your Product Price!">
-            <nz-input-group nzPrefixIcon="dollar" style="margin-left:10px">
-              <input type="number" minlength="1" maxlength="4" required #saleprice="ngModel" name="salePrice"
+            <nz-input-group [nzPrefix]="productIcon" style="margin-left:10px">
+              <input type="number" min="0" minlength="1" maxlength="4" required #saleprice="ngModel" name="salePrice"
                 [(ngModel)]="addProducts.salePrice" nz-input placeholder="Sale Price" required />
             </nz-input-group>
+
+            <ng-template #productIcon>
+                <i class="fa fa-usd" style="opacity: .3;
+                padding-top: 2px;"></i>
+              <!-- <i nz-icon nzType="search"></i> -->
+            </ng-template>
 
 
           </nz-form-control>
@@ -101,8 +135,7 @@
 
       <!--  2nd Row -->
 
-
-
+      
       <!-- 3rd  Row -->
       <div nz-row>
         <div nz-col nzSpan="5" class="nz-group">
@@ -110,11 +143,17 @@
           <br>
           <nz-form-item>
             <nz-form-control nzErrorTip="Please input your Product Quantity!">
-              <nz-input-group nzPrefixIcon="account-book">
-                <input  [disabled]="switchValue" style="width: 300px;" type="number" minlength="1" maxlength="4"  #productQuantity="ngModel"
+              <nz-input-group [nzPrefix]="quantityIcon">
+                <input  [disabled]="switchValue" style="width: 300px;" type="number" min="0" minlength="1" maxlength="4"  #productQuantity="ngModel"
                   name="productQuantity" [(ngModel)]="addProducts.productQuantity" nz-input
                   placeholder="Product Quantity" />
               </nz-input-group>
+
+              <ng-template #quantityIcon>
+                  <i class="fa fa-shopping-bag"  style="opacity: .3;
+                  padding-top: 1px;"></i>
+                <!-- <i nz-icon nzType="search"></i> -->
+              </ng-template>
 
             </nz-form-control>
           </nz-form-item>
@@ -170,16 +209,18 @@
         <div nz-col nzSpan="15">
           <nz-form-control>
             <div class="row">
-              <label style="padding: 5px;
-  background: grey;
-  display: table;
-  color: #fff;
-  font-size: smaller;
-  margin-left: 3%;
- ">Select Image
+              <label style="
+              padding-left: 6px;
+              padding-right: 6px;
+              background: #393f5bfc;
+              display: table;
+              color: #fff;
+              font-size: smaller;
+              margin-left: 3%;
+              border-radius: 12px;">Select Image
                 <input #files type="file"
                   (change)="handleCategoryBanner($event.target.files); preview($event.target.files)" name="image"
-                  accept=".jpeg,.png,.jpg,.PNG" style="display: none;cursor: pointer;">
+                  accept=".jpeg,.png,.jpg,.PNG" style="display: none;cursor: pointer;" required>
               </label>
               <nz-avatar  *ngIf="Checker" style="margin-left: 5%;" [nzShape]="'square'" [nzSrc]="imgURL" [nzSize]="150" nzText="Product">
               </nz-avatar>

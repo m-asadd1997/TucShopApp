@@ -53,9 +53,24 @@ export class AdminServiceService {
   private getFilteredTransactionMethodURL= environment.baseUrl+"api/dashboard/gettransactionmethod/";
   private deleteUserById= environment.baseUrl+"api/user/";
   private downloadAllTransactionURL = environment.baseUrl+"api/transaction/downloadtransaction/";
-
+  private downloadBalanceSheetURL = environment.baseUrl+"api/transaction/downloadbalancesheet/";
+  private balanceSheetURL = environment.baseUrl+"api/transaction/balancesheet/";
+  private postExpenseURL = environment.baseUrl+"api/expense/post";
+  private getExpenseByDateURL = environment.baseUrl+"api/expense/";
+  private updateExpenseURL = environment.baseUrl+"api/expense/update/"
   
 
+  public postExpense(object:any):Observable<any>{
+    return this.http.post(this.postExpenseURL,object);
+  }
+
+  public updateExpense(id:any, object:any):Observable<any>{
+    return this.http.put(this.updateExpenseURL+id,object);
+  }
+
+  public getExpenseByDate(date:any):Observable<any>{
+    return this.http.get(this.getExpenseByDateURL+date)
+  }
   public getFilteredFrequencyBycategory(startDate:any, endDate:any):Observable<any>{
    return this.http.get(this.getFilteredFrequencyByCategoryURL+startDate+"/"+endDate);
   }
@@ -288,7 +303,14 @@ public scearchtransactionofUser(transaction:any):Observable<any>{
   downloadAllTransactionPDF(startDate:any, endDate:any):Observable<any>{
   return this.http.get (this.downloadAllTransactionURL+startDate+"/"+endDate ,{ responseType: 'blob' });
   }
+  
+  downloadBalanceSheetPDF(startDate:any, endDate:any):Observable<any>{
+  return this.http.get (this.downloadBalanceSheetURL+startDate+"/"+endDate ,{ responseType: 'blob' });
+  }
 
+  balanceSheetPDF(startDate:any):Observable<any>{
+    return this.http.get (this.balanceSheetURL+startDate,{ responseType: 'blob' });
+  }
 
 
   //User CRUD

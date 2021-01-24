@@ -13,7 +13,10 @@
         <td>{{ d.date }}</td>
         <td>{{ d.amount }}</td>
      <!-- <td><a (click)="showproducts(d.productTransactions)">Show</a></td> -->
-   <td >  <button nz-tooltip nzTooltipTitle="Click to view products" (click)="showproducts(d.productTransactions)"  nzGhost="true" style="color:#0062cc;border-color:#0062cc" nzSize="small" nz-button nzType="primary"><i nz-icon nzType="eye"></i>show</button> </td>
+   <td >  <button nz-tooltip nzTooltipTitle="Click to view products" (click)="showproducts(d.productTransactions)"  nzGhost="true" style="color:#0062cc;border-color:#0062cc" nzSize="small" nz-button nzType="primary">
+      <i class="fa fa-eye"></i> 
+    <!-- <i nz-icon nzType="eye"></i> -->
+     show</button> </td>
       </tr>
     </tbody>
   </nz-table>
@@ -30,7 +33,7 @@
       <div nz-row>
       <div nz-col nzXs="24" nzSm="24" nzMd="5" nzLg="7" nzXl="7" nzSpan="7" nzOffset="1" *ngFor="let p of productsarray">
       <nz-card   class="cardShadow" style="background-color:black" nzHoverable style="width:150px;margin-top:15px">
-     <img [src]=p.product.image style="width:75px;height:75px">
+     <img [src]=url+p.product.image style="width:75px;height:75px">
         <hr>
         <b style="font-size:12px;padding:0px"> {{p.product.name | uppercase}}</b><br>
         <b style="font-size:10px;padding:0px" >{{p.product.variants}} </b><br>

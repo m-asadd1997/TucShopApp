@@ -1,0 +1,83 @@
+<nz-card style="width:100%;" nzTitle="Expense Balance Sheet" >
+    <div nz-row>
+        <div nz-col nzSpan="12">
+            <nz-date-picker [nzFormat]="dateFormat" [(ngModel)]="expenses.date" (ngModelChange)="onChange($event)"></nz-date-picker>
+            &nbsp;
+            <button nz-button nzType="primary"  nzShape="round" (click)="downloadBalanceSheet(expenses.date)">
+              <i class="fa fa-sign-out" style="padding-right: 4px"></i>Generate Report</button>
+        </div>
+        
+    </div>
+    <br>
+   
+    <div nz-row>
+        <div nz-col nzSpan="8">
+            <p><b>Subject</b></p>
+            <input nz-input placeholder="Subject" [(ngModel)]="expenses.subject"  nzSize="large" />
+        </div>
+        <div nz-col nzSpan="8" nzOffset="1">
+            <p><b>Amount</b></p>
+            <input type="number" nz-input placeholder="Amount" [(ngModel)]="expenses.amount" nzSize="large" />
+        </div>
+        <div style="margin-top: 20px; margin-right: -20px;" nz-col nzSpan="5" nzOffset="2">
+            <button [disabled]="!expenses.subject||!expenses.amount" nz-button style="background-color: green; border: green;" nzType="primary" (click)="execute('debit')">Debit</button>
+            &nbsp;
+            &nbsp;
+            <button  [disabled]="!expenses.subject||!expenses.amount||disable" nz-button nzType="danger" (click)="execute('credit')">Credit</button>
+        </div>
+    </div>
+    <br>
+    <br>
+    <div>
+        <nz-table #basicTable [nzData]="expensesArray" >
+            <thead>
+              <tr>
+                <!-- <th>SrNo.</th> -->
+                <th>Subject</th>
+                <th>Amount</th>
+                <th>Debit</th>
+                <th>Credit</th>
+                <th>Balance</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of basicTable.data;let i=index">
+                <!-- <td>{{data.id}}</td> -->
+                <td>{{data.subject}}</td>
+                <td>{{data.amount}}</td>
+                <td>{{data.debit}}</td>
+                <td>{{data.credit}}</td>
+                <td>{{data.balance}}</td>
+                
+                <td>
+                    <img src ="assets/edit.png" nz-tooltip nzTooltipTitle="Edit" 
+                    (click)="onEditRow(i)" height="20px" width="20px">
+                    &nbsp;
+                    <img src ="assets/delete.png" nz-tooltip nzTooltipTitle="Delete"
+                    (click)="onDelete(i)" height="20px" width="20px">
+                  </td>
+              </tr>
+            </tbody>
+          </nz-table>
+          &nbsp;
+          <div nz-row>
+              <div nz-col nzSpan="12">
+                <h5>Total : {{total}}</h5>
+              </div>
+              <div nz-col nzSpan="5" nzOffset="7">
+                    <button [disabled]="disable" style="width: 50%;     margin-left: 70px;" 
+                     nz-button nzType="primary" (click)="saveSheet()">Save</button>
+                    &nbsp;
+                    <!-- <button nz-button nzType="danger">Print Report</button> -->
+              </div>
+          </div>
+         
+               
+    </div>
+    
+ 
+  </nz-card>
+
+
+  

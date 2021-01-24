@@ -1,6 +1,7 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { MainscreenService } from './mainscreen.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-main-screen',
@@ -14,14 +15,12 @@ export class MainScreenComponent implements OnInit {
   categoriesArray = [] = [];
   isVisible :Boolean;
   isCollapsed; 
-  
-  
- 
+  url=environment.baseUrl
   userName
   constructor(private mainScreenServ: MainscreenService,private activeRoute:ActivatedRoute, private router: Router) { }
 category
   ngOnInit() {
-    this.fullScreen();
+    // this.fullScreen();
     this.innerWidth = window.innerWidth;
     // this.setupMobileView();
     this.userName= sessionStorage.getItem('username');
@@ -42,14 +41,14 @@ category
 
   
 
-  fullScreen() {
-    let elem = document.documentElement;
-    let methodToBeInvoked = elem.requestFullscreen ||
-      elem['webkitRequestFullScreen'] || elem['mozRequestFullscreen']
-      ||
-      elem['msRequestFullscreen'];
-    if (methodToBeInvoked) methodToBeInvoked.call(elem);
-}
+//   fullScreen() {
+//     let elem = document.documentElement;
+//     let methodToBeInvoked = elem.requestFullscreen ||
+//       elem['webkitRequestFullScreen'] || elem['mozRequestFullscreen']
+//       ||
+//       elem['msRequestFullscreen'];
+//     if (methodToBeInvoked) methodToBeInvoked.call(elem);
+// }
 
   getCat(){
     this.mainScreenServ.getCategories().subscribe(d=>{

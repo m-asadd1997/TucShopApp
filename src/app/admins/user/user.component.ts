@@ -4,6 +4,7 @@ import { MainscreenService } from './../../main-screen/mainscreen.service';
 import { ActivatedRoute } from '@angular/router';
 import { transactions } from '../transactions/transactions';
 import { ExportAsService, ExportAsConfig } from 'ngx-export-as';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-user',
@@ -28,6 +29,7 @@ export class UserComponent implements OnInit {
   startValue: Date | null = null;
   endValue: Date | null = null;
   endOpen = false;
+  url=environment.baseUrl
 
   disabledStartDate = (startValue: Date): boolean => {
     if (!startValue || !this.endValue) {

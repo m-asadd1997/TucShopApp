@@ -6,10 +6,11 @@
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="/assets/favicon.png">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- <link rel="stylesheet" href="assets/font-awesome.min.css"> -->
   <link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
   <script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <!-- <script src="node_modules/onscan.js/onscan.min.js"></script> -->
   <script>
     var global = global || window;
     // var Buffer = Buffer || [];
@@ -18,7 +19,29 @@
       version: []
     };
   </script>
-  <script type="text/javascript">
+  <style>
+    .loader {
+      border: 16px solid #f3f3f3;
+      border-radius: 50%;
+      border-top: 16px solid #3498db;
+      width: 120px;
+      height: 120px;
+      -webkit-animation: spin 2s linear infinite; /* Safari */
+      animation: spin 2s linear infinite;
+    }
+    
+    /* Safari */
+    @-webkit-keyframes spin {
+      0% { -webkit-transform: rotate(0deg); }
+      100% { -webkit-transform: rotate(360deg); }
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    </style>
+  <!-- <script type="text/javascript">
     //window.onload = maxWindow;
     $(document).ready(function() {
       
@@ -40,10 +63,22 @@
               }
           }
     }
-</script> 
+</script>  -->
+<!-- <script>
+  onScan.attachTo(document);
+// Register event listener
+document.addEventListener('scan', function(sScancode, iQuantity) {
+    alert(iQuantity + 'x ' + sScancode); 
+});
+</script> -->
 
 </head>
 <body>
+    <div id="myloader" style="display: none;
+    position: absolute;
+    z-index: 1;
+    margin-left: 45%;
+    margin-top: 20%;" class="loader"></div>
   <app-root></app-root>
 </body>
 

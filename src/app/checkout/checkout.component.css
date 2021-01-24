@@ -126,6 +126,7 @@ background-color: #009688;
     }
     .sticky li {
     list-style-type: none;
+    border-radius: 20px;
     background-color: #333;
     color: #efefef;
     height: 43px;
@@ -153,7 +154,8 @@ background-color: #009688;
     }
     .sticky li img {
     float: left;
-    margin: 5px 5px;
+    border-radius: 12px;
+    margin: 5px 6px;
     margin-right: 10px;
     }
     .sticky li p {

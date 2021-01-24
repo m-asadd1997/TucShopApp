@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, Input, HostListener } from "@angular/core";
+import { Component, OnInit, ViewEncapsulation,ViewChild, Input, HostListener, AfterViewInit, AfterViewChecked, OnChanges, SimpleChanges } from "@angular/core";
 import { MainscreenService } from "../main-screen/mainscreen.service";
 import { NzModalService, ButtonConfig, NzButtonComponent, NzDrawerPlacement } from "ng-zorro-antd";
 import { Checkout } from './Checkout';
@@ -7,9 +7,11 @@ import { error } from '@angular/compiler/src/util';
 import { debug } from 'util';
 import { Router, ActivatedRoute } from '@angular/router';
 import { count } from 'console';
-import { PrintService, UsbDriver, WebPrintDriver } from 'ng-thermal-print';
-import { PrintDriver } from 'ng-thermal-print/lib/drivers/PrintDriver';
-import { analyzeAndValidateNgModules } from '@angular/compiler';
+import { ToastrService } from 'ngx-toastr';
+import { LoaderUtilService } from '../util-services/loader-util.service';
+import { environment } from 'src/environments/environment';
+
+declare const scanCode :any;
 
 
 @Component({
@@ -19,9 +21,11 @@ import { analyzeAndValidateNgModules } from '@angular/compiler';
 })
 export class CheckoutComponent implements OnInit {
 
+  url=environment.baseUrl
+  productComingOnBasisOfBarcode;
+  checkoutProductsArray = [];
+
   @HostListener("window:beforeunload", ["$event"]) unloadHandler(event: Event) {
-
-
     this.checkoutProductsArray.forEach(data => {
       let obj = {
         "quantity": 0,
@@ -41,7 +45,27 @@ export class CheckoutComponent implements OnInit {
 
   }
 
-  checkoutProductsArray = [];
+  @HostListener('document:scan',['$event'])
+  onScanBarCodeDevice(event){
+    if(sessionStorage.getItem("role").toUpperCase() == "USER"){
+      this.barcodeValue = event['detail'].scanCode;
+      this.interactionServ.getProductByBarCode(this.barcodeValue)
+        .subscribe((res) => {
+          if (res.result != undefined && res.status == 200) {
+
+              this.addingProductIntoCart(res.result);
+          }
+          else {
+            this.toastr.warning(res.message);
+          }
+        },error=>{
+
+          this.toastr.error("Error...............")
+        });
+
+    }
+  }
+
   productsarray: any[] = [];
   productsarrayy: any[] = [];
   productQuantity = 0;
@@ -65,17 +89,6 @@ export class CheckoutComponent implements OnInit {
 
   cols: { header: string; }[];
   requestProduct: any;
-  constructor(
-    private interactionServ: MainscreenService,
-    private message: NzMessageService,
-    private router: Router,
-    private activeRoute: ActivatedRoute,
-    private modal: NzModalService
-  ) {
-
-
-
-  }
   chekingSetting = false;
   discount
   userName: any;
@@ -86,12 +99,39 @@ export class CheckoutComponent implements OnInit {
     amount: null
   }
   isDisbled = true;
-  ngOnInit() {
-    // this.gettingRecentTransactions();
-    this.getLoginTime();
 
-    // this.usernamee= sessionStorage.getItem('username').toUpperCase();
-    // this.usernamee = "<div class='row'> <i class='fa fa-user user'></i><h6>"+this.usernamee+"</h6></div>";
+
+  barcodeValue;
+  constructor(
+    private interactionServ: MainscreenService,
+    private message: NzMessageService,
+    private router: Router,
+    private activeRoute: ActivatedRoute,
+    private modal: NzModalService,
+    private toastr: ToastrService,
+    private loaderService:LoaderUtilService
+
+  ) {
+
+           // this.barCodeScanner();
+  }
+
+  private barCodeScanner() {
+
+    document.addEventListener("scan", function (event) {
+      //do something
+
+
+
+
+
+    }.bind(this), false);
+  }
+
+  ngOnInit() {
+
+    // this.barCodeScanner();
+    this.getLoginTime();
     this.fafaicon();
     console.log(this.usernamee);
     this.interactionServ.getSetting().subscribe(d => {
@@ -114,77 +154,54 @@ export class CheckoutComponent implements OnInit {
 
     this.populateCols();
     this.costPrice = 0;
-    // <<<<<<< variants-work
+
     this.interactionServ.productMessage$.subscribe(d => {
-      console.log("dsfsdgsdg", d);
-      if (d) {
-        this.costPrice += d['costprice'];
-        console.log(this.costPrice, "total Cost Price");
-        let found = this.checkoutProductsArray.findIndex(
-          p => p.productTitle == d["name"] && p.productVariant == d["variants"]
-        );
 
+      this.addingProductIntoCart(d);
 
-        if (d['qty'] <= 0) {
-          this.addButtonDisbale = true;
-
-        }
-
-
-        if (found > -1) {
-          this.checkoutProductsArray[found].productPrice += d["price"];
-          // this.total = this.total + d["price"];
-          this.checkoutProductsArray[found]["productQuantity"] += 1;
-          this.checkoutProductsArray[found].productqty = d["qty"];
-
-        } else {
-          this.checkoutProductsArray.push({
-            id: d["id"],
-            productTitle: d["name"],
-            productPrice: d["price"],
-            productImage: d["image"],
-            productQuantity: this.productQuantity = 1,
-            productqty: d['qty'],
-            printProductPrice: d["price"],
-            productVariant: d["variants"],
-
-
-          }
-
-
-            // if (found > -1) {
-            //   this.checkoutProductsArray[found].productPrice += d["price"];
-            //   this.total = this.total + d["price"];
-            //   this.checkoutProductsArray[found]["productQuantity"] += 1;
-            //   this.checkoutProductsArray[found].productqty = d["qty"];
-
-            // } else {
-            //   this.checkoutProductsArray.push({
-            //     id: d["id"],
-            //     productTitle: d["name"],
-            //     productPrice: d["price"],
-            //     productImage: d["image"],
-            //     productQuantity: this.productQuantity = 1,
-            //     productqty: d['qty'],
-            //     printProductPrice: d["price"]
-
-            //   }
-            //   );
-            //
-
-          )
-        }
-        this.total += d["price"];
-
-      };
     })
 
 
 
     this.getTransactionObject()
 
-
+    this.setParkObjectToCheckout();
   }
+
+
+  setParkObjectToCheckout() {
+
+    this.interactionServ.parkTransactionObject$.subscribe((d: any) => {
+      console.log("ABCDEFG"+d);
+      this.transactionId = d.id
+      this.checkoutProductsArray = [];
+      this.total = 0;
+      console.log(d);
+      this.transactionObjectFromEdit = d;
+      d = d.productTransactions.map(item => {
+
+        console.log("ITEMSSSS",item)
+        let printproductPrice = item.product['printProductPrice']*item['quantity']
+        this.checkoutProductsArray.push({
+          id: item.product["id"],
+          productTitle: item.product["productTitle"],
+          productPrice: printproductPrice,
+          productImage: item.product["productImage"],
+          productQuantity: item["quantity"],
+          productqty: item.product['productqty'],
+          printProductPrice: item.product["printProductPrice"],
+          productVariant: item.product["productVariant"],
+
+
+        });
+        console.log("Checout Product",this.checkoutProductsArray);
+
+        this.total += item.product["productPrice"]
+      })
+    })
+  }
+
+
   transactionObjectFromEdit
   transactionId;
   getTransactionObject() {
@@ -192,13 +209,15 @@ export class CheckoutComponent implements OnInit {
 
     this.interactionServ.transactionObject$.subscribe((d: any) => {
       this.transactionId = d.id
+      this.checkoutProductsArray = [];
+      this.total = 0;
       console.log(d);
       this.transactionObjectFromEdit = d;
       d = d.productTransactions.map(item => {
         this.checkoutProductsArray.push({
           id: item.product["id"],
           productTitle: item.product["name"],
-          productPrice: item.product["price"],
+          productPrice: item.product["price"] * item["quantity"],
           productImage: item.product["image"],
           productQuantity: item["quantity"],
           productqty: item.product['qty'],
@@ -212,20 +231,63 @@ export class CheckoutComponent implements OnInit {
     })
   }
 
+  private addingProductIntoCart(d: Object) {
+    if (d) {
+      this.costPrice += d['costprice'];
+      let found = this.checkoutProductsArray.findIndex(
+        p => p.productTitle == d["name"] && p.productVariant == d["variants"]
+      );
+      if (d['qty'] <= 0) {
+        this.addButtonDisbale = true;
 
+      }
+      if (found > -1) {
+        this.checkoutProductsArray[found].productPrice += d["price"];
+        // this.total = this.total + d["price"];
+        this.checkoutProductsArray[found]["productQuantity"] += 1;
+        this.checkoutProductsArray[found].productqty = d["qty"];
+
+      } else {
+        this.checkoutProductsArray.push({
+          id: d["id"],
+          productTitle: d["name"],
+          productPrice: d["price"],
+          productImage: d["image"],
+          productQuantity: this.productQuantity = 1,
+          productqty: d['qty'],
+          printProductPrice: d["price"],
+          productVariant: d["variants"],
+        }
+        );
+      }
+      this.total += d["price"];
+    };
+  }
+
+  ngAfterViewInit(): void {
+      scanCode();
+   }
+
+  // scanBarCode(){
+  //  let code = scanCode();
+  //  }
 
   removeProductFromCheckout(data) {
     let obj1 = {
       "quantity": 0
       , "count": data.productQuantity
     }
+
+    console.log("eibad",obj1.count);
     console.log("===========================", data)
     this.interactionServ.updateMinusAllQuantity(data.id, obj1).subscribe(d => {
       if (d) {
         this.costPrice = this.costPrice - d.result.costprice*data.productQuantity;
         data.productqty = d.result.qty
         let index = this.checkoutProductsArray.findIndex(p => p.id == data.id);
+        console.log( this.checkoutProductsArray[index])
         this.total = this.total - this.checkoutProductsArray[index].productPrice;
+
         this.checkoutProductsArray.splice(index, 1);
 
       }
@@ -244,9 +306,6 @@ export class CheckoutComponent implements OnInit {
   }
 
   objToPushForTransaction = [];
-
-
-
 
   saveTransaction(reqUser, action) {
 
@@ -270,7 +329,8 @@ export class CheckoutComponent implements OnInit {
       "discount": this.discountInRs,
       "waiterName": this.waiterName,
       "tableNumber": this.tableNumber,
-      "costprice": this.costPrice
+      "costprice": this.costPrice,
+      "phoneNumber": this.phoneNumber
 
     }
 
@@ -279,34 +339,45 @@ export class CheckoutComponent implements OnInit {
     if(!this.transactionId)
     {
     this.interactionServ.saveTransaction(request).subscribe(
+
       data => {
-        document.getElementById("print-slip-btn").click();
+      console.log(data);
         this.getRecentTransactionByUser();
-        this.getTotalTransactionByUser();
+        // this.getTotalTransactionByUser();
         this.fafaicon();
         this.getLoginTime();
-        this.checkoutProductsArray = [];
-        this.total = 0;
+        debugger;
+        document.getElementById("print-slip-btn").click();
+        // this.checkoutProductsArray = [];
+        // this.total = 0;
         if (action === "SC") {
-          this.message.success('Transaction Completed', {
-            nzDuration: 3000
-          });
+          this.checkoutProductsArray = []; 
+          this.total=0; 
+          this.toastr.success("Transaction Successfully Saved!");
         }
-      },
+      },(err)=>{
+        this.toastr.error("Session Expired You need to Login Again");
+        setTimeout(() => {
+          sessionStorage.clear()
+          this.router.navigate(['']);
+
+        }, 1000);
+      }
 
 
     )
     }
     else{
-      debugger
       console.log("Update");
 
       this.interactionServ.updateTransaction(this.transactionId,request).subscribe(d=>{
         this.transactionId=null;
+        this.toastr.success("Transaction Successfully Updated!");
+        document.getElementById("print-slip-btn").click();
+        this.checkoutProductsArray = [];
+        this.total = 0;
       });
     }
-
-
 
 
     if (action === "ROD") {
@@ -316,10 +387,6 @@ export class CheckoutComponent implements OnInit {
 
     }
   }
-
-
-
-
 
   handleCancel(): void {
     this.isVisible = false;
@@ -331,29 +398,20 @@ export class CheckoutComponent implements OnInit {
     this.isVisible2 = true;
   }
 
-
   addProduct(obj) {
     // this.checking=true
     console.log(obj)
+    
     this.interactionServ.getProductsById(obj["id"]).subscribe(d => {
       if (d) {
         obj.productqty = d.qty;
         console.log("==============Add Product===============", d.qty)
-        console.log("==============Checking===============")
-
-
+        console.log("=============================")
         this.checking = true;
         let index = this.checkoutProductsArray.findIndex(p => p.id == obj["id"]);
-
         var obj1 = {
           "qty": 0
         }
-
-
-
-
-
-
         if (obj.productqty != 0 && this.checking) {
           this.checking = false;
 
@@ -370,6 +428,7 @@ export class CheckoutComponent implements OnInit {
           this.checkoutProductsArray[index].productPrice += productPrice;
 
           this.checkoutProductsArray[index]["productQuantity"] += 1;
+          console.log("this.checkoutProductsArray",this.checkoutProductsArray);
 
         }
       }
@@ -377,17 +436,15 @@ export class CheckoutComponent implements OnInit {
     })
 
     console.log(this.userName);
-
-
   }
+
   checkingMinusCall = false;
   removeProduct(obj) {
-    //debugger
+    console.log(obj)
     let obj1 = {
       "quantity": 0
       , "count": obj.productQuantity
     }
-    // this.checkingMinusCall=true;
 
     this.interactionServ.updateMinusQuantity(obj["id"], obj1).subscribe(d => {
 
@@ -407,8 +464,6 @@ export class CheckoutComponent implements OnInit {
           this.total = this.total - productPrice;
           this.checkoutProductsArray[index].productPrice = this.checkoutProductsArray[index].productPrice - productPrice;
 
-
-
           if (this.checkoutProductsArray[index]['productQuantity'] <= 1) {
             this.checkoutProductsArray.splice(index, 1);
 
@@ -419,12 +474,7 @@ export class CheckoutComponent implements OnInit {
 
       }
     });
-
-
-
   }
-
-
 
   checkingQunatity(data) {
     if (data.productqty > 0) {
@@ -444,50 +494,19 @@ export class CheckoutComponent implements OnInit {
     }
   }
 
-  // saveTransaction() {
-
-  //   let request = {
-  //     amount: this.total,
-  //     products: this.checkoutProductsArray
-  //   }
-  //   this.interactionServ.saveTransaction(request).subscribe(
-  //     data => {
-  //       //console.log(data);
-  //       this.message.success('amount added successfully', {
-  //         nzDuration: 3000
-  //       });
-  //     },
-  //   )
-  // }
-
-
-
-
-
 
   settingHeader
   saveData(reqUser, action): void {
+    debugger;
     if (!this.invalidAmount) {
-      document.getElementById("print-slip-btn").click();
+      // document.getElementById("print-slip-btn").click();
       this.saveTransaction(reqUser, action);
-      this.checkoutProductsArray = [];
-      this.costPrice = 0;   
-      this.total = 0;
-
-      this.saveTransaction(reqUser, action);
-
-
-
-      this.handleCancel()
-
-      if (action == "ROD") {
-        this.message.success(`Request Sent to  ${reqUser}`, {
-          nzDuration: 3000
-        });
-        this.isVisible1 = false;
-      }
+     
+      this.costPrice = 0;
       this.amountReceived = 0;
       this.returnedAmount = 0;
+      this.phoneNumber=null;
+      this.handleCancel();
     }
     else this.message.error("Checkout Failed")
   }
@@ -533,15 +552,8 @@ export class CheckoutComponent implements OnInit {
 
   }
 
-
-
-
   //////Second Modal
-
-  user = [
-
-  ]
-
+  user = []
   buttonDisable = false;
   func(username) {
     this.buttonDisable = true;
@@ -550,14 +562,8 @@ export class CheckoutComponent implements OnInit {
       nzDuration: 3000
     });
     this.isVisible1 = false;
-
-
-
   }
-
   isVisible1 = false;
-
-
 
   showModal1(): void {
     this.interactionServ.getUsers().subscribe(d => {
@@ -582,16 +588,10 @@ export class CheckoutComponent implements OnInit {
     this.isVisible1 = false;
   }
 
-
-
-  postTransaction(request) {
-
-  }
-
   visible = false;
   placement: NzDrawerPlacement = 'right';
   open(): void {
-    this.getTotalTransactionByUser();
+    // this.getTotalTransactionByUser();
     this.getRecentTransactionByUser();
     this.visible = true;
   }
@@ -602,6 +602,7 @@ export class CheckoutComponent implements OnInit {
 
   handleOkk() {
     this.isVisiblee = false;
+
   }
   handleCancell() {
     this.isVisiblee = false;
@@ -631,12 +632,16 @@ export class CheckoutComponent implements OnInit {
   tranByUser = [];
   totalTrans: any;
   getRecentTransactionByUser() {
+    this.totalamount=0
     this.usernamee = sessionStorage.getItem('username');
     this.interactionServ.getRecentTransactionByUser(this.usernamee).subscribe(r => {
       console.log("ResponsRecent", r)
       this.totalTrans = r.length;
+
       r.map(item => {
+        this.totalamount+=( item.amount-item.discount)
         item.productTransactions.map(opt => {
+
           this.transObj = opt;
           this.transObj.amount = item.amount
           this.tranByUser.push(this.transObj);
@@ -648,27 +653,13 @@ export class CheckoutComponent implements OnInit {
 
 
   totalamount: any;
-  getTotalTransactionByUser() {
-    this.usernamee = sessionStorage.getItem('username');
-    this.interactionServ.getTotalTransactionByUser(this.usernamee).subscribe(r => {
-      console.log("Response", r)
-      if (r.result == null) {
 
-        this.totalamount = 0;
-
-      }
-      else {
-        this.totalamount = r.result;
-        console.log(this.totalamount);
-      }
-
-
-    })
-  }
 
   dayclose() {
-  let name = sessionStorage.getItem('username').toLowerCase();
+    this.loaderService.showLoader();
+    let name = sessionStorage.getItem('username').toLowerCase();
     this.interactionServ.dayClose(name).subscribe(d => {
+      this.loaderService.hideLoader();
       console.log("Blob", d);
       let url = window.URL.createObjectURL(d);
       let a = document.createElement('a');
@@ -680,8 +671,6 @@ export class CheckoutComponent implements OnInit {
       window.URL.revokeObjectURL(url);
       a.remove();
     })
-
-
   }
 
   date: any;
@@ -689,25 +678,22 @@ export class CheckoutComponent implements OnInit {
   getLoginTime() {
     let name = sessionStorage.getItem('username').toLowerCase();
     this.interactionServ.getLoginTime(name).subscribe(d => {
+       let dateString = d.result[0].date+" "+d.result[0].time+" GMT+0500";
+       let lastLoginDateTime = new Date(dateString)
 
-      this.date = d.result[0].date;
-      this.time = d.result[0].time;
+       this.date = lastLoginDateTime.toDateString();
+       this.time =   lastLoginDateTime.toLocaleTimeString();
 
     })
-
-
   }
+
   amountReceived = 0;
   returnedAmount = 0;
   totalAmount = 0;
-  invalidAmount = false
+  invalidAmount = false;
   waiterName;
   tableNumber;
-
-
-
-
-
+  phoneNumber;
   discountedAmount = this.total;
   discountInRs = 0;
   showError = false;
@@ -755,6 +741,39 @@ export class CheckoutComponent implements OnInit {
   }
 
 
+  addToPark(reqUser, action){
+
+    this.objToPushForTransaction = []
+    console.log(this.checkoutProductsArray);
+
+    this.checkoutProductsArray.forEach(prod => {
+      let obj = {
+        "product": prod,
+        "quantity": prod.productQuantity,
+      }
+      this.objToPushForTransaction.push(obj)
+    });
+    let request = {
+      "amount": this.total,
+      "requestedUser": reqUser,
+      "action": action,
+      "productTransactions": this.objToPushForTransaction,
+      "discount": this.discountInRs,
+      "waiterName": this.waiterName,
+      "tableNumber": this.tableNumber,
+      "costprice": this.costPrice
+
+    }
+    localStorage.setItem('parkOrder'+new Date(),JSON.stringify(request))
+    this.checkoutProductsArray=[];
+    this.total=0;
+  }
+
+  removeAllProductFromCheckout(){
+  this.checkoutProductsArray = [];  
+  this.total = 0;
+  this.costPrice = 0;  
+}
 
 
 }

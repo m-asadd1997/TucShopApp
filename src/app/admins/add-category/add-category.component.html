@@ -1,27 +1,23 @@
 <div style="margin-left: 2%; margin-top: 7px;">
-  <nz-card style="width:90px;" nzTitle="Category Add" style="box-shadow: 5px 5px 5px 5px">
-
+  <nz-card style="width:90px;" nzTitle="Category Add" style="box-shadow: 1px 0px 12px -4px">
     <form nz-form [nzLayout]="'inline'" #myForm="ngForm">
-
-
-
-
-
-
       <div nz-row>
-
         <div nz-col nzSpan="8">
-
           <nz-form-item>
             <nz-form-label nzFor="email">Category Name</nz-form-label>
             <nz-form-control>
-              <nz-input-group nzPrefixIcon="user" class="nz-group">
+              <nz-input-group [nzPrefix]="prefixIcon" class="nz-group">
                 <input required ngform #category="ngModel" name="productTitle" [(ngModel)]="add_categories.name"
                   nz-input placeholder="Category Name" />
-
               </nz-input-group>
-              <div *ngIf="category.touched && category.invalid">
-                Category is Required
+              <ng-template #prefixIcon>
+                  <i class="fa fa-list-ul" style="opacity: .3;
+                  padding-top: 1px;"></i>
+                <!-- <i nz-icon nzType="search"></i> -->
+              </ng-template>
+
+              <div *ngIf="category.touched && category.invalid" style="color: red">
+                 *Category is Required
               </div>
             </nz-form-control>
           </nz-form-item>
@@ -29,30 +25,17 @@
       </div>
 
 
-
-
       <!-- Next Row -->
-
       <!-- <div nz-row>
-       
-
-
-
-
-
         <div nz-col style="margin-top: 20px;">
         <input #files type="file" value="Select File" (change)="handleCategoryBanner($event.target.files); preview($event.target.files)"
           accept=".jpeg,.png,.jpg,.PNG" >
         </div>
-        
-      
-        
       <nz-avatar style="margin-left: 2%;" [nzShape]="'square'" [nzSrc]="imgURL" [nzSize]="38" nzText="Category">
       </nz-avatar>
-    
         </div> -->
 
-        <nz-form-label nzFor="email">Image</nz-form-label>
+      <nz-form-label nzFor="email">Image</nz-form-label>
 
       <div nz-row class="nz-group">
         <!-- <br> -->
@@ -60,16 +43,19 @@
         <div nz-col nzSpan="15">
           <nz-form-control>
             <div class="row">
-              <label style="padding: 5px;
-    background: grey; 
-    display: table;
-    color: #fff;
-    font-size: smaller;
-    margin-left: 3%;
+              <label style="
+              padding-left: 6px;
+              padding-right: 6px;
+              background: #393f5bfc;
+              display: table;
+              color: #fff;
+              font-size: smaller;
+              margin-left: 3%;
+              border-radius: 12px;
    ">Select Image
                 <input #files type="file"
                   (change)="handleCategoryBanner($event.target.files); preview($event.target.files)" name="image"
-                  accept=".jpeg,.png,.jpg,.PNG" style="display: none;cursor: pointer;">
+                  accept=".jpeg,.png,.jpg,.PNG" style="display: none;cursor: pointer;" required>
               </label>
               <nz-avatar *ngIf="avatarDisplay" style="margin-left: 5%;" [nzShape]="'square'" [nzSrc]="imgURL"
                 [nzSize]="90" nzText="Product">
@@ -91,13 +77,6 @@
           <!-- </div> -->
         </div>
       </div>
-
-
-
-
-
-
-
     </form>
   </nz-card>
 </div>

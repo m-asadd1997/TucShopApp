@@ -35,6 +35,7 @@ export class MainscreenService {
 
   private getAutoCompleteRequestURL=environment.baseUrl+"api/dashboard/autocomplete/";
   private getAllProductURL=environment.baseUrl+"api/products/";
+  private getAllProductByPaginatedURL=environment.baseUrl+"api/products/paginatedproduct";
   private getSettingURL= environment.baseUrl+"api/dashboard/settings";
   private postTransactionURL=environment.baseUrl+"api/transaction/post";
   // private getAutoCompleteRequestURL = environment.baseUrl + "api/dashboard/autocomplete/";
@@ -53,7 +54,9 @@ export class MainscreenService {
   private getTotalTransactionByUserURL = environment.baseUrl+"api/transaction/getTotalTransactionByUser/";
   private dayCloseURL = environment.baseUrl+"api/transaction/closing/";
   private getLoginTimeURL=environment.baseUrl+"api/user/getUserTimeDate/";
+  private getProductBarCodeURL = environment.baseUrl+"api/products/getbybarcode/"
   private updateTransactionURL = environment.baseUrl+"api/transaction/update/"
+  private subscriptionTokenURL = environment.baseUrl+"api/subscription/";
 
   public sendMessage(obj: Object) {
     this.productSource.next(obj);
@@ -63,17 +66,24 @@ export class MainscreenService {
   public sendTransactionObject(obj) {
     this.transactionObject.next(obj);
   }
+
+parkTransactionObject = new Subject();
+parkTransactionObject$=this.parkTransactionObject.asObservable();
+  public sendParkTransactionObject(obj) {
+    this.parkTransactionObject.next(obj);
+  }
    public deleteTransaction(id:any): Observable<any>{
      return this.http.delete(this.deleteTransactionURL+id);
 
    }
 
+   public getProductByBarCode(code:any):Observable<any>{
+     return this.http.get(this.getProductBarCodeURL+code);
+   }
 
   public sendQuantityUpdateToProductListing(obj) {
     this.productQuantityUpdateToProductListing.next(obj);
   }
-
-
 
   // public sendQuantityUpdateToCheckout(obj){
   //   this.productQuantityUpdateToCheckout.next(obj);
@@ -102,7 +112,9 @@ export class MainscreenService {
   // public getAllProducts(): Observable<any> {
   //   return this.http.get(this.getAllProductURL);
 
-
+  public getAllProductsByPaginated(page):Observable<any>{
+    return this.http.get(this.getAllProductByPaginatedURL+"?page="+page);
+ }
 
    public getAllProducts():Observable<any>{
    return this.http.get(this.getAllProductURL);
@@ -191,6 +203,10 @@ return this.http.get (this.getLoginTimeURL+id);
 
 public updateTransaction(id,obj): Observable<any>{
   return this.http.put(this.updateTransactionURL+id,obj);
+
 }
 
+public subscriptionToken(token):Observable<any>{
+ return this.http.post(this.subscriptionTokenURL+token,null); 
+}
 }

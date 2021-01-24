@@ -1,11 +1,13 @@
 import { transactions } from './../admins/transactions/transactions';
 import { productlisting } from './productlisting';
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { MainscreenService } from '../main-screen/mainscreen.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NzMessageComponent } from 'ng-zorro-antd';
-import { debug } from 'util';
 import { AdminServiceService } from '../admins/admin-service.service';
+import { environment } from 'src/environments/environment';
+
+// import { // } from 'fusioncharts';
 
 
 @Component({
@@ -20,7 +22,7 @@ export class ProductListingComponent implements OnInit {
   transactions: any[] = [];
   abc: any;
   isVisible1: boolean = false;
-  productsArray = [] = [];
+  productsArray:any [] = [];
   reacentTransactions = []
   params: any;
   small
@@ -29,22 +31,17 @@ export class ProductListingComponent implements OnInit {
   count = 0;
   searchProduct: any;
   options: any;
+  url=environment.baseUrl;
+  noOfPages=0;
+  totalNoOfPages;
 
-  constructor(private prodService: MainscreenService, private activeRoute: ActivatedRoute, private service: AdminServiceService) { }
 
-  transactionIDObj = new productlisting();
+  constructor(private prodService: MainscreenService, private activeRoute: ActivatedRoute, private service: AdminServiceService, private router: Router) { }
+
+ searchObject = new productlisting();
 
   ngOnInit() {
 
-
-    // this.prodService.productQuantityUpdateToProductListing$.subscribe(d => {
-
-    //   let index = this.productsArray.findIndex(prod => {
-
-    //     return prod.name == d.productTitle
-    //   });
-    //   this.productsArray[index].qty = d.productqty;
-    // })
 
 
     this.activeRoute.paramMap.subscribe(
@@ -56,18 +53,15 @@ export class ProductListingComponent implements OnInit {
 
       }
     );
-    this.getAllProducts();
-
-
-
-  }
+    // this.getAllProducts();
+}
 
   getProducts(str: any) {
 
     if (str === "products") {
-      this.getAllProducts();
-
-
+    
+    this.getAllProductsByPaginated(this.noOfPages);
+    
     }
     else {
 
@@ -147,30 +141,39 @@ export class ProductListingComponent implements OnInit {
 
 
   searchProductByKeyword(value: any) {
+    this.router.navigate(["categories/products"]);
     this.prodService.searchProductByKeyword(value).subscribe(d => {
       if (d) {
-
         this.searchProduct = d.result;
         this.productsArray = this.searchProduct;
+        // this.categoryHeader =  category.name
+
       }
 
     });
+  
   }
   onChange(value: string): void {
     //const value = (e.target as HTMLInputElement).value;
     if (value != null && value != "") {
       this.searchProductByKeyword(value);
-      //this.productsArray = this.searchProduct;
+      // this.productsArray = this.searchProduct;
       //console.log(this.productsArray)
 
     }
     else {
-      this.getAllProducts();
+     this.getAllProducts();
+  }
+  }
 
-    }
+  searchOptionClicked(option){
+    console.log(option)
+    this.categoryHeader = option.category.name;
+    this.inputValue = "";
   }
 
   showModal() {
+    console.log("s",this.products);
     this.isVisible1 = true;
     this.prodService.recentTransactions().subscribe(data => {
       console.log("Dattaaa", data);
@@ -182,26 +185,39 @@ export class ProductListingComponent implements OnInit {
     })
   }
 
+  change(value){
+       if (value.data == "" || value.data == null || value.data == undefined) {
+        this.transactions = this.reacentTransactions;
+      }
+    }
 
+  getTransactionOnSearchByPhoneNumber(){
+     
+      if (this.searchObject.phoneNumber == "" || this.searchObject.phoneNumber == null) {
+        this.transactions = this.reacentTransactions;
+      }
+      else {
+        this.transactions = this.transactions.filter(obj => obj.phoneNumber == parseInt(this.searchObject.phoneNumber))
+        console.log("Filter", this.transactions)
+      }
+    }
 
-  getTransactionOnSearch() {
+  getTransactionOnSearchByTransactionID() {
 
-    if (this.transactionIDObj.transactionID == "" || this.transactionIDObj.transactionID == null) {
+    if (this.searchObject.transactionID == "" || this.searchObject.transactionID == null) {
       this.transactions = this.reacentTransactions;
     }
     else {
-      this.transactions = this.transactions.filter(obj => obj.id == parseInt(this.transactionIDObj.transactionID))
+      this.transactions = this.transactions.filter(obj => obj.id == parseInt(this.searchObject.transactionID))
       console.log("Filter", this.transactions)
     }
-
-
   }
 
-  search(value) {
+   search(value) {
     if (value.data == "" || value.data == null || value.data == undefined) {
       this.transactions = this.reacentTransactions;
     }
-  }
+   }
 
   showproducts(productTransactions: any[]) {
     this.products = productTransactions;
@@ -240,9 +256,81 @@ export class ProductListingComponent implements OnInit {
 
   editTransaction(transactionObject) {
     console.log(transactionObject)
+
     this.prodService.sendTransactionObject(transactionObject);
+    this.isVisible1 = false;
+
+  }
+  index
+  editParkTransaction(transactionObject){
+    this.prodService.sendParkTransactionObject(transactionObject);
+    this.isParkVisible=false;
+    this.index=this.results.indexOf(transactionObject);
+    let key = this.keys[this.index];
+    localStorage.removeItem(key)
+    console.log(this.index)
+
+  }
+  isParkVisible=false
+  handleParkCancel(){
+    this.isParkVisible = false;
+  }
+  handleParkOk(){
+    this.isOkLoading = true;
+    setTimeout(() => {
+      this.isParkVisible = false;
+      this.isOkLoading = false;
+    }, 500);
+  }
+  isOkLoading = false;
+  results=[]
+  keys=[]
+  showParkingModal(){
+    this.isParkVisible=true;
+   this.results = [];
+   this.keys=[]
+    for (let i = 0; i < localStorage.length; i++) {
+       let key = window.localStorage.key(i);
+        if (key.includes("parkOrder")) {
+          this. results.push(JSON.parse(localStorage.getItem(key)));
+          this.keys.push(key)
+        }
+    }
+    console.log(this.results);
+
+  }
+  visibilityProductParkImage
+  showParkproducts(productTransactions){
+    this.products = productTransactions;
+    this.visibilityProductParkImage=true
+  }
+  handleParkProductCancel(){
+    this.visibilityProductParkImage=false
+  }
+
+  handleParkProductOk(){
+    this.visibilityProductParkImage=false
   }
 
 
+  @HostListener('scroll', ['$event'])
+  onScroll($event) {
+    if(this.categoryHeader==="products" && !this.searchProduct){
+    if(this.noOfPages!=this.totalNoOfPages){
+    if ($event.target.offsetHeight + $event.target.scrollTop >= $event.target.scrollHeight+2) {
+      console.log("End");
+      this.noOfPages++;
+      this.getAllProductsByPaginated(this.noOfPages);
+    }
+  }
+  }
+  }
 
+getAllProductsByPaginated(noOfPages){
+  this.prodService.getAllProductsByPaginated(noOfPages).subscribe(d => {
+      this.totalNoOfPages = d.totalPages;
+      this.productsArray = [...this.productsArray,...d.content];
+      this.productsArray=this.productsArray.filter(e => (e.qty > 0 || e.infiniteQuantity))
+  })
+}
 }

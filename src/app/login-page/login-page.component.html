@@ -12,7 +12,7 @@
 			<app-recent-transactions></app-recent-transactions>
 		</div>
 		<div *ngIf="login" class="col-md-4 login-form-2">
-			<h3>Login</h3>
+			<h3>Login <span nz-tooltip nzTooltipTitle="Buy Subscription"><img style="height: 30px;" src="assets/subscription-icon.png" (click)="showModal()"></span></h3>
 			<form #loginForm="ngForm" (ngSubmit)="loginSubmit()">
 				<div class="form-group">
 					<input type="text" required [(ngModel)]="loginModel.username" name="username"
@@ -60,5 +60,16 @@
 		</div>
 	</div>
 </div>
+
+   <nz-modal
+    [(nzVisible)]="isVisible"
+    nzTitle="Please Enter Valid Subscription Token"
+    (nzOnCancel)="handleCancel()"
+	(nzOnOk)="handleOk()"
+	[nzOkDisabled]="disable"
+    [nzOkLoading]="isOkLoading"
+    >
+    <input (input)="checkToken()" type="text" nz-input placeholder="Enter Subscription Token" [(ngModel)]="token" name="token" />
+ </nz-modal>
 </body>
 
